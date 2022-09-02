@@ -24,7 +24,7 @@
   }
 
   .navlink {
-    @apply p-2 rounded-full
+    @apply px-2.5 py-0.5 rounded-full block
   }
 
   .navlink-active {
