@@ -2,30 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-
-  body {
-    color: white;
-    background: black;
+@layer base {
+  :root {
+    /* SPACE SEPARATED For hsl(198deg 93% 60% / <alpha-value>) */
+    --color-primary: 41deg 100% 51%;
+    --hue-sat-primary: 41deg 100%;
   }
 }
