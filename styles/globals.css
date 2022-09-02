@@ -1,3 +1,4 @@
+/* This shows the order of css rules - rules from components layer will override base*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,5 +8,26 @@
     /* SPACE SEPARATED For hsl(198deg 93% 60% / <alpha-value>) */
     --color-primary: 41deg 100% 51%;
     --hue-sat-primary: 41deg 100%;
+  }
+}
+
+/* Extra layer to make active links style take precedence over hover */
+@layer hover-priority {
+  .navlink:hover {
+    @apply bg-primary-200;
+  }
+}
+
+@layer components {
+  .heading-primary {
+    @apply font-medium leading-tight text-4xl mt-0 mb-2;
+  }
+
+  .navlink {
+    @apply p-2 rounded-full
+  }
+
+  .navlink-active {
+    @apply bg-primary-300
   }
 }

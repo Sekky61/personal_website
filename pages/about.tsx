@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
-import Header from '../components/Header'
 
 const About: NextPage = () => {
     return (
-        <div>
-            <h1 className='text-3xl' >about</h1>
-        </div>
+        <>
+            <h1 className='heading-primary' >About me</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, tempore commodi hic sit alias perspiciatis! Neque hic illo, dolorum maiores eos mollitia similique, cumque ea accusamus dolorem quisquam, excepturi voluptatum?</p>
+        </>
     )
 }
 

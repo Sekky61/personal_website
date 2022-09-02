@@ -6,9 +6,9 @@ import { NextPageWithLayout } from './_app'
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <h1 className='text-3xl' > bar</h1>
-    </div>
+    <>
+      <h1 className='heading-primary' >Welcome to my website!</h1>
+    </>
   )
 }
 
