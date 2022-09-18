@@ -4,15 +4,21 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "echo 'Building Sanity to public/admin' && cd admin && yarn && npx @sanity/cli build ../public/admin -y && echo 'Done'",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sanity": "cd admin && sanity start"
   },
   "dependencies": {
+    "@portabletext/react": "^1.0.6",
+    "@sanity/image-url": "^1.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "next": "12.2.5",
+    "next-sanity": "^0.8.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-tooltip": "^4.2.21"
   },
   "devDependencies": {
     "@types/node": "18.7.14",

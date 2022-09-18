@@ -4,7 +4,8 @@ const About: NextPage = () => {
     return (
         <>
             <h1 className='heading-primary' >About me</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, tempore commodi hic sit alias perspiciatis! Neque hic illo, dolorum maiores eos mollitia similique, cumque ea accusamus dolorem quisquam, excepturi voluptatum?</p>
+            <p>Hello.</p>
+            <p>My name is Michal Majer. I study at Faculty of Information Technology of the Brno University of Technology.</p>
         </>
     )
 }
