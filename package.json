@@ -8,20 +8,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sanity": "cd admin && sanity start"
+    "sanity": "cd admin && sanity start",
+    "sanity-deploy": "cd admin && sanity deploy"
   },
   "dependencies": {
     "@portabletext/react": "^1.0.6",
     "@sanity/image-url": "^1.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "next": "12.2.5",
+    "next-mdx-remote": "^4.1.0",
     "next-sanity": "^0.8.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-tooltip": "^4.2.21"
   },
   "devDependencies": {
-    "@types/node": "18.7.14",
+    "@types/node": "^18.7.14",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.8",

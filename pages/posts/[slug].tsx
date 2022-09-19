@@ -1,70 +1,63 @@
-import ErrorPage from 'next/error'
-import { useRouter } from 'next/router'
-import { groq } from 'next-sanity'
-import { PortableText } from '@portabletext/react'
-import { usePreviewSubscription, urlFor } from '../../lib/sanity'
-import { getClient } from '../../lib/sanity.server'
+import { getSanityContent } from '../../utils/sanity';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote'
+import Callout from '../../components/Callout';
 
-const postQuery = groq`
-  *[_type == "post" && slug.current == $slug][0] {
-    _id,
-    title,
-    body,
-    mainImage,
-    categories[]->{
-      _id,
-      title
-    },
-    "slug": slug.current
-  }
-`
-
-export default function Post({ data, preview }: any) {
-    const router = useRouter()
-
-    const { data: post } = usePreviewSubscription(postQuery, {
-        params: { slug: data.post?.slug },
-        initialData: data.post,
-        enabled: preview && data.post?.slug,
-    })
-
-    if (!router.isFallback && !data.post?.slug) {
-        return <ErrorPage statusCode={404} />
-    }
-
-    const { title, mainImage, body } = post
+export default function Page({ title, content }: any) {
 
     return (
-        <article>
-            <h2>{title}</h2>
-            <figure>
-                <img src={urlFor(mainImage).url()} />
-            </figure>
-            <PortableText value={body} />
-        </article>
-    )
+        <div>
+            <h1>{title}</h1>
+            <MDXRemote {...content} components={{ Callout }} />
+        </div>
+    );
 }
 
-export async function getStaticProps({ params, preview = false }: any) {
-    const post = await getClient(preview).fetch(postQuery, {
-        slug: params.slug,
-    })
+export async function getStaticProps({ params }: any) {
+
+    const data = await getSanityContent({
+        query: `
+           query PageBySlug($slug: String!) {
+             allPage(where: { slug: { current: { eq: $slug } } }) {
+               title
+               content
+             }
+           }
+         `,
+        variables: {
+            slug: params.slug,
+        },
+    });
+
+    const [pageData] = data.allPage;
+
+    const content = await serialize(pageData.content);
 
     return {
         props: {
-            preview,
-            data: { post },
+            title: pageData.title,
+            content,
         },
-    }
+    };
 }
 
 export async function getStaticPaths() {
-    const paths = await getClient().fetch(
-        groq`*[_type == "post" && defined(slug.current)][].slug.current`
-    )
+    const data = await getSanityContent({
+        query: `
+      query AllPages {
+        allPage {
+          slug {
+            current
+          }
+        }
+      }
+    `,
+    });
+
+    const pages = data.allPage;
 
     return {
-        paths: paths.map((slug: string) => ({ params: { slug } })),
+        paths: pages.map((p: any) => `/posts/${p.slug.current}`),
         fallback: false,
-    }
+    };
 }
