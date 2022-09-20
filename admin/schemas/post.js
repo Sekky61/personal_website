@@ -20,6 +20,11 @@ export default {
       },
     },
     {
+      name: 'tags',
+      title: 'Tags',
+      type: 'tags',
+    },
+    {
       name: 'content',
       title: 'Content',
       type: 'markdown',
