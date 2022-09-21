@@ -23,7 +23,6 @@ export default function CodeSample(p: any) {
                     }
     */
 
-    console.log(p);
     // edit the language prop
     const lang = p.className.replace("language-", "");
     // strip extra newline at the end

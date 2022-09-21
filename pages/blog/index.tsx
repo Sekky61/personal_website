@@ -1,18 +1,16 @@
-import Link from 'next/link';
 import { getClient } from '@sanity/sanity.server';
 import { groq } from 'next-sanity';
+import BlogPostCard from '@common/components/BlogPostCard';
 
-export default function Index({ pages }: any) {
+export default function Index({ posts_props }: any) {
     return (
         <div>
-            <h1>This Site Loads MDX From Sanity.io</h1>
-            <p>View any of these pages to see it in action:</p>
-            <ul>
-                {pages.map(({ title, slug }: any) => (
-                    <li key={slug}>
-                        <Link href={`/blog/${slug}`}>
-                            <a>{title}</a>
-                        </Link>
+            <h1 className='text-3xl'>The Blog</h1>
+            <p className='mb-6'>My most recent blog posts</p>
+            <ul className='flex flex-col gap-5'>
+                {posts_props.map((props: any) => (
+                    <li key={props.slug}>
+                        <BlogPostCard {...props}></BlogPostCard>
                     </li>
                 ))}
             </ul>
@@ -21,16 +19,15 @@ export default function Index({ pages }: any) {
 }
 
 export async function getStaticProps() {
-    const posts = await getClient(false).fetch(groq`*[_type == "post"]`);
+    const posts = await getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc)`);
 
-    console.log(posts);
-
-    const pages = posts.map((page: any) => ({
-        title: page.title,
-        slug: page.slug.current,
+    const posts_props = posts.map((post: any) => ({
+        title: post.title,
+        slug: post.slug.current,
+        tags: post.tags
     }));
 
     return {
-        props: { pages },
+        props: { posts_props },
     };
 }

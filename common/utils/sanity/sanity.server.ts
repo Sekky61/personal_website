@@ -12,4 +12,4 @@ export const previewClient = createClient({
 })
 
 // Helper function for easily switching between normal client and preview client
-export const getClient = (usePreview: boolean) => (usePreview ? previewClient : sanityClient)
+export const getClient = (usePreview: boolean = false) => (usePreview ? previewClient : sanityClient)
