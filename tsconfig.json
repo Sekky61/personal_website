@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -17,7 +17,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "@common/*": [
+        "common/*"
+      ],
+      "@components/*": [
+        "common/components/*"
+      ],
+      "@utils/*": [
+        "common/utils/*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",

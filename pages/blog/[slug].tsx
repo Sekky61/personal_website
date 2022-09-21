@@ -1,8 +1,8 @@
-import { getSanityContent } from '../../utils/sanity';
+import { getSanityContent } from '../../common/utils/sanity';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote'
-import Callout from '../../components/Callout';
-import CodeSample from '../../components/CodeSample';
+import Callout from '@components/Callout';
+import CodeSample from '@components/CodeSample';
 
 export default function Page({ title, content }: any) {
   return (

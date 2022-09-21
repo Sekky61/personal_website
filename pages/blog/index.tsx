@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { getSanityContent } from '../../utils/sanity';
+import { getSanityContent } from '../../common/utils/sanity';
+import { createClient, groq } from 'next-sanity'
 
 export default function Index({ pages }: any) {
     return (
@@ -32,6 +33,23 @@ export async function getStaticProps() {
       }
     `,
     });
+
+    const client = createClient({
+        projectId: '3q20z5w8',
+        dataset: 'production',
+        apiVersion: '2022-08-25',
+        useCdn: false,
+        token: process.env.SANITY_API_TOKEN,
+    })
+
+    const x = await client.fetch(
+        groq`*[_type == "post"]`
+    )
+    console.log(x)
+
+    let ddd = await fetch("https://3q20z5w8.api.sanity.io/v2022-08-25/data/query/production?query=*[_type == 'post']");
+
+    console.log(ddd)
 
     const pages = data.allPage.map((page: any) => ({
         title: page.title,
