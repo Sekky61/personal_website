@@ -28,6 +28,9 @@
       ],
       "@utils/*": [
         "common/utils/*"
+      ],
+      "@sanity/*": [
+        "common/utils/sanity/*"
       ]
     }
   },

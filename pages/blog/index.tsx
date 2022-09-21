@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { getSanityContent } from '../../common/utils/sanity';
-import { createClient, groq } from 'next-sanity'
+import { getClient } from '@sanity/sanity.server';
+import { groq } from 'next-sanity';
 
 export default function Index({ pages }: any) {
     return (
@@ -21,37 +21,11 @@ export default function Index({ pages }: any) {
 }
 
 export async function getStaticProps() {
-    const data = await getSanityContent({
-        query: `
-      query AllPages {
-        allPage {
-          title
-          slug {
-            current
-          }
-        }
-      }
-    `,
-    });
+    const posts = await getClient(false).fetch(groq`*[_type == "post"]`);
 
-    const client = createClient({
-        projectId: '3q20z5w8',
-        dataset: 'production',
-        apiVersion: '2022-08-25',
-        useCdn: false,
-        token: process.env.SANITY_API_TOKEN,
-    })
+    console.log(posts);
 
-    const x = await client.fetch(
-        groq`*[_type == "post"]`
-    )
-    console.log(x)
-
-    let ddd = await fetch("https://3q20z5w8.api.sanity.io/v2022-08-25/data/query/production?query=*[_type == 'post']");
-
-    console.log(ddd)
-
-    const pages = data.allPage.map((page: any) => ({
+    const pages = posts.map((page: any) => ({
         title: page.title,
         slug: page.slug.current,
     }));

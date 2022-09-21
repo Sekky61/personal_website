@@ -1,4 +1,5 @@
-import { getSanityContent } from '../../common/utils/sanity';
+import { getClient } from '@sanity/sanity.server';
+import { groq } from 'next-sanity';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote'
 import Callout from '@components/Callout';
@@ -15,49 +16,28 @@ export default function Page({ title, content }: any) {
 
 export async function getStaticProps({ params }: any) {
 
-  const data = await getSanityContent({
-    query: `
-           query PageBySlug($slug: String!) {
-             allPage(where: { slug: { current: { eq: $slug } } }) {
-               title
-               content
-             }
-           }
-         `,
-    variables: {
+  const post = await getClient(false).fetch(groq`*[_type == "post" && slug.current == $slug][0]`,
+    {
       slug: params.slug,
-    },
-  });
+    });
 
-  const [pageData] = data.allPage;
+  console.log(post);
 
-  const content = await serialize(pageData.content);
+  const content = await serialize(post.content);
 
   return {
     props: {
-      title: pageData.title,
+      title: post.title,
       content,
     },
   };
 }
 
 export async function getStaticPaths() {
-  const data = await getSanityContent({
-    query: `
-      query AllPages {
-        allPage {
-          slug {
-            current
-          }
-        }
-      }
-    `,
-  });
-
-  const pages = data.allPage;
+  const posts = await getClient(false).fetch(groq`*[_type == "post"]`);
 
   return {
-    paths: pages.map((p: any) => `/blog/${p.slug.current}`),
+    paths: posts.map((p: any) => `/blog/${p.slug.current}`),
     fallback: false,
   };
 }
