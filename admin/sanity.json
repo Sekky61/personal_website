@@ -14,7 +14,8 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "markdown",
-    "tags"
+    "tags",
+    "vercel-deploy"
   ],
   "env": {
     "development": {

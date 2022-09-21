@@ -32,10 +32,10 @@ export async function getStaticProps({ params }: any) {
 }
 
 export async function getStaticPaths() {
-  const posts = await getClient().fetch(groq`*[_type == "post"]{slug}`);
+  const slugs = await getClient().fetch(groq`*[_type == "post"].slug.current`);
 
   return {
-    paths: posts.map((p: any) => ({ params: { slug: p.slug.current } })),
+    paths: slugs.map((slug: string) => ({ params: { slug } })),
     fallback: false,
   };
 }
