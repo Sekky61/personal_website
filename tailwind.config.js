@@ -19,6 +19,7 @@ module.exports = {
           300: 'hsl(var(--hue-sat-primary) 67% / <alpha-value>)',
           200: 'hsl(var(--hue-sat-primary) 77% / <alpha-value>)',
           100: 'hsl(var(--hue-sat-primary) 87% / <alpha-value>)',
+          50: 'hsl(var(--hue-sat-primary) 95% / <alpha-value>)',
         },
         "dark": "#121212",
       }

@@ -12,6 +12,7 @@
     "sanity-deploy": "cd admin && sanity deploy"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.11",
     "@portabletext/react": "^1.0.6",
     "@sanity/image-url": "^1.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
