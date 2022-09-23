@@ -14,7 +14,7 @@
 /* Extra layer to make active links style take precedence over hover */
 @layer hover-priority {
   .navlink:hover {
-    @apply bg-primary-200;
+    @apply bg-primary-100;
   }
 }
 

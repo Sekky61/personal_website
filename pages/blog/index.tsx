@@ -1,31 +1,21 @@
-import { getClient } from '@sanity/sanity.server';
-import { groq } from 'next-sanity';
-import BlogPostCard from '@components/BlogPostCard';
-import Pagination from '@components/Pagination';
+import { getClient } from "@common/utils/sanity/sanity.server";
+import { groq } from "next-sanity";
+import BlogListing, { resultsPerPage } from "./[page]";
 
-export default function Index({ posts_props, posts_count }: any) {
-    const resultsPerPage = 10;
+export default function FirstPage({ posts_props, posts_count }: any) {
 
     return (
-        <div>
-            <h1 className='text-3xl'>The Blog</h1>
-            <p className='mb-6'>My most recent blog posts</p>
-            <ul className='flex flex-col gap-5'>
-                {posts_props.map((props: any) => (
-                    <li key={props.slug}>
-                        <BlogPostCard {...props}></BlogPostCard>
-                    </li>
-                ))}
-            </ul>
-            <div className='pt-4'>
-                <Pagination currentPage={1} perPage={resultsPerPage} total={posts_count}></Pagination>
-            </div>
-        </div>
+        <BlogListing posts_props={posts_props} posts_count={posts_count}></BlogListing>
     );
 }
 
 export async function getStaticProps() {
-    const posts = await getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc)`);
+    const page = 1;
+
+    const from = (page - 1) * resultsPerPage;
+    const to = from + resultsPerPage;
+
+    const posts = await getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]`, { from, to });
     const posts_count = await getClient().fetch(groq`count(*[_type == "post"])`);
 
     const posts_props = posts.map((post: any) => ({
