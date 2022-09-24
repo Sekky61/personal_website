@@ -6,7 +6,7 @@ export const config = {
      *
      * https://nextjs.org/docs/basic-features/environment-variables
      **/
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+    dataset: (process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_SANITY_DATASET : process.env.DEV_DATASET) || 'production',
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     apiVersion: '2022-08-21', // Learn more: https://www.sanity.io/docs/api-versioning
     /**
@@ -15,4 +15,5 @@ export const config = {
      * Authenticated request (like preview) will always bypass the CDN
      **/
     useCdn: process.env.NODE_ENV === 'production',
+    token: process.env.SANITY_API_TOKEN,
 }

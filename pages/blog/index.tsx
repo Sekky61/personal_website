@@ -18,10 +18,12 @@ export async function getStaticProps() {
     const posts = await getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]`, { from, to });
     const posts_count = await getClient().fetch(groq`count(*[_type == "post"])`);
 
+    console.log(posts);
+
     const posts_props = posts.map((post: any) => ({
         title: post.title,
         slug: post.slug.current,
-        tags: post.tags
+        tags: post.tags || []
     }));
 
     return {

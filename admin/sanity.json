@@ -21,7 +21,10 @@
     "development": {
       "plugins": [
         "@sanity/vision"
-      ]
+      ],
+      "api": {
+        "dataset": "development"
+      }
     }
   },
   "parts": [
