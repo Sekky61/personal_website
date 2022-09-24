@@ -13,8 +13,8 @@
 
 /* Extra layer to make active links style take precedence over hover */
 @layer hover-priority {
-  .navlink:hover {
-    @apply bg-primary-100;
+  .navlink {
+    @apply px-2.5 py-0.5 rounded-full block hover:bg-primary-100 hover:dark:bg-primary-800;
   }
 }
 
@@ -23,12 +23,8 @@
     @apply font-medium leading-tight text-4xl mt-0 mb-2;
   }
 
-  .navlink {
-    @apply px-2.5 py-0.5 rounded-full block
-  }
-
   .navlink-active {
-    @apply bg-primary-300
+    @apply bg-primary-300 dark:bg-primary-400 dark:text-black
   }
 
   .check-path {

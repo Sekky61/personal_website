@@ -61,6 +61,7 @@ function PageLink({ active, pageNumber, pathPrefix }: any) {
     );
 }
 
+// TODO redo arrows, they are still linking to next page, though they may not be clickable
 export default function Pagination({ currentPage, perPage, total, pathPrefix }: any) {
 
     const pageLowRange = (currentPage - 1) * perPage + 1;
@@ -71,19 +72,28 @@ export default function Pagination({ currentPage, perPage, total, pathPrefix }: 
 
     const pageLinks = render_page_numbers(currentPage, pagesCount, maxLinks, pathPrefix);
 
-    const handleClick = (e: any) => {
-        console.log(e);
-        let n = e.target.props;
-        console.log(n)
+    const canGoPrevious = currentPage > 1;
+    const canGoNext = currentPage < pagesCount;
+
+    const handleClickPrevious = (e: any) => {
+        if (!canGoPrevious) {
+            e.preventDefault();
+        }
+    };
+
+    const handleClickNext = (e: any) => {
+        if (!canGoNext) {
+            e.preventDefault();
+        }
     };
 
     return (
         <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-            <div className="flex flex-1 justify-between sm:hidden">
+            <div className="flex flex-1 justify-between m-2 sm:hidden">
                 <Link href={`${pathPrefix}/${currentPage - 1}`}>
                     <a
                         href="#"
-                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className={"rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 " + (canGoPrevious ? "" : "invisible")}
                     >
                         Previous
                     </a>
@@ -91,7 +101,7 @@ export default function Pagination({ currentPage, perPage, total, pathPrefix }: 
                 <Link href={`${pathPrefix}/${currentPage + 1}`}>
                     <a
                         href="#"
-                        className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className={"rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 " + (canGoNext ? "" : "invisible")}
                     >
                         Next
                     </a>
@@ -108,8 +118,8 @@ export default function Pagination({ currentPage, perPage, total, pathPrefix }: 
                     <nav className="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
                         <Link href={`${pathPrefix}/${currentPage - 1}`}>
                             <a
-                                href="#"
-                                className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+                                className={"relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 focus:z-20 " + (canGoPrevious ? "hover:bg-gray-50" : "cursor-default")}
+                                onClick={handleClickPrevious}
                             >
                                 <span className="sr-only">Previous</span>
                                 <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -118,8 +128,8 @@ export default function Pagination({ currentPage, perPage, total, pathPrefix }: 
                         {pageLinks.map((el) => (el))}
                         <Link href={`${pathPrefix}/${currentPage + 1}`}>
                             <a
-                                href="#"
-                                className="relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20"
+                                className={"relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500  focus:z-20 " + (canGoNext ? "hover:bg-gray-50" : "cursor-default")}
+                                onClick={handleClickNext}
                             >
                                 <span className="sr-only">Next</span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />

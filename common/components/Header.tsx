@@ -3,12 +3,13 @@ import { NextPage } from "next/types"
 import useDarkMode from "../hooks/useDarkMode";
 import ActiveLink from "./ActiveLink"
 
+// todo mobile sizes
 const Header: NextPage = () => {
     const [colorTheme, setTheme] = useDarkMode();
     const uses_light = colorTheme === "light";
 
     return (
-        <div className="sticky top-0 w-full border-b divide-slate-500 dark:text-white">
+        <div className="sticky top-0 w-full border-b divide-slate-500 dark:text-white bg-white dark:bg-dark">
             <div className="max-w-5xl mx-auto py-3 px-6">
                 <div className="flex gap-3 items-center">
                     <Link href="/">

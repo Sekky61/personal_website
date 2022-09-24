@@ -5,7 +5,9 @@ import Pagination from '@components/Pagination';
 
 export const resultsPerPage = 10;
 
-export default function BlogListing({ posts_props, posts_count }: any) {
+// TODO redirect /blog/1 to /blog ?
+// TODO disallow navigating to nonexisting page (/blog/999)
+export default function BlogListing({ posts_props, posts_count, page }: any) {
 
     return (
         <div>
@@ -19,14 +21,14 @@ export default function BlogListing({ posts_props, posts_count }: any) {
                 ))}
             </ul>
             <div className='pt-4'>
-                <Pagination currentPage={1} perPage={resultsPerPage} total={posts_count} pathPrefix="/blog"></Pagination>
+                <Pagination currentPage={page} perPage={resultsPerPage} total={posts_count} pathPrefix="/blog"></Pagination>
             </div>
         </div>
     );
 }
 
 export async function getStaticProps({ params }: any) {
-    const page = params.page;
+    const page = parseInt(params.page) || 1;
 
     const from = (page - 1) * resultsPerPage;
     const to = from + resultsPerPage;
@@ -41,7 +43,7 @@ export async function getStaticProps({ params }: any) {
     }));
 
     return {
-        props: { posts_props, posts_count },
+        props: { posts_props, posts_count, page },
         revalidate: 3600,
     };
 }
