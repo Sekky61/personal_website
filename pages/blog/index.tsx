@@ -5,7 +5,7 @@ import BlogListing, { resultsPerPage } from "./[page]";
 export default function FirstPage({ posts_props, posts_count }: any) {
 
     return (
-        <BlogListing posts_props={posts_props} posts_count={posts_count}></BlogListing>
+        <BlogListing posts_props={posts_props} posts_count={posts_count} page={1}></BlogListing>
     );
 }
 

@@ -14,7 +14,7 @@
 /* Extra layer to make active links style take precedence over hover */
 @layer hover-priority {
   .navlink {
-    @apply px-2.5 py-0.5 rounded-full block hover:bg-primary-100 hover:dark:bg-primary-800;
+    @apply duration-150 px-2.5 py-0.5 rounded-full block hover:bg-primary-100 hover:dark:bg-primary-800;
   }
 }
 

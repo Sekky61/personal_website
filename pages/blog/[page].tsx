@@ -10,8 +10,8 @@ export const resultsPerPage = 10;
 export default function BlogListing({ posts_props, posts_count, page }: any) {
 
     return (
-        <div>
-            <h1 className='text-3xl'>The Blog</h1>
+        <>
+            <h1 className='heading-primary'>The Blog</h1>
             <p className='mb-6'>My most recent blog posts</p>
             <ul className='flex flex-col gap-5'>
                 {posts_props.map((props: any) => (
@@ -23,7 +23,7 @@ export default function BlogListing({ posts_props, posts_count, page }: any) {
             <div className='pt-4'>
                 <Pagination currentPage={page} perPage={resultsPerPage} total={posts_count} pathPrefix="/blog"></Pagination>
             </div>
-        </div>
+        </>
     );
 }
 

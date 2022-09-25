@@ -6,7 +6,7 @@ export default function BlogPostCard({ title, slug, tags }: any) {
   return (
     <Link href={`/post/${slug}`}>
       <a>
-        <div className="duration-100 rounded bg-slate-100 p-6 border border-primary-100 hover:border-primary-300">
+        <div className="duration-100 rounded bg-slate-100 w-full p-6 border border-primary-100 hover:border-primary-300">
           <h1 className="text-xl">
             {title}
           </h1>
