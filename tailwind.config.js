@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        'opensans': ['Open Sans'],
+      },
       colors: {
         primary: {
           900: 'hsl(var(--hue-sat-primary) 7% / <alpha-value>)',
