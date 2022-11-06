@@ -1,15 +1,15 @@
 import { getClient } from "@common/utils/sanity/sanity.server";
+import { GetStaticProps } from "next";
 import { groq } from "next-sanity";
 import BlogListing, { resultsPerPage } from "./[page]";
 
 export default function FirstPage({ posts_props, posts_count }: any) {
-
     return (
         <BlogListing posts_props={posts_props} posts_count={posts_count} page={1}></BlogListing>
     );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async (context) => {
     const page = 1;
 
     const from = (page - 1) * resultsPerPage;
@@ -21,7 +21,7 @@ export async function getStaticProps() {
     const posts_props = posts.map((post: any) => ({
         title: post.title,
         slug: post.slug.current,
-        tags: post.tags || []
+        tags: post.tags
     }));
 
     return {

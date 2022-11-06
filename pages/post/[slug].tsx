@@ -1,66 +1,64 @@
 import { getClient } from '@sanity/sanity.server';
 import { groq } from 'next-sanity';
 import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote'
-import readingTime from 'reading-time'
+import { MDXRemote } from 'next-mdx-remote';
+import readingTime from 'reading-time';
 import CodeSample from '@components/CodeSample';
-import LinkHeading, { makeSlug } from '@components/LinkHeading';
+import LinkHeading from '@components/LinkHeading';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import Head from 'next/head';
+import { getH2Headings } from '@common/utils/article';
 
-export default function Page({ title, content, reading_time, headings, ...rest }: any) {
-  const created_date = new Date(rest._createdAt);
-
+const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
-    <li key={slug} className="hover:underline"><a href={"#" + slug}>{text}</a></li>
+    <li key={slug} className="hover:underline">
+      <a href={"#" + slug}>{text}</a>
+    </li>
   );
 
   return (
+    <div className='p-2 rounded bg-gray-100 dark:bg-gray-800'>
+      <div className='text-xl font-bold pb-3'>Contents</div>
+      <ul>
+        {heading_items}
+      </ul>
+    </div>
+  );
+}
+
+export default function Page({ title, content, reading_time, headings, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const created_date = new Date(rest._createdAt);
+  const formatted_date = created_date.toISOString().split('T')[0];
+
+  return (
     <div>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <h1>{title}</h1>
       <div className='flex divide-x mb-6'>
         <span className='pr-2'>
-          {created_date.toISOString().split('T')[0]}
+          {formatted_date}
         </span>
         <span className='px-2'>
           {reading_time.text}
         </span>
       </div>
-      <div className='bg-gray-100 p-2 rounded'>
-        <div className='text-xl font-bold pb-3'>Contents</div>
-        <ul>
-          {heading_items}
-        </ul>
-      </div>
+      <Contents headings={headings}></Contents>
       <MDXRemote {...content} components={{ code: CodeSample, h2: LinkHeading }} />
     </div>
   );
 }
 
-async function getH2Headings(source: string) {
-  // Get each line individually, and filter out anything that
-  // isn't a h2 heading.
-  const headingLines = source.split("\n").filter((line) => {
-    return line.match(/^##\s/);
-  });
-  return headingLines.map((raw) => {
-    const text = raw.replace(/^##\s/, "");
+export const getStaticProps: GetStaticProps = async (context) => {
+  const slug = context?.params?.slug;
 
-    const slug = makeSlug(text);
-
-    return { text, slug };
-  });
-}
-
-export async function getStaticProps({ params }: any) {
-
-  const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]`,
-    {
-      slug: params.slug,
-    });
+  const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]`, { slug });
 
   const content = await serialize(post.content);
   const reading_time = readingTime(post.content); // markdown
 
-  const headings = await getH2Headings(post.content);
+  const headings = getH2Headings(post.content);
 
   // Spread first, so edited fields are not covered
   return {
@@ -73,11 +71,12 @@ export async function getStaticProps({ params }: any) {
   };
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = await getClient().fetch(groq`*[_type == "post"].slug.current`);
+  const paths = slugs.map((slug: string) => ({ params: { slug } }));
 
   return {
-    paths: slugs.map((slug: string) => ({ params: { slug } })),
+    paths,
     fallback: false,
   };
 }

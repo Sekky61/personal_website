@@ -23,11 +23,13 @@ export default {
       name: 'tags',
       title: 'Tags',
       type: 'tags',
+      initialValue: []
     },
     {
       name: 'content',
       title: 'Content',
       type: 'markdown',
+      initialValue: ""
     },
   ],
   initialValue: {

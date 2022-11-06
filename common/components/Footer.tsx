@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { NextPage } from "next/types"
 
 // todo mobile sizes
