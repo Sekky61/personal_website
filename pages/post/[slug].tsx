@@ -26,7 +26,26 @@ const Contents = ({ headings }: any) => {
   );
 }
 
-export default function Page({ title, content, reading_time, headings, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
+const Sources = ({ sources }: any) => {
+  console.dir(sources)
+  const source_items = sources.map(({ link, name }: any) =>
+    <li key={name}>
+      <span className='mr-4'>{name}</span>
+      <a target="_blank" rel="noopener noreferrer" href={link} className="hover:underline">{link}</a>
+    </li>
+  );
+
+  return (
+    <div className='p-2 rounded bg-gray-100 dark:bg-gray-800'>
+      <div className='text-xl font-bold pb-3'>Sources</div>
+      <ol className='list-decimal ml-8'>
+        {source_items}
+      </ol>
+    </div>
+  );
+}
+
+export default function Page({ title, content, reading_time, headings, sources, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
   const created_date = new Date(rest._createdAt);
   const formatted_date = created_date.toISOString().split('T')[0];
 
@@ -45,7 +64,10 @@ export default function Page({ title, content, reading_time, headings, ...rest }
         </span>
       </div>
       <Contents headings={headings}></Contents>
-      <MDXRemote {...content} components={{ code: CodeSample, h2: LinkHeading }} />
+      <div className='my-8'>
+        <MDXRemote {...content} components={{ code: CodeSample, h2: LinkHeading }} />
+      </div>
+      <Sources sources={sources}></Sources>
     </div>
   );
 }

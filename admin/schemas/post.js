@@ -31,6 +31,14 @@ export default {
       type: 'markdown',
       initialValue: ""
     },
+    {
+      name: 'sources',
+      title: 'Sources',
+      type: 'array',
+      of: [{ type: 'source' }],
+      validation: Rule => Rule.unique(),
+      description: "Name and link to the source. Ordered. Link not required."
+    }
   ],
   initialValue: {
     tags: []
