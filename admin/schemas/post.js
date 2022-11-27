@@ -37,7 +37,8 @@ export default {
       type: 'array',
       of: [{ type: 'source' }],
       validation: Rule => Rule.unique(),
-      description: "Name and link to the source. Ordered. Link not required."
+      description: "Name and link to the source. Ordered. Link not required.",
+      editModal: "popover"
     }
   ],
   initialValue: {

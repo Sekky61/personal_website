@@ -27,7 +27,6 @@ const Contents = ({ headings }: any) => {
 }
 
 const Sources = ({ sources }: any) => {
-  console.dir(sources)
   const source_items = sources.map(({ link, name }: any) =>
     <li key={name}>
       <span className='mr-4'>{name}</span>
