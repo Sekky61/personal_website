@@ -9,7 +9,7 @@ function render_page_numbers(currentPage: number, pagesCount: number, maxLinks: 
     } else {
         // Too many pages to show
         const three_dots = (
-            <span key="dots" className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">
+            <span key="dots" className="relative inline-flex items-center border border-gray-300  px-4 py-2 text-sm font-medium text-gray-700">
                 ...
             </span>
         );
@@ -53,7 +53,7 @@ function PageLink({ active, pageNumber, pathPrefix }: any) {
     return (
         <Link href={`${pathPrefix}/${pageNumber}`} aria-current="page"
             className={"relative inline-flex items-center border px-4 py-2 text-sm font-medium  focus:z-20 "
-                + (active ? "z-20 bg-primary-50 border-primary-500 text-primary-600" : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50")}>
+                + (active ? "z-20 bg-primary-50 dark:bg-primary-900 border-primary-500 text-primary-600" : " border-gray-300 text-gray-500 hover:bg-gray-50")}>
             {pageNumber}
         </Link>
     );
@@ -86,21 +86,21 @@ export default function Pagination({ currentPage, perPage, total, pathPrefix }: 
     };
 
     return (
-        <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+        <div className="flex items-center justify-between border-t border-gray-200 px-4 py-3 sm:px-6">
             <div className="flex flex-1 justify-between m-2 sm:hidden">
                 <Link href={`${pathPrefix}/${currentPage - 1}`}
-                    className={"rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 " + (canGoPrevious ? "" : "invisible")}
+                    className={"rounded-md border border-gray-300  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 " + (canGoPrevious ? "" : "invisible")}
                 >
                     Previous
                 </Link>
                 <Link href={`${pathPrefix}/${currentPage + 1}`}
-                    className={"rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 " + (canGoNext ? "" : "invisible")}>
+                    className={"rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 " + (canGoNext ? "" : "invisible")}>
                     Next
                 </Link>
             </div>
             <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                 <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-400">
                         Showing <span className="font-medium">{pageLowRange}</span> to <span className="font-medium">{pageHighRange}</span> of{' '}
                         <span className="font-medium">{total}</span> results
                     </p>
@@ -108,14 +108,14 @@ export default function Pagination({ currentPage, perPage, total, pathPrefix }: 
                 <div>
                     <nav className="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
                         <Link href={`${pathPrefix}/${currentPage - 1}`}
-                            className={"relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 focus:z-20 " + (canGoPrevious ? "hover:bg-gray-50" : "cursor-default")}
+                            className={"relative inline-flex items-center rounded-l-md border border-gray-300  px-2 py-2 text-sm font-medium text-gray-500 focus:z-20 " + (canGoPrevious ? "hover:bg-gray-50" : "cursor-default")}
                             onClick={handleClickPrevious}>
                             <span className="sr-only">Previous</span>
                             <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                         </Link>
                         {pageLinks.map((el) => (el))}
                         <Link href={`${pathPrefix}/${currentPage + 1}`}
-                            className={"relative inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500  focus:z-20 " + (canGoNext ? "hover:bg-gray-50" : "cursor-default")}
+                            className={"relative inline-flex items-center rounded-r-md border border-gray-300 px-2 py-2 text-sm font-medium text-gray-500  focus:z-20 " + (canGoNext ? "hover:bg-gray-50" : "cursor-default")}
                             onClick={handleClickNext}>
                             <span className="sr-only">Next</span>
                             <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />

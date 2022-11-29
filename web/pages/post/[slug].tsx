@@ -77,6 +77,7 @@ export default function Page({ title, content, reading_time, headings, sources, 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context?.params?.slug;
 
+  // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]`, { slug });
 
   const content = await serialize(post.content);

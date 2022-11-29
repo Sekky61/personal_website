@@ -29,9 +29,10 @@ const Header: NextPage = () => {
             <div className="container mx-auto py-3">
                 <div className="flex gap-3 items-center">
                     <Link href="/">
-                        <h2>Michal Majer</h2>
+                        <h2 className="whitespace-nowrap hidden sm:block">Michal Majer</h2>
+                        <h2 className="whitespace-nowrap sm:hidden">Majer</h2>
                     </Link>
-                    <div className="flex items-center ml-auto text-sm leading-7">
+                    <div className="flex items-center ml-auto text-sm leading-7 overflow-x-auto">
                         <ThemeSwitch></ThemeSwitch>
                         <nav>
                             <ul className="flex space-x-5">
