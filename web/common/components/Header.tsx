@@ -29,9 +29,7 @@ const Header: NextPage = () => {
             <div className="container mx-auto py-3">
                 <div className="flex gap-3 items-center">
                     <Link href="/">
-                        <a className="mr-4">
-                            <h2>Michal Majer</h2>
-                        </a>
+                        <h2>Michal Majer</h2>
                     </Link>
                     <div className="flex items-center ml-auto text-sm leading-7">
                         <ThemeSwitch></ThemeSwitch>
@@ -39,17 +37,17 @@ const Header: NextPage = () => {
                             <ul className="flex space-x-5">
                                 <li>
                                     <ActiveLink href="/about">
-                                        <a className="navlink">About me</a>
+                                        <span className="navlink">About me</span>
                                     </ActiveLink>
                                 </li>
                                 <li>
                                     <ActiveLink href="/blog">
-                                        <a className="navlink">Blog</a>
+                                        <span className="navlink">Blog</span>
                                     </ActiveLink>
                                 </li>
                                 <li>
                                     <ActiveLink href="/portfolio">
-                                        <a className="navlink">Portfolio</a>
+                                        <span className="navlink">Portfolio</span>
                                     </ActiveLink>
                                 </li>
                             </ul>
