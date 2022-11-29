@@ -27,6 +27,9 @@ const Contents = ({ headings }: any) => {
 }
 
 const Sources = ({ sources }: any) => {
+  // todo workaround for articles without sources
+  sources ??= [];
+
   const source_items = sources.map(({ link, name }: any) =>
     <li key={name}>
       <span className='mr-4'>{name}</span>
