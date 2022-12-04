@@ -4,9 +4,9 @@ const About: NextPage = () => {
     return (
         <>
             <h1 className='heading-primary' >About me</h1>
-            <p>Hello.</p>
-            <p>My name is Michal Majer. I study at Faculty of Information Technology of the Brno University of Technology.</p>
-
+            <p>
+                Hello.
+            </p>
             <p>
                 My name is Michal and I am a programmer with a passion for crafting efficient and elegant solutions to complex problems.
                 I have a bachelors degree from Faculty of Information Technology of the Brno University of Technology.
