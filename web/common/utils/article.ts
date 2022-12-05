@@ -1,8 +1,10 @@
+const MD_LINE_STARTS_WITH_H2_REGEX = /^##\s/;
+
 export function getH2Headings(source: string) {
     // Get each line individually, and filter out anything that
     // isn't a h2 heading.
     const headingLines = source.split("\n").filter((line) => {
-        return line.match(/^##\s/);
+        return line.match(MD_LINE_STARTS_WITH_H2_REGEX);
     });
     return headingLines.map((raw) => {
         const text = raw.replace(/^##\s/, "");

@@ -7,7 +7,10 @@ export default {
       name: 'title',
       title: 'Page Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => [
+        Rule.required(),
+        Rule.max(120).warning(`A title shouldn't be more than 120 characters.`)
+      ]
     },
     {
       name: 'slug',
@@ -29,7 +32,19 @@ export default {
       name: 'content',
       title: 'Content',
       type: 'markdown',
-      initialValue: ""
+      initialValue: "",
+      validation: (Rule) =>
+        Rule.custom(text => {
+          const lines = text.split("\n");
+          for (const line of lines) {
+            if (line.match(/^#\s/)) {
+              return "Article should not include h1 heading (# heading)";
+            }
+          }
+
+          return true; // correct
+        }
+        )
     },
     {
       name: 'sources',
@@ -40,8 +55,5 @@ export default {
       description: "Name and link to the source. Ordered. Link not required.",
       editModal: "popover"
     }
-  ],
-  initialValue: {
-    tags: []
-  }
+  ]
 };

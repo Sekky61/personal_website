@@ -17,7 +17,9 @@ const About: NextPage = () => {
                 and I am always looking for opportunities to learn and grow as a developer.
                 In my free time, I enjoy staying up-to-date with the latest developments in the field and exploring new tools and concepts.
             </p>
-            <p>Tbh AI wrote most of this. Thanks AI ❤️</p>
+            <p>
+                Tbh AI wrote most of this. Thanks AI ❤️
+            </p>
         </>
     )
 }
