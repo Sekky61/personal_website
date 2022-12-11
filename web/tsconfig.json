@@ -31,6 +31,9 @@
       ],
       "@sanity/*": [
         "common/utils/sanity/*"
+      ],
+      "@styles/*": [
+        "styles/*"
       ]
     }
   },

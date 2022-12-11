@@ -8,6 +8,7 @@ import LinkHeading from '@components/LinkHeading';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { getH2Headings } from '@common/utils/article';
+import remarkGfm from 'remark-gfm';
 
 const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
@@ -80,7 +81,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]`, { slug });
 
-  const content = await serialize(post.content);
+  const content = await serialize(post.content, {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [],
+      format: 'mdx'
+    },
+  });
   const reading_time = readingTime(post.content); // markdown
 
   const headings = getH2Headings(post.content);
