@@ -18,8 +18,8 @@ const Contents = ({ headings }: any) => {
   );
 
   return (
-    <div className='p-2 rounded bg-gray-100 dark:bg-gray-800'>
-      <div className='text-xl font-bold pb-3'>Contents</div>
+    <div className='metablock'>
+      <div className='metablock-heading'>Contents</div>
       <ul>
         {heading_items}
       </ul>
@@ -39,14 +39,19 @@ const Sources = ({ sources }: any) => {
   );
 
   return (
-    <div className='p-2 rounded bg-gray-100 dark:bg-gray-800'>
-      <div className='text-xl font-bold pb-3'>Sources</div>
+    <div className='metablock'>
+      <div className='metablock-heading'>Sources</div>
       <ol className='list-decimal ml-8'>
         {source_items}
       </ol>
     </div>
   );
 }
+
+const components = {
+  code: CodeSample,
+  h2: LinkHeading
+};
 
 export default function Page({ title, content, reading_time, headings, sources, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
   const created_date = new Date(rest._createdAt);
@@ -68,7 +73,7 @@ export default function Page({ title, content, reading_time, headings, sources, 
       </div>
       <Contents headings={headings}></Contents>
       <div className='my-8'>
-        <MDXRemote {...content} components={{ code: CodeSample, h2: LinkHeading }} />
+        <MDXRemote {...content} components={components} />
       </div>
       <Sources sources={sources}></Sources>
     </div>
