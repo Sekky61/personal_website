@@ -9,6 +9,7 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { getH2Headings } from '@common/utils/article';
 import remarkGfm from 'remark-gfm';
+import Link from 'next/link';
 
 const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
@@ -53,7 +54,7 @@ const components = {
   h2: LinkHeading
 };
 
-export default function Page({ title, content, reading_time, headings, sources, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Page({ title, content, reading_time, headings, sources, slug, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
   const created_date = new Date(rest._createdAt);
   const formatted_date = created_date.toISOString().split('T')[0];
 
@@ -62,7 +63,11 @@ export default function Page({ title, content, reading_time, headings, sources, 
       <Head>
         <title>{title}</title>
       </Head>
-      <h1>{title}</h1>
+      <Link href={`/post/${slug}`}>
+        <h1>
+          {title}
+        </h1>
+      </Link>
       <div className='flex divide-x mb-6'>
         <span className='pr-2'>
           {formatted_date}
@@ -103,7 +108,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ...post,
       content,
       reading_time,
-      headings
+      headings,
+      slug
     }
   };
 }
