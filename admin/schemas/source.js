@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Item in a list of references -- a source to my claim or resource for learning more
 export default {
     title: 'Source',
     name: 'source',

@@ -8,6 +8,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import category from './category'
 import post from './post'
 import source from './source'
+import series from './series'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -19,6 +20,7 @@ export default createSchema({
     // The following are document types which will appear
     // in the studio.
     post,
+    series,
     category,
     source
   ]),
