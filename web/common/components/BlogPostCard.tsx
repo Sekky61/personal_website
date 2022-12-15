@@ -1,11 +1,10 @@
 import Link from "next/link"
 
 export default function BlogPostCard({ title, slug, tags, ...rest }: any) {
-  console.dir(rest)
   const is_in_series = rest.series.length != 0;
 
   return (
-    <Link href={`/post/${slug}`}>
+    <Link href={`/post/${slug.current}`}>
       <div className="duration-100 rounded bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
         <h1 className="text-xl">
           {title}
