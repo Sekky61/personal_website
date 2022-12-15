@@ -23,6 +23,12 @@ export default {
       },
     },
     {
+      name: 'series',
+      title: 'Series',
+      type: 'reference',
+      to: [{ type: 'series' }]
+    },
+    {
       name: 'tags',
       title: 'Tags',
       type: 'tags',
