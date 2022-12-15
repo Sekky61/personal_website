@@ -1,3 +1,6 @@
+import { groq } from "next-sanity";
+import { getClient } from "./sanity/sanity.server";
+
 const MD_LINE_STARTS_WITH_H2_REGEX = /^##\s/;
 
 export function getH2Headings(source: string) {

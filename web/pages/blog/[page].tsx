@@ -34,17 +34,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const from = (page - 1) * resultsPerPage;
     const to = from + resultsPerPage;
 
-    const posts = await getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]`, { from, to });
+    const posts = await getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]{
+        ...,
+        "series": *[_type == "series" && references(^._id)]
+      }`, { from, to });
     const posts_count = await getClient().fetch(groq`count(*[_type == "post"])`);
 
-    const posts_props = posts.map((post: any) => ({
-        title: post.title,
-        slug: post.slug.current,
-        tags: post.tags
-    }));
-
     return {
-        props: { posts_props, posts_count, page },
+        props: { posts_props: posts, posts_count, page },
         revalidate: 3600,
     };
 }
