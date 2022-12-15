@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import BlogPostCard from '@components/BlogPostCard';
 import Pagination from '@components/Pagination';
 import article from '@common/utils/article';
+import Link from 'next/link';
 
 export const resultsPerPage = 10;
 
@@ -12,6 +13,9 @@ export default function BlogListing({ posts_props, posts_count, page }: any) {
         <>
             <h1 className='heading-primary'>The Blog</h1>
             <p className='mb-6'>My most recent blog posts</p>
+            <p>
+                Check out blog posts sorted by <Link href={`/series`}>series</Link>
+            </p>
             <ul className='flex flex-col gap-5'>
                 {posts_props.map((props: any) => (
                     <li key={props.slug}>

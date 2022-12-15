@@ -18,6 +18,13 @@ export default {
           }`, { slug });
     },
 
+    getPostSeries: async function () {
+        return getClient().fetch(groq`*[_type == "series"]{
+            ...,
+            posts[]->
+        }`);
+    },
+
     getPostsCount: async function () {
         return getClient().fetch(groq`count(*[_type == "post"])`);
     },
