@@ -27,6 +27,17 @@ export default {
             title: 'Tags',
             type: 'tags',
             initialValue: []
+        },
+        {
+            name: 'posts',
+            title: 'Posts',
+            type: 'array',
+            of: [{
+                name: 'post',
+                title: 'Series',
+                type: 'reference',
+                to: [{ type: 'post' }]
+            }]
         }
     ]
 };
