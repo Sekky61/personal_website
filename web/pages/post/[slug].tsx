@@ -10,6 +10,7 @@ import Head from 'next/head';
 import { getH2Headings } from '@common/utils/article';
 import remarkGfm from 'remark-gfm';
 import Link from 'next/link';
+import { assert, dir } from 'console';
 
 const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
@@ -54,9 +55,23 @@ const components = {
   h2: LinkHeading
 };
 
-export default function Page({ title, content, reading_time, headings, sources, slug, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Page({ title, content, reading_time, headings, sources, slug, series, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
   const created_date = new Date(rest._createdAt);
   const formatted_date = created_date.toISOString().split('T')[0];
+
+  const is_in_series = series.length != 0;
+
+  console.dir(series);
+
+  let series_part_index = -1;
+  if (is_in_series) {
+    series_part_index = series[0].posts.findIndex((el: any) => {
+      return el._ref == rest._id;
+    });
+    series_part_index += 1;
+  }
+
+  console.assert(!is_in_series || series_part_index != -1);
 
   return (
     <div>
@@ -76,6 +91,15 @@ export default function Page({ title, content, reading_time, headings, sources, 
           {reading_time.text}
         </span>
       </div>
+      {is_in_series ?
+        <p>
+          This article is part {series_part_index} of a multipart series.
+          In this article, we will dive into the topic at hand and explore its intricacies.
+          Stay tuned for more in-depth coverage in the upcoming installments.
+          Be sure to check out the other articles <Link href={`/series/${series[0].slug.current}`}>in the series</Link> to get a complete understanding of the subject.
+        </p>
+        : <></>
+      }
       <Contents headings={headings}></Contents>
       <div className='my-8'>
         <MDXRemote {...content} components={components} />
@@ -90,6 +114,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]`, { slug });
+
+  const post_id = post._id;
+
+  const series = await getClient().fetch(groq`*[_type == "series" && references($post_id)]`, { post_id });
+  console.dir(series);
 
   const content = await serialize(post.content, {
     mdxOptions: {
@@ -109,7 +138,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       content,
       reading_time,
       headings,
-      slug
+      slug,
+      series
     }
   };
 }
