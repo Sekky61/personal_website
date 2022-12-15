@@ -1,9 +1,9 @@
-import { makeSlug } from "@common/utils/article";
+import article from "@common/utils/article";
 
 // LinkHeading takes its text value and adds id and href to itself
 export default function LinkHeading(p: any) {
     const text = p.children;
-    const text_slug = makeSlug(text);
+    const text_slug = article.makeSlug(text);
     return (
         <h2 className="group -ml-4 pl-4 flex">
             <a id={text_slug} href={"#" + text_slug} aria-label="Anchor">

@@ -1,9 +1,8 @@
-import { getClient } from '@sanity/sanity.server';
-import { groq } from 'next-sanity';
+import { GetStaticPaths, GetStaticProps } from 'next';
+
 import BlogPostCard from '@components/BlogPostCard';
 import Pagination from '@components/Pagination';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { get_paginated_articles, get_posts_count } from '@common/utils/article';
+import article from '@common/utils/article';
 
 export const resultsPerPage = 10;
 
@@ -34,8 +33,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const from = (page - 1) * resultsPerPage;
     const to = from + resultsPerPage;
 
-    const posts = await get_paginated_articles(from, to);
-    const posts_count = await get_posts_count();
+    const posts = await article.getPaginatedPosts(from, to);
+    const posts_count = await article.getPostsCount();
 
     return {
         props: { posts_props: posts, posts_count, page },
@@ -44,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const posts_count = await get_posts_count();
+    const posts_count = await article.getPostsCount();
     const pages_count = Math.max(Math.ceil(posts_count / resultsPerPage), 1); // at least one
 
     return {

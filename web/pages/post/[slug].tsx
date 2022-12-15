@@ -1,15 +1,17 @@
-import { getClient } from '@sanity/sanity.server';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
 import { groq } from 'next-sanity';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
 import readingTime from 'reading-time';
+import remarkGfm from 'remark-gfm';
+import assert from 'assert';
+
+import { getClient } from '@sanity/sanity.server';
 import CodeSample from '@components/CodeSample';
 import LinkHeading from '@components/LinkHeading';
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import Head from 'next/head';
-import { getH2Headings } from '@common/utils/article';
-import remarkGfm from 'remark-gfm';
-import Link from 'next/link';
+import article from '@common/utils/article';
 
 const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
@@ -60,8 +62,6 @@ export default function Page({ title, content, reading_time, headings, sources, 
 
   const is_in_series = series.length != 0;
 
-  console.dir(series);
-
   let series_part_index = -1;
   if (is_in_series) {
     series_part_index = series[0].posts.findIndex((el: any) => {
@@ -70,7 +70,7 @@ export default function Page({ title, content, reading_time, headings, sources, 
     series_part_index += 1;
   }
 
-  console.assert(!is_in_series || series_part_index != -1);
+  assert(!is_in_series || series_part_index != -1);
 
   return (
     <div>
@@ -108,12 +108,10 @@ export default function Page({ title, content, reading_time, headings, sources, 
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context?.params?.slug;
+  assert(typeof (slug) == "string");
 
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
-  const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]{
-    ...,
-    "series": *[_type == "series" && references(^._id)]
-  }`, { slug });
+  const post = await article.getPostBySlug(slug);
 
   const content = await serialize(post.content, {
     mdxOptions: {
@@ -124,7 +122,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   });
   const reading_time = readingTime(post.content); // markdown
 
-  const headings = getH2Headings(post.content);
+  const headings = article.getH2Headings(post.content);
 
   // Spread first, so edited fields are not covered
   return {
