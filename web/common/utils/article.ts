@@ -18,6 +18,17 @@ export function getH2Headings(source: string) {
     });
 }
 
+export async function get_paginated_articles(from: number, to: number) {
+    return getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]{
+        ...,
+        "series": *[_type == "series" && references(^._id)]
+      }`, { from, to });
+}
+
+export async function get_posts_count() {
+    return getClient().fetch(groq`count(*[_type == "post"])`);
+}
+
 export function makeSlug(text: string) {
     return text
         .toLowerCase()

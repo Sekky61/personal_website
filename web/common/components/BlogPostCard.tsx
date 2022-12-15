@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 export default function BlogPostCard({ title, slug, tags, ...rest }: any) {
+  console.dir(rest)
   const is_in_series = rest.series.length != 0;
 
   return (
