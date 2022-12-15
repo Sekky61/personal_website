@@ -10,7 +10,6 @@ import Head from 'next/head';
 import { getH2Headings } from '@common/utils/article';
 import remarkGfm from 'remark-gfm';
 import Link from 'next/link';
-import { assert, dir } from 'console';
 
 const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
@@ -94,9 +93,7 @@ export default function Page({ title, content, reading_time, headings, sources, 
       {is_in_series ?
         <p>
           This article is part {series_part_index} of a multipart series.
-          In this article, we will dive into the topic at hand and explore its intricacies.
-          Stay tuned for more in-depth coverage in the upcoming installments.
-          Be sure to check out the other articles <Link href={`/series/${series[0].slug.current}`}>in the series</Link> to get a complete understanding of the subject.
+          Be sure to check out the other articles <Link href={`/series/${series[0].slug.current}`}>in the series</Link>.
         </p>
         : <></>
       }
@@ -113,12 +110,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context?.params?.slug;
 
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
-  const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]`, { slug });
-
-  const post_id = post._id;
-
-  const series = await getClient().fetch(groq`*[_type == "series" && references($post_id)]`, { post_id });
-  console.dir(series);
+  const post = await getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]{
+    ...,
+    "series": *[_type == "series" && references(^._id)]
+  }`, { slug });
 
   const content = await serialize(post.content, {
     mdxOptions: {
@@ -138,8 +133,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       content,
       reading_time,
       headings,
-      slug,
-      series
+      slug
     }
   };
 }

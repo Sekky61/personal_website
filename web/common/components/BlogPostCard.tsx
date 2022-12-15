@@ -1,6 +1,9 @@
 import Link from "next/link"
 
-export default function BlogPostCard({ title, slug, tags }: any) {
+export default function BlogPostCard({ title, slug, tags, ...rest }: any) {
+  console.dir(rest)
+  const is_in_series = rest.series.length != 0;
+
   return (
     <Link href={`/post/${slug}`}>
       <div className="duration-100 rounded bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
@@ -9,11 +12,19 @@ export default function BlogPostCard({ title, slug, tags }: any) {
         </h1>
         <div className="flex gap-1 mt-2">
           {
+            is_in_series ?
+              <div className="tag-pill bg-primary-400 hover:bg-primary-500">
+                Series
+              </div>
+              : <></>
+          }
+          {
             tags.map(({ label, value }: any) =>
-              <div key={value} className="rounded-full bg-primary-200 hover:bg-primary-300 dark:text-black text-sm px-2 py-0.5 border border-black">
+              <div key={value} className="tag-pill bg-primary-200 hover:bg-primary-300">
                 {label}
               </div>
-            )}
+            )
+          }
         </div>
       </div>
     </Link>

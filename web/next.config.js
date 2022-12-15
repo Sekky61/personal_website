@@ -6,11 +6,16 @@ const STUDIO_REWRITE = {
       : "/admin/index.html",
 };
 
+const BLOG_REWRITE = {
+  source: "/blog",
+  destination: "/blog/1",
+};
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  rewrites: () => [STUDIO_REWRITE],
+  rewrites: () => [STUDIO_REWRITE, BLOG_REWRITE],
 }
 
 module.exports = nextConfig

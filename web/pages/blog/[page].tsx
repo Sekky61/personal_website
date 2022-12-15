@@ -3,10 +3,10 @@ import { groq } from 'next-sanity';
 import BlogPostCard from '@components/BlogPostCard';
 import Pagination from '@components/Pagination';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { get_paginated_articles, get_posts_count } from '@common/utils/article';
 
 export const resultsPerPage = 10;
 
-// TODO redirect /blog/1 to /blog ?
 // TODO disallow navigating to nonexisting page (/blog/999)
 export default function BlogListing({ posts_props, posts_count, page }: any) {
     return (
@@ -34,23 +34,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const from = (page - 1) * resultsPerPage;
     const to = from + resultsPerPage;
 
-    const posts = await getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]`, { from, to });
-    const posts_count = await getClient().fetch(groq`count(*[_type == "post"])`);
-
-    const posts_props = posts.map((post: any) => ({
-        title: post.title,
-        slug: post.slug.current,
-        tags: post.tags
-    }));
+    const posts = await get_paginated_articles(from, to);
+    const posts_count = await get_posts_count();
 
     return {
-        props: { posts_props, posts_count, page },
+        props: { posts_props: posts, posts_count, page },
         revalidate: 3600,
     };
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const posts_count = await getClient().fetch(groq`count(*[_type == "post"])`);
+    const posts_count = await get_posts_count();
     const pages_count = Math.max(Math.ceil(posts_count / resultsPerPage), 1); // at least one
 
     return {
