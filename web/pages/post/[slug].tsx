@@ -12,6 +12,7 @@ import { getClient } from '@sanity/sanity.server';
 import CodeSample from '@components/CodeSample';
 import LinkHeading from '@components/LinkHeading';
 import article from '@common/utils/article';
+import Image from 'next/image';
 
 const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
@@ -51,9 +52,20 @@ const Sources = ({ sources }: any) => {
   );
 }
 
+const CustomImage = ({ src, alt }: any) => {
+  return (
+    <div className='flex justify-center'>
+      <div className='rounded overflow-hidden'>
+        <Image src={src} alt={alt} width={450} height={450} />
+      </div>
+    </div>
+  );
+}
+
 const components = {
   code: CodeSample,
-  h2: LinkHeading
+  h2: LinkHeading,
+  img: CustomImage,
 };
 
 export default function Page({ title, content, reading_time, headings, sources, slug, series, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {

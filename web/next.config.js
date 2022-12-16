@@ -16,6 +16,16 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   rewrites: () => [STUDIO_REWRITE, BLOG_REWRITE],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig
