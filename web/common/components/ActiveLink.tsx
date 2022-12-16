@@ -1,5 +1,3 @@
-// src: https://frontend-digest.com/how-to-create-navlink-component-in-nextjs-586052e39ba7
-
 import React, { Children } from "react";
 import { useRouter } from "next/router";
 import Link, { LinkProps } from "next/link";
@@ -10,6 +8,7 @@ type NavLinkProps = React.PropsWithChildren<LinkProps> & {
 };
 
 // NavLink must have single child (probably <a> tag; textNode does not count)
+// src: https://frontend-digest.com/how-to-create-navlink-component-in-nextjs-586052e39ba7
 const NavLink = ({
     children,
     activeClassName = "navlink-active",

@@ -6,11 +6,26 @@ const STUDIO_REWRITE = {
       : "/admin/index.html",
 };
 
+const BLOG_REWRITE = {
+  source: "/blog",
+  destination: "/blog/1",
+};
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  rewrites: () => [STUDIO_REWRITE],
+  rewrites: () => [STUDIO_REWRITE, BLOG_REWRITE],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

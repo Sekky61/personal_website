@@ -68,6 +68,10 @@ body {
   .metablock-heading {
     @apply text-xl font-bold pb-3
   }
+
+  .tag-pill {
+    @apply rounded-full dark:text-black text-sm px-2 py-0.5 border border-black
+  }
 }
 
 .footnotes {
