@@ -12,10 +12,23 @@ export default {
     },
 
     getPostBySlug: async function (slug: string) {
-        return getClient().fetch(groq`*[_type == "post" && slug.current == $slug][0]{
+        return getClient().fetch(groq`
+        *[_type == "post" && slug.current == $slug][0]{
             ...,
-            "series": *[_type == "series" && references(^._id)]
-          }`, { slug });
+            "series": *[_type == "series" && references(^._id)],
+            content[]{
+                ...,
+                markDefs[]{
+                    ...,
+                    _type == "internalLink" => {
+                        "slug": @.reference->slug
+                    }
+                },
+                _type == "image" => {
+                    "url": @.asset->url
+                }
+            }
+        }`, { slug });
     },
 
     getPostSeries: async function () {
@@ -51,5 +64,35 @@ export default {
 
             return { text, slug };
         });
+    },
+
+    // Source: https://www.sanity.io/docs/presenting-block-text
+    blocksToPlainText: function (blocks: any[] = []) {
+        return blocks
+            // loop through each block
+            .map((block: any) => {
+                // if it's not a text block with children, 
+                // return nothing
+                if (block._type !== 'block' || !block.children) {
+                    return ''
+                }
+                // loop through the children spans, and join the
+                // text strings
+                return block.children.map((child: any) => child.text).join('')
+            })
+            // join the paragraphs leaving split by two linebreaks
+            .join('\n\n')
+    },
+
+    // Works on different format than `blocksToPlainText`
+    childrenToPlainText: function (children: any[] = []) {
+        return children.map((child: any) => {
+            if (typeof (child) == "string") {
+                return child;
+            } else {
+                // Object
+                return child.props.text;
+            }
+        }).join('')
     }
 };

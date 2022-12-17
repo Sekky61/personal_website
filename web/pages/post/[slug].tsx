@@ -2,11 +2,11 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { groq } from 'next-sanity';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
 import readingTime from 'reading-time';
-import remarkGfm from 'remark-gfm';
 import assert from 'assert';
+
+import { PortableText } from '@portabletext/react'
+import { PortableTextComponents } from '@portabletext/react'
 
 import { getClient } from '@sanity/sanity.server';
 import CodeSample from '@components/CodeSample';
@@ -52,20 +52,29 @@ const Sources = ({ sources }: any) => {
   );
 }
 
-const CustomImage = ({ src, alt }: any) => {
+const CustomImage = (p: any) => {
   return (
     <div className='flex justify-center'>
       <div className='rounded overflow-hidden'>
-        <Image src={src} alt={alt} width={450} height={450} />
+        <Image src={p.value.url} alt={p.alt} width={450} height={450} />
       </div>
     </div>
   );
 }
 
-const components = {
-  code: CodeSample,
-  h2: LinkHeading,
-  img: CustomImage,
+const components: PortableTextComponents = {
+  types: {
+    code: CodeSample,
+    image: CustomImage,
+  },
+  block: {
+    h2: LinkHeading,
+  },
+  marks: {
+    internalLink: ({ value, children }) => {
+      return <Link href={`/post/${value.slug.current}`}>{children}</Link>;
+    }
+  }
 };
 
 export default function Page({ title, content, reading_time, headings, sources, slug, series, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -111,7 +120,10 @@ export default function Page({ title, content, reading_time, headings, sources, 
       }
       <Contents headings={headings}></Contents>
       <div className='my-8'>
-        <MDXRemote {...content} components={components} />
+        <PortableText
+          value={content}
+          components={components}
+        />
       </div>
       <Sources sources={sources}></Sources>
     </div>
@@ -125,24 +137,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await article.getPostBySlug(slug);
 
-  const content = await serialize(post.content, {
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [],
-      format: 'mdx'
-    },
-  });
-  const reading_time = readingTime(post.content); // markdown
+  const reading_time = readingTime(article.blocksToPlainText(post.content)); // markdown
 
-  const headings = article.getH2Headings(post.content);
+  // const headings = article.getH2Headings(post.content);
 
   // Spread first, so edited fields are not covered
   return {
     props: {
       ...post,
-      content,
       reading_time,
-      headings,
+      headings: [],
       slug
     }
   };

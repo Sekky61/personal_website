@@ -5,6 +5,10 @@ export default {
     of: [
         {
             type: 'block',
+            styles: [
+                { title: 'Normal', value: 'normal' },
+                { title: 'H2', value: 'h2' }
+            ],
             marks: {
                 annotations: [
                     {
@@ -43,6 +47,23 @@ export default {
                     }
                 ]
             }
+        },
+        {
+            type: 'image',
+            fields: [
+                {
+                    name: 'caption',
+                    type: 'string',
+                    title: 'Caption',
+                    initialValue: '',
+                },
+                {
+                    name: 'alt',
+                    type: 'string',
+                    title: 'Alt text',
+                    initialValue: '',
+                },
+            ]
         }
     ]
 }
