@@ -1,1 +1,9 @@
 node_modules
+
+# Sanity temp folders
+.sanity
+
+# Environment files
+/.env
+# ignore all local .env files
+.env.local
