@@ -1,14 +1,12 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { groq } from 'next-sanity';
 import readingTime from 'reading-time';
 import assert from 'assert';
 
 import { PortableText } from '@portabletext/react'
 import { PortableTextComponents } from '@portabletext/react'
 
-import { getClient } from '@sanity/sanity.server';
 import CodeSample from '@components/CodeSample';
 import LinkHeading from '@components/LinkHeading';
 import article from '@common/utils/article';
@@ -73,7 +71,10 @@ const components: PortableTextComponents = {
   marks: {
     internalLink: ({ value, children }) => {
       return <Link href={`/post/${value.slug.current}`}>{children}</Link>;
-    }
+    },
+    externalLink: ({ value, children }) => {
+      return <a href={value.href} target={value.blank ? "_blank" : undefined}>{children}</a>;
+    },
   }
 };
 

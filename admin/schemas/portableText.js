@@ -12,7 +12,7 @@ export default {
             marks: {
                 annotations: [
                     {
-                        name: 'link',
+                        name: 'externalLink',
                         type: 'object',
                         title: 'External link',
                         fields: [
@@ -25,7 +25,8 @@ export default {
                                 title: 'Open in new tab',
                                 name: 'blank',
                                 description: 'Read https://css-tricks.com/use-target_blank/',
-                                type: 'boolean'
+                                type: 'boolean',
+                                initialValue: true,
                             }
                         ]
                     },
