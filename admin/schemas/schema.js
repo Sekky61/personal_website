@@ -10,6 +10,7 @@ import post from './post'
 import source from './source'
 import series from './series'
 import portableText from './portableText'
+import codeFile from './codeFile'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -24,6 +25,7 @@ export default createSchema({
     series,
     category,
     source,
-    portableText
+    portableText,
+    codeFile
   ]),
 })

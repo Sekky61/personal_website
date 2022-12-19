@@ -65,6 +65,9 @@ export default {
                     initialValue: '',
                 },
             ]
-        }
+        },
+        {
+            type: 'codeFile',
+        },
     ]
 }

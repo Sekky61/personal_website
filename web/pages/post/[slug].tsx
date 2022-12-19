@@ -62,8 +62,9 @@ const CustomImage = (p: any) => {
 
 const components: PortableTextComponents = {
   types: {
-    code: CodeSample,
+    // code: CodeSample,
     image: CustomImage,
+    codeFile: CodeSample,
   },
   block: {
     h2: LinkHeading,
