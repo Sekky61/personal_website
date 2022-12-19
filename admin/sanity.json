@@ -13,6 +13,7 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
+    "@sanity/code-input",
     "markdown",
     "tags",
     "vercel-deploy"

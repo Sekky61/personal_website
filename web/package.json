@@ -5,7 +5,6 @@
   "license": "MIT License",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "echo 'Building Sanity to public/admin' && cd ../admin && yarn && npx @sanity/cli build ../public/admin -y && echo 'Done'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -15,6 +14,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.11",
     "@portabletext/react": "^1.0.6",
+    "@portabletext/types": "^2.0.0",
     "@sanity/image-url": "^1.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "highlight.js": "^11.6.0",

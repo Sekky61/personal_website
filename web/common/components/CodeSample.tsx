@@ -15,10 +15,9 @@ export default function CodeSample(p: any) {
         setShowCheck(false);
     }
 
-    // edit the language prop
-    const lang = p.className.replace("language-", "");
-    // strip extra newline at the end
-    const code = p.children.trim();
+    const code = p.value.code.code;
+    const lang = p.value.code.language;
+    const fileName = p.value.fileName;
     return (
         <div className='relative'>
             <button className={'absolute top-0 right-0 duration-100 bg-slate-400 hover:bg-white rounded-sm m-2 p-0.5 ' + (showCheck ? 'hover:bg-green-400' : '')}

@@ -3,7 +3,7 @@ import article from "@common/utils/article";
 
 // LinkHeading takes its text value and adds id and href to itself
 export default function LinkHeading(p: any) {
-    const text = p.children;
+    const text = article.childrenToPlainText(p.children)
     const text_slug = article.makeSlug(text);
     return (
         <h2 className="group -ml-4 pl-4 flex">
@@ -12,7 +12,7 @@ export default function LinkHeading(p: any) {
                     <LinkChain></LinkChain>
                 </div>
                 <span>
-                    {text}
+                    {p.children}
                 </span>
             </a>
         </h2>

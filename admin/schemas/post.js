@@ -31,20 +31,20 @@ export default {
     {
       name: 'content',
       title: 'Content',
-      type: 'markdown',
-      initialValue: "",
-      validation: (Rule) =>
-        Rule.custom(text => {
-          const lines = text.split("\n");
-          for (const line of lines) {
-            if (line.match(/^#\s/)) {
-              return "Article should not include h1 heading (# heading)";
-            }
-          }
+      type: 'portableText',
+      initialValue: [],
+      // validation: (Rule) =>
+      //   Rule.custom(text => {
+      //     const lines = text.split("\n");
+      //     for (const line of lines) {
+      //       if (line.match(/^#\s/)) {
+      //         return "Article should not include h1 heading (# heading)";
+      //       }
+      //     }
 
-          return true; // correct
-        }
-        )
+      //     return true; // correct
+      //   }
+      //   )
     },
     {
       name: 'sources',

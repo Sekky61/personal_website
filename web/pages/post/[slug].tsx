@@ -1,14 +1,12 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { groq } from 'next-sanity';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
 import readingTime from 'reading-time';
-import remarkGfm from 'remark-gfm';
 import assert from 'assert';
 
-import { getClient } from '@sanity/sanity.server';
+import { PortableText } from '@portabletext/react'
+import { PortableTextComponents } from '@portabletext/react'
+
 import CodeSample from '@components/CodeSample';
 import LinkHeading from '@components/LinkHeading';
 import article from '@common/utils/article';
@@ -52,32 +50,45 @@ const Sources = ({ sources }: any) => {
   );
 }
 
-const CustomImage = ({ src, alt }: any) => {
+const CustomImage = (p: any) => {
   return (
     <div className='flex justify-center'>
       <div className='rounded overflow-hidden'>
-        <Image src={src} alt={alt} width={450} height={450} />
+        <Image src={p.value.url} alt={p.alt} width={450} height={450} />
       </div>
     </div>
   );
 }
 
-const components = {
-  code: CodeSample,
-  h2: LinkHeading,
-  img: CustomImage,
+const components: PortableTextComponents = {
+  types: {
+    // code: CodeSample,
+    image: CustomImage,
+    codeFile: CodeSample,
+  },
+  block: {
+    h2: LinkHeading,
+  },
+  marks: {
+    internalLink: ({ value, children }) => {
+      return <Link href={`/post/${value.slug.current}`}>{children}</Link>;
+    },
+    externalLink: ({ value, children }) => {
+      return <a href={value.href} target={value.blank ? "_blank" : undefined} rel="noreferrer">{children}</a>;
+    },
+  }
 };
 
-export default function Page({ title, content, reading_time, headings, sources, slug, series, ...rest }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const created_date = new Date(rest._createdAt);
+export default function Page({ post, reading_time, headings, slug }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const created_date = new Date(post._createdAt);
   const formatted_date = created_date.toISOString().split('T')[0];
 
-  const is_in_series = series.length != 0;
+  const is_in_series = post.series.length != 0;
 
   let series_part_index = -1;
   if (is_in_series) {
-    series_part_index = series[0].posts.findIndex((el: any) => {
-      return el._ref == rest._id;
+    series_part_index = post.series[0].posts.findIndex((el: any) => {
+      return el._ref == post._id;
     });
     series_part_index += 1;
   }
@@ -87,11 +98,11 @@ export default function Page({ title, content, reading_time, headings, sources, 
   return (
     <div>
       <Head>
-        <title>{title}</title>
+        <title>{post.title}</title>
       </Head>
       <Link href={`/post/${slug}`}>
         <h1>
-          {title}
+          {post.title}
         </h1>
       </Link>
       <div className='flex divide-x mb-6'>
@@ -105,15 +116,18 @@ export default function Page({ title, content, reading_time, headings, sources, 
       {is_in_series ?
         <p>
           This article is part {series_part_index} of a multipart series.
-          Be sure to check out the other articles <Link href={`/series/${series[0].slug.current}`}>in the series</Link>.
+          Be sure to check out the other articles <Link href={`/series/${post.series[0].slug.current}`}>in the series</Link>.
         </p>
         : <></>
       }
       <Contents headings={headings}></Contents>
       <div className='my-8'>
-        <MDXRemote {...content} components={components} />
+        <PortableText
+          value={post.content}
+          components={components}
+        />
       </div>
-      <Sources sources={sources}></Sources>
+      <Sources sources={post.sources}></Sources>
     </div>
   );
 }
@@ -124,23 +138,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await article.getPostBySlug(slug);
+  const post_plaintext = article.blocksToPlainText(post.content);
 
-  const content = await serialize(post.content, {
-    mdxOptions: {
-      remarkPlugins: [remarkGfm],
-      rehypePlugins: [],
-      format: 'mdx'
-    },
-  });
-  const reading_time = readingTime(post.content); // markdown
-
+  const reading_time = readingTime(post_plaintext);
   const headings = article.getH2Headings(post.content);
 
   // Spread first, so edited fields are not covered
   return {
     props: {
-      ...post,
-      content,
+      post,
       reading_time,
       headings,
       slug
@@ -149,7 +155,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await getClient().fetch(groq`*[_type == "post"].slug.current`);
+  const slugs = await article.getAllSlugs();
   const paths = slugs.map((slug: string) => ({ params: { slug } }));
 
   return {
