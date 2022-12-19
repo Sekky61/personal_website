@@ -15,6 +15,7 @@ export default {
                         name: 'externalLink',
                         type: 'object',
                         title: 'External link',
+                        description: "Link outside the blog",
                         fields: [
                             {
                                 name: 'href',
@@ -34,6 +35,7 @@ export default {
                         name: 'internalLink',
                         type: 'object',
                         title: 'Internal link',
+                        description: "Link for a post or series",
                         fields: [
                             {
                                 name: 'reference',
@@ -41,6 +43,7 @@ export default {
                                 title: 'Reference',
                                 to: [
                                     { type: 'post' },
+                                    { type: 'series' },
                                     // other types you may want to link to
                                 ]
                             }
@@ -57,12 +60,14 @@ export default {
                     type: 'string',
                     title: 'Caption',
                     initialValue: '',
+                    description: "Caption, displayed under the image",
                 },
                 {
                     name: 'alt',
                     type: 'string',
                     title: 'Alt text',
                     initialValue: '',
+                    description: "Replacement text for use when images are not available. Leave empty if image is decorative.",
                 },
             ]
         },
