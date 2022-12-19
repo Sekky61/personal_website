@@ -74,7 +74,7 @@ const components: PortableTextComponents = {
       return <Link href={`/post/${value.slug.current}`}>{children}</Link>;
     },
     externalLink: ({ value, children }) => {
-      return <a href={value.href} target={value.blank ? "_blank" : undefined}>{children}</a>;
+      return <a href={value.href} target={value.blank ? "_blank" : undefined} rel="noreferrer">{children}</a>;
     },
   }
 };
