@@ -7,7 +7,7 @@ export default {
       name: 'title',
       title: 'Page Title',
       type: 'string',
-      validation: (Rule) => [
+      validation: (Rule: any) => [
         Rule.required(),
         Rule.max(120).warning(`A title shouldn't be more than 120 characters.`)
       ]
@@ -16,11 +16,24 @@ export default {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      validation: (Rule) => Rule.required(),
+      description: "Custom URL for the blogpost",
+      validation: (Rule: any) => Rule.required(),
       options: {
         source: 'title',
         maxLength: 96,
       },
+    },
+    {
+      name: 'published',
+      title: 'Published',
+      type: 'boolean',
+      initialValue: true,
+    },
+    {
+      name: 'releaseDate',
+      title: 'Release Date',
+      type: 'datetime',
+      initialValue: (new Date()).toISOString()
     },
     {
       name: 'tags',
@@ -33,25 +46,13 @@ export default {
       title: 'Content',
       type: 'portableText',
       initialValue: [],
-      // validation: (Rule) =>
-      //   Rule.custom(text => {
-      //     const lines = text.split("\n");
-      //     for (const line of lines) {
-      //       if (line.match(/^#\s/)) {
-      //         return "Article should not include h1 heading (# heading)";
-      //       }
-      //     }
-
-      //     return true; // correct
-      //   }
-      //   )
     },
     {
       name: 'sources',
       title: 'Sources',
       type: 'array',
       of: [{ type: 'source' }],
-      validation: Rule => Rule.unique(),
+      validation: (Rule: any) => Rule.unique(),
       description: "Name and link to the source. Ordered. Link not required.",
       editModal: "popover"
     }

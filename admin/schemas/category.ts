@@ -1,6 +1,6 @@
 export default {
   name: 'category',
-  title: 'Categories',
+  title: 'Category',
   type: 'document',
   fields: [
     {

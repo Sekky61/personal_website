@@ -6,13 +6,24 @@ export default {
     name: 'source',
     type: 'object',
     fields: [
-        { name: 'name', type: 'string', title: 'Name' },
-        { name: 'link', type: 'url', title: 'Link' },
+        {
+            name: 'name',
+            type: 'string',
+            title: 'Name',
+            description: "A sort of heading/name for a source",
+        },
+        {
+            name: 'link',
+            type: 'url',
+            title: 'Link',
+            description: "URL for the source",
+        },
         {
             name: 'ref',
             type: 'string',
             title: 'Reference',
-            validation: Rule => Rule.required()
+            description: "Longer reference/bibliography",
+            validation: (Rule: any) => Rule.required()
         },
     ],
     preview: {
@@ -21,7 +32,7 @@ export default {
             link: 'link',
             ref: 'ref'
         },
-        prepare(selection) {
+        prepare(selection: any) {
             const { name, link, ref } = selection;
             return {
                 title: `[${ref}] - ${name}`,
