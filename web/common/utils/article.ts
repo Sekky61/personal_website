@@ -2,21 +2,25 @@ import { PortableTextBlock } from "@portabletext/types";
 import { groq } from "next-sanity";
 import { getClient } from "./sanity/sanity.server";
 
+const ALL_POSTS = `*[_type == "post"]`;
+const ALL_PUBLISHED_POSTS = `*[_type == "post" && published]`;
+const POST_BY_SLUG = `*[_type == "post" && slug.current == $slug][0]`; // Parameter slug
+
 export default {
     getPaginatedPosts: async function (from: number, to: number) {
-        return getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]{
+        return getClient().fetch(groq`${ALL_PUBLISHED_POSTS} | order(_createdAt desc) [$from...$to]{
             ...,
             "series": *[_type == "series" && references(^._id)]
           }`, { from, to });
     },
 
     getAllSlugs: async function () {
-        return await getClient().fetch(groq`*[_type == "post"].slug.current`);
+        return await getClient().fetch(groq`${ALL_PUBLISHED_POSTS}.slug.current`);
     },
 
     getPostBySlug: async function (slug: string) {
         return getClient().fetch(groq`
-        *[_type == "post" && slug.current == $slug][0]{
+        ${POST_BY_SLUG}{
             ...,
             "series": *[_type == "series" && references(^._id)],
             content[]{
@@ -42,7 +46,7 @@ export default {
     },
 
     getPostsCount: async function () {
-        return getClient().fetch(groq`count(*[_type == "post"])`);
+        return getClient().fetch(groq`count(${ALL_PUBLISHED_POSTS})`);
     },
 
     makeSlug: function (text: string) {
