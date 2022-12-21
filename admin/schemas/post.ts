@@ -33,7 +33,8 @@ export default {
       name: 'releaseDate',
       title: 'Release Date',
       type: 'datetime',
-      initialValue: (new Date()).toISOString()
+      initialValue: (new Date()).toISOString(),
+      validation: (Rule: any) => Rule.required()
     },
     {
       name: 'tags',
@@ -56,5 +57,40 @@ export default {
       description: "Name and link to the source. Ordered. Link not required.",
       editModal: "popover"
     }
+  ],
+  preview: {
+    select: {
+      title: 'title',
+      published: 'published',
+      releaseDate: 'releaseDate',
+    },
+    prepare(selection: any, viewOptions: any = {}) {
+      const { title, published, releaseDate } = selection;
+      const emoji = published ? "✅" : "❌";
+      const message = published ? "published" : "unpublished";
+      const isSortedByRelease = ("ordering" in viewOptions) &&
+        (viewOptions.ordering.name === 'releaseDateDesc' || viewOptions.ordering.name === 'releaseDateAsc');
+
+      return {
+        title: title,
+        subtitle: `${emoji} ${message} ${isSortedByRelease ? `${releaseDate}` : ``}`
+      }
+    }
+  },
+  orderings: [ // todo check, doesn't seem to be working
+    {
+      title: 'Release Date, New',
+      name: 'releaseDateDesc',
+      by: [
+        { field: 'releaseDate', direction: 'desc' }
+      ]
+    },
+    {
+      title: 'Release Date, Old',
+      name: 'releaseDateAsc',
+      by: [
+        { field: 'releaseDate', direction: 'asc' }
+      ]
+    },
   ]
 };
