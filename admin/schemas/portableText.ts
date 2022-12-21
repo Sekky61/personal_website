@@ -5,11 +5,17 @@ export default {
     of: [
         {
             type: 'block',
+            of: [
+                // inline blocks
+                { type: 'footnote' }
+            ],
             styles: [
                 { title: 'Normal', value: 'normal' },
                 { title: 'H2', value: 'h2' }
             ],
             marks: {
+                // Marks just mark a span
+                // Annotations include associated data
                 annotations: [
                     {
                         name: 'externalLink',
