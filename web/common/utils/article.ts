@@ -6,6 +6,11 @@ const ALL_POSTS = `*[_type == "post"]`;
 const ALL_PUBLISHED_POSTS = `*[_type == "post" && published]`;
 const POST_BY_SLUG = `*[_type == "post" && slug.current == $slug][0]`; // Parameter slug
 
+type Footnote = {
+    text: string;
+    number: number;
+};
+
 export default {
     getPaginatedPosts: async function (from: number, to: number) {
         return getClient().fetch(groq`${ALL_PUBLISHED_POSTS} | order(_createdAt desc) [$from...$to]{
@@ -72,6 +77,32 @@ export default {
 
                 return { text, slug };
             })
+    },
+
+    // returns array, one item for every section.
+    extractFootnotes: function (blocks: PortableTextBlock[] = []): Footnote[] {
+        let arr: Footnote[] = [];
+        let counter = 1;
+        blocks
+            .filter((block: any) => {
+                return block._type == 'block';
+            })
+            .forEach((block: any) => {
+                const isHeading = block.style == "h2";
+                if (!isHeading) {
+                    // Ordinary block
+                    block.children.forEach((child: any) => {
+                        if (child._type == "footnote") {
+                            // cannot get index here
+                            const text: string = child.text;
+                            arr.push({ text, number: counter });
+                            counter += 1;
+                        }
+                    });
+
+                }
+            })
+        return arr;
     },
 
     // Source: https://www.sanity.io/docs/presenting-block-text
