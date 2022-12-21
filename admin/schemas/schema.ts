@@ -7,6 +7,7 @@ import portableText from './portableText'
 import codeFile from './codeFile'
 import tags from './tags'
 import tag from './tag'
+import footnote from './footnote'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default [
@@ -19,6 +20,7 @@ export default [
   portableText,
   codeFile,
   tags,
-  tag
+  tag,
+  footnote
 ]
 

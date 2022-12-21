@@ -29,6 +29,26 @@ const Contents = ({ headings }: any) => {
   );
 }
 
+const Footnotes = ({ footnotes }: any) => {
+  console.log(footnotes);
+  const footnote_items = footnotes.map(({ text, number }: any) =>
+    <li key={number} id={`#footnote-${number}`}>
+      {text}
+    </li>
+  );
+
+  console.log(footnote_items);
+
+  return (
+    <div className='metablock'>
+      <div className='metablock-heading'>Footnotes</div>
+      <ol className='list-inside list-decimal'>
+        {footnote_items}
+      </ol>
+    </div>
+  );
+}
+
 const Sources = ({ sources }: any) => {
   // todo workaround for articles without sources
   sources ??= [];
@@ -62,9 +82,15 @@ const CustomImage = (p: any) => {
 
 const components: PortableTextComponents = {
   types: {
-    // code: CodeSample,
     image: CustomImage,
     codeFile: CodeSample,
+    footnote: ({ value, index }) => {
+      return (
+        <a href={`#footnote-${index}`}>
+          <sup>{index}</sup>
+        </a>
+      )
+    },
   },
   block: {
     h2: LinkHeading,
@@ -79,7 +105,7 @@ const components: PortableTextComponents = {
   }
 };
 
-export default function Page({ post, reading_time, headings, slug }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Page({ post, reading_time, headings, slug, footnotes }: InferGetStaticPropsType<typeof getStaticProps>) {
   const created_date = new Date(post._createdAt);
   const formatted_date = created_date.toISOString().split('T')[0];
 
@@ -127,6 +153,9 @@ export default function Page({ post, reading_time, headings, slug }: InferGetSta
           components={components}
         />
       </div>
+      <div className='my-8'>
+        <Footnotes footnotes={footnotes}></Footnotes>
+      </div>
       <Sources sources={post.sources}></Sources>
     </div>
   );
@@ -143,13 +172,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const reading_time = readingTime(post_plaintext);
   const headings = article.getH2Headings(post.content);
 
+  const footnotes = article.extractFootnotes(post.content);
+
   // Spread first, so edited fields are not covered
   return {
     props: {
       post,
       reading_time,
       headings,
-      slug
+      slug,
+      footnotes
     }
   };
 }
