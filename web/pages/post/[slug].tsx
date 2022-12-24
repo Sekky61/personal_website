@@ -30,14 +30,11 @@ const Contents = ({ headings }: any) => {
 }
 
 const Footnotes = ({ footnotes }: any) => {
-  console.log(footnotes);
   const footnote_items = footnotes.map(({ text, number }: any) =>
     <li key={number} id={`#footnote-${number}`}>
       {text}
     </li>
   );
-
-  console.log(footnote_items);
 
   return (
     <div className='metablock'>
