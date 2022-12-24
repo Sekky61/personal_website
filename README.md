@@ -33,7 +33,7 @@ To run Sanity:
 
 ```bash
 cd admin
-sanity start
+npm run dev
 ```
 
 Open [http://localhost:3333](http://localhost:3333) in the browser to see Content Studio.

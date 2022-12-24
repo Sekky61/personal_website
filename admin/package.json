@@ -5,7 +5,7 @@
   "description": "",
   "main": "package.json",
   "author": "Sekky61 <misa.majer@gmail.com>",
-  "license": "UNLICENSED",
+  "license": "MIT License",
   "scripts": {
     "start": "sanity start",
     "test": "sanity check",
