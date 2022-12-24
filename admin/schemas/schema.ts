@@ -3,10 +3,9 @@ import { category } from './category'
 import { post } from './post'
 import { source } from './source'
 import { series } from './series'
-import { portableText } from './portableText'
-import { codeFile } from './codeFile'
 import { tag, tags } from './tag'
-import { footnote } from './footnote'
+
+import { portableText } from './portableText/portableText'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default [
@@ -17,9 +16,7 @@ export default [
   category,
   source,
   portableText,
-  codeFile,
   tags,
-  tag,
-  footnote
+  tag
 ]
 

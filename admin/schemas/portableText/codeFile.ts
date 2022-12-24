@@ -1,7 +1,7 @@
-import { defineType, defineField } from "sanity";
+import { defineField } from "sanity";
 import { CodeBlockIcon } from '@sanity/icons'
 
-export const codeFile = defineType({
+export const codeFile = {
     name: 'codeFile',
     title: 'Code File',
     type: 'object',
@@ -33,4 +33,4 @@ export const codeFile = defineType({
             }
         }),
     ],
-})
+}

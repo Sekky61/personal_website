@@ -1,7 +1,7 @@
-import { defineType, defineField } from "sanity";
+import { defineField } from "sanity";
 import { NumberIcon } from '@sanity/icons';
 
-export const footnote = defineType({
+export const footnote = {
     name: 'footnote',
     title: 'Footnote',
     type: 'object',
@@ -13,4 +13,4 @@ export const footnote = defineType({
             title: 'Text'
         }),
     ]
-})
+}
