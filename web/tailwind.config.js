@@ -35,6 +35,9 @@ module.exports = {
           50: 'hsl(var(--hue-sat-primary) 95% / <alpha-value>)',
         },
         "dark": "#121212",
+      },
+      gridTemplateRows: {
+        'layout': 'auto 1fr auto',
       }
     },
   },

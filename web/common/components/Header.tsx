@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { NextPage } from "next/types";
 
 import useDarkMode from "../hooks/useDarkMode";
 import ActiveLink from "./ActiveLink";
@@ -18,14 +17,14 @@ const ThemeSwitch = () => {
 }
 
 // todo mobile sizes
-const Header: NextPage = () => {
+const Header = () => {
     return (
-        <div className="sticky top-0 w-full border-b divide-slate-500 dark:text-white bg-white dark:bg-dark">
-            <div className="container mx-auto py-3">
+        <div className="sticky top-0 w-full px-4 border-b divide-slate-500 dark:text-white bg-white dark:bg-dark">
+            <div className="small-container mx-auto py-3">
                 <div className="flex gap-3 items-center">
                     <Link href="/">
-                        <h2 className="whitespace-nowrap hidden sm:block">Michal Majer</h2>
-                        <h2 className="whitespace-nowrap sm:hidden">Majer</h2>
+                        <span className="whitespace-nowrap hidden sm:block text-2xl">Michal Majer</span>
+                        <span className="whitespace-nowrap sm:hidden text-2xl">Majer</span>
                     </Link>
                     <div className="flex items-center ml-auto text-sm leading-7 overflow-x-auto">
                         <ThemeSwitch></ThemeSwitch>

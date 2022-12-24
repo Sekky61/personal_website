@@ -36,6 +36,10 @@ body {
   .footnotes h2 {
     @apply bg-red-500
   }
+
+  .small-container {
+    @apply w-full md:w-[768px] mx-auto
+  }
 }
 
 /* Extra layer to make active links style take precedence over hover */
