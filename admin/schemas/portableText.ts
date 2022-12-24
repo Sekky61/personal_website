@@ -1,4 +1,6 @@
-export default {
+import { defineType, defineField } from "sanity";
+
+export const portableText = defineType({
     name: 'portableText',
     type: 'array',
     title: 'Content',
@@ -23,18 +25,18 @@ export default {
                         title: 'External link',
                         description: "Link outside the blog",
                         fields: [
-                            {
+                            defineField({
                                 name: 'href',
                                 type: 'url',
                                 title: 'URL'
-                            },
-                            {
+                            }),
+                            defineField({
                                 title: 'Open in new tab',
                                 name: 'blank',
                                 description: 'Read https://css-tricks.com/use-target_blank/',
                                 type: 'boolean',
                                 initialValue: true,
-                            }
+                            })
                         ]
                     },
                     {
@@ -43,7 +45,7 @@ export default {
                         title: 'Internal link',
                         description: "Link for a post or series",
                         fields: [
-                            {
+                            defineField({
                                 name: 'reference',
                                 type: 'reference',
                                 title: 'Reference',
@@ -52,7 +54,7 @@ export default {
                                     { type: 'series' },
                                     // other types you may want to link to
                                 ]
-                            }
+                            })
                         ]
                     }
                 ]
@@ -61,24 +63,24 @@ export default {
         {
             type: 'image',
             fields: [
-                {
+                defineField({
                     name: 'caption',
                     type: 'string',
                     title: 'Caption',
                     initialValue: '',
                     description: "Caption, displayed under the image",
-                },
-                {
+                }),
+                defineField({
                     name: 'alt',
                     type: 'string',
                     title: 'Alt text',
                     initialValue: '',
                     description: "Replacement text for use when images are not available. Leave empty if image is decorative.",
-                },
+                }),
             ]
         },
         {
             type: 'codeFile',
         },
     ]
-}
+})

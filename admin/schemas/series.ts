@@ -1,9 +1,11 @@
-export default {
+import { defineType, defineField } from "sanity";
+
+export const series = defineType({
     name: 'series',
     title: 'Series',
     type: 'document',
     fields: [
-        {
+        defineField({
             name: 'title',
             title: 'Series title',
             type: 'string',
@@ -11,8 +13,8 @@ export default {
                 Rule.required(),
                 Rule.max(120).warning(`A title shouldn't be more than 120 characters.`)
             ]
-        },
-        {
+        }),
+        defineField({
             name: 'slug',
             title: 'Slug',
             type: 'slug',
@@ -21,14 +23,14 @@ export default {
                 source: 'title',
                 maxLength: 96,
             },
-        },
-        {
+        }),
+        defineField({
             name: 'tags',
             title: 'Tags',
             type: 'tags',
             initialValue: []
-        },
-        {
+        }),
+        defineField({
             name: 'posts',
             title: 'Posts',
             type: 'array',
@@ -38,7 +40,7 @@ export default {
                 type: 'reference',
                 to: [{ type: 'post' }]
             }]
-        }
+        })
     ],
     preview: {
         select: {
@@ -54,4 +56,4 @@ export default {
             }
         }
     }
-};
+})

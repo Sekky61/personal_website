@@ -1,8 +1,14 @@
-export default {
+import { defineType, defineField } from "sanity";
+
+export const footnote = defineType({
     name: 'footnote',
     title: 'Footnote',
     type: 'object',
     fields: [
-        { name: 'text', type: 'string', title: 'Text' },
+        defineField({
+            name: 'text',
+            type: 'string',
+            title: 'Text'
+        }),
     ]
-};
+})

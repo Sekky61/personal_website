@@ -1,9 +1,26 @@
-export default {
+import { defineType, defineField } from "sanity";
+
+export const tag = defineType({
     name: 'tag',
     title: 'Tag',
     type: 'object',
     fields: [
-        { name: 'label', type: 'string', title: 'Label' },
-        { name: 'value', type: 'string', title: 'Value' },
-    ]
-};
+        defineField({
+            name: 'label',
+            type: 'string',
+            title: 'Label'
+        }),
+        defineField({
+            name: 'value',
+            type: 'string',
+            title: 'Value'
+        }),
+    ],
+})
+
+export const tags = defineType({
+    name: 'tags',
+    title: 'Tags',
+    type: 'array',
+    of: [{ type: 'tag' }]
+})

@@ -1,16 +1,18 @@
-export default {
+import { defineType, defineField } from "sanity";
+
+export const codeFile = defineType({
     name: 'codeFile',
     title: 'Code File',
     type: 'object',
     fields: [
-        {
+        defineField({
             name: 'fileName',
             title: 'File Name',
             type: 'string',
             initialValue: '',
             description: "Name of the file, will be displayed",
-        },
-        {
+        }),
+        defineField({
             // there is highlight lines support, data looks like: highlightedLines: [1, 2],
             name: 'code',
             title: 'Code',
@@ -27,6 +29,6 @@ export default {
                     { title: 'SASS', value: 'sass' },
                 ]
             }
-        },
+        }),
     ],
-}
+})

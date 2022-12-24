@@ -1,9 +1,11 @@
-export default {
+import { defineType, defineField } from "sanity";
+
+export const post = defineType({
   name: 'post',
   title: 'Posts',
   type: 'document',
   fields: [
-    {
+    defineField({
       name: 'title',
       title: 'Page Title',
       type: 'string',
@@ -11,8 +13,8 @@ export default {
         Rule.required(),
         Rule.max(120).warning(`A title shouldn't be more than 120 characters.`)
       ]
-    },
-    {
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -22,41 +24,43 @@ export default {
         source: 'title',
         maxLength: 96,
       },
-    },
-    {
+    }),
+    defineField({
       name: 'published',
       title: 'Published',
       type: 'boolean',
       initialValue: true,
-    },
-    {
+    }),
+    defineField({
       name: 'releaseDate',
       title: 'Release Date',
       type: 'datetime',
       initialValue: (new Date()).toISOString(),
       validation: (Rule: any) => Rule.required()
-    },
-    {
+    }),
+    defineField({
       name: 'tags',
       title: 'Tags',
       type: 'tags',
       initialValue: []
-    },
-    {
+    }),
+    defineField({
       name: 'content',
       title: 'Content',
       type: 'portableText',
       initialValue: [],
-    },
-    {
+    }),
+    defineField({
       name: 'sources',
       title: 'Sources',
       type: 'array',
       of: [{ type: 'source' }],
       validation: (Rule: any) => Rule.unique(),
       description: "Name and link to the source. Ordered. Link not required.",
-      editModal: "popover"
-    }
+      options: {
+        modal: { type: 'popover' }
+      }
+    })
   ],
   preview: {
     select: {
@@ -93,4 +97,4 @@ export default {
       ]
     },
   ]
-};
+})
