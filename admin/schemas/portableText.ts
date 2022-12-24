@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import { EarthAmericasIcon, LinkIcon, ImageIcon } from '@sanity/icons';
 
 export const portableText = defineType({
     name: 'portableText',
@@ -23,6 +24,7 @@ export const portableText = defineType({
                         name: 'externalLink',
                         type: 'object',
                         title: 'External link',
+                        icon: EarthAmericasIcon,
                         description: "Link outside the blog",
                         fields: [
                             defineField({
@@ -43,6 +45,7 @@ export const portableText = defineType({
                         name: 'internalLink',
                         type: 'object',
                         title: 'Internal link',
+                        icon: LinkIcon,
                         description: "Link for a post or series",
                         fields: [
                             defineField({
@@ -62,6 +65,7 @@ export const portableText = defineType({
         },
         {
             type: 'image',
+            icon: ImageIcon,
             fields: [
                 defineField({
                     name: 'caption',
