@@ -3,7 +3,7 @@ import { NextPage } from "next/types";
 
 import useDarkMode from "../hooks/useDarkMode";
 import ActiveLink from "./ActiveLink";
-import GithubLogo from "@common/svg/github";
+import GithubLogo from "@common/svg/GithubLogo";
 import LightSwitch from "@common/svg/LightSwitch";
 
 const ThemeSwitch = () => {

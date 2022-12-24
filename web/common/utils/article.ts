@@ -2,21 +2,30 @@ import { PortableTextBlock } from "@portabletext/types";
 import { groq } from "next-sanity";
 import { getClient } from "./sanity/sanity.server";
 
+const ALL_POSTS = `*[_type == "post"]`;
+const ALL_PUBLISHED_POSTS = `*[_type == "post" && published]`;
+const POST_BY_SLUG = `*[_type == "post" && slug.current == $slug][0]`; // Parameter slug
+
+type Footnote = {
+    text: string;
+    number: number;
+};
+
 export default {
     getPaginatedPosts: async function (from: number, to: number) {
-        return getClient().fetch(groq`*[_type == "post"] | order(_createdAt desc) [$from...$to]{
+        return getClient().fetch(groq`${ALL_PUBLISHED_POSTS} | order(_createdAt desc) [$from...$to]{
             ...,
             "series": *[_type == "series" && references(^._id)]
           }`, { from, to });
     },
 
     getAllSlugs: async function () {
-        return await getClient().fetch(groq`*[_type == "post"].slug.current`);
+        return await getClient().fetch(groq`${ALL_PUBLISHED_POSTS}.slug.current`);
     },
 
     getPostBySlug: async function (slug: string) {
         return getClient().fetch(groq`
-        *[_type == "post" && slug.current == $slug][0]{
+        ${POST_BY_SLUG}{
             ...,
             "series": *[_type == "series" && references(^._id)],
             content[]{
@@ -42,7 +51,7 @@ export default {
     },
 
     getPostsCount: async function () {
-        return getClient().fetch(groq`count(*[_type == "post"])`);
+        return getClient().fetch(groq`count(${ALL_PUBLISHED_POSTS})`);
     },
 
     makeSlug: function (text: string) {
@@ -68,6 +77,32 @@ export default {
 
                 return { text, slug };
             })
+    },
+
+    // returns array, one item for every section.
+    extractFootnotes: function (blocks: PortableTextBlock[] = []): Footnote[] {
+        let arr: Footnote[] = [];
+        let counter = 1;
+        blocks
+            .filter((block: any) => {
+                return block._type == 'block';
+            })
+            .forEach((block: any) => {
+                const isHeading = block.style == "h2";
+                if (!isHeading) {
+                    // Ordinary block
+                    block.children.forEach((child: any) => {
+                        if (child._type == "footnote") {
+                            // cannot get index here
+                            const text: string = child.text;
+                            arr.push({ text, number: counter });
+                            counter += 1;
+                        }
+                    });
+
+                }
+            })
+        return arr;
     },
 
     // Source: https://www.sanity.io/docs/presenting-block-text

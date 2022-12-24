@@ -1,34 +1,36 @@
-export default {
+import { defineType, defineField } from "sanity";
+
+export const series = defineType({
     name: 'series',
     title: 'Series',
     type: 'document',
     fields: [
-        {
+        defineField({
             name: 'title',
             title: 'Series title',
             type: 'string',
-            validation: (Rule) => [
+            validation: (Rule: any) => [
                 Rule.required(),
                 Rule.max(120).warning(`A title shouldn't be more than 120 characters.`)
             ]
-        },
-        {
+        }),
+        defineField({
             name: 'slug',
             title: 'Slug',
             type: 'slug',
-            validation: (Rule) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
             options: {
                 source: 'title',
                 maxLength: 96,
             },
-        },
-        {
+        }),
+        defineField({
             name: 'tags',
             title: 'Tags',
             type: 'tags',
             initialValue: []
-        },
-        {
+        }),
+        defineField({
             name: 'posts',
             title: 'Posts',
             type: 'array',
@@ -38,6 +40,20 @@ export default {
                 type: 'reference',
                 to: [{ type: 'post' }]
             }]
+        })
+    ],
+    preview: {
+        select: {
+            title: 'title',
+            posts: 'posts',
+        },
+        prepare(selection: any) {
+            const { title, posts } = selection;
+            const plural = posts.length > 1;
+            return {
+                title: title,
+                subtitle: `${posts.length} blogpost${plural ? `s` : ``}`
+            }
         }
-    ]
-};
+    }
+})

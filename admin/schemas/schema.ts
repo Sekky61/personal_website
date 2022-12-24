@@ -1,12 +1,11 @@
 // We import object and document schemas
-import category from './category'
-import post from './post'
-import source from './source'
-import series from './series'
-import portableText from './portableText'
-import codeFile from './codeFile'
-import tags from './tags'
-import tag from './tag'
+import { category } from './category'
+import { post } from './post'
+import { source } from './source'
+import { series } from './series'
+import { tag, tags } from './tag'
+
+import { portableText } from './portableText/portableText'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default [
@@ -17,7 +16,6 @@ export default [
   category,
   source,
   portableText,
-  codeFile,
   tags,
   tag
 ]

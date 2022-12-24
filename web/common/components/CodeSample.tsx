@@ -1,9 +1,34 @@
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'; // css object
+
+import { CopyIcon, CheckmarkIcon } from '@common/svg/CopyIcon';
 
 // options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
-export default function CodeSample(p: any) {
+export default function CodeSample({ value }: any) {
+    const { fileName, code: { code, language } } = value;
+
+    // Patch the style - remove margin
+    a11yDark['pre[class*="language-"]'].margin = '0px';
+
+    return (
+        <div>
+            <div className='flex px-6'>
+                <div className='bg-[#2B2B2B] text-white px-8 pt-1 rounded-t-lg font-mono'>
+                    {fileName}
+                </div>
+            </div>
+            <div className='relative'>
+                <CopyButton code={code}></CopyButton>
+                <SyntaxHighlighter language={language} style={a11yDark} showLineNumbers wrapLongLines wrapLines>
+                    {code}
+                </SyntaxHighlighter>
+            </div>
+        </div>
+    );
+};
+
+const CopyButton = ({ code }: any) => {
     const [showCheck, setShowCheck] = useState(false);
 
     const copyClicked = () => {
@@ -15,21 +40,15 @@ export default function CodeSample(p: any) {
         setShowCheck(false);
     }
 
-    const code = p.value.code.code;
-    const lang = p.value.code.language;
-    const fileName = p.value.fileName;
     return (
-        <div className='relative'>
-            <button className={'absolute top-0 right-0 duration-100 bg-slate-400 hover:bg-white rounded-sm m-2 p-0.5 ' + (showCheck ? 'hover:bg-green-400' : '')}
-                onClick={copyClicked} onMouseLeave={mouseLeave}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path className={showCheck ? 'check-path' : 'clipboard-path'} strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-            </button>
-            <SyntaxHighlighter language={lang} style={a11yDark} showLineNumbers>
-                {code}
-            </SyntaxHighlighter>
-        </div>
+        <button className={'absolute top-0 right-0 m-2 p-0.5 duration-100 bg-slate-500 rounded-sm ' + (showCheck ? 'hover:bg-green-400' : 'hover:bg-primary-200')}
+            onClick={copyClicked} onMouseLeave={mouseLeave}>
+            {
+                showCheck ?
+                    <CheckmarkIcon></CheckmarkIcon>
+                    :
+                    <CopyIcon></CopyIcon>
+            }
+        </button>
     );
-};
-
+}
