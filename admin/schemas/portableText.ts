@@ -30,7 +30,8 @@ export const portableText = defineType({
                             defineField({
                                 name: 'href',
                                 type: 'url',
-                                title: 'URL'
+                                title: 'URL',
+                                validation: (Rule: any) => Rule.required(),
                             }),
                             defineField({
                                 title: 'Open in new tab',

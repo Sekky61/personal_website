@@ -85,3 +85,7 @@ body {
 .footnotes ol {
   @apply list-decimal ml-8
 }
+
+.link {
+  @apply underline underline-offset-2 decoration-1 hover:decoration-2 decoration-primary-400 font-bold
+}

@@ -97,10 +97,10 @@ const components: PortableTextComponents = {
   },
   marks: {
     internalLink: ({ value, children }) => {
-      return <Link href={`/post/${value.slug.current}`}>{children}</Link>;
+      return <Link href={`/post/${value.slug.current}`} className='link'>{children}</Link>;
     },
     externalLink: ({ value, children }) => {
-      return <a href={value.href} target={value.blank ? "_blank" : undefined} rel="noreferrer">{children}</a>;
+      return <a href={value.href} target={value.blank ? "_blank" : undefined} rel="noreferrer" className='link'>{children}</a>;
     },
   }
 };
