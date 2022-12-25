@@ -3,23 +3,24 @@ import Link from "next/link"
 export default function BlogPostCard({ title, slug, tags, ...rest }: any) {
   const is_in_series = rest.series.length != 0;
 
+  let newTags;
+  if (is_in_series) {
+    // This is good, concat doesn’t modify the original array
+    newTags = tags.concat([{ label: "Series", value: "series" }]);
+  } else {
+    newTags = tags;
+  }
+
   return (
     <Link href={`/post/${slug.current}`}>
-      <div className="duration-100 rounded bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
-        <h1 className="text-xl">
+      <div className="group duration-100 rounded-md bg-slate-100 dark:bg-zinc-800 w-full p-4">
+        <h1 className="text-xl mb-4 group-hover:underline">
           {title}
         </h1>
-        <div className="flex gap-1 mt-2">
+        <div className="flex gap-1">
           {
-            is_in_series ?
-              <div className="tag-pill bg-primary-400 hover:bg-primary-500">
-                Series
-              </div>
-              : <></>
-          }
-          {
-            tags.map(({ label, value }: any) =>
-              <div key={value} className="tag-pill bg-primary-200 hover:bg-primary-300">
+            newTags.map(({ label, value }: any) =>
+              <div key={value} className="tag-pill bg-primary-400 hover:bg-primary-500">
                 {label}
               </div>
             )

@@ -10,7 +10,7 @@ const ThemeSwitch = () => {
     const uses_light = colorTheme === "light";
 
     return (
-        <button onClick={() => { uses_light ? setTheme("dark") : setTheme("light") }} type="button" className="mr-5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-full text-sm p-1.5">
+        <button onClick={() => { uses_light ? setTheme("dark") : setTheme("light") }} type="button" className="mr-5 focus:ring focus:ring-primary-200 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-full text-sm p-1.5">
             <LightSwitch uses_light={uses_light}></LightSwitch>
         </button>
     );
@@ -26,7 +26,7 @@ const Header = () => {
                         <span className="whitespace-nowrap hidden sm:block text-2xl">Michal Majer</span>
                         <span className="whitespace-nowrap sm:hidden text-2xl">Majer</span>
                     </Link>
-                    <div className="flex items-center ml-auto text-sm leading-7 overflow-x-auto">
+                    <div className="flex overflow-visible items-center ml-auto text-sm leading-7 overflow-x-auto">
                         <ThemeSwitch></ThemeSwitch>
                         <nav>
                             <ul className="flex space-x-5">

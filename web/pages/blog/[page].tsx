@@ -16,7 +16,7 @@ export default function BlogListing({ posts_props, posts_count, page }: any) {
             <p>
                 Check out blog posts sorted by <Link href={`/series`}>series</Link>
             </p>
-            <ul className='flex flex-col gap-5'>
+            <ul className='flex flex-col gap-4'>
                 {posts_props.map((props: any) => (
                     <li key={props.slug}>
                         <BlogPostCard {...props}></BlogPostCard>

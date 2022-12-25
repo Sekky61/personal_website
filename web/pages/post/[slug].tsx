@@ -70,7 +70,7 @@ const Sources = ({ sources }: any) => {
 const CustomImage = (p: any) => {
   return (
     <div className='flex justify-center'>
-      <div className='rounded overflow-hidden'>
+      <div className='rounded-md overflow-hidden'>
         <Image src={p.value.url} alt={p.alt} width={450} height={450} />
       </div>
     </div>

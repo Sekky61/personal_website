@@ -8,7 +8,7 @@ export const resultsPerPage = 10;
 export function SeriesCard({ title, slug, tags, posts, ...rest }: any) {
     return (
         <Link href={`/post/${slug.current}`}>
-            <div className="duration-100 rounded bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
+            <div className="duration-100 rounded-md bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
                 <h1 className="text-xl">
                     {title}
                 </h1>
