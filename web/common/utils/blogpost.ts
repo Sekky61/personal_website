@@ -1,17 +1,19 @@
 import { PortableTextBlock } from "@portabletext/types";
 import { groq } from "next-sanity";
+import readingTime, { ReadTimeResults } from "reading-time";
+
 import { getClient } from "./sanity/sanity.server";
 
 const ALL_POSTS = `*[_type == "post"]`;
 const ALL_PUBLISHED_POSTS = `*[_type == "post" && published]`;
 const POST_BY_SLUG = `*[_type == "post" && slug.current == $slug][0]`; // Parameter slug
 
-type Footnote = {
+export type Footnote = {
     text: string;
     number: number;
 };
 
-type Heading = {
+export type Heading = {
     text: string;
     slug: string;
 };
@@ -32,6 +34,38 @@ export class Blogpost {
         this.footnotes = Blogpost.extractFootnotes(post.content);
         this.plainText = Blogpost.blocksToPlainText(post.content);
         this.headings = Blogpost.getHeadings(post.content);
+    }
+
+    get releaseDate() {
+        return new Date(this.data.releaseDate);
+    }
+
+    get slug() {
+        return this.data.slug.current;
+    }
+
+    readingTime(): ReadTimeResults {
+        return readingTime(this.plainText);
+    }
+
+    isPartOfSeries() {
+        return this.data.series && this.data.series.length > 0;
+    }
+
+    getSeriesPart() {
+        if (this.isPartOfSeries()) {
+            return this.data.series[0].posts.findIndex((el: any) => {
+                return el._ref == this.data._id;
+            }) + 1;
+        }
+        return null;
+    }
+
+    getSerieSlug() {
+        if (this.isPartOfSeries()) {
+            return this.data.series[0].slug.current;
+        }
+        return null;
     }
 
     // Make a slug from a string.
@@ -118,15 +152,15 @@ export class Blogpost {
 }
 
 // Utility class for loading blogpost data from Sanity.
-export class BlogpostLoader {
+export class BlogpostDataLoader {
     // Get all posts, paginated.
     static async getPaginatedPosts(from: number, to: number): Promise<Blogpost[]> {
-        let posts = await getClient().fetch(groq`${ALL_PUBLISHED_POSTS} | order(_createdAt desc) [$from...$to]{
+        let posts = await getClient().fetch(groq`${ALL_PUBLISHED_POSTS} | order(releaseDate desc) [$from...$to]{
             ...,
             "series": *[_type == "series" && references(^._id)]
           }`, { from, to });
 
-        return posts.map((post: any) => new Blogpost(post));
+        return posts;
     }
 
     // Get all slugs for posts.
@@ -153,7 +187,7 @@ export class BlogpostLoader {
                 }
             }
         }`, { slug });
-        return new Blogpost(post);
+        return post;
     }
 
     // Get all series.

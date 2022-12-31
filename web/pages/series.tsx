@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
-import { BlogpostLoader } from '@common/utils/blogpost';
+import { BlogpostDataLoader } from '@common/utils/blogpost';
 
 export const resultsPerPage = 10;
 
@@ -54,7 +54,7 @@ export default function BlogListing({ series }: any) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
-    const series = await BlogpostLoader.getPostSeries();
+    const series = await BlogpostDataLoader.getPostSeries();
 
     return {
         props: { series },

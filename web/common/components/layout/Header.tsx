@@ -1,9 +1,10 @@
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 
-import useDarkMode from "../hooks/useDarkMode";
-import ActiveLink from "./ActiveLink";
 import GithubLogo from "@common/svg/GithubLogo";
 import LightSwitch from "@common/svg/LightSwitch";
+import { useRouter } from "next/router";
+import React, { Children } from "react";
+import useDarkMode from "@common/hooks/useDarkMode";
 
 const ThemeSwitch = () => {
     const [colorTheme, setTheme] = useDarkMode();
@@ -15,6 +16,35 @@ const ThemeSwitch = () => {
         </button>
     );
 }
+
+// Argument for component creation, with added props
+type NavLinkProps = React.PropsWithChildren<LinkProps> & {
+    activeClassName?: string;
+};
+
+// NavLink must have single child (probably <a> tag; textNode does not count)
+// src: https://frontend-digest.com/how-to-create-navlink-component-in-nextjs-586052e39ba7
+const NavLink = ({
+    children,
+    activeClassName = "navlink-active",
+    ...props
+}: NavLinkProps) => {
+    const { asPath } = useRouter();
+    const child = Children.only(children) as React.ReactElement;
+    const childClassName = child.props.className || "";
+
+    const isActive = asPath === props.href || asPath === props.as;
+
+    const className = `${childClassName} ${isActive ? activeClassName : ""}`;
+
+    return (
+        <Link {...props}>
+            {React.cloneElement(child, {
+                className: className || null
+            })}
+        </Link>
+    );
+};
 
 // todo mobile sizes
 const Header = () => {
@@ -31,19 +61,19 @@ const Header = () => {
                         <nav>
                             <ul className="flex space-x-5">
                                 <li>
-                                    <ActiveLink href="/about">
+                                    <NavLink href="/about">
                                         <span className="navlink">About me</span>
-                                    </ActiveLink>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <ActiveLink href="/blog">
+                                    <NavLink href="/blog">
                                         <span className="navlink">Blog</span>
-                                    </ActiveLink>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <ActiveLink href="/portfolio">
+                                    <NavLink href="/portfolio">
                                         <span className="navlink">Portfolio</span>
-                                    </ActiveLink>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </nav>
