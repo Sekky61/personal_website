@@ -1,7 +1,8 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import readingTime from 'reading-time';
+import Image from 'next/image';
+import readingTime, { ReadTimeResults } from 'reading-time';
 import assert from 'assert';
 
 import { PortableText } from '@portabletext/react'
@@ -9,8 +10,7 @@ import { PortableTextComponents } from '@portabletext/react'
 
 import CodeSample from '@components/CodeSample';
 import LinkHeading from '@components/LinkHeading';
-import article from '@common/utils/article';
-import Image from 'next/image';
+import { Blogpost, BlogpostLoader } from '@common/utils/blogpost';
 
 const Contents = ({ headings }: any) => {
   const heading_items = headings.map(({ text, slug }: any) =>
@@ -102,16 +102,22 @@ const components: PortableTextComponents = {
   }
 };
 
-export default function Page({ post, reading_time, headings, slug, footnotes }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const created_date = new Date(post._createdAt);
+type PageProps = {
+  post: Blogpost;
+  reading_time: ReadTimeResults;
+  slug: string;
+}
+
+export default function Page({ post, reading_time, slug }: PageProps) {
+  const created_date = new Date(post.data._createdAt);
   const formatted_date = created_date.toISOString().split('T')[0];
 
-  const is_in_series = post.series.length != 0;
+  const is_in_series = post.data.series.length != 0;
 
   let series_part_index = -1;
   if (is_in_series) {
-    series_part_index = post.series[0].posts.findIndex((el: any) => {
-      return el._ref == post._id;
+    series_part_index = post.data.series[0].posts.findIndex((el: any) => {
+      return el._ref == post.data._id;
     });
     series_part_index += 1;
   }
@@ -121,11 +127,11 @@ export default function Page({ post, reading_time, headings, slug, footnotes }: 
   return (
     <div>
       <Head>
-        <title>{post.title}</title>
+        <title>{post.data.title}</title>
       </Head>
       <Link href={`/post/${slug}`}>
         <h1>
-          {post.title}
+          {post.data.title}
         </h1>
       </Link>
       <div className='flex divide-x mb-6'>
@@ -139,21 +145,21 @@ export default function Page({ post, reading_time, headings, slug, footnotes }: 
       {is_in_series ?
         <p>
           This article is part {series_part_index} of a multipart series.
-          Be sure to check out the other articles <Link href={`/series/${post.series[0].slug.current}`}>in the series</Link>.
+          Be sure to check out the other articles <Link href={`/series/${post.data.series[0].slug.current}`}>in the series</Link>.
         </p>
         : <></>
       }
-      <Contents headings={headings}></Contents>
+      <Contents headings={post.headings}></Contents>
       <div className='my-8'>
         <PortableText
-          value={post.content}
+          value={post.data.content}
           components={components}
         />
       </div>
       <div className='my-8'>
-        <Footnotes footnotes={footnotes}></Footnotes>
+        <Footnotes footnotes={post.footnotes}></Footnotes>
       </div>
-      <Sources sources={post.sources}></Sources>
+      <Sources sources={post.data.sources}></Sources>
     </div>
   );
 }
@@ -163,28 +169,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
   assert(typeof (slug) == "string");
 
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
-  const post = await article.getPostBySlug(slug);
-  const post_plaintext = article.blocksToPlainText(post.content);
+  const post = await BlogpostLoader.getPostBySlug(slug);
 
-  const reading_time = readingTime(post_plaintext);
-  const headings = article.getH2Headings(post.content);
-
-  const footnotes = article.extractFootnotes(post.content);
+  const reading_time = readingTime(post.plainText);
 
   // Spread first, so edited fields are not covered
   return {
     props: {
-      post,
+      post: JSON.parse(JSON.stringify(post)),
       reading_time,
-      headings,
       slug,
-      footnotes
     }
   };
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await article.getAllSlugs();
+  const slugs = await BlogpostLoader.getAllSlugs();
   const paths = slugs.map((slug: string) => ({ params: { slug } }));
 
   return {

@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 
 import BlogPostCard from '@components/BlogPostCard';
 import Pagination from '@components/Pagination';
-import article from '@common/utils/article';
+import { Blogpost, BlogpostLoader } from '@common/utils/blogpost';
 import Link from 'next/link';
 
 export const resultsPerPage = 10;
@@ -17,9 +17,9 @@ export default function BlogListing({ posts_props, posts_count, page }: any) {
                 Check out blog posts sorted by <Link href={`/series`}>series</Link>
             </p>
             <ul className='flex flex-col gap-4'>
-                {posts_props.map((props: any) => (
-                    <li key={props.slug}>
-                        <BlogPostCard {...props}></BlogPostCard>
+                {posts_props.map((post: Blogpost) => (
+                    <li key={post.data.slug}>
+                        <BlogPostCard post={post}></BlogPostCard>
                     </li>
                 ))}
             </ul>
@@ -37,17 +37,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const from = (page - 1) * resultsPerPage;
     const to = from + resultsPerPage;
 
-    const posts = await article.getPaginatedPosts(from, to);
-    const posts_count = await article.getPostsCount();
+    const posts = await BlogpostLoader.getPaginatedPosts(from, to);
+    const posts_count = await BlogpostLoader.getPostsCount();
 
     return {
-        props: { posts_props: posts, posts_count, page },
+        props: {
+            posts_props: JSON.parse(JSON.stringify(posts)), // todo workaround
+            posts_count, page
+        },
         revalidate: 3600,
     };
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const posts_count = await article.getPostsCount();
+    const posts_count = await BlogpostLoader.getPostsCount();
     const pages_count = Math.max(Math.ceil(posts_count / resultsPerPage), 1); // at least one
 
     return {
