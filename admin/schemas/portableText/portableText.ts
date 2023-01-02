@@ -18,7 +18,7 @@ export const portableText = defineType({
             ],
             styles: [
                 { title: 'Normal', value: 'normal' },
-                { title: 'H2', value: 'h2' } // TODO rename
+                { title: 'Heading', value: 'heading' }
             ],
             marks: {
                 // Marks just mark a span

@@ -21,10 +21,6 @@ body {
     @apply my-2;
   }
 
-  .footnotes h2 {
-    @apply bg-red-500
-  }
-
   .small-container {
     @apply w-full md:w-[768px] mx-auto
   }

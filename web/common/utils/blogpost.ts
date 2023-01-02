@@ -88,12 +88,11 @@ export class Blogpost {
 
     // Get all headings from a post.
     static getHeadings(blocks: PortableTextBlock[] = []): Heading[] {
-        // Get each line individually, and filter out anything that
-        // isn't a h2 heading.
+        // Get each line individually, and filter out anything that isn't a heading.
         return blocks
             // loop through each block
             .filter((block: PortableTextBlock) => {
-                return block._type == 'block' && block.style == "h2";
+                return block._type == 'block' && block.style == "heading";
             })
             .map((block: PortableTextBlock) => {
                 const text = this.blocksToPlainText([block]);
@@ -111,7 +110,7 @@ export class Blogpost {
                 return block._type == 'block';
             })
             .forEach((block: any) => {
-                const isHeading = block.style == "h2";
+                const isHeading = block.style == "heading";
                 if (!isHeading) {
                     // Ordinary block
                     block.children.forEach((child: any) => {

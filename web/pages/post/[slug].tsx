@@ -37,7 +37,7 @@ const components: PortableTextComponents = {
     },
   },
   block: {
-    h2: LinkHeading,
+    heading: LinkHeading,
   },
   marks: {
     internalLink: ({ value, children }) => {
