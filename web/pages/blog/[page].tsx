@@ -7,7 +7,6 @@ import Link from 'next/link';
 
 export const resultsPerPage = 10;
 
-// TODO disallow navigating to nonexisting page (/blog/999)
 export default function BlogListing({ postsData, postsCount, currentPage }: any) {
     const posts = postsData.map((data: any) => {
         return new Blogpost(data);
@@ -61,6 +60,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return {
         paths: Array.from({ length: pagesCount }, (_, i) => i + 1).map((page: number) => ({ params: { page: page.toString() } })),
         fallback: false,
-        // TODO look into revalidate
     };
 }

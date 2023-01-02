@@ -1,5 +1,11 @@
+import { Footnote, Heading, Source } from "@common/utils/blogpost";
 
-export const Contents = ({ headings }: any) => {
+interface Headings {
+    headings: Heading[];
+}
+
+// Renders the contents of a post
+export const Contents = ({ headings }: Headings) => {
     const heading_items = headings.map(({ text, slug }: any) =>
         <li key={slug} className="hover:underline">
             <a href={"#" + slug}>{text}</a>
@@ -16,8 +22,18 @@ export const Contents = ({ headings }: any) => {
     );
 }
 
-export const Footnotes = ({ footnotes }: any) => {
-    const footnote_items = footnotes.map(({ text, number }: any) =>
+interface Footnotes {
+    footnotes: Footnote[];
+}
+
+// Renders the footnotes of a post
+export const Footnotes = ({ footnotes }: Footnotes) => {
+    // Do not render if there are no footnotes
+    if (footnotes.length === 0) {
+        return null;
+    }
+
+    const footnoteItems = footnotes.map(({ text, number }: Footnote) =>
         <li key={number} id={`#footnote-${number}`}>
             {text}
         </li>
@@ -27,17 +43,24 @@ export const Footnotes = ({ footnotes }: any) => {
         <div className='metablock'>
             <div className='metablock-heading'>Footnotes</div>
             <ol className='list-inside list-decimal'>
-                {footnote_items}
+                {footnoteItems}
             </ol>
         </div>
     );
 }
 
-export const Sources = ({ sources }: any) => {
-    // todo workaround for articles without sources
-    sources ??= [];
+interface Sources {
+    sources: Source[];
+}
 
-    const source_items = sources.map(({ link, name }: any) =>
+// Renders the sources of a post
+export const Sources = ({ sources }: Sources) => {
+    // Do not render if there are no sources
+    if (sources.length === 0) {
+        return null;
+    }
+
+    const sourceItems = sources.map(({ link, name }: any) =>
         <li key={name}>
             <span className='mr-4'>{name}</span>
             <a target="_blank" rel="noopener noreferrer" href={link} className="hover:underline">{link}</a>
@@ -48,7 +71,7 @@ export const Sources = ({ sources }: any) => {
         <div className='metablock'>
             <div className='metablock-heading'>Sources</div>
             <ol className='list-decimal ml-8'>
-                {source_items}
+                {sourceItems}
             </ol>
         </div>
     );

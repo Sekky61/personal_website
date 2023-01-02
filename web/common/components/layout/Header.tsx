@@ -22,7 +22,7 @@ type NavLinkProps = React.PropsWithChildren<LinkProps> & {
     activeClassName?: string;
 };
 
-// NavLink must have single child (probably <a> tag; textNode does not count)
+// NavLink must have single child
 // src: https://frontend-digest.com/how-to-create-navlink-component-in-nextjs-586052e39ba7
 const NavLink = ({
     children,
@@ -46,11 +46,10 @@ const NavLink = ({
     );
 };
 
-// todo mobile sizes
 const Header = () => {
     return (
         <div className="sticky top-0 w-full px-4 border-b divide-slate-500 dark:text-white bg-white dark:bg-dark">
-            <div className="small-container mx-auto py-3">
+            <div className="small-container py-3">
                 <div className="flex gap-3 items-center">
                     <Link href="/">
                         <span className="whitespace-nowrap hidden sm:block text-2xl">Michal Majer</span>

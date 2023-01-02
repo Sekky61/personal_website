@@ -2,7 +2,6 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import readingTime, { ReadTimeResults } from 'reading-time';
 import assert from 'assert';
 
 import { PortableText } from '@portabletext/react'
@@ -76,9 +75,8 @@ export default function Page({ postData }: any) {
       {isInSeries &&
         <p>
           This article is part {post.getSeriesPart()} of a multipart series.
-          Be sure to check out the other articles <Link href={`/series/${post.getSerieSlug()}`}>in the series</Link>.
+          Be sure to check out the other articles <Link href={`/series/${post.getSerieSlug()}`} className='link'>in the series</Link>.
         </p>
-        // TODO style link
       }
       <Contents headings={post.headings}></Contents>
       <div className='my-8'>
@@ -90,7 +88,7 @@ export default function Page({ postData }: any) {
       <div className='my-8'>
         <Footnotes footnotes={post.footnotes}></Footnotes>
       </div>
-      <Sources sources={post.data.sources}></Sources>
+      <Sources sources={post.sources}></Sources>
     </div>
   );
 }

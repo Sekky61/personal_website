@@ -35,7 +35,6 @@ export function SeriesCard({ title, slug, tags, posts, ...rest }: any) {
     )
 }
 
-// TODO disallow navigating to nonexisting page (/blog/999)
 export default function BlogListing({ series }: any) {
     return (
         <>

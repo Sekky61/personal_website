@@ -4,8 +4,18 @@ import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'; // cs
 
 import { CopyIcon, CheckmarkIcon } from '@common/svg/CopyIcon';
 
-// options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
-export default function CodeSample({ value }: any) {
+type CodeSampleProps = {
+    value: {
+        fileName: string;
+        code: {
+            code: string;
+            language: string;
+        }
+    }
+}
+
+// Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
+export default function CodeSample({ value }: CodeSampleProps) {
     const { fileName, code: { code, language } } = value;
 
     // Patch the style - remove margin

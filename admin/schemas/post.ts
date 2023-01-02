@@ -57,6 +57,7 @@ export const post = defineType({
       title: 'Sources',
       type: 'array',
       of: [{ type: 'source' }],
+      initialValue: [],
       validation: (Rule: any) => Rule.unique(),
       description: "Name and link to the source. Ordered. Link not required.",
       options: {
@@ -83,7 +84,7 @@ export const post = defineType({
       }
     }
   },
-  orderings: [ // todo check, doesn't seem to be working
+  orderings: [
     {
       title: 'Release Date, New',
       name: 'releaseDateDesc',

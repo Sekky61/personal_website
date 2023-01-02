@@ -18,21 +18,23 @@ export type Heading = {
     slug: string;
 };
 
-// Utility class for transforming blogpost data
+export type Source = {
+    name: string;
+    link: string;
+};
+
+// Utility class for blogposts.
 export class Blogpost {
     // The raw data from Sanity.
-    data: any;
+    data: any; // TODO: Type this when it is more stable.
     // The footnotes in the post.
     footnotes: Footnote[];
-    // The post as plain text.
-    plainText: string;
     // The headings in the post.
     headings: Heading[];
 
     constructor(post: any) {
         this.data = post;
-        this.footnotes = Blogpost.extractFootnotes(post.content);
-        this.plainText = Blogpost.blocksToPlainText(post.content);
+        this.footnotes = Blogpost.getFootnotes(post.content);
         this.headings = Blogpost.getHeadings(post.content);
     }
 
@@ -44,8 +46,14 @@ export class Blogpost {
         return this.data.slug.current;
     }
 
+    // Returns sources as an array of objects.
+    get sources(): Source[] {
+        return this.data.sources;
+    }
+
     readingTime(): ReadTimeResults {
-        return readingTime(this.plainText);
+        const plainText = Blogpost.blocksToPlainText(this.data.content);
+        return readingTime(plainText);
     }
 
     isPartOfSeries() {
@@ -78,16 +86,16 @@ export class Blogpost {
             .replace(/^-+|-+$/g, '');
     }
 
-    // Get all h2 headings from a post.
-    static getHeadings(blocks: PortableTextBlock[] = []) {
+    // Get all headings from a post.
+    static getHeadings(blocks: PortableTextBlock[] = []): Heading[] {
         // Get each line individually, and filter out anything that
         // isn't a h2 heading.
         return blocks
             // loop through each block
-            .filter((block: any) => {
+            .filter((block: PortableTextBlock) => {
                 return block._type == 'block' && block.style == "h2";
             })
-            .map((block: any) => {
+            .map((block: PortableTextBlock) => {
                 const text = this.blocksToPlainText([block]);
                 const slug = Blogpost.makeSlug(text);
                 return { text, slug };
@@ -95,7 +103,7 @@ export class Blogpost {
     }
 
     // returns array, one item for every section.
-    static extractFootnotes(blocks: PortableTextBlock[] = []): Footnote[] {
+    static getFootnotes(blocks: PortableTextBlock[] = []): Footnote[] {
         let arr: Footnote[] = [];
         let counter = 1;
         blocks
@@ -124,7 +132,7 @@ export class Blogpost {
     static blocksToPlainText(blocks: PortableTextBlock[] = []) {
         return blocks
             // loop through each block
-            .map((block: any) => {
+            .map((block: PortableTextBlock) => {
                 // if it's not a text block with children, 
                 // return nothing
                 if (block._type !== 'block' || !block.children) {
@@ -154,7 +162,7 @@ export class Blogpost {
 // Utility class for loading blogpost data from Sanity.
 export class BlogpostDataLoader {
     // Get all posts, paginated.
-    static async getPaginatedPosts(from: number, to: number): Promise<Blogpost[]> {
+    static async getPaginatedPosts(from: number, to: number) {
         let posts = await getClient().fetch(groq`${ALL_PUBLISHED_POSTS} | order(releaseDate desc) [$from...$to]{
             ...,
             "series": *[_type == "series" && references(^._id)]
@@ -169,7 +177,7 @@ export class BlogpostDataLoader {
     }
 
     // Get a single post by slug.
-    static async getPostBySlug(slug: string): Promise<Blogpost> {
+    static async getPostBySlug(slug: string) {
         let post = await getClient().fetch(groq`
         ${POST_BY_SLUG}{
             ...,
@@ -200,7 +208,7 @@ export class BlogpostDataLoader {
     }
 
     // Get the number of posts.
-    static async getPostsCount() {
+    static async getPostsCount(): Promise<number> {
         return await getClient().fetch(groq`count(${ALL_PUBLISHED_POSTS})`);
     }
 }

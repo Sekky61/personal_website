@@ -1,4 +1,3 @@
-// TODO mobile sizes
 const Footer = () => {
     const year = new Date().getFullYear();
 
