@@ -11,6 +11,7 @@ import CodeSample from '@components/post/CodeSample';
 import LinkHeading from '@components/post/LinkHeading';
 import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import { Contents, Footnotes, Sources } from '@common/components/post/blocks';
+import { Tip } from '@common/components/post/tip';
 
 const CustomImage = (p: any) => {
   return (
@@ -35,6 +36,7 @@ const components: PortableTextComponents = {
         </a>
       )
     },
+    tip: Tip,
   },
   block: {
     heading: LinkHeading,

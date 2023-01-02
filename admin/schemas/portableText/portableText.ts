@@ -4,6 +4,7 @@ import { internalLink } from "./internalLink";
 import { image } from "./image";
 import { footnote } from "./footnote";
 import { codeFile } from "./codeFile";
+import { tip } from "./tip";
 
 export const portableText = defineType({
     name: 'portableText',
@@ -30,6 +31,7 @@ export const portableText = defineType({
             }
         },
         image,
-        codeFile
+        codeFile,
+        tip
     ]
 })
