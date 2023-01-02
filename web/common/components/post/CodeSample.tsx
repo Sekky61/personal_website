@@ -7,32 +7,44 @@ import { CopyIcon, CheckmarkIcon } from '@common/svg/CopyIcon';
 type CodeSampleProps = {
     value: {
         fileName: string;
+        lineStart?: number;
         code: {
             code: string;
             language: string;
+            highlightedLines: number[];
         }
     }
 }
 
 // Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
 const CodeSample = ({ value }: CodeSampleProps) => {
-    const { fileName, code: { code, language } } = value;
+    const { fileName, lineStart, code: { code, language, highlightedLines } } = value;
     const hasFileName = fileName !== undefined && fileName !== null && fileName !== '';
+    const startingLineNumber = lineStart !== undefined && lineStart !== null ? lineStart : 1;
 
     // Patch the style - remove margin
     a11yDark['pre[class*="language-"]'].margin = '0px';
     a11yDark['pre[class*="language-"]'].paddingTop = '40px';
 
+    const lineProps = (lineNumber: number) => {
+        let props: any = {};
+        if (highlightedLines.includes(lineNumber)) {
+            props.class = 'bg-lime-800 rounded';
+        }
+        return props;
+    };
+
     return (
         <div>
             <div className='relative'>
                 {hasFileName &&
-                    <div className=' overflow-hidden bg-white/[.08] text-white px-6 py-1 rounded-tl-lg rounded-br-lg font-mono text-sm absolute top-0 left-0'>
+                    <div className='overflow-hidden bg-white/[.08] text-white px-6 py-1 rounded-tl-lg rounded-br-lg font-mono text-sm absolute top-0 left-0'>
                         {fileName}
                     </div>
                 }
                 <CopyButton code={code}></CopyButton>
-                <SyntaxHighlighter language={language} style={a11yDark} showLineNumbers wrapLongLines wrapLines>
+                <SyntaxHighlighter language={language} style={a11yDark} showLineNumbers wrapLongLines wrapLines startingLineNumber={startingLineNumber}
+                    lineProps={lineProps}>
                     {code}
                 </SyntaxHighlighter>
             </div>

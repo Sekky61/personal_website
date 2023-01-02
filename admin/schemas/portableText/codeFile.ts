@@ -12,7 +12,13 @@ export const codeFile = {
             title: 'File Name',
             type: 'string',
             initialValue: '',
-            description: "Name of the file, will be displayed",
+            description: "Name of the file, will be displayed. For example: 'index.js', 'Shell session'.",
+        }),
+        defineField({
+            name: 'lineStart',
+            title: 'Line Start',
+            type: 'number',
+            description: "The line number to start the code block at. Useful for code blocks that are part of a larger file.",
         }),
         defineField({
             // there is highlight lines support, data looks like: highlightedLines: [1, 2],
