@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { createElement, Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'; // css object
 
 import { CopyIcon, CheckmarkIcon } from '@common/svg/CopyIcon';
-import React from 'react';
+
+type TokenType = 'error' | 'warning' | 'info';
 
 type Token = {
-    type: string;
+    type: TokenType;
     line: number;
     message: string;
 }
@@ -24,19 +25,37 @@ type CodeSampleProps = {
     }
 }
 
+const lineStyle = {
+    highlighted: {
+        line: ['bg-lime-700/30', 'rounded'],
+        text: ['token-message', `highlight-token`]
+    },
+    error: {
+        line: ['bg-red-700/25', 'rounded'],
+        text: ['token-message', `error-token`]
+    },
+    warning: {
+        line: ['bg-yellow-700/25', 'rounded'],
+        text: ['token-message', `warning-token`]
+    },
+    info: {
+        line: ['bg-blue-700/25', 'rounded'],
+        text: ['token-message', `info-token`]
+    },
+};
+
 function rowRenderer({ row, stylesheet, useInlineStyles, rowNumber, tokens, highlightedLines }: any) {
-    if (highlightedLines.includes(rowNumber)) {
-        row.properties.className = ['bg-lime-800', 'rounded'];
-    }
-    // // find if there is a token for this line
+    // find if there is a token for this line
     const token = tokens.find((t: any) => t.line === rowNumber);
     if (token) {
-        row.properties.className = ['bg-red-700/30', 'rounded'];
+        const tokenType = token.type as TokenType;
+        const style = lineStyle[tokenType];
+        row.properties.className = style.line;
         row.children.push({
             type: 'element',
             tagName: 'span',
             properties: {
-                className: ['token-message', `error-token`]
+                className: style.text
             },
             children: [
                 {
@@ -45,6 +64,11 @@ function rowRenderer({ row, stylesheet, useInlineStyles, rowNumber, tokens, high
                 }
             ]
         });
+    } else if (highlightedLines.includes(rowNumber)) {
+        row.properties.className = lineStyle.highlighted.line;
+    } else {
+        // It needs to be reset
+        row.properties.className = [];
     }
 
     let rowElement = createElement({
@@ -55,15 +79,6 @@ function rowRenderer({ row, stylesheet, useInlineStyles, rowNumber, tokens, high
     });
 
     return rowElement;
-}
-
-function renderer({ rows, stylesheet, useInlineStyles }: any) {
-    // map and enumerate the rows
-    const renderedLines = rows.map((row: any, number: number) => {
-        return rowRenderer({ row, stylesheet, useInlineStyles, rowNumber: number })
-    })
-
-    return <div>{renderedLines}</div>
 }
 
 function createRendererWithContext(tokens: Token[], highlightedLines: number[]) {

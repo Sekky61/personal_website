@@ -82,3 +82,11 @@ body {
 .error-token {
   @apply text-red-500
 }
+
+.warning-token {
+  @apply text-yellow-500
+}
+
+.info-token {
+  @apply text-blue-500
+}

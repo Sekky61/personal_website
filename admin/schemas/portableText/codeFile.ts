@@ -59,7 +59,7 @@ export const codeFile = {
             title: 'Code',
             type: 'code',
             options: {
-                language: 'js',
+                language: 'javascript',
                 languageAlternatives: [
                     // Only these will appear
                     { title: 'Javascript', value: 'javascript' },
