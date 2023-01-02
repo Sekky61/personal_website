@@ -71,6 +71,6 @@ body {
   @apply underline underline-offset-2 decoration-1 hover:decoration-2 decoration-primary-400 font-bold
 }
 
-main ul {
+.article ul {
   @apply list-disc ml-8
 }

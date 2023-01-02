@@ -15,7 +15,7 @@ export default function Page({ postData }: any) {
   const isInSeries = post.isPartOfSeries();
 
   return (
-    <div>
+    <div className='article'>
       <Head>
         <title>{post.data.title}</title>
       </Head>
