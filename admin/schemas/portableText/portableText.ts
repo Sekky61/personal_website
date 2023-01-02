@@ -6,6 +6,7 @@ import { footnote } from "./footnote";
 import { codeFile } from "./codeFile";
 import { tip } from "./tip";
 
+// TODO make a cutdown version - no headings - to use in tips
 export const portableText = defineType({
     name: 'portableText',
     type: 'array',

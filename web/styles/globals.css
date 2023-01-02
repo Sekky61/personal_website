@@ -70,3 +70,7 @@ body {
 .link {
   @apply underline underline-offset-2 decoration-1 hover:decoration-2 decoration-primary-400 font-bold
 }
+
+ul {
+  @apply list-disc ml-8
+}

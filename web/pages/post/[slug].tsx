@@ -1,55 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 import assert from 'assert';
 
 import { PortableText } from '@portabletext/react'
-import { PortableTextComponents } from '@portabletext/react'
 
-import CodeSample from '@components/post/CodeSample';
-import LinkHeading from '@components/post/LinkHeading';
 import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import { Contents, Footnotes, Sources } from '@common/components/post/blocks';
-import { Tip } from '@common/components/post/tip';
-
-const CustomImage = (p: any) => {
-  return (
-    <div className='flex justify-center'>
-      <div className='rounded-md overflow-hidden'>
-        <Image src={p.value.url} alt={p.alt} width={450} height={450} />
-      </div>
-    </div>
-  );
-}
-
-// Configuration for PortableText rendering
-// Docs: https://github.com/portabletext/react-portabletext
-const components: PortableTextComponents = {
-  types: {
-    image: CustomImage,
-    codeFile: CodeSample,
-    footnote: ({ value, index }) => {
-      return (
-        <a href={`#footnote-${index}`}>
-          <sup>{index}</sup>
-        </a>
-      )
-    },
-    tip: Tip,
-  },
-  block: {
-    heading: LinkHeading,
-  },
-  marks: {
-    internalLink: ({ value, children }) => {
-      return <Link href={`/post/${value.slug.current}`} className='link'>{children}</Link>;
-    },
-    externalLink: ({ value, children }) => {
-      return <a href={value.href} target={value.blank ? "_blank" : undefined} rel="noreferrer" className='link'>{children}</a>;
-    },
-  }
-};
+import { blockRenderingElements } from '@common/utils/blockRendering';
 
 export default function Page({ postData }: any) {
   const post = new Blogpost(postData);
@@ -84,7 +42,7 @@ export default function Page({ postData }: any) {
       <div className='my-8'>
         <PortableText
           value={post.data.content}
-          components={components}
+          components={blockRenderingElements}
         />
       </div>
       <div className='my-8'>

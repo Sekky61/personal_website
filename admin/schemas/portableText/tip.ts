@@ -17,7 +17,7 @@ export const tip = {
         defineField({
             name: 'text',
             title: 'Text of tip',
-            type: 'string',
+            type: 'portableText',
             initialValue: '',
             description: "Content of the tip",
         }),

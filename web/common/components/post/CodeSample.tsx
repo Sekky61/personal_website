@@ -15,7 +15,7 @@ type CodeSampleProps = {
 }
 
 // Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
-export default function CodeSample({ value }: CodeSampleProps) {
+const CodeSample = ({ value }: CodeSampleProps) => {
     const { fileName, code: { code, language } } = value;
 
     // Patch the style - remove margin
@@ -62,3 +62,5 @@ const CopyButton = ({ code }: any) => {
         </button>
     );
 }
+
+export default CodeSample;

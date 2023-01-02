@@ -1,8 +1,10 @@
+import { blockRenderingElements } from "@common/utils/blockRendering";
+import { PortableText } from "@portabletext/react";
 
-
-export const Tip = ({ value, index }: any) => {
+// Renders a tip in a post
+// text value is an array of blocks
+const Tip = ({ value, index }: any) => {
     const { title, text } = value;
-    // block of text in a rounded box with a stroke
     return (
         <div className="border-primary-300 border-2 rounded-md p-4 flex my-4">
             <div className="flex items-center mr-4">
@@ -14,10 +16,15 @@ export const Tip = ({ value, index }: any) => {
                 <div className="text-lg font-bold mb-2">
                     {title}
                 </div>
-                <div >
-                    {text}
+                <div>
+                    <PortableText
+                        value={text}
+                        components={blockRenderingElements}
+                    />
                 </div>
             </div>
         </div>
     );
 };
+
+export default Tip;

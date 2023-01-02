@@ -3,7 +3,7 @@ import { Blogpost } from "@common/utils/blogpost";
 
 // LinkHeading takes its text value and adds id and href to itself
 // so that it can be linked to from elsewhere in the page.
-export default function LinkHeading({ children }: any) {
+const LinkHeading = ({ children }: any) => {
     const text = Blogpost.childrenToPlainText(children);
     const textSlug = Blogpost.makeSlug(text);
     return (
@@ -19,3 +19,5 @@ export default function LinkHeading({ children }: any) {
         </h2>
     );
 };
+
+export default LinkHeading;
