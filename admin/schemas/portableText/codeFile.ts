@@ -1,6 +1,39 @@
 import { defineField } from "sanity";
 import { CodeBlockIcon } from '@sanity/icons'
 
+export const codeToken = {
+    name: 'codeToken',
+    title: 'Code Token',
+    type: 'object',
+    fields: [
+        defineField({
+            name: 'type',
+            title: 'Type',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'Error', value: 'error' },
+                    { title: 'Warning', value: 'warning' },
+                    { title: 'Info', value: 'info' },
+                ],
+                layout: 'radio',
+            }
+        }),
+        defineField({
+            name: 'line',
+            title: 'Line',
+            type: 'number',
+            validation: Rule => Rule.required(),
+        }),
+        defineField({
+            name: 'message',
+            title: 'Message',
+            type: 'string',
+            initialValue: '',
+        }),
+    ],
+}
+
 export const codeFile = {
     name: 'codeFile',
     title: 'Code File',
@@ -37,6 +70,18 @@ export const codeFile = {
                     { title: 'SASS', value: 'sass' },
                 ]
             }
+        }),
+        defineField({
+            name: 'tokens',
+            title: 'Tokens',
+            type: 'array',
+            description: "",
+            initialValue: [],
+            of: [
+                {
+                    type: 'codeToken',
+                }
+            ],
         }),
     ],
 }

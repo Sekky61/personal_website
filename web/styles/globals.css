@@ -74,3 +74,11 @@ body {
 .article ul {
   @apply list-disc ml-8
 }
+
+.token-message {
+  @apply text-white/50 ml-3
+}
+
+.error-token {
+  @apply text-red-500
+}

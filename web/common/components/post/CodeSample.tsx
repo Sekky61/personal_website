@@ -1,13 +1,21 @@
 import { useState } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { createElement, Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'; // css object
 
 import { CopyIcon, CheckmarkIcon } from '@common/svg/CopyIcon';
+import React from 'react';
+
+type Token = {
+    type: string;
+    line: number;
+    message: string;
+}
 
 type CodeSampleProps = {
     value: {
         fileName: string;
         lineStart?: number;
+        tokens: Token[];
         code: {
             code: string;
             language: string;
@@ -16,9 +24,62 @@ type CodeSampleProps = {
     }
 }
 
+function rowRenderer({ row, stylesheet, useInlineStyles, rowNumber, tokens, highlightedLines }: any) {
+    if (highlightedLines.includes(rowNumber)) {
+        row.properties.className = ['bg-lime-800', 'rounded'];
+    }
+    // // find if there is a token for this line
+    const token = tokens.find((t: any) => t.line === rowNumber);
+    if (token) {
+        row.properties.className = ['bg-red-700/30', 'rounded'];
+        row.children.push({
+            type: 'element',
+            tagName: 'span',
+            properties: {
+                className: ['token-message', `error-token`]
+            },
+            children: [
+                {
+                    type: 'text',
+                    value: token.message
+                }
+            ]
+        });
+    }
+
+    let rowElement = createElement({
+        node: row,
+        stylesheet,
+        useInlineStyles,
+        key: rowNumber,
+    });
+
+    return rowElement;
+}
+
+function renderer({ rows, stylesheet, useInlineStyles }: any) {
+    // map and enumerate the rows
+    const renderedLines = rows.map((row: any, number: number) => {
+        return rowRenderer({ row, stylesheet, useInlineStyles, rowNumber: number })
+    })
+
+    return <div>{renderedLines}</div>
+}
+
+function createRendererWithContext(tokens: Token[], highlightedLines: number[]) {
+    return ({ rows, stylesheet, useInlineStyles }: any) => {
+        const renderedLines = rows.map((row: any, number: number) => {
+            const lineNumber = number + 1;
+            return rowRenderer({ row, stylesheet, useInlineStyles, rowNumber: lineNumber, tokens, highlightedLines })
+        })
+
+        return <div>{renderedLines}</div>
+    }
+}
+
 // Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
 const CodeSample = ({ value }: CodeSampleProps) => {
-    const { fileName, lineStart, code: { code, language, highlightedLines } } = value;
+    const { fileName, lineStart, tokens, code: { code, language, highlightedLines = [] } } = value;
     const hasFileName = fileName !== undefined && fileName !== null && fileName !== '';
     const startingLineNumber = lineStart !== undefined && lineStart !== null ? lineStart : 1;
 
@@ -26,13 +87,7 @@ const CodeSample = ({ value }: CodeSampleProps) => {
     a11yDark['pre[class*="language-"]'].margin = '0px';
     a11yDark['pre[class*="language-"]'].paddingTop = '40px';
 
-    const lineProps = (lineNumber: number) => {
-        let props: any = {};
-        if (highlightedLines.includes(lineNumber)) {
-            props.class = 'bg-lime-800 rounded';
-        }
-        return props;
-    };
+    const renderer = createRendererWithContext(tokens, highlightedLines);
 
     return (
         <div>
@@ -44,7 +99,7 @@ const CodeSample = ({ value }: CodeSampleProps) => {
                 }
                 <CopyButton code={code}></CopyButton>
                 <SyntaxHighlighter language={language} style={a11yDark} showLineNumbers wrapLongLines wrapLines startingLineNumber={startingLineNumber}
-                    lineProps={lineProps}>
+                    renderer={renderer}>
                     {code}
                 </SyntaxHighlighter>
             </div>
