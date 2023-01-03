@@ -1,5 +1,4 @@
 // We import object and document schemas
-import { category } from './category'
 import { post } from './post'
 import { source } from './source'
 import { series } from './series'
@@ -14,7 +13,6 @@ export default [
   // in the studio.
   post,
   series,
-  category,
   source,
   portableText,
   codeToken,

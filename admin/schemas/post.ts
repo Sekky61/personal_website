@@ -75,8 +75,7 @@ export const post = defineType({
       const { title, published, releaseDate } = selection;
       const emoji = published ? "✅" : "❌";
       const message = published ? "published" : "unpublished";
-      const isSortedByRelease = ("ordering" in viewOptions) &&
-        (viewOptions.ordering.name === 'releaseDateDesc' || viewOptions.ordering.name === 'releaseDateAsc');
+      const isSortedByRelease = viewOptions.ordering && viewOptions.ordering.name && viewOptions.ordering.name.includes('releaseDate');
 
       return {
         title: title,

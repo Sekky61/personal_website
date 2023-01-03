@@ -1,5 +1,5 @@
 import { defineField } from "sanity";
-import { CodeBlockIcon } from '@sanity/icons'
+import { CodeBlockIcon } from '@sanity/icons';
 
 export const codeToken = {
     name: 'codeToken',
