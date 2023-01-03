@@ -3,13 +3,15 @@ import { deskTool } from 'sanity/desk';
 import schemas from './schemas/schema';
 import { codeInput } from "@sanity/code-input";
 import { visionTool } from '@sanity/vision';
+import { latexInput } from "sanity-plugin-latex-input";
 
 const common = {
     projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
     plugins: [
         deskTool(),
         codeInput(),
-        visionTool()
+        visionTool(),
+        latexInput()
     ],
     schema: {
         types: schemas,
