@@ -6,6 +6,16 @@ export const post = defineType({
   title: 'Posts',
   type: 'document',
   icon: DocumentTextIcon,
+  groups: [
+    {
+      name: 'meta',
+      title: 'Meta',
+    },
+    {
+      name: 'content',
+      title: 'Content',
+    },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -14,7 +24,8 @@ export const post = defineType({
       validation: (Rule: any) => [
         Rule.required(),
         Rule.max(120).warning(`A title shouldn't be more than 120 characters.`)
-      ]
+      ],
+      group: 'meta',
     }),
     defineField({
       name: 'slug',
@@ -26,31 +37,36 @@ export const post = defineType({
         source: 'title',
         maxLength: 96,
       },
+      group: 'meta',
     }),
     defineField({
       name: 'published',
       title: 'Published',
       type: 'boolean',
       initialValue: true,
+      group: 'meta',
     }),
     defineField({
       name: 'releaseDate',
       title: 'Release Date',
       type: 'datetime',
       initialValue: (new Date()).toISOString(),
-      validation: (Rule: any) => Rule.required()
+      validation: (Rule: any) => Rule.required(),
+      group: 'meta',
     }),
     defineField({
       name: 'tags',
       title: 'Tags',
       type: 'tags',
-      initialValue: []
+      initialValue: [],
+      group: 'meta',
     }),
     defineField({
       name: 'content',
       title: 'Content',
       type: 'portableText',
       initialValue: [],
+      group: 'content',
     }),
     defineField({
       name: 'sources',
@@ -62,7 +78,8 @@ export const post = defineType({
       description: "Name and link to the source. Ordered. Link not required.",
       options: {
         modal: { type: 'popover' }
-      }
+      },
+      group: 'content',
     })
   ],
   preview: {

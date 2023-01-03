@@ -5,7 +5,7 @@ import { codeInput } from "@sanity/code-input";
 import { visionTool } from '@sanity/vision';
 
 const common = {
-    projectId: "3q20z5w8",
+    projectId: process.env.SANITY_PROJECT_ID,
     plugins: [
         deskTool(),
         codeInput(),
