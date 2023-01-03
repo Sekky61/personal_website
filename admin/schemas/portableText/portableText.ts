@@ -4,7 +4,10 @@ import { internalLink } from "./internalLink";
 import { image } from "./image";
 import { footnote } from "./footnote";
 import { codeFile } from "./codeFile";
+import { tip } from "./tip";
+import { latexBlock, latexInline } from "./latex";
 
+// TODO make a cutdown version - no headings - to use in tips
 export const portableText = defineType({
     name: 'portableText',
     type: 'array',
@@ -14,11 +17,12 @@ export const portableText = defineType({
             type: 'block',
             of: [
                 // inline blocks
-                footnote
+                footnote,
+                latexInline
             ],
             styles: [
                 { title: 'Normal', value: 'normal' },
-                { title: 'H2', value: 'h2' }
+                { title: 'Heading', value: 'heading' }
             ],
             marks: {
                 // Marks just mark a span
@@ -30,6 +34,8 @@ export const portableText = defineType({
             }
         },
         image,
-        codeFile
+        codeFile,
+        tip,
+        latexBlock
     ]
 })

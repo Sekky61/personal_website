@@ -1,14 +1,14 @@
 import { GetStaticProps } from 'next';
-
-import article from '@common/utils/article';
 import Link from 'next/link';
+
+import { BlogpostDataLoader } from '@common/utils/blogpost';
 
 export const resultsPerPage = 10;
 
 export function SeriesCard({ title, slug, tags, posts, ...rest }: any) {
     return (
         <Link href={`/post/${slug.current}`}>
-            <div className="duration-100 rounded bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
+            <div className="duration-100 rounded-md bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
                 <h1 className="text-xl">
                     {title}
                 </h1>
@@ -35,7 +35,6 @@ export function SeriesCard({ title, slug, tags, posts, ...rest }: any) {
     )
 }
 
-// TODO disallow navigating to nonexisting page (/blog/999)
 export default function BlogListing({ series }: any) {
     return (
         <>
@@ -54,7 +53,7 @@ export default function BlogListing({ series }: any) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
-    const series = await article.getPostSeries();
+    const series = await BlogpostDataLoader.getPostSeries();
 
     return {
         props: { series },

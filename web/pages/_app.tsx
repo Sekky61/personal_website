@@ -2,7 +2,7 @@ import type { ReactElement, ReactNode } from 'react'
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { NextPage } from 'next'
-import Layout from '@components/Layout'
+import Layout from '@components/layout/Layout'
 import Head from 'next/head'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

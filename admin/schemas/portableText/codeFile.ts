@@ -1,5 +1,38 @@
 import { defineField } from "sanity";
-import { CodeBlockIcon } from '@sanity/icons'
+import { CodeBlockIcon } from '@sanity/icons';
+
+export const codeToken = {
+    name: 'codeToken',
+    title: 'Code Token',
+    type: 'object',
+    fields: [
+        defineField({
+            name: 'type',
+            title: 'Type',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'Error', value: 'error' },
+                    { title: 'Warning', value: 'warning' },
+                    { title: 'Info', value: 'info' },
+                ],
+                layout: 'radio',
+            }
+        }),
+        defineField({
+            name: 'line',
+            title: 'Line',
+            type: 'number',
+            validation: Rule => Rule.required(),
+        }),
+        defineField({
+            name: 'message',
+            title: 'Message',
+            type: 'string',
+            initialValue: '',
+        }),
+    ],
+}
 
 export const codeFile = {
     name: 'codeFile',
@@ -12,7 +45,13 @@ export const codeFile = {
             title: 'File Name',
             type: 'string',
             initialValue: '',
-            description: "Name of the file, will be displayed",
+            description: "Name of the file, will be displayed. For example: 'index.js', 'Shell session'.",
+        }),
+        defineField({
+            name: 'lineStart',
+            title: 'Line Start',
+            type: 'number',
+            description: "The line number to start the code block at. Useful for code blocks that are part of a larger file.",
         }),
         defineField({
             // there is highlight lines support, data looks like: highlightedLines: [1, 2],
@@ -20,7 +59,7 @@ export const codeFile = {
             title: 'Code',
             type: 'code',
             options: {
-                language: 'js',
+                language: 'javascript',
                 languageAlternatives: [
                     // Only these will appear
                     { title: 'Javascript', value: 'javascript' },
@@ -31,6 +70,18 @@ export const codeFile = {
                     { title: 'SASS', value: 'sass' },
                 ]
             }
+        }),
+        defineField({
+            name: 'tokens',
+            title: 'Tokens',
+            type: 'array',
+            description: "",
+            initialValue: [],
+            of: [
+                {
+                    type: 'codeToken',
+                }
+            ],
         }),
     ],
 }

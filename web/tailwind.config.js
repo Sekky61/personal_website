@@ -22,8 +22,8 @@ module.exports = {
       },
       colors: {
         primary: {
-          900: 'hsl(var(--hue-sat-primary) 7% / <alpha-value>)',
-          800: 'hsl(var(--hue-sat-primary) 17% / <alpha-value>)',
+          900: 'hsl(var(--hue-sat-primary) 10% / <alpha-value>)',
+          800: 'hsl(var(--hue-sat-primary) 16% / <alpha-value>)',
           700: 'hsl(var(--hue-sat-primary) 27% / <alpha-value>)',
           600: 'hsl(var(--hue-sat-primary) 37% / <alpha-value>)',
           500: 'hsl(var(--hue-sat-primary) 47% / <alpha-value>)',
@@ -35,6 +35,9 @@ module.exports = {
           50: 'hsl(var(--hue-sat-primary) 95% / <alpha-value>)',
         },
         "dark": "#121212",
+      },
+      gridTemplateRows: {
+        'layout': 'auto 1fr auto',
       }
     },
   },
