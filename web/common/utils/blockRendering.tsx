@@ -5,11 +5,14 @@ import LinkHeading from '@components/post/LinkHeading';
 import Tip from '@common/components/post/tip';
 import Link from 'next/link';
 import CustomImage from '@common/components/post/customImage';
+import { LatexBlock, LatexInline } from '@common/components/post/LatexBlock';
 
 // Configuration for PortableText rendering
 // Docs: https://github.com/portabletext/react-portabletext
 export const blockRenderingElements: PortableTextComponents = {
   types: {
+    latexBlock: LatexBlock,
+    latexInline: LatexInline,
     image: CustomImage,
     codeFile: CodeSample,
     footnote: ({ value, index }) => {

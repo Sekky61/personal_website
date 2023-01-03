@@ -9,6 +9,7 @@ const mathInlineIcon = () => (
 const mathIcon = () => <span style={{ fontWeight: 'bold' }}>∑</span>
 
 export const latexInline = {
+    name: 'latexInline',
     type: 'latex',
     icon: mathInlineIcon,
     title: 'Inline LaTeX'
@@ -16,6 +17,7 @@ export const latexInline = {
 
 
 export const latexBlock = {
+    name: 'latexBlock',
     type: 'latex',
     icon: mathIcon,
     title: 'LaTeX Block',
