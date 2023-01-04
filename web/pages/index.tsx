@@ -9,7 +9,7 @@ const PostCard = ({ postData }: any) => {
   console.log(postData.data._id);
 
   return (
-    <li key={postData.data._id} className='rounded-md drop-shadow bg-white dark:bg-white/5 p-2 flex flex-col w-1/3 group hover:cursor-pointer'>
+    <li className='rounded-md drop-shadow bg-white dark:bg-white/5 p-2 flex flex-col w-1/3 group hover:cursor-pointer'>
       <span className='group-hover:underline text-xl decoration-primary-400'>{postData.data.title}</span>
       <span>{formattedDate}</span>
       <p className='text-ellipsis'>
@@ -26,7 +26,7 @@ const Home: NextPage = ({ postsData }: any) => {
 
   const postCards = posts.map((postData: any) => {
     return (
-      <PostCard postData={postData}></PostCard>
+      <PostCard postData={postData} key={postData.data._id}></PostCard>
     );
   });
 
