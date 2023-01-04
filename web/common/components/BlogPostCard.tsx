@@ -11,7 +11,7 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
 
   return (
     <Link href={`/post/${post.slug}`}>
-      <div className="group duration-100 rounded-md bg-slate-100 dark:bg-zinc-800 w-full p-4">
+      <div className="group duration-100 rounded-md drop-shadow bg-white dark:bg-white/5 w-full p-4">
         <h1 className="text-xl mb-4 group-hover:underline">
           {post.data.title}
         </h1>
