@@ -1,4 +1,4 @@
-import { PortableTextComponents } from '@portabletext/react'
+import { PortableTextComponents } from '@portabletext/react';
 
 import CodeSample from '@components/post/CodeSample';
 import LinkHeading from '@components/post/LinkHeading';

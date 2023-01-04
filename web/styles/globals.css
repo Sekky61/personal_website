@@ -35,7 +35,7 @@ body {
 
 @layer components {
   .heading-primary {
-    @apply font-medium leading-tight text-4xl mt-0 mb-2;
+    @apply leading-relaxed underline decoration-primary-400 decoration-4 underline-offset-8;
   }
 
   .navlink-active {
@@ -43,7 +43,7 @@ body {
   }
 
   .metablock {
-    @apply p-2 rounded-md bg-gray-100 dark:bg-gray-800
+    @apply p-2 rounded-md drop-shadow bg-white dark:bg-white/5
   }
 
   .metablock-heading {

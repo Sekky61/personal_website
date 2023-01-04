@@ -20,7 +20,7 @@ export default function Page({ postData }: any) {
         <title>{post.data.title}</title>
       </Head>
       <Link href={`/post/${post.slug}`}>
-        <h1>
+        <h1 className='heading-primary text-5xl mb-8'>
           {post.data.title}
         </h1>
       </Link>
