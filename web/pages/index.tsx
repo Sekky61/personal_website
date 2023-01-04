@@ -2,11 +2,11 @@ import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import type { GetStaticProps, NextPage } from 'next'
 
 const PostCard = ({ postData }: any) => {
-  console.log(postData);
   // format date
   const date = postData.releaseDate;
   const formattedDate = date.toISOString().split('T')[0];
   const plaintext = Blogpost.blocksToPlainText(postData.data.content);
+  console.log(postData.data._id);
 
   return (
     <li key={postData.data._id} className='rounded-md drop-shadow bg-white dark:bg-white/5 p-2 flex flex-col w-1/3 group hover:cursor-pointer'>
