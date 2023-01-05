@@ -15,11 +15,10 @@ export default function BlogListing({ postsData, postsCount, currentPage }: any)
     return (
         <>
             <h1 className='heading-primary'>The Blog</h1>
-            <p className='mb-6'>My most recent blog posts</p>
-            <p>
-                Check out blog posts sorted by <Link href={`/series`}>series</Link>
+            <p className='mb-6'>
+                Or check out blogposts sorted by <Link href={`/series`} className="link">series</Link>
             </p>
-            <ul className='flex flex-col gap-4'>
+            <ul className='flex flex-col divide-y'>
                 {posts.map((post: Blogpost) => (
                     <li key={post.slug}>
                         <BlogPostCard post={post}></BlogPostCard>

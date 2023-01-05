@@ -31,11 +31,14 @@ export class Blogpost {
     footnotes: Footnote[];
     // The headings in the post.
     headings: Heading[];
+    // The post as plain text.
+    plainText: string;
 
     constructor(post: any) {
         this.data = post;
         this.footnotes = Blogpost.getFootnotes(post.content);
         this.headings = Blogpost.getHeadings(post.content);
+        this.plainText = Blogpost.blocksToPlainText(post.content);
     }
 
     get releaseDate() {
@@ -52,8 +55,7 @@ export class Blogpost {
     }
 
     readingTime(): ReadTimeResults {
-        const plainText = Blogpost.blocksToPlainText(this.data.content);
-        return readingTime(plainText);
+        return readingTime(this.plainText);
     }
 
     isPartOfSeries() {

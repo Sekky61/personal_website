@@ -8,14 +8,14 @@ export const resultsPerPage = 10;
 export function SeriesCard({ title, slug, tags, posts, ...rest }: any) {
     return (
         <Link href={`/post/${slug.current}`}>
-            <div className="duration-100 rounded-md bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
+            <div className="duration-100 rounded-md bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-10 hover:border-primary-30">
                 <h1 className="text-xl">
                     {title}
                 </h1>
                 <div className="flex gap-1 my-2">
                     {
                         tags.map(({ label, value }: any) =>
-                            <div key={value} className="tag-pill bg-primary-200 hover:bg-primary-300">
+                            <div key={value} className="tag-pill bg-primary-20 hover:bg-primary-30">
                                 {label}
                             </div>
                         )

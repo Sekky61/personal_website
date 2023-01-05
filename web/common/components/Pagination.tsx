@@ -53,7 +53,7 @@ function PageLink({ active, pageNumber, pathPrefix }: any) {
     return (
         <Link href={`${pathPrefix}/${pageNumber}`} aria-current="page"
             className={"relative inline-flex items-center border px-4 py-2 text-sm font-medium  focus:z-20 "
-                + (active ? "z-20 bg-primary-50 dark:bg-primary-900 border-primary-500 text-primary-600" : " border-gray-300 text-gray-500 hover:bg-gray-50")}>
+                + (active ? "z-20 bg-primary-50 dark:bg-primary-90 border-primary-50 text-primary-60" : " border-gray-300 text-gray-500 hover:bg-gray-50")}>
             {pageNumber}
         </Link>
     );

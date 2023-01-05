@@ -9,16 +9,24 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
     newTags = post.data.tags.concat([{ label: "Series", value: "series" }]);
   }
 
+  let truncatedText = post.plainText.substring(0, 200);
+  if (truncatedText.length < post.plainText.length) {
+    truncatedText += "...";
+  }
+
   return (
     <Link href={`/post/${post.slug}`}>
-      <div className="group duration-100 rounded-md drop-shadow bg-white dark:bg-white/5 w-full p-4">
-        <h1 className="text-xl mb-4 group-hover:underline">
+      <div className="group duration-100 w-full p-4 hover:bg-primary-40/[.08]">
+        <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
           {post.data.title}
-        </h1>
-        <div className="flex gap-1">
+        </h2>
+        <p className="text-ellipsis overflow-hidden h-12">
+          {truncatedText}
+        </p>
+        <div className="flex gap-1 h-8">
           {
             newTags.map(({ label, value }: any) =>
-              <div key={value} className="tag-pill bg-primary-400 hover:bg-primary-500">
+              <div key={value} className="tag-pill">
                 {label}
               </div>
             )
