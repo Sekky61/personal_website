@@ -120,3 +120,10 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 .info-token {
   @apply text-blue-500
 }
+
+.two-line-text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}

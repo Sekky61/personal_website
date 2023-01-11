@@ -9,10 +9,7 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
     newTags = post.data.tags.concat([{ label: "Series", value: "series" }]);
   }
 
-  let truncatedText = post.plainText.substring(0, 200);
-  if (truncatedText.length < post.plainText.length) {
-    truncatedText += "...";
-  }
+  let truncatedText = post.getBeginningOfArticle(250);
 
   return (
     <Link href={`/post/${post.slug}`}>
@@ -20,7 +17,7 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
         <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
           {post.data.title}
         </h2>
-        <p className="text-ellipsis overflow-hidden h-12">
+        <p className="two-line-text-ellipsis h-12">
           {truncatedText}
         </p>
         <div className="flex gap-1 h-8">

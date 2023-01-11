@@ -88,6 +88,11 @@ export class Blogpost {
             .replace(/^-+|-+$/g, '');
     }
 
+    // Get the first few words of the post
+    getBeginningOfArticle(length: number = 100) {
+        return this.plainText.slice(0, length);
+    }
+
     // Get all headings from a post.
     static getHeadings(blocks: PortableTextBlock[] = []): Heading[] {
         // Get each line individually, and filter out anything that isn't a heading.
@@ -141,7 +146,13 @@ export class Blogpost {
                 }
                 // loop through the children spans, and join the
                 // text strings
-                return block.children.map((child: any) => child.text).join('')
+                return block.children.map((child: any) => {
+                    // if it's a footnote, do not render
+                    if (child._type == 'footnote') {
+                        return '';
+                    }
+                    return child.text;
+                }).join('')
             })
             // join the paragraphs leaving split by two linebreaks
             .join('\n\n')

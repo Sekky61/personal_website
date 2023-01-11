@@ -5,14 +5,14 @@ const PostCard = ({ postData }: any) => {
   // format date
   const date = postData.releaseDate;
   const formattedDate = date.toISOString().split('T')[0];
-  const plaintext = Blogpost.blocksToPlainText(postData.data.content);
+  const text = postData.getBeginningOfArticle(120);
 
   return (
     <li className='card p-2 flex flex-col w-1/3 group hover:cursor-pointer'>
       <span className='group-hover:underline text-xl decoration-primary-40'>{postData.data.title}</span>
       <span>{formattedDate}</span>
-      <p className='text-ellipsis'>
-        {plaintext}
+      <p className='two-line-text-ellipsis'>
+        {text}
       </p>
     </li>
   );
@@ -23,32 +23,9 @@ const Home: NextPage = ({ postsData }: any) => {
     return new Blogpost(data);
   });
 
-  const postCards = posts.map((postData: any) => {
+  const postCards = posts.map((postData: Blogpost) => {
     return (
       <PostCard postData={postData} key={postData.data._id}></PostCard>
-    );
-  });
-
-  // Iterate numbers from 0 to 10
-  const numbers = [...Array(11).keys()];
-  const colorPalette = numbers.map((number) => {
-    const primaryColorClasses = [
-      'bg-primary-0',
-      'bg-primary-10',
-      'bg-primary-20',
-      'bg-primary-30',
-      'bg-primary-40',
-      'bg-primary-50',
-      'bg-primary-60',
-      'bg-primary-70',
-      'bg-primary-80',
-      'bg-primary-90',
-      'bg-primary-100',
-    ]
-    return (
-      <div key={number} className={`${primaryColorClasses[number]} w-10 h-20`}>
-        {number}
-      </div>
     );
   });
 
@@ -70,9 +47,6 @@ const Home: NextPage = ({ postsData }: any) => {
         <ul className='flex gap-4'>
           {postCards}
         </ul>
-      </div>
-      <div className='flex'>
-        {colorPalette}
       </div>
     </>
   )
