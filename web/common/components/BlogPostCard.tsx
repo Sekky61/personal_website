@@ -20,7 +20,7 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
         <p className="two-line-text-ellipsis h-12">
           {truncatedText}
         </p>
-        <div className="flex gap-1 h-8">
+        <div className="flex gap-1 h-7">
           {
             newTags.map(({ label, value }: any) =>
               <div key={value} className="tag-pill">

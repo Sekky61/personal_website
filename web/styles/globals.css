@@ -81,7 +81,7 @@ https://m3.material.io/styles/color/the-color-system/color-roles
   }
 
   .tag-pill {
-    @apply rounded-md font-semibold primary text-sm px-2.5 py-1
+    @apply rounded-md font-semibold primary text-sm px-2.5 py-1 h-7
   }
 }
 

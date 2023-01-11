@@ -11,9 +11,31 @@ const ThemeSwitch = () => {
     const uses_light = colorTheme === "light";
 
     return (
-        <button onClick={() => { uses_light ? setTheme("dark") : setTheme("light") }} type="button" className="mr-5 focus:ring focus:ring-primary-20 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-full text-sm p-1.5">
+        <button onClick={() => { uses_light ? setTheme("dark") : setTheme("light") }} type="button" className="mr-5 focus:ring focus:ring-primary-70 text-primary-40 dark:text-primary-40 hover:bg-gray-100 dark:hover:bg-primary-20 focus:outline-none rounded-full text-sm p-1.5">
             <LightSwitch uses_light={uses_light}></LightSwitch>
         </button>
+    );
+}
+
+const Hamburger = () => {
+    return (
+        <div className="w-8 h-8">
+            <button className="relative group">
+                <div className="relative flex overflow-hidden items-center justify-center rounded-full w-8 h-8 transform transition-all duration-200 shadow-md">
+                    <div className="flex flex-col justify-between w-4 h-4 transform transition-all duration-300 origin-center overflow-hidden">
+                        <div className="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10"></div>
+                        <div className="bg-white h-[2px] w-7 rounded transform transition-all duration-300 group-focus:translate-x-10 delay-75"></div>
+                        <div className="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10 delay-150"></div>
+                        <div className="absolute items-center justify-between transform transition-all duration-500 top-2.5 -translate-x-10 group-focus:translate-x-0 flex w-0 group-focus:w-12">
+                            <div className="absolute bg-white h-[2px] w-4 transform transition-all duration-500 rotate-0 delay-300 group-focus:rotate-45"></div>
+                            <div className="absolute bg-white h-[2px] w-4 transform transition-all duration-500 -rotate-0 delay-300 group-focus:-rotate-45"></div>
+                        </div>
+                    </div>
+                </div>
+            </button>
+            <input className="hidden" type="checkbox" name="" id="hamburger-checkbox" />
+        </div>
+
     );
 }
 
@@ -48,7 +70,7 @@ const NavLink = ({
 
 const Header = () => {
     return (
-        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 ">
+        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500">
             <div className="bg-primary-40/[.08] px-4">
                 <div className="small-container py-3">
                     <div className="flex gap-3 items-center">
@@ -56,31 +78,38 @@ const Header = () => {
                             <span className="whitespace-nowrap hidden sm:block text-2xl">Michal Majer</span>
                             <span className="whitespace-nowrap sm:hidden text-2xl">Majer</span>
                         </Link>
-                        <div className="flex overflow-visible items-center ml-auto text-sm leading-7 overflow-x-auto">
-                            <ThemeSwitch></ThemeSwitch>
-                            <nav>
-                                <ul className="flex space-x-5">
-                                    <li>
-                                        <NavLink href="/about">
-                                            <span className="navlink">About me</span>
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink href="/blog">
-                                            <span className="navlink">Blog</span>
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink href="/portfolio">
-                                            <span className="navlink">Portfolio</span>
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <div className="pl-8 ml-8 border-l">
-                                <a target="_blank" href="https://github.com/Sekky61" rel="noreferrer noopener" title="Personal GitHub page">
-                                    <GithubLogo></GithubLogo>
-                                </a>
+                        <div className="flex-grow">
+                        </div>
+                        <div>
+                            <div className="md:hidden">
+                                <Hamburger></Hamburger>
+                            </div>
+                            <div className="hidden md:flex items-center text-sm">
+                                <ThemeSwitch></ThemeSwitch>
+                                <nav>
+                                    <ul className="flex space-x-5">
+                                        <li>
+                                            <NavLink href="/about">
+                                                <span className="navlink">About me</span>
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink href="/blog">
+                                                <span className="navlink">Blog</span>
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink href="/portfolio">
+                                                <span className="navlink">Portfolio</span>
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div className="pl-8 ml-8 border-l">
+                                    <a target="_blank" href="https://github.com/Sekky61" rel="noreferrer noopener" title="Personal GitHub page">
+                                        <GithubLogo></GithubLogo>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
