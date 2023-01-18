@@ -6,6 +6,7 @@ import { footnote } from "./footnote";
 import { codeFile } from "./codeFile";
 import { tip } from "./tip";
 import { latexBlock, latexInline } from "./latex";
+import { edit } from "./edit";
 
 // TODO make a cutdown version - no headings - to use in tips
 export const portableText = defineType({
@@ -18,7 +19,8 @@ export const portableText = defineType({
             of: [
                 // inline blocks
                 footnote,
-                latexInline
+                latexInline,
+                edit
             ],
             styles: [
                 { title: 'Normal', value: 'normal' },
