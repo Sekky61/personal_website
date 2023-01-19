@@ -171,6 +171,30 @@ export class Blogpost {
     }
 }
 
+export class BlogpostSeries {
+    data: any; // TODO: Type this when it is more stable.
+
+    constructor(seriesObj: any) {
+        this.data = seriesObj;
+    }
+
+    get slug() {
+        return this.data.slug.current;
+    }
+
+    get title() {
+        return this.data.title;
+    }
+
+    get posts() {
+        return this.data.posts;
+    }
+
+    get tags() {
+        return this.data.tags;
+    }
+}
+
 // Utility class for loading blogpost data from Sanity.
 export class BlogpostDataLoader {
     // Get all posts, paginated.

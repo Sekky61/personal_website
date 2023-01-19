@@ -12,6 +12,12 @@ export default function BlogListing({ postsData, postsCount, currentPage }: any)
         return new Blogpost(data);
     });
 
+    const postsCards = posts.map((post: Blogpost) => (
+        <li key={post.slug}>
+            <BlogPostCard post={post}></BlogPostCard>
+        </li>
+    ));
+
     return (
         <>
             <h1 className='heading-primary'>The Blog</h1>
@@ -19,11 +25,7 @@ export default function BlogListing({ postsData, postsCount, currentPage }: any)
                 Or check out blogposts sorted by <Link href={`/series`} className="link">series</Link>
             </p>
             <ul className='flex flex-col divide-y'>
-                {posts.map((post: Blogpost) => (
-                    <li key={post.slug}>
-                        <BlogPostCard post={post}></BlogPostCard>
-                    </li>
-                ))}
+                {postsCards}
             </ul>
             <div className='pt-4'>
                 <Pagination currentPage={currentPage} perPage={resultsPerPage} total={postsCount} pathPrefix="/blog"></Pagination>
