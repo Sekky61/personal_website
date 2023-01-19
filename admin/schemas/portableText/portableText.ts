@@ -7,6 +7,7 @@ import { codeFile } from "./codeFile";
 import { tip } from "./tip";
 import { latexBlock, latexInline } from "./latex";
 import { edit } from "./edit";
+import { abbr } from "./abbr";
 
 // TODO make a cutdown version - no headings - to use in tips
 export const portableText = defineType({
@@ -31,7 +32,8 @@ export const portableText = defineType({
                 // Annotations include associated data
                 annotations: [
                     externalLink,
-                    internalLink
+                    internalLink,
+                    abbr,
                 ]
             }
         },

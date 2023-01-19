@@ -7,6 +7,7 @@ import Link from 'next/link';
 import CustomImage from '@common/components/post/customImage';
 import { LatexBlock, LatexInline } from '@common/components/post/LatexBlock';
 import Edit from '@common/components/post/edit';
+import Abbr from '@common/components/post/abbr';
 
 // Configuration for PortableText rendering
 // Docs: https://github.com/portabletext/react-portabletext
@@ -36,5 +37,6 @@ export const blockRenderingElements: PortableTextComponents = {
     externalLink: ({ value, children }) => {
       return <a href={value.href} target={value.blank ? "_blank" : undefined} rel="noreferrer" className='link'>{children}</a>;
     },
+    abbr: Abbr,
   }
 };
