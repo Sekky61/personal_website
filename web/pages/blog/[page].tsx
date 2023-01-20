@@ -1,13 +1,20 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
 import BlogPostCard from '@components/BlogPostCard';
 import Pagination from '@components/Pagination';
 import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import Link from 'next/link';
+import { ParsedUrlQuery } from 'querystring';
 
-export const resultsPerPage = 10;
+const resultsPerPage = 10;
 
-export default function BlogListing({ postsData, postsCount, currentPage }: any) {
+interface BlogListingProps {
+    postsData: any;
+    postsCount: number;
+    currentPage: number;
+}
+
+const BlogListing: NextPage<BlogListingProps> = ({ postsData, postsCount, currentPage }) => {
     const posts = postsData.map((data: any) => {
         return new Blogpost(data);
     });
@@ -34,9 +41,16 @@ export default function BlogListing({ postsData, postsCount, currentPage }: any)
     );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-    const pageQuery = context?.params?.page as string;
-    const currentPage = parseInt(pageQuery) || 1;
+export default BlogListing;
+
+interface BlogPageParams extends ParsedUrlQuery {
+    page: string
+}
+
+// This function gets called at build time on server-side for each page.
+export const getStaticProps: GetStaticProps<BlogListingProps, BlogPageParams> = async (context) => {
+    const { page } = context.params!;        // non-null assert
+    const currentPage = parseInt(page) || 1; // /blog gets treated as /blog/1
 
     const from = (currentPage - 1) * resultsPerPage;
     const to = from + resultsPerPage;
@@ -54,12 +68,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+// This function returns a list of page paths so that the pages can be pre-rendered.
+export const getStaticPaths: GetStaticPaths<BlogPageParams> = async () => {
     const postsCount = await BlogpostDataLoader.getPostsCount();
-    const pagesCount = Math.max(Math.ceil(postsCount / resultsPerPage), 1); // at least one
+    const pagesCount = Math.max(Math.ceil(postsCount / resultsPerPage), 1);  // At least one
+    const pageNumbers = Array.from({ length: pagesCount }, (_, i) => i + 1); // Numbers 1..=pagesCount
+
+    // Create an array of page paths, each containing a page number
+    const pagePaths = pageNumbers.map((pageNumber: number) => ({ params: { page: pageNumber.toString() } }));
 
     return {
-        paths: Array.from({ length: pagesCount }, (_, i) => i + 1).map((page: number) => ({ params: { page: page.toString() } })),
+        paths: pagePaths,
         fallback: false,
     };
 }
