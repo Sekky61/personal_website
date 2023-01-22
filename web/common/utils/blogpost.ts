@@ -31,11 +31,14 @@ export class Blogpost {
     footnotes: Footnote[];
     // The headings in the post.
     headings: Heading[];
+    // The post as plain text.
+    plainText: string;
 
     constructor(post: any) {
         this.data = post;
         this.footnotes = Blogpost.getFootnotes(post.content);
         this.headings = Blogpost.getHeadings(post.content);
+        this.plainText = Blogpost.blocksToPlainText(post.content);
     }
 
     get releaseDate() {
@@ -52,8 +55,7 @@ export class Blogpost {
     }
 
     readingTime(): ReadTimeResults {
-        const plainText = Blogpost.blocksToPlainText(this.data.content);
-        return readingTime(plainText);
+        return readingTime(this.plainText);
     }
 
     isPartOfSeries() {
@@ -84,6 +86,11 @@ export class Blogpost {
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_-]+/g, '-')
             .replace(/^-+|-+$/g, '');
+    }
+
+    // Get the first few words of the post
+    getBeginningOfArticle(length: number = 100) {
+        return this.plainText.slice(0, length);
     }
 
     // Get all headings from a post.
@@ -139,7 +146,13 @@ export class Blogpost {
                 }
                 // loop through the children spans, and join the
                 // text strings
-                return block.children.map((child: any) => child.text).join('')
+                return block.children.map((child: any) => {
+                    // if it's a footnote, do not render
+                    if (child._type == 'footnote') {
+                        return '';
+                    }
+                    return child.text;
+                }).join('')
             })
             // join the paragraphs leaving split by two linebreaks
             .join('\n\n')
@@ -155,6 +168,30 @@ export class Blogpost {
                 return child.props.text;
             }
         }).join('')
+    }
+}
+
+export class BlogpostSeries {
+    data: any; // TODO: Type this when it is more stable.
+
+    constructor(seriesObj: any) {
+        this.data = seriesObj;
+    }
+
+    get slug() {
+        return this.data.slug.current;
+    }
+
+    get title() {
+        return this.data.title;
+    }
+
+    get posts() {
+        return this.data.posts;
+    }
+
+    get tags() {
+        return this.data.tags;
     }
 }
 

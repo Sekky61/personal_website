@@ -1,5 +1,3 @@
-import { defineField } from "sanity";
-
 const mathInlineIcon = () => (
     <span>
         <span style={{ fontWeight: 'bold' }}>∑</span>b

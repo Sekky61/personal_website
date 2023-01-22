@@ -5,15 +5,14 @@ const PostCard = ({ postData }: any) => {
   // format date
   const date = postData.releaseDate;
   const formattedDate = date.toISOString().split('T')[0];
-  const plaintext = Blogpost.blocksToPlainText(postData.data.content);
-  console.log(postData.data._id);
+  const text = postData.getBeginningOfArticle(120);
 
   return (
-    <li className='rounded-md drop-shadow bg-white dark:bg-white/5 p-2 flex flex-col w-1/3 group hover:cursor-pointer'>
-      <span className='group-hover:underline text-xl decoration-primary-400'>{postData.data.title}</span>
+    <li className='card p-2 flex flex-col w-1/3 group hover:cursor-pointer'>
+      <span className='group-hover:underline text-xl decoration-primary-40'>{postData.data.title}</span>
       <span>{formattedDate}</span>
-      <p className='text-ellipsis'>
-        {plaintext}
+      <p className='two-line-text-ellipsis'>
+        {text}
       </p>
     </li>
   );
@@ -24,7 +23,7 @@ const Home: NextPage = ({ postsData }: any) => {
     return new Blogpost(data);
   });
 
-  const postCards = posts.map((postData: any) => {
+  const postCards = posts.map((postData: Blogpost) => {
     return (
       <PostCard postData={postData} key={postData.data._id}></PostCard>
     );
@@ -37,7 +36,7 @@ const Home: NextPage = ({ postsData }: any) => {
           <h1 className='heading-primary leading-tight text-6xl text-center lg:text-right font-bold mb-8' >Welcome to my website!</h1>
           <h2 className='heading-primary text-4xl text-center lg:text-right font-semibold'>Enjoy</h2>
         </div>
-        <div className='grow lg:grow-0 flex justify-center bg-primary-400 rounded p-2'>
+        <div className='grow lg:grow-0 flex justify-center bg-primary-40 rounded-md p-2 primary'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="black" className="w-64 h-64">
             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>

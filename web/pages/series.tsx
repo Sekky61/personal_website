@@ -1,51 +1,56 @@
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
-import { BlogpostDataLoader } from '@common/utils/blogpost';
+import { BlogpostDataLoader, BlogpostSeries } from '@common/utils/blogpost';
 
-export const resultsPerPage = 10;
+export function SeriesCard({ series }: { series: BlogpostSeries }) {
 
-export function SeriesCard({ title, slug, tags, posts, ...rest }: any) {
+    const tagsElements = series.tags.map(({ label, value }: any) =>
+        <div key={value} className="tag-pill bg-primary-20 hover:bg-primary-30">
+            {label}
+        </div>
+    );
+
+    const postsList = series.posts.map(({ title, _id }: any) =>
+        <li key={_id} className="">
+            {title}
+        </li>
+    );
+
     return (
-        <Link href={`/post/${slug.current}`}>
-            <div className="duration-100 rounded-md bg-slate-100 dark:bg-zinc-900 w-full p-6 border border-primary-100 hover:border-primary-300">
-                <h1 className="text-xl">
-                    {title}
-                </h1>
-                <div className="flex gap-1 my-2">
-                    {
-                        tags.map(({ label, value }: any) =>
-                            <div key={value} className="tag-pill bg-primary-200 hover:bg-primary-300">
-                                {label}
-                            </div>
-                        )
-                    }
+        <Link href={`/post/${series.slug}`}>
+            <div className="group duration-100 w-full p-4 hover:bg-primary-40/[.08]">
+                <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
+                    {series.title}
+                </h2>
+                <div className="flex gap-1 h-7">
+                    {tagsElements}
                 </div>
-                <ol className='list-decimal'>
-                    {
-                        posts.map(({ title, _id }: any) =>
-                            <li key={_id} className="">
-                                {title}
-                            </li>
-                        )
-                    }
+                <ol className='list-decimal mt-2 pl-4'>
+                    {postsList}
                 </ol>
             </div>
         </Link>
     )
 }
 
-export default function BlogListing({ series }: any) {
+export default function BlogListing({ seriesRaw }: any) {
+    const series = seriesRaw.map((serie: any) => {
+        return new BlogpostSeries(serie);
+    });
+
+    const seriesCards = series.map((series: BlogpostSeries) => (
+        <li key={series.slug}>
+            <SeriesCard series={series}></SeriesCard>
+        </li>
+    ))
+
     return (
         <>
             <h1 className='heading-primary'>The Blog</h1>
             <p className='mb-6'>Posts series</p>
-            <ul className='flex flex-col gap-5'>
-                {series.map((props: any) => (
-                    <li key={props.slug}>
-                        <SeriesCard {...props}></SeriesCard>
-                    </li>
-                ))}
+            <ul className='flex flex-col divide-y'>
+                {seriesCards}
             </ul>
         </>
     );
@@ -53,10 +58,10 @@ export default function BlogListing({ series }: any) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
-    const series = await BlogpostDataLoader.getPostSeries();
+    const seriesRaw = await BlogpostDataLoader.getPostSeries();
 
     return {
-        props: { series },
+        props: { seriesRaw },
         revalidate: 3600,
     };
 }
