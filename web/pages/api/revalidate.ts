@@ -42,7 +42,7 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         res.status(400).send('Bad request (no slug)');
         return;
     }
-    let blogPaths = [`/post/${body.slug.current}`, '/blog'];
+    let blogPaths = [`/post/${body.slug.current}`, '/blog', '/'];
 
     const blogSlugs = await BlogpostDataLoader.getAllSlugs();
 
