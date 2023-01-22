@@ -3,6 +3,7 @@ import { createHmac } from "crypto";
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Revalidates all blog posts, including blog index
+// Body should contain Sanity document that had changes
 // Source: https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#using-on-demand-revalidation
 export default async function handleWebhook(req: NextApiRequest, res: NextApiResponse) {
 
@@ -12,9 +13,10 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         return;
     }
 
-    console.log(`Body: ${body}`);
     console.dir(body);
-    console.log(`Type of body: ${typeof body}`);
+    console.dir(req.headers);
+
+    const stringBody = JSON.stringify(body);
 
     // compute our signature from the raw body
     const secret = process.env.REVALIDATION_SECRET;
@@ -26,7 +28,7 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
 
     const signature = req.headers['x-hub-signature-256'];
     const computedSignature =
-        'sha256=' + createHmac('sha256', secret).update(body).digest('hex');
+        'sha256=' + createHmac('sha256', secret).update(stringBody).digest('hex');
 
     if (computedSignature !== signature) {
         console.log(`Verification failed`);
@@ -38,9 +40,14 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
 
     const blog_slugs = await BlogpostDataLoader.getAllSlugs();
 
-    let blog_paths = blog_slugs.map((slug: string) => {
-        return `/post/${slug}`;
-    });
+    const slug = body.slug?.current;
+
+    if (!slug) {
+        res.status(400).send('Bad request (no slug)');
+        return;
+    }
+
+    let blog_paths = [`/post/${body.slug.current}`];
 
     // get number of pages in /blog 
     // todo this is a hack
