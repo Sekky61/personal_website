@@ -13,6 +13,7 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
     }
 
     console.log(`Body: ${body}`);
+    console.dir(body);
     console.log(`Type of body: ${typeof body}`);
 
     // compute our signature from the raw body
