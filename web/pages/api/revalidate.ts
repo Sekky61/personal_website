@@ -1,6 +1,6 @@
 import { BlogpostDataLoader } from "@common/utils/blogpost"
-import { createHmac } from "crypto";
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 
 // Revalidates all blog posts, including blog index
 // Body should contain Sanity document that had changes
@@ -26,13 +26,15 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         return;
     }
 
-    const signature = req.headers['x-hub-signature-256'];
-    const computedSignature =
-        'sha256=' + createHmac('sha256', secret).update(stringBody).digest('hex');
+    const signature = req.headers[SIGNATURE_HEADER_NAME];
 
-    if (computedSignature !== signature) {
-        console.log(`Verification failed`);
-        res.status(401).send('Unauthorized');
+    if (!(typeof signature === 'string')) {
+        res.status(401).json({ success: false, message: 'Missing or malformed signature' });
+        return;
+    }
+
+    if (!isValidSignature(stringBody, signature, secret)) {
+        res.status(401).json({ success: false, message: 'Invalid signature' });
         return;
     }
 
