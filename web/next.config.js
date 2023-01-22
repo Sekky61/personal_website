@@ -15,7 +15,7 @@ const BLOG_REWRITE = {
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  rewrites: () => [STUDIO_REWRITE, BLOG_REWRITE],
+  rewrites: async () => [STUDIO_REWRITE, BLOG_REWRITE],
   images: {
     remotePatterns: [
       {
