@@ -62,6 +62,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     return {
         props: { seriesRaw },
-        revalidate: 3600,
     };
 }
