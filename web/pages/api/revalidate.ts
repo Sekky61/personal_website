@@ -12,6 +12,9 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         return;
     }
 
+    console.log(`Body: ${body}`);
+    console.log(`Type of body: ${typeof body}`);
+
     // compute our signature from the raw body
     const secret = process.env.REVALIDATION_SECRET;
 
