@@ -4,6 +4,7 @@ import schemas from './schemas/schema';
 import { codeInput } from "@sanity/code-input";
 import { visionTool } from '@sanity/vision';
 import { latexInput } from "sanity-plugin-latex-input";
+import { table } from "@sanity/table";
 
 const common = {
     projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
@@ -11,7 +12,8 @@ const common = {
         deskTool(),
         codeInput(),
         visionTool(),
-        latexInput()
+        latexInput(),
+        table()
     ],
     schema: {
         types: schemas,

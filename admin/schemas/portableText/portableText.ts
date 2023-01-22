@@ -8,6 +8,7 @@ import { tip } from "./tip";
 import { latexBlock, latexInline } from "./latex";
 import { edit } from "./edit";
 import { abbr } from "./abbr";
+import { table } from "./table";
 
 // TODO make a cutdown version - no headings - to use in tips
 export const portableText = defineType({
@@ -40,6 +41,7 @@ export const portableText = defineType({
         image,
         codeFile,
         tip,
-        latexBlock
+        latexBlock,
+        table
     ]
 })
