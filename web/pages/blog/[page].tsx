@@ -64,7 +64,6 @@ export const getStaticProps: GetStaticProps<BlogListingProps, BlogPageParams> = 
             postsCount,
             currentPage
         },
-        revalidate: 3600,
     };
 }
 

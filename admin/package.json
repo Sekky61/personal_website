@@ -10,7 +10,8 @@
     "start": "sanity start",
     "test": "sanity check",
     "build": "sanity build public -y",
-    "dev": "sanity dev"
+    "dev": "sanity dev",
+    "deploy": "sanity deploy"
   },
   "keywords": [
     "sanity"
