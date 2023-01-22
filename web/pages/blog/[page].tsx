@@ -6,7 +6,7 @@ import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 
-const resultsPerPage = 10;
+export const resultsPerPage = 10;
 
 interface BlogListingProps {
     postsData: any;
