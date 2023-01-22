@@ -33,7 +33,7 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         return;
     }
 
-    if (!isValidSignature(body, signature, secret)) {
+    if (!isValidSignature(stringBody, signature, secret)) {
         res.status(401).json({ success: false, message: 'Invalid signature' });
         return;
     }
