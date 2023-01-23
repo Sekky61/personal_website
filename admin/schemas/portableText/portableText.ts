@@ -18,6 +18,7 @@ export const portableText = defineType({
     of: [
         {
             type: 'block',
+            title: 'Block',
             of: [
                 // inline blocks
                 footnote,

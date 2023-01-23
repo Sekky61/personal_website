@@ -5,6 +5,7 @@ import { ImageIcon } from '@sanity/icons';
 export const image = {
     type: 'image',
     icon: ImageIcon,
+    title: 'Image',
     fields: [
         defineField({
             name: 'caption',

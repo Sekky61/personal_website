@@ -1,7 +1,7 @@
 import { ThLargeIcon } from '@sanity/icons';
 
 export const table = {
-    name: 'table',
+    name: 'richTable', // Should not be the same as a global type name
     type: 'object',
     icon: ThLargeIcon,
     title: 'Table',
