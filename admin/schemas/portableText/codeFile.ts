@@ -72,6 +72,12 @@ export const codeFile = {
             }
         }),
         defineField({
+            name: 'output',
+            title: 'Output',
+            type: 'text',
+            description: "Output of the code block. For example: 'Hello World!'.",
+        }),
+        defineField({
             name: 'tokens',
             title: 'Tokens',
             type: 'array',

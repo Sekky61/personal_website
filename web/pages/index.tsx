@@ -1,19 +1,24 @@
 import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import type { GetStaticProps, NextPage } from 'next'
+import Link from 'next/link';
 
-const PostCard = ({ postData }: any) => {
+const PostCard = ({ postData }: { postData: Blogpost }) => {
   // format date
   const date = postData.releaseDate;
   const formattedDate = date.toISOString().split('T')[0];
   const text = postData.getBeginningOfArticle(120);
 
   return (
-    <li className='card p-2 flex flex-col w-1/3 group hover:cursor-pointer'>
-      <span className='group-hover:underline text-xl decoration-primary-40'>{postData.data.title}</span>
-      <span>{formattedDate}</span>
-      <p className='two-line-text-ellipsis'>
-        {text}
-      </p>
+    <li className='flex-grow'>
+      <Link href={`/post/${postData.slug}`}>
+        <div className='card p-2 flex flex-col group hover:cursor-pointer h-32'>
+          <span className='group-hover:underline text-xl decoration-primary-40'>{postData.data.title}</span>
+          <span>{formattedDate}</span>
+          <p className='two-line-text-ellipsis'>
+            {text}
+          </p>
+        </div>
+      </Link>
     </li>
   );
 }
@@ -44,7 +49,7 @@ const Home: NextPage = ({ postsData }: any) => {
       </div>
       <div className='latest-posts'>
         <h2 className='heading-primary text-4xl font-semibold mb-5'>Latest posts</h2>
-        <ul className='flex gap-4'>
+        <ul className='grid grid-cols-1 md:grid-cols-3 gap-4'>
           {postCards}
         </ul>
       </div>

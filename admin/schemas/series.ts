@@ -28,7 +28,6 @@ export const series = defineType({
             name: 'tags',
             title: 'Tags',
             type: 'tags',
-            initialValue: []
         }),
         defineField({
             name: 'posts',
@@ -42,6 +41,10 @@ export const series = defineType({
             }]
         })
     ],
+    initialValue: { // This works, but putting initialValue in the fields doesn't.
+        tags: [],
+        posts: [],
+    },
     preview: {
         select: {
             title: 'title',
@@ -49,7 +52,8 @@ export const series = defineType({
         },
         prepare(selection: any) {
             const { title, posts } = selection;
-            const plural = posts.length > 1;
+
+            const plural = posts.length > 1 || posts.length === 0;
             return {
                 title: title,
                 subtitle: `${posts.length} blogpost${plural ? `s` : ``}`

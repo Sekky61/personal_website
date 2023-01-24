@@ -8,6 +8,7 @@ import CustomImage from '@common/components/post/customImage';
 import { LatexBlock, LatexInline } from '@common/components/post/LatexBlock';
 import Edit from '@common/components/post/edit';
 import Abbr from '@common/components/post/abbr';
+import Table from '@common/components/post/table';
 
 // Configuration for PortableText rendering
 // Docs: https://github.com/portabletext/react-portabletext
@@ -26,6 +27,7 @@ export const blockRenderingElements: PortableTextComponents = {
     },
     tip: Tip,
     edit: Edit,
+    table: Table,
   },
   block: {
     heading: LinkHeading,

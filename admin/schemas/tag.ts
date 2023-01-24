@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, defineArrayMember } from "sanity";
 
 export const tag = defineType({
     name: 'tag',
@@ -22,5 +22,11 @@ export const tags = defineType({
     name: 'tags',
     title: 'Tags',
     type: 'array',
-    of: [{ type: 'tag' }]
+    of: [
+        defineArrayMember({
+            type: 'tag',
+            name: 'tag',
+        }),
+    ],
+    initialValue: [],
 })

@@ -1,21 +1,9 @@
 import Link, { LinkProps } from "next/link";
 
 import GithubLogo from "@common/svg/GithubLogo";
-import LightSwitch from "@common/svg/LightSwitch";
 import { useRouter } from "next/router";
 import React, { Children } from "react";
-import useDarkMode from "@common/hooks/useDarkMode";
-
-const ThemeSwitch = () => {
-    const [colorTheme, setTheme] = useDarkMode();
-    const uses_light = colorTheme === "light";
-
-    return (
-        <button onClick={() => { uses_light ? setTheme("dark") : setTheme("light") }} type="button" className="mr-5 focus:ring focus:ring-primary-70 text-primary-40 dark:text-primary-40 hover:bg-gray-100 dark:hover:bg-primary-20 focus:outline-none rounded-full text-sm p-1.5">
-            <LightSwitch uses_light={uses_light}></LightSwitch>
-        </button>
-    );
-}
+import { ThemeSwitch } from "@common/components/ThemeSwitch";
 
 const Hamburger = () => {
     return (

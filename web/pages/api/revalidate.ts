@@ -33,7 +33,7 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         return;
     }
 
-    console.log(`Verified webhook signature`);
+    console.info(`Verified webhook signature`);
 
     // Get paths to revalidate
 
@@ -42,7 +42,7 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         res.status(400).send('Bad request (no slug)');
         return;
     }
-    let blogPaths = [`/post/${body.slug.current}`, '/blog'];
+    let blogPaths = [`/post/${body.slug.current}`, '/blog', '/series', '/'];
 
     const blogSlugs = await BlogpostDataLoader.getAllSlugs();
 
@@ -57,17 +57,17 @@ export default async function handleWebhook(req: NextApiRequest, res: NextApiRes
         // e.g. for "/blog/[slug]" this should be "/blog/post-1"
         let promises = [];
         for (const path of blogPaths) {
-            console.log(`Revalidating ${path} ...`);
+            console.info(`Revalidating ${path} ...`);
             promises.push(res.revalidate(path));
         }
         await Promise.allSettled(promises);
 
-        console.log(`Revalidation complete`);
+        console.info(`Revalidation complete`);
         return res.json({ success: true });
     } catch (err) {
         // If there was an error, Next.js will continue
         // to show the last successfully generated page
-        console.log(`Error revalidating`);
+        console.info(`Error revalidating`);
         return res.status(500).json({ success: false, message: 'Error revalidating' });
     }
 }
