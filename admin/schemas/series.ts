@@ -28,13 +28,11 @@ export const series = defineType({
             name: 'tags',
             title: 'Tags',
             type: 'tags',
-            initialValue: []
         }),
         defineField({
             name: 'posts',
             title: 'Posts',
             type: 'array',
-            initialValue: [],
             of: [{
                 name: 'post',
                 title: 'Series',
@@ -43,6 +41,10 @@ export const series = defineType({
             }]
         })
     ],
+    initialValue: { // This works, but putting initialValue in the fields doesn't.
+        tags: [],
+        posts: [],
+    },
     preview: {
         select: {
             title: 'title',
