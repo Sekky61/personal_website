@@ -10,11 +10,16 @@ import { edit } from "./edit";
 import { abbr } from "./abbr";
 import { table } from "./table";
 
+const HeadingStyle = (props: any) => (
+    <span style={{ fontSize: '2em' }}>{props.children} </span>
+)
+
 // TODO make a cutdown version - no headings - to use in tips
 export const portableText = defineType({
     name: 'portableText',
     type: 'array',
     title: 'Content',
+    initialValue: [],
     of: [
         {
             type: 'block',
@@ -27,7 +32,11 @@ export const portableText = defineType({
             ],
             styles: [
                 { title: 'Normal', value: 'normal' },
-                { title: 'Heading', value: 'heading' }
+                {
+                    title: 'Heading',
+                    value: 'heading',
+                    component: HeadingStyle
+                }
             ],
             marks: {
                 // Marks just mark a span

@@ -34,6 +34,7 @@ export const series = defineType({
             name: 'posts',
             title: 'Posts',
             type: 'array',
+            initialValue: [],
             of: [{
                 name: 'post',
                 title: 'Series',
@@ -49,7 +50,8 @@ export const series = defineType({
         },
         prepare(selection: any) {
             const { title, posts } = selection;
-            const plural = posts.length > 1;
+
+            const plural = posts.length > 1 || posts.length === 0;
             return {
                 title: title,
                 subtitle: `${posts.length} blogpost${plural ? `s` : ``}`
