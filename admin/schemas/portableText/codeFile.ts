@@ -68,6 +68,14 @@ export const codeFile = {
                     { title: 'Rust', value: 'rust' },
                     { title: 'Python', value: 'python' },
                     { title: 'SASS', value: 'sass' },
+                    { title: 'jsx', value: 'jsx' },
+                    { title: 'typescript', value: 'typescript' },
+                    { title: 'tsx', value: 'tsx' },
+                    { title: 'sh', value: 'sh' },
+                    { title: 'text', value: 'text' },
+                    { title: 'json', value: 'json' },
+                    { title: 'yaml', value: 'yaml' },
+                    { title: 'markdown', value: 'markdown' },
                 ]
             }
         }),
