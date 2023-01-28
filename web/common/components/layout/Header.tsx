@@ -58,7 +58,7 @@ const NavLink = ({
 
 const Header = () => {
     return (
-        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500">
+        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 z-10">
             <div className="bg-primary-40/[.08] px-4">
                 <div className="small-container py-3">
                     <div className="flex gap-3 items-center">
