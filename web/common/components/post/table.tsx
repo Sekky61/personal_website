@@ -24,12 +24,34 @@ const Table = ({ value }: any) => {
         );
     });
 
+    let tableBody;
+
+    if (styleFirstRowDifferent) {
+        tableBody = (
+            <>
+                <thead>
+                    {rows[0]}
+                </thead>
+                <tbody>
+                    {rows.slice(1)}
+                </tbody>
+            </>
+        );
+    } else {
+        tableBody = (
+            <tbody>
+                {rows}
+            </tbody>
+        );
+    }
+
+
     // render table
     return (
         <div>
             <div className="overflow-x-auto mb-2">
                 <table className="table-auto">
-                    {rows}
+                    {tableBody}
                 </table>
             </div>
             <span>{caption}</span>
