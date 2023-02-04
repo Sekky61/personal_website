@@ -44,13 +44,23 @@ const BlogListing: NextPage<BlogListingProps> = ({ postsData, postsCount, curren
 export default BlogListing;
 
 interface BlogPageParams extends ParsedUrlQuery {
-    page: string
+    page: string[]
 }
 
 // This function gets called at build time on server-side for each page.
 export const getStaticProps: GetStaticProps<BlogListingProps, BlogPageParams> = async (context) => {
     const { page } = context.params!;        // non-null assert
-    const currentPage = parseInt(page) || 1; // /blog gets treated as /blog/1
+
+    let pageNum;
+    if (page === undefined || page.length === 0) { // NextJS changes page: [] to page: undefined
+        // /blog
+        pageNum = '1';
+    } else {
+        // /blog/1
+        pageNum = page[0];
+    }
+
+    const currentPage = parseInt(pageNum) || 1;
 
     const from = (currentPage - 1) * resultsPerPage;
     const to = from + resultsPerPage;
@@ -68,13 +78,18 @@ export const getStaticProps: GetStaticProps<BlogListingProps, BlogPageParams> = 
 }
 
 // This function returns a list of page paths so that the pages can be pre-rendered.
+// eg. /blog/1 -> {params: {page: ['blog', '1']}}
 export const getStaticPaths: GetStaticPaths<BlogPageParams> = async () => {
     const postsCount = await BlogpostDataLoader.getPostsCount();
     const pagesCount = Math.max(Math.ceil(postsCount / resultsPerPage), 1);  // At least one
     const pageNumbers = Array.from({ length: pagesCount }, (_, i) => i + 1); // Numbers 1..=pagesCount
 
     // Create an array of page paths, each containing a page number
-    const pagePaths = pageNumbers.map((pageNumber: number) => ({ params: { page: pageNumber.toString() } }));
+    const pagePaths: { params: { page: string[] } }[] = pageNumbers.map((pageNumber: number) => ({ params: { page: [pageNumber.toString()] } }));
+    // add the /blog path
+    pagePaths.push({ params: { page: [] } });
+
+    console.log(pagePaths);
 
     return {
         paths: pagePaths,

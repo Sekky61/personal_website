@@ -83,28 +83,26 @@ const Hamburger = () => {
 
 // Argument for component creation, with added props
 type NavLinkProps = React.PropsWithChildren<LinkProps> & {
-    activeClassName?: string;
+    isActive: boolean;
 };
 
 // NavLink must have single child
 // src: https://frontend-digest.com/how-to-create-navlink-component-in-nextjs-586052e39ba7
 const NavLink = ({
     children,
-    activeClassName = "navlink-active",
+    isActive,
     ...props
 }: NavLinkProps) => {
-    const { asPath } = useRouter();
+    const activeClassName = "navlink-active";
     const child = Children.only(children) as React.ReactElement;
     const childClassName = child.props.className || "";
-
-    const isActive = asPath === props.href || asPath === props.as;
 
     const className = `${childClassName} ${isActive ? activeClassName : ""}`;
 
     return (
         <Link {...props}>
             {React.cloneElement(child, {
-                className: className || null
+                className: className
             })}
         </Link>
     );
@@ -112,10 +110,14 @@ const NavLink = ({
 
 const Header = () => {
 
+    const { asPath } = useRouter();
+
     const navLinks = linksToDisplay.map((link) => {
+        const isActive = asPath === link.href;
+        console.log(isActive, asPath, link.href);
         return (
-            <li>
-                <NavLink href={link.href}>
+            <li key={link.label}>
+                <NavLink href={link.href} isActive={isActive}>
                     <span className="navlink">{link.label}</span>
                 </NavLink>
             </li>
