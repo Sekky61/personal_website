@@ -32,7 +32,7 @@ const Portfolio: NextPage = ({ repos }: any) => {
     console.log(repos);
 
     const repoCards = repos.map((repo: RepoCard) => {
-        return (<RepoCard repo={repo} />);
+        return (<RepoCard repo={repo} key={repo.name} />);
     });
 
     return (
