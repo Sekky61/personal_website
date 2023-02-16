@@ -7,7 +7,7 @@ const LinkHeading = ({ children }: any) => {
     const text = Blogpost.childrenToPlainText(children);
     const textSlug = Blogpost.makeSlug(text);
     return (
-        <h2 className="group -ml-4 pl-4 flex">
+        <h2 className="group -ml-4 pl-4 flex pt-8">
             <a id={textSlug} href={`#${textSlug}`} aria-label="Anchor">
                 <div className="absolute w-8 h-8 -ml-8 flex items-center opacity-0 group-hover:opacity-100">
                     <LinkChain></LinkChain>

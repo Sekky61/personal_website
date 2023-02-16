@@ -6,16 +6,11 @@ const STUDIO_REWRITE = {
       : "/admin/index.html",
 };
 
-const BLOG_REWRITE = {
-  source: "/blog",
-  destination: "/blog/1",
-};
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  rewrites: async () => [STUDIO_REWRITE, BLOG_REWRITE],
+  rewrites: async () => [STUDIO_REWRITE],
   images: {
     remotePatterns: [
       {

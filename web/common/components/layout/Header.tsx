@@ -5,60 +5,127 @@ import { useRouter } from "next/router";
 import React, { Children } from "react";
 import { ThemeSwitch } from "@common/components/ThemeSwitch";
 
+const linksToDisplay = [
+    {
+        href: "/about",
+        label: "About me",
+    },
+    {
+        href: "/blog",
+        label: "Blog",
+    },
+    {
+        href: "/portfolio",
+        label: "Portfolio",
+    },
+];
+
 const Hamburger = () => {
+    // State for opening menu
+    const [open, setOpen] = React.useState(false);
+
+    const openModal = () => {
+        setOpen(true);
+    };
+
+    const closeModal = () => {
+        setOpen(false);
+    };
+
+    const links = linksToDisplay.map((link) => {
+        return (
+            <li key={link.href} className="font-bold">
+                <a href={link.href}>{link.label}</a>
+
+            </li>
+        );
+    });
+
     return (
-        <div className="w-8 h-8">
-            <button className="relative group">
-                <div className="relative flex overflow-hidden items-center justify-center rounded-full w-8 h-8 transform transition-all duration-200 shadow-md">
-                    <div className="flex flex-col justify-between w-4 h-4 transform transition-all duration-300 origin-center overflow-hidden">
-                        <div className="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10"></div>
-                        <div className="bg-white h-[2px] w-7 rounded transform transition-all duration-300 group-focus:translate-x-10 delay-75"></div>
-                        <div className="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10 delay-150"></div>
-                        <div className="absolute items-center justify-between transform transition-all duration-500 top-2.5 -translate-x-10 group-focus:translate-x-0 flex w-0 group-focus:w-12">
-                            <div className="absolute bg-white h-[2px] w-4 transform transition-all duration-500 rotate-0 delay-300 group-focus:rotate-45"></div>
-                            <div className="absolute bg-white h-[2px] w-4 transform transition-all duration-500 -rotate-0 delay-300 group-focus:-rotate-45"></div>
+        <>
+            <button className="w-8 h-8 relative group" onClick={openModal}>
+                <div className="relative flex overflow-hidden items-center justify-center rounded-full w-8 h-8 shadow-md">
+                    <div className="flex flex-col justify-between w-4 h-4 overflow-hidden">
+                        <div className="bg-white h-[2px] w-7 origin-left"></div>
+                        <div className="bg-white h-[2px] w-7 rounded"></div>
+                        <div className="bg-white h-[2px] w-7 origin-left"></div>
+                        <div className="absolute items-center justify-between top-2.5 -translate-x-10 flex w-0">
+                            <div className="absolute bg-white h-[2px] w-4"></div>
+                            <div className="absolute bg-white h-[2px] w-4"></div>
                         </div>
                     </div>
                 </div>
             </button>
-            <input className="hidden" type="checkbox" name="" id="hamburger-checkbox" />
-        </div>
-
+            <input className="hidden" type="checkbox" name="displayDropdown" id="hamburger-checkbox" />
+            {open &&
+                <div className="fixed z-50 inset-0 md:hidden">
+                    <div className="absolute inset-0 bg-black/20 backdrop-blur-sm">
+                        <div className="fixed w-full top-4 right-4 bg-neutral-99 dark:bg-neutral-10 rounded-lg max-w-xs shadow-lg p-6 pt-8">
+                            <button onClick={closeModal} className="absolute top-4 right-4">
+                                <svg className="w-6 h-6 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                            <ul className="space-y-6 pb-5">
+                                {links}
+                            </ul>
+                            <div className="pt-4 mt-4 border-t border-neutral-10 dark:border-neutral-99 flex items-center">
+                                <span className="pr-2">Switch theme</span>
+                                <ThemeSwitch></ThemeSwitch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </>
     );
 }
 
 // Argument for component creation, with added props
 type NavLinkProps = React.PropsWithChildren<LinkProps> & {
-    activeClassName?: string;
+    isActive: boolean;
 };
 
 // NavLink must have single child
 // src: https://frontend-digest.com/how-to-create-navlink-component-in-nextjs-586052e39ba7
 const NavLink = ({
     children,
-    activeClassName = "navlink-active",
+    isActive,
     ...props
 }: NavLinkProps) => {
-    const { asPath } = useRouter();
+    const activeClassName = "navlink-active";
     const child = Children.only(children) as React.ReactElement;
     const childClassName = child.props.className || "";
-
-    const isActive = asPath === props.href || asPath === props.as;
 
     const className = `${childClassName} ${isActive ? activeClassName : ""}`;
 
     return (
         <Link {...props}>
             {React.cloneElement(child, {
-                className: className || null
+                className: className
             })}
         </Link>
     );
 };
 
 const Header = () => {
+
+    const { asPath } = useRouter();
+
+    const navLinks = linksToDisplay.map((link) => {
+        const isActive = asPath === link.href;
+        return (
+            <li key={link.label}>
+                <NavLink href={link.href} isActive={isActive}>
+                    <span className="navlink">{link.label}</span>
+                </NavLink>
+            </li>
+        );
+    });
+
+
     return (
-        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500">
+        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 z-10">
             <div className="bg-primary-40/[.08] px-4">
                 <div className="small-container py-3">
                     <div className="flex gap-3 items-center">
@@ -76,21 +143,7 @@ const Header = () => {
                                 <ThemeSwitch></ThemeSwitch>
                                 <nav>
                                     <ul className="flex space-x-5">
-                                        <li>
-                                            <NavLink href="/about">
-                                                <span className="navlink">About me</span>
-                                            </NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink href="/blog">
-                                                <span className="navlink">Blog</span>
-                                            </NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink href="/portfolio">
-                                                <span className="navlink">Portfolio</span>
-                                            </NavLink>
-                                        </li>
+                                        {navLinks}
                                     </ul>
                                 </nav>
                                 <div className="pl-8 ml-8 border-l">

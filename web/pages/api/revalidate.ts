@@ -1,7 +1,7 @@
 import { BlogpostDataLoader } from "@common/utils/blogpost"
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
-import { resultsPerPage } from "pages/blog/[page]";
+import { resultsPerPage } from "pages/blog/[[...page]]";
 
 // Revalidates all blog posts, including blog index
 // Source: https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#using-on-demand-revalidation

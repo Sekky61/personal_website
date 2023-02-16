@@ -3,6 +3,7 @@ import { post } from './post'
 import { source } from './source'
 import { series } from './series'
 import { tag, tags } from './tag'
+import { repo } from './repo'
 
 import { portableText } from './portableText/portableText'
 import { codeToken } from './portableText/codeFile'
@@ -17,6 +18,7 @@ export default [
   portableText,
   codeToken,
   tags,
-  tag
+  tag,
+  repo
 ]
 

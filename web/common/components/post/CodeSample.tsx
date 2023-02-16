@@ -19,6 +19,10 @@ interface CodeSampleProps {
     }
 }
 
+const lineNumberStyle: React.CSSProperties = {
+    minWidth: "2.4em",
+}
+
 // Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
 const CodeSample = ({ value }: CodeSampleProps) => {
     const { fileName, lineStart, tokens, code: { code, language, highlightedLines = [] }, output } = value;
@@ -40,7 +44,7 @@ const CodeSample = ({ value }: CodeSampleProps) => {
                     </div>
                 }
                 <CopyButton code={code}></CopyButton>
-                <SyntaxHighlighter language={language} style={a11yDark} showLineNumbers wrapLongLines wrapLines startingLineNumber={startingLineNumber}
+                <SyntaxHighlighter language={language} style={a11yDark} lineNumberStyle={lineNumberStyle} showLineNumbers wrapLongLines wrapLines startingLineNumber={startingLineNumber}
                     renderer={renderer}>
                     {code}
                 </SyntaxHighlighter>
@@ -58,7 +62,7 @@ const CodeOutput = ({ output }: any) => {
             <div className='overflow-hidden bg-white/[.08] text-white px-6 py-1 rounded-tl-lg rounded-br-lg font-mono text-sm absolute top-0 left-0'>
                 Output
             </div>
-            <SyntaxHighlighter style={a11yDark} showLineNumbers wrapLongLines wrapLines>
+            <SyntaxHighlighter style={a11yDark} showLineNumbers wrapLongLines wrapLines lineNumberStyle={lineNumberStyle}>
                 {output}
             </SyntaxHighlighter>
         </div>
