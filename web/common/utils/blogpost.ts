@@ -248,3 +248,54 @@ export class BlogpostDataLoader {
         return await getClient().fetch(groq`count(${ALL_PUBLISHED_POSTS})`);
     }
 }
+
+// Data I want to load from GitHub API
+interface GitHubData {
+    name: string;
+    description: string;
+    updated_at: string;
+    language: string;
+}
+
+// Data I want to load from Sanity
+export interface Repository {
+    name: string;
+    link: string;
+    description: string;
+    technologies: string[];
+    githubData: GitHubData;
+}
+
+export class RepositoriesLoader {
+    static async getRepositories(): Promise<Repository[]> {
+        const data = await getClient().fetch(groq`*[_type == "repository"]`);
+
+        // Get github data for each repo
+        const repos = data.map(async (repo: any) => {
+            const githubData = await this.getGithubData(repo.link);
+            return { ...repo, githubData };
+        });
+
+        return Promise.all(repos);
+    }
+
+    // Link: a github.com link to a repository
+    // Returns only selected keys from the GitHub API response
+    static async getGithubData(repoUrl: string): Promise<GitHubData> {
+        if (!repoUrl.includes('github.com')) {
+            throw new Error(`Invalid GitHub URL: ${repoUrl}`);
+        }
+
+        const repoApiUrl = repoUrl.replace('github.com', 'api.github.com/repos');
+        const response = await fetch(repoApiUrl);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch repository data from GitHub API: ${response.status} ${response.statusText}`);
+        }
+        const repoData = await response.json() as GitHubData;
+
+        // Select some keys from the response
+        const { name, description, updated_at, language } = repoData;
+        const data = { name, description, updated_at, language };
+        return data;
+    }
+}

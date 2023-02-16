@@ -13,7 +13,7 @@ export const repo = defineType({
         defineField({
             name: 'link',
             type: 'url',
-            title: 'Link'
+            title: 'GitHub link'
         }),
         defineField({
             name: 'description',

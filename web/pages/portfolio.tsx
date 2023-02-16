@@ -1,26 +1,28 @@
-import { getClient } from '@common/utils/sanity/sanity.server'
-import type { NextPage } from 'next'
+import { RepositoriesLoader, Repository } from '@common/utils/blogpost';
+import type { NextPage } from 'next';
 import Link from 'next/link';
 
 interface RepoCardProps {
-    repo: RepoCard;
-}
-
-interface RepoCard {
-    name: string;
-    link: string;
-    description: string;
-    technologies: string[];
+    repo: Repository;
 }
 
 const RepoCard = ({ repo }: RepoCardProps) => {
-    const { name, link, description, technologies } = repo;
-    console.log(name);
+    const technologiesPills = repo.technologies.map((tech: string) => {
+        return (
+            <div className='tag-pill' key={tech}>
+                {tech}
+            </div>
+        );
+    });
+
     return (
-        <div className="p-2 card group">
-            <Link href={link}>
-                <h3 className='text-xl group-hover:underline'>{name}</h3>
-                <p>{description}</p>
+        <div className="p-3 card group">
+            <Link href={repo.link}>
+                <h3 className='text-xl group-hover:underline mb-4'>{repo.name}</h3>
+                <p className='mb-4'>{repo.description}</p>
+                <div className="flex">
+                    {technologiesPills}
+                </div>
             </Link>
         </div>
     )
@@ -29,9 +31,7 @@ const RepoCard = ({ repo }: RepoCardProps) => {
 
 
 const Portfolio: NextPage = ({ repos }: any) => {
-    console.log(repos);
-
-    const repoCards = repos.map((repo: RepoCard) => {
+    const repoCards = repos.map((repo: Repository) => {
         return (<RepoCard repo={repo} key={repo.name} />);
     });
 
@@ -47,9 +47,9 @@ const Portfolio: NextPage = ({ repos }: any) => {
     )
 }
 
-// load data from sanity
+// Load data for highlighted repositories
 export const getStaticProps = async () => {
-    const repos = await getClient().fetch(`*[_type == "repository"]`);
+    const repos = await RepositoriesLoader.getRepositories();
 
     return {
         props: {

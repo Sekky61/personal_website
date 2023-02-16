@@ -89,8 +89,6 @@ export const getStaticPaths: GetStaticPaths<BlogPageParams> = async () => {
     // add the /blog path
     pagePaths.push({ params: { page: [] } });
 
-    console.log(pagePaths);
-
     return {
         paths: pagePaths,
         fallback: false,

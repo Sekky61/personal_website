@@ -114,7 +114,6 @@ const Header = () => {
 
     const navLinks = linksToDisplay.map((link) => {
         const isActive = asPath === link.href;
-        console.log(isActive, asPath, link.href);
         return (
             <li key={link.label}>
                 <NavLink href={link.href} isActive={isActive}>
