@@ -19,7 +19,7 @@ export const portableText = defineType({
     name: 'portableText',
     type: 'array',
     title: 'Content',
-    initialValue: [],
+    initialValue: [{ type: 'block', children: [{ text: '' }] }],
     of: [
         {
             type: 'block',
