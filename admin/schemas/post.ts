@@ -65,7 +65,6 @@ export const post = defineType({
       name: 'content',
       title: 'Content',
       type: 'portableText',
-      initialValue: [],
       group: 'content',
     }),
     defineField({

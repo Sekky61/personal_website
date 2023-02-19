@@ -9,6 +9,7 @@ import { latexBlock, latexInline } from "./latex";
 import { edit } from "./edit";
 import { abbr } from "./abbr";
 import { table } from "./table";
+import { component } from "./Component";
 
 const HeadingStyle = (props: any) => (
     <span style={{ fontSize: '2em' }}>{props.children} </span>
@@ -19,7 +20,6 @@ export const portableText = defineType({
     name: 'portableText',
     type: 'array',
     title: 'Content',
-    initialValue: [{ type: 'block', children: [{ text: '' }] }],
     of: [
         {
             type: 'block',
@@ -48,10 +48,11 @@ export const portableText = defineType({
                 ]
             }
         },
-        image,
         codeFile,
+        image,
         tip,
         latexBlock,
-        table
+        component,
+        table,
     ]
 })
