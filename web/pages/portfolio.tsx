@@ -1,4 +1,6 @@
+import { blockRenderingElements } from '@common/utils/blockRendering';
 import { RepositoriesLoader, Repository } from '@common/utils/blogpost';
+import { PortableText } from '@portabletext/react';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 
@@ -28,17 +30,21 @@ const RepoCard = ({ repo }: RepoCardProps) => {
     )
 }
 
+const Portfolio: NextPage = ({ portfolio }: any) => {
+    const { projects, text } = portfolio;
+    console.log(projects);
 
-
-const Portfolio: NextPage = ({ repos }: any) => {
-    const repoCards = repos.map((repo: Repository) => {
+    const repoCards = projects.map((repo: Repository) => {
         return (<RepoCard repo={repo} key={repo.name} />);
     });
 
     return (
         <>
             <h1 className='heading-primary' >My portfolio</h1>
-            <p className='mb-8'>This is my portfolio.</p>
+            <PortableText
+                value={text}
+                components={blockRenderingElements}
+            />
             <h2 className='metablock-heading'>Highlighted repositories</h2>
             <div className="grid grid-cols-3 gap-2">
                 {repoCards}
@@ -49,11 +55,14 @@ const Portfolio: NextPage = ({ repos }: any) => {
 
 // Load data for highlighted repositories
 export const getStaticProps = async () => {
-    const repos = await RepositoriesLoader.getRepositories();
+    const portfolio = await RepositoriesLoader.getPortfolio();
+
+    console.log(portfolio);
+
 
     return {
         props: {
-            repos
+            portfolio
         }
     }
 }

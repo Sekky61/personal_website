@@ -266,17 +266,26 @@ export interface Repository {
     githubData: GitHubData;
 }
 
+export interface Portfolio {
+    projects: Repository[];
+    text: any;
+}
+
 export class RepositoriesLoader {
-    static async getRepositories(): Promise<Repository[]> {
-        const data = await getClient().fetch(groq`*[_type == "repository"]`);
+    static async getPortfolio(): Promise<Portfolio> {
+        // Get data from Sanity and join references to repositories
+        const data: Portfolio = await getClient().fetch(groq`*[_type == "portfolio"][0]{...,projects[]->}`);
 
         // Get github data for each repo
-        const repos = data.map(async (repo: any) => {
+        const repos = data.projects.map(async (repo: any) => {
             const githubData = await this.getGithubData(repo.link);
             return { ...repo, githubData };
         });
 
-        return Promise.all(repos);
+        // Wait for all promises to resolve
+        data.projects = await Promise.all(repos);
+
+        return data;
     }
 
     // Link: a github.com link to a repository
