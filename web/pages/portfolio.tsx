@@ -20,11 +20,11 @@ const RepoCard = ({ repo }: RepoCardProps) => {
             <Link href={repo.link}>
                 <h3 className='text-xl group-hover:underline mb-4'>{repo.name}</h3>
                 <p className='mb-4'>{repo.description}</p>
-                <div className="flex">
+                <div className="flex gap-2 h-7">
                     {technologiesPills}
                 </div>
-            </Link>
-        </div>
+            </Link >
+        </div >
     )
 }
 
