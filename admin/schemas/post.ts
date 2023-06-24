@@ -58,7 +58,6 @@ export const post = defineType({
       name: 'tags',
       title: 'Tags',
       type: 'tags',
-      initialValue: [],
       group: 'meta',
     }),
     defineField({
