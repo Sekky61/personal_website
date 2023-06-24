@@ -42,7 +42,6 @@ export const series = defineType({
         })
     ],
     initialValue: { // This works, but putting initialValue in the fields doesn't.
-        tags: [],
         posts: [],
     },
     preview: {

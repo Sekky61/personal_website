@@ -9,11 +9,13 @@ import { LatexBlock, LatexInline } from '@common/components/post/LatexBlock';
 import Edit from '@common/components/post/edit';
 import Abbr from '@common/components/post/abbr';
 import Table from '@common/components/post/table';
+import { ContentComponentsRender } from '@common/components/content/ContentComponents';
 
 // Configuration for PortableText rendering
 // Docs: https://github.com/portabletext/react-portabletext
 export const blockRenderingElements: PortableTextComponents = {
   types: {
+    component: ContentComponentsRender,
     latexBlock: LatexBlock,
     latexInline: LatexInline,
     image: CustomImage,

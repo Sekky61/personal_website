@@ -58,14 +58,12 @@ export const post = defineType({
       name: 'tags',
       title: 'Tags',
       type: 'tags',
-      initialValue: [],
       group: 'meta',
     }),
     defineField({
       name: 'content',
       title: 'Content',
       type: 'portableText',
-      initialValue: [],
       group: 'content',
     }),
     defineField({
