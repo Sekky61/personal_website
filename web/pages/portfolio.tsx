@@ -32,7 +32,6 @@ const RepoCard = ({ repo }: RepoCardProps) => {
 
 const Portfolio: NextPage = ({ portfolio }: any) => {
     const { projects, text } = portfolio;
-    console.log(projects);
 
     const repoCards = projects.map((repo: Repository) => {
         return (<RepoCard repo={repo} key={repo.name} />);
@@ -56,9 +55,6 @@ const Portfolio: NextPage = ({ portfolio }: any) => {
 // Load data for highlighted repositories
 export const getStaticProps = async () => {
     const portfolio = await RepositoriesLoader.getPortfolio();
-
-    console.log(portfolio);
-
 
     return {
         props: {
