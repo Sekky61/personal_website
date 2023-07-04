@@ -24,6 +24,7 @@ export const repo = defineType({
             name: 'technologies',
             type: 'array',
             title: 'Technologies',
+            initialValue: [],
             of: [
                 defineArrayMember({
                     type: 'string',

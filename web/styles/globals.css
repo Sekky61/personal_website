@@ -83,7 +83,7 @@ https://m3.material.io/styles/color/the-color-system/color-roles
   }
 
   .tag-pill {
-    @apply rounded-md font-semibold primary text-sm px-2.5 py-1 h-7
+    @apply rounded-md font-semibold text-sm px-2.5 py-1 h-7 bg-primary-60 dark:bg-primary-70 text-primary-20
   }
 }
 
@@ -133,4 +133,11 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 /* Patch line numbering on CodeSample */
 .linenumber {
   min-width: 3em;
+}
+
+.three-line-text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 }

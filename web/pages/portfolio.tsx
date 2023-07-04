@@ -19,9 +19,9 @@ const RepoCard = ({ repo }: RepoCardProps) => {
 
     return (
         <div className="p-3 card group">
-            <Link href={repo.link}>
+            <Link href={repo.link} className=' flex flex-col h-full'>
                 <h3 className='text-xl group-hover:underline mb-4'>{repo.name}</h3>
-                <p className='mb-4'>{repo.description}</p>
+                <p className='mb-2 mt-0 three-line-text-ellipsis flex-grow'>{repo.description}</p>
                 <div className="flex gap-2 h-7">
                     {technologiesPills}
                 </div>
