@@ -11,10 +11,13 @@ const PostCard = ({ postData }: { postData: Blogpost }) => {
   return (
     <li className='flex-grow'>
       <Link href={`/post/${postData.slug}`}>
-        <div className='card p-2 flex flex-col group hover:cursor-pointer h-32'>
+        <div className='card p-2 flex flex-col group hover:cursor-pointer h-full gap-2'>
           <span className='group-hover:underline text-xl decoration-primary-40'>{postData.data.title}</span>
-          <span>{formattedDate}</span>
-          <p className='two-line-text-ellipsis'>
+          <div className="flex justify-between primary-text text-sm font-semibold">
+            <span>Article</span>
+            <span className=''>{formattedDate}</span>
+          </div>
+          <p className='two-line-text-ellipsis m-0'>
             {text}
           </p>
         </div>
