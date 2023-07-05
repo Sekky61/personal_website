@@ -41,20 +41,20 @@ const Hamburger = () => {
         );
     });
 
+    const burger = (
+        <div className="relative flex overflow-hidden items-center justify-center rounded-lg w-8 h-8">
+            <div className="flex flex-col justify-between w-5 h-5 overflow-hidden">
+                <div className=" dark:bg-white bg-primary-10 h-[2px] w-5 origin-left"></div>
+                <div className="dark:bg-white bg-primary-10 h-[2px] w-5 rounded"></div>
+                <div className="dark:bg-white bg-primary-10 h-[2px] w-5 origin-left"></div>
+            </div>
+        </div>
+    );
+
     return (
         <>
             <button className="w-8 h-8 relative group" onClick={openModal}>
-                <div className="relative flex overflow-hidden items-center justify-center rounded-full w-8 h-8 shadow-md">
-                    <div className="flex flex-col justify-between w-4 h-4 overflow-hidden">
-                        <div className="bg-white h-[2px] w-7 origin-left"></div>
-                        <div className="bg-white h-[2px] w-7 rounded"></div>
-                        <div className="bg-white h-[2px] w-7 origin-left"></div>
-                        <div className="absolute items-center justify-between top-2.5 -translate-x-10 flex w-0">
-                            <div className="absolute bg-white h-[2px] w-4"></div>
-                            <div className="absolute bg-white h-[2px] w-4"></div>
-                        </div>
-                    </div>
-                </div>
+                {burger}
             </button>
             <input className="hidden" type="checkbox" name="displayDropdown" id="hamburger-checkbox" />
             {open &&
@@ -66,11 +66,11 @@ const Hamburger = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
                             </button>
-                            <ul className="space-y-6 pb-5">
+                            <ul className="space-y-6">
                                 {links}
                             </ul>
-                            <div className="pt-4 mt-4 border-t border-neutral-10 dark:border-neutral-99 flex items-center">
-                                <span className="pr-2">Switch theme</span>
+                            <div className="pt-4 mt-4 border-t border-neutral-10 dark:border-neutral-99 flex items-center gap-2">
+                                <span className="block pt-[2px]">Switch theme</span>
                                 <ThemeSwitch></ThemeSwitch>
                             </div>
                         </div>
@@ -125,22 +125,24 @@ const Header = () => {
 
 
     return (
-        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 z-10">
-            <div className="bg-primary-40/[.08] px-4">
-                <div className="small-container py-3">
+        <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 z-10 h-14">
+            <div className="bg-primary-40/[.08] px-4 flex items-center h-full">
+                <div className="small-container">
                     <div className="flex gap-3 items-center">
                         <Link href="/">
-                            <span className="whitespace-nowrap hidden sm:block text-2xl">Michal Majer</span>
-                            <span className="whitespace-nowrap sm:hidden text-2xl">Majer</span>
+                            <div className="whitespace-nowrap hidden sm:block text-2xl">Michal Majer</div>
+                            <div className="whitespace-nowrap sm:hidden text-2xl mt-1">Majer</div>
                         </Link>
                         <div className="flex-grow">
                         </div>
                         <div>
-                            <div className="md:hidden">
+                            <div className="md:hidden flex items-center justify-center">
                                 <Hamburger></Hamburger>
                             </div>
                             <div className="hidden md:flex items-center text-sm">
-                                <ThemeSwitch></ThemeSwitch>
+                                <div className="mr-5">
+                                    <ThemeSwitch></ThemeSwitch>
+                                </div>
                                 <nav>
                                     <ul className="flex space-x-5">
                                         {navLinks}
