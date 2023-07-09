@@ -4,6 +4,7 @@ import Link from "next/link"
 export default function BlogPostCard({ post }: { post: Blogpost }) {
 
   let newTags = post.data.tags;
+  if (post.data.tags === undefined) newTags = [];
   if (post.isPartOfSeries()) {
     // Concat doesn’t modify the original array
     newTags = post.data.tags.concat([{ label: "Series", value: "series" }]);

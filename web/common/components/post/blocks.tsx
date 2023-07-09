@@ -1,31 +1,5 @@
 import { Footnote, Heading, Source } from "@common/utils/blogpost";
 
-interface Headings {
-    headings: Heading[];
-}
-
-// Renders the contents of a post
-export const Contents = ({ headings }: Headings) => {
-    // Do not render if there is no content
-    if (headings.length === 0) {
-        return null;
-    }
-
-    const heading_items = headings.map(({ text, slug }: any) =>
-        <li key={slug} className="hover:underline">
-            <a href={"#" + slug}>{text}</a>
-        </li>
-    );
-
-    return (
-        <div className='metablock'>
-            <div className='metablock-heading'>Contents</div>
-            <ul>
-                {heading_items}
-            </ul>
-        </div>
-    );
-}
 
 interface Footnotes {
     footnotes: Footnote[];

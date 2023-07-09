@@ -5,12 +5,37 @@ import assert from 'assert';
 
 import { PortableText } from '@portabletext/react'
 
-import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
-import { Contents, Footnotes, Sources } from '@common/components/post/blocks';
+import { Blogpost, BlogpostDataLoader, Heading } from '@common/utils/blogpost';
+import { Footnotes, Sources } from '@common/components/post/blocks';
 import { blockRenderingElements } from '@common/utils/blockRendering';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from 'pages/_app';
+import { BlogPostLayout } from '@common/components/layout/Layout';
 
-export default function Page({ postData }: any) {
-  const post = new Blogpost(postData);
+// Renders the contents of a post
+export const Contents = ({ headings }: { headings: Heading[] }) => {
+  // Do not render if there is no content
+  if (headings.length === 0) {
+    return null;
+  }
+
+  const heading_items = headings.map(({ text, slug }: Heading) =>
+    <li key={slug} className="hover:underline">
+      <a href={"#" + slug}>{text}</a>
+    </li>
+  );
+
+  return (
+    <div className='metablock'>
+      <div className='metablock-heading'>Contents</div>
+      <ul>
+        {heading_items}
+      </ul>
+    </div>
+  );
+}
+
+const Article = ({ post }: { post: Blogpost }) => {
   const formattedDate = post.releaseDate.toISOString().split('T')[0];
   const isInSeries = post.isPartOfSeries();
 
@@ -53,6 +78,51 @@ export default function Page({ postData }: any) {
   );
 }
 
+const SideContents = ({ headings }: { headings: Heading[] }) => {
+  const heading_items = headings.map(({ text, slug }: Heading) =>
+    <li key={slug} className="hover:underline my-1.5">
+      <a href={"#" + slug}>{text}</a>
+    </li>
+  );
+
+  return (
+    <div className="pt-4">
+      <h1 className="text-xl">Table of Contents</h1>
+      <ul className="pl-3 ml-4 border-l">
+        {heading_items}
+      </ul>
+    </div>
+  );
+
+}
+
+const Page: NextPageWithLayout = ({ postData }: any) => {
+  const post = new Blogpost(postData);
+
+  return (
+    <div className="small-container mt-10 px-4">
+      <div className="relative">
+        <main>
+          <Article post={post}></Article>
+        </main>
+        <div className="absolute top-0 left-full ml-6 mt-32 w-48 h-full">
+          <div className="sticky top-0 pt-14">
+            <SideContents headings={post.headings}></SideContents>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+Page.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <BlogPostLayout>
+      {page}
+    </BlogPostLayout>
+  )
+}
+
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context?.params?.slug;
   assert(typeof (slug) == "string");
@@ -76,3 +146,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 }
+
+export default Page;
