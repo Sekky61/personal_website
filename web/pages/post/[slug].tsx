@@ -11,6 +11,7 @@ import { blockRenderingElements } from '@common/utils/blockRendering';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from 'pages/_app';
 import { BlogPostLayout } from '@common/components/layout/Layout';
+import LinkHeading from '@common/components/post/LinkHeading';
 
 // Renders the contents of a post
 export const Contents = ({ headings }: { headings: Heading[] }) => {
@@ -39,6 +40,37 @@ const Article = ({ post }: { post: Blogpost }) => {
   const formattedDate = post.releaseDate.toISOString().split('T')[0];
   const isInSeries = post.isPartOfSeries();
 
+  let renderedArticle = PortableText({
+    value: post.data.content,
+    components: blockRenderingElements
+  });
+
+  // Group renderedArticle's children into sections
+  let sections = [];
+  let currentSection = [];
+  for (let i = 0; i < renderedArticle.props.children.length; i++) {
+    if (renderedArticle.props.children[i].type === LinkHeading) {
+      if (currentSection.length > 0) {
+        sections.push(currentSection);
+      }
+      currentSection = [renderedArticle.props.children[i]];
+    } else {
+      currentSection.push(renderedArticle.props.children[i]);
+    }
+  }
+
+  // Add the last section
+  sections.push(currentSection);
+
+  // Render the sections
+  sections = sections.map((section, index) => {
+    return (
+      <section key={index}>
+        {section}
+      </section>
+    );
+  });
+
   return (
     <div className='article'>
       <Head>
@@ -65,10 +97,7 @@ const Article = ({ post }: { post: Blogpost }) => {
       }
       <Contents headings={post.headings}></Contents>
       <div className='my-8'>
-        <PortableText
-          value={post.data.content}
-          components={blockRenderingElements}
-        />
+        {sections}
       </div>
       <div className='my-8'>
         <Footnotes footnotes={post.footnotes}></Footnotes>
