@@ -1,6 +1,7 @@
 import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import type { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link';
+import Image from 'next/image';
 
 const PostCard = ({ postData }: { postData: Blogpost }) => {
   // format date
@@ -39,15 +40,15 @@ const Home: NextPage = ({ postsData }: any) => {
 
   return (
     <>
-      <div className='flex gap-16 mt-20 flex-wrap lg:flex-nowrap mb-12'>
-        <div className='grow'>
+      <div className='flex flex-col md:flex-row gap-16 mt-20 mb-12 items-center'>
+        <div>
           <h1 className='heading-primary leading-tight text-6xl text-center lg:text-right font-bold mb-8' >Welcome to my website!</h1>
-          <h2 className='heading-primary text-4xl text-center lg:text-right font-semibold'>Enjoy</h2>
+          <h2 className='heading-primary text-4xl text-center lg:text-right font-semibold hover:decoration-primary-60'>
+            <Link href="/portfolio">Check my projects</Link>
+          </h2>
         </div>
-        <div className='grow lg:grow-0 flex justify-center bg-primary-40 rounded-md p-2 primary'>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="black" className="w-64 h-64">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
+        <div className='rounded-md p-2 primary inline-block w-80 md:w-full'>
+          <Image src='/img/myFace.png' width={500} height={500} className='rounded' alt='My face' />
         </div>
       </div>
       <div className='latest-posts'>
