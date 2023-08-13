@@ -1,4 +1,5 @@
 import { Blogpost } from "@common/utils/blogpost";
+import { formatDate } from "@common/utils/misc";
 import Link from "next/link"
 
 export default function BlogPostCard({ post }: { post: Blogpost }) {
@@ -11,7 +12,7 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
   }
 
   const date = post.releaseDate;
-  const formattedDate = date.toISOString().split('T')[0];
+  const formattedDate = formatDate(date);
 
   let truncatedText = post.getBeginningOfArticle(250);
 

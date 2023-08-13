@@ -12,6 +12,7 @@ import { ReactElement } from 'react';
 import { NextPageWithLayout } from 'pages/_app';
 import { BlogPostLayout } from '@common/components/layout/Layout';
 import LinkHeading from '@common/components/post/LinkHeading';
+import { formatDate } from '@common/utils/misc';
 
 // Renders the contents of a post
 export const Contents = ({ headings }: { headings: Heading[] }) => {
@@ -37,7 +38,7 @@ export const Contents = ({ headings }: { headings: Heading[] }) => {
 }
 
 const Article = ({ post }: { post: Blogpost }) => {
-  const formattedDate = post.releaseDate.toISOString().split('T')[0];
+  const formattedDate = formatDate(post.releaseDate);
   const isInSeries = post.isPartOfSeries();
 
   let renderedArticle = PortableText({

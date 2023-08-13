@@ -5,6 +5,7 @@ import Pagination from '@components/Pagination';
 import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
+import Head from 'next/head';
 
 export const resultsPerPage = 10;
 
@@ -27,6 +28,9 @@ const BlogListing: NextPage<BlogListingProps> = ({ postsData, postsCount, curren
 
     return (
         <>
+            <Head>
+                <title>Majer - blog</title>
+            </Head>
             <h1 className='heading-primary'>The Blog</h1>
             <p className='mb-6'>
                 Or check out blogposts sorted by <Link href={`/series`} className="link">series</Link>
