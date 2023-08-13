@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
 import { BlogpostDataLoader, BlogpostSeries } from '@common/utils/blogpost';
+import Head from 'next/head';
 
 export function SeriesCard({ series }: { series: BlogpostSeries }) {
 
@@ -47,6 +48,9 @@ export default function BlogListing({ seriesRaw }: any) {
 
     return (
         <>
+            <Head>
+                <title>Majer - post series</title>
+            </Head>
             <h1 className='heading-primary'>The Blog</h1>
             <p className='mb-6'>Posts series</p>
             <ul className='flex flex-col divide-y'>
