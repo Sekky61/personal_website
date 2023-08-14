@@ -1,11 +1,37 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 
-import { BlogpostDataLoader, BlogpostSeries } from '@common/utils/blogpost';
+import { BlogpostDataLoader, SeriesWithPosts } from '@common/utils/blogpost';
 import Head from 'next/head';
-import { Pill, Pills } from '@common/components/Pill';
+import { Pills } from '@common/components/Pill';
 
-export function SeriesCard({ series }: { series: BlogpostSeries }) {
+interface PageProps {
+    series: SeriesWithPosts[]
+}
+
+const SeriesPage: NextPage<PageProps> = ({ series }) => {
+
+    const seriesCards = series.map((series) => (
+        <li key={series.slug.current}>
+            <SeriesCard series={series}></SeriesCard>
+        </li>
+    ))
+
+    return (
+        <>
+            <Head>
+                <title>Majer - post series</title>
+            </Head>
+            <h1 className='heading-primary'>The Blog</h1>
+            <p className='mb-6'>Posts series</p>
+            <ul className='flex flex-col divide-y'>
+                {seriesCards}
+            </ul>
+        </>
+    );
+}
+
+export function SeriesCard({ series }: { series: SeriesWithPosts }) {
 
     const postsList = series.posts.map(({ title, _id }: any) =>
         <li key={_id} className="">
@@ -28,36 +54,13 @@ export function SeriesCard({ series }: { series: BlogpostSeries }) {
     )
 }
 
-export default function BlogListing({ seriesRaw }: any) {
-    const series = seriesRaw.map((serie: any) => {
-        return new BlogpostSeries(serie);
-    });
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
 
-    const seriesCards = series.map((series: BlogpostSeries) => (
-        <li key={series.slug}>
-            <SeriesCard series={series}></SeriesCard>
-        </li>
-    ))
-
-    return (
-        <>
-            <Head>
-                <title>Majer - post series</title>
-            </Head>
-            <h1 className='heading-primary'>The Blog</h1>
-            <p className='mb-6'>Posts series</p>
-            <ul className='flex flex-col divide-y'>
-                {seriesCards}
-            </ul>
-        </>
-    );
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-
-    const seriesRaw = await BlogpostDataLoader.getPostSeries();
+    const series = await BlogpostDataLoader.getPostSeries();
 
     return {
-        props: { seriesRaw },
+        props: { series },
     };
 }
+
+export default SeriesPage;

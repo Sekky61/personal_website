@@ -11,7 +11,8 @@
     "test": "sanity check",
     "build": "sanity build public -y",
     "dev": "sanity dev",
-    "deploy": "sanity deploy"
+    "deploy": "sanity deploy",
+    "typegen": "npx sanity-codegen"
   },
   "keywords": [
     "sanity"
@@ -28,5 +29,9 @@
     "sanity-plugin-latex-input": "^2.0.4",
     "sanity-plugin-tags": "^2.0.1",
     "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "sanity-codegen": "^0.9.8"
   }
 }

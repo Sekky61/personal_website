@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
 import BlogPostCard from '@components/BlogPostCard';
 import Pagination from '@components/Pagination';
-import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
+import { BlogpostDataLoader, PostWithSeries } from '@common/utils/blogpost';
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import Head from 'next/head';
@@ -10,18 +10,14 @@ import Head from 'next/head';
 export const resultsPerPage = 10;
 
 interface BlogListingProps {
-    postsData: any;
+    postsData: PostWithSeries[];
     postsCount: number;
     currentPage: number;
 }
 
 const BlogListing: NextPage<BlogListingProps> = ({ postsData, postsCount, currentPage }) => {
-    const posts = postsData.map((data: any) => {
-        return new Blogpost(data);
-    });
-
-    const postsCards = posts.map((post: Blogpost) => (
-        <li key={post.slug}>
+    const postsCards = postsData.map((post) => (
+        <li key={post.slug.current}>
             <BlogPostCard post={post}></BlogPostCard>
         </li>
     ));

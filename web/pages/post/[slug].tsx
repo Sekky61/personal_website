@@ -1,18 +1,21 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { ReactElement } from 'react';
 import assert from 'assert';
-
+import { NextPageWithLayout } from 'pages/_app';
 import { PortableText } from '@portabletext/react'
 
-import { Blogpost, BlogpostDataLoader, Heading } from '@common/utils/blogpost';
+import { BlogpostDataLoader, Heading, PostWithSeries, getFootnotes, getHeadings, getSerieSlug, getSeriesPart, isPartOfSeries, postReadingTime } from '@common/utils/blogpost';
 import { Footnotes, Sources } from '@common/components/post/blocks';
 import { blockRenderingElements } from '@common/utils/blockRendering';
-import { ReactElement } from 'react';
-import { NextPageWithLayout } from 'pages/_app';
 import { BlogPostLayout } from '@common/components/layout/Layout';
 import LinkHeading from '@common/components/post/LinkHeading';
 import { formatDate } from '@common/utils/misc';
+
+interface PageProps {
+  post: PostWithSeries
+}
 
 // Renders the contents of a post
 export const Contents = ({ headings }: { headings: Heading[] }) => {
@@ -37,12 +40,14 @@ export const Contents = ({ headings }: { headings: Heading[] }) => {
   );
 }
 
-const Article = ({ post }: { post: Blogpost }) => {
-  const formattedDate = formatDate(post.releaseDate);
-  const isInSeries = post.isPartOfSeries();
+const Article = ({ post }: { post: PostWithSeries }) => {
+  const formattedDate = formatDate(new Date(post.releaseDate));
+  const isInSeries = isPartOfSeries(post);
+  const headings = getHeadings(post);
+  const footnotes = getFootnotes(post);
 
   let renderedArticle = PortableText({
-    value: post.data.content,
+    value: post.content,
     components: blockRenderingElements
   });
 
@@ -75,11 +80,11 @@ const Article = ({ post }: { post: Blogpost }) => {
   return (
     <div className='article'>
       <Head>
-        <title>{post.data.title}</title>
+        <title>{post.title}</title>
       </Head>
       <Link href={`/post/${post.slug}`}>
         <h1 className='heading-primary text-5xl mb-8'>
-          {post.data.title}
+          {post.title}
         </h1>
       </Link>
       <div className='flex divide-x mb-6'>
@@ -87,21 +92,21 @@ const Article = ({ post }: { post: Blogpost }) => {
           {formattedDate}
         </span>
         <span className='px-2'>
-          {post.readingTime().text}
+          {postReadingTime(post).text}
         </span>
       </div>
       {isInSeries &&
         <p>
-          This article is part {post.getSeriesPart()} of a multipart series.
-          Be sure to check out the other articles <Link href={`/series/${post.getSerieSlug()}`} className='link'>in the series</Link>.
+          This article is part {getSeriesPart(post)} of a multipart series.
+          Be sure to check out the other articles <Link href={`/series/${getSerieSlug(post)}`} className='link'>in the series</Link>.
         </p>
       }
-      <Contents headings={post.headings}></Contents>
+      <Contents headings={headings}></Contents>
       <div className='my-8'>
         {sections}
       </div>
       <div className='my-8'>
-        <Footnotes footnotes={post.footnotes}></Footnotes>
+        <Footnotes footnotes={footnotes}></Footnotes>
       </div>
       <Sources sources={post.sources}></Sources>
     </div>
@@ -126,9 +131,8 @@ const SideContents = ({ headings }: { headings: Heading[] }) => {
 
 }
 
-const Page: NextPageWithLayout = ({ postData }: any) => {
-  const post = new Blogpost(postData);
-
+const Page: NextPageWithLayout<PageProps> = ({ post }) => {
+  const headings = getHeadings(post);
   return (
     <div className="small-container mt-10 px-4">
       <div className="relative">
@@ -137,7 +141,7 @@ const Page: NextPageWithLayout = ({ postData }: any) => {
         </main>
         <div className="absolute top-0 left-full ml-6 mt-32 w-48 h-full">
           <div className="sticky top-0 pt-14">
-            <SideContents headings={post.headings}></SideContents>
+            <SideContents headings={headings}></SideContents>
           </div>
         </div>
       </div>
@@ -153,16 +157,16 @@ Page.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
   const slug = context?.params?.slug;
   assert(typeof (slug) == "string");
 
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
-  const postData = await BlogpostDataLoader.getPostBySlug(slug);
+  const post = await BlogpostDataLoader.getPostBySlug(slug);
 
   return {
     props: {
-      postData,
+      post,
     }
   };
 }

@@ -12,12 +12,14 @@ export const portfolio = {
             title: 'Text',
             type: 'portableText',
             description: 'Text to display on the portfolio page',
+            validation: (Rule: any) => Rule.required(),
         }),
         defineField({
             name: 'projects',
             title: 'Projects',
             type: 'array',
             description: 'Projects to display on the portfolio page. These projects will be displayed in the order they are listed here.',
+            validation: (Rule: any) => Rule.required(),
             of: [
                 {
                     type: 'reference',
