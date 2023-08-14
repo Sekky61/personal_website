@@ -1,4 +1,4 @@
-import { PortableTextBlock } from "@portabletext/types";
+import { PortableTextBlock, TypedObject } from "@portabletext/types";
 import { groq } from "next-sanity";
 import readingTime, { ReadTimeResults } from "reading-time";
 
@@ -29,40 +29,35 @@ export function getBeginningOfArticle(post: Schema.Post, length: number = 100) {
     return text.slice(0, length);
 }
 
-export function getFootnotes(post: Schema.Post): Footnote[] {
-    const blocks = post.content;
-    let arr: Footnote[] = [];
-    let counter = 1;
-    blocks
-        .filter((block: any) => {
-            return block._type == 'block';
-        })
-        .forEach((block: any) => {
-            const isHeading = block.style == "heading";
-            if (!isHeading) {
-                // Ordinary block
-                block.children.forEach((child: any) => {
-                    if (child._type == "footnote") {
-                        // cannot get index here
-                        const text: string = child.text;
-                        arr.push({ text, number: counter });
-                        counter += 1;
-                    }
-                });
+function isBlock(block: any): block is PortableTextBlock {
+    return block._type == "block";
+}
 
-            }
-        })
-    return arr;
+function isHeading(block: PortableTextBlock): boolean {
+    return block.style == "heading";
+}
+
+function isFootnote(block: TypedObject): block is Schema.FootnoteInlineBlock {
+    return block._type == "footnote";
+}
+
+export function getFootnotes(post: Schema.Post): Footnote[] {
+    let counter = 0;
+    return post.content
+        .filter(isBlock)
+        .filter(block => !isHeading(block))
+        .flatMap((block) => {
+            return block.children.filter(isFootnote).map((child) => {
+                counter += 1;
+                return { text: child.text, number: counter };
+            });
+        });
 }
 
 export function getHeadings(post: Schema.Post): Heading[] {
-    const blocks = post.content;
-    // Get each line individually, and filter out anything that isn't a heading.
-    return blocks
-        // loop through each block
-        .filter((block: PortableTextBlock) => {
-            return block._type == 'block' && block.style == "heading";
-        })
+    return post.content
+        .filter(isBlock)
+        .filter(isHeading)
         .map((block: PortableTextBlock) => {
             const text = blocksToPlainText([block]);
             const slug = makeSlug(text);
@@ -73,17 +68,17 @@ export function getHeadings(post: Schema.Post): Heading[] {
 export function blocksToPlainText(blocks: PortableTextBlock[] = []) {
     return blocks
         // loop through each block
-        .map((block: PortableTextBlock) => {
+        .map((block) => {
             // if it's not a text block with children, 
             // return nothing
-            if (block._type !== 'block' || !block.children) {
+            if (!isBlock(block) || !block.children) {
                 return ''
             }
             // loop through the children spans, and join the
             // text strings
-            return block.children.map((child: any) => {
+            return block.children.map((child) => {
                 // if it's a footnote, do not render
-                if (child._type == 'footnote') {
+                if (isFootnote(child)) {
                     return '';
                 }
                 return child.text;
@@ -92,7 +87,6 @@ export function blocksToPlainText(blocks: PortableTextBlock[] = []) {
         // join the paragraphs leaving split by two linebreaks
         .join('\n\n')
 }
-
 
 export function postReadingTime(post: Schema.Post): ReadTimeResults {
     const text = blocksToPlainText(post.content);
@@ -144,30 +138,6 @@ export function childrenToPlainText(children: any[] = []) {
             return child.props.text;
         }
     }).join('')
-}
-
-export class BlogpostSeries {
-    data: any; // TODO: Type this when it is more stable.
-
-    constructor(seriesObj: any) {
-        this.data = seriesObj;
-    }
-
-    get slug() {
-        return this.data.slug.current;
-    }
-
-    get title() {
-        return this.data.title;
-    }
-
-    get posts() {
-        return this.data.posts;
-    }
-
-    get tags() {
-        return this.data.tags;
-    }
 }
 
 export interface PostWithSeries extends Schema.Post {

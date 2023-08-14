@@ -1,3 +1,4 @@
+import { PortableTextBlock, PortableTextMarkDefinition, TypedObject } from "@portabletext/types";
 import type {
   SanityReference,
   SanityKeyedReference,
@@ -390,3 +391,8 @@ type Latex = any;
  * sanity-codegen will let you type this explicity.
  */
 type Table = any;
+
+export type FootnoteInlineBlock = TypedObject & {
+  _type: "footnote";
+  text: string;
+}
