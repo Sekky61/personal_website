@@ -1,6 +1,7 @@
 import { Blogpost } from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
 import Link from "next/link"
+import { Pill } from "./Pill";
 
 export default function BlogPostCard({ post }: { post: Blogpost }) {
 
@@ -32,9 +33,7 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
         <div className="flex gap-2 h-7">
           {
             newTags.map(({ label, value }: any) =>
-              <div key={value} className="tag-pill">
-                {label}
-              </div>
+              <Pill key={label} text={label}></Pill>
             )
           }
         </div>

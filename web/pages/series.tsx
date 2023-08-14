@@ -3,14 +3,9 @@ import Link from 'next/link';
 
 import { BlogpostDataLoader, BlogpostSeries } from '@common/utils/blogpost';
 import Head from 'next/head';
+import { Pill, Pills } from '@common/components/Pill';
 
 export function SeriesCard({ series }: { series: BlogpostSeries }) {
-
-    const tagsElements = series.tags.map(({ label, value }: any) =>
-        <div key={value} className="tag-pill bg-primary-20 hover:bg-primary-30">
-            {label}
-        </div>
-    );
 
     const postsList = series.posts.map(({ title, _id }: any) =>
         <li key={_id} className="">
@@ -24,9 +19,7 @@ export function SeriesCard({ series }: { series: BlogpostSeries }) {
                 <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
                     {series.title}
                 </h2>
-                <div className="flex gap-1 h-7">
-                    {tagsElements}
-                </div>
+                <Pills texts={series.tags.map((tag: any) => tag.label)}></Pills>
                 <ol className='list-decimal mt-2 pl-4'>
                     {postsList}
                 </ol>

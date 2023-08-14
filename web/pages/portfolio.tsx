@@ -1,3 +1,4 @@
+import { Pill } from '@common/components/Pill';
 import { blockRenderingElements } from '@common/utils/blockRendering';
 import { RepositoriesLoader, Repository } from '@common/utils/blogpost';
 import { PortableText } from '@portabletext/react';
@@ -12,9 +13,7 @@ interface RepoCardProps {
 const RepoCard = ({ repo }: RepoCardProps) => {
     const technologiesPills = repo.technologies.map((tech: string) => {
         return (
-            <div className='tag-pill' key={tech}>
-                {tech}
-            </div>
+            <Pill key={tech} text={tech}></Pill>
         );
     });
 
