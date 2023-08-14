@@ -392,7 +392,33 @@ type Latex = any;
  */
 type Table = any;
 
+// Handwritten types
+
 export type FootnoteInlineBlock = TypedObject & {
   _type: "footnote";
   text: string;
+}
+
+export interface PostWithSeries extends Post {
+  series: Series[];
+}
+
+export type SeriesWithPosts = Omit<Series, "posts"> & { posts: PostWithSeries[] };
+
+// Data I want to load from GitHub API
+export interface GitHubData {
+  name: string;
+  description: string;
+  updated_at: string;
+  language: string;
+}
+
+// Data I want to load from Sanity
+export interface RepositoryWithGithubData extends Repository {
+  githubData: GitHubData;
+}
+
+export interface LoadedPortfolio {
+  text: PortableText;
+  projects: Array<RepositoryWithGithubData>;
 }

@@ -6,15 +6,17 @@ import assert from 'assert';
 import { NextPageWithLayout } from 'pages/_app';
 import { PortableText } from '@portabletext/react'
 
-import { BlogpostDataLoader, Heading, PostWithSeries, getFootnotes, getHeadings, getSerieSlug, getSeriesPart, isPartOfSeries, postReadingTime } from '@common/utils/blogpost';
+import { Heading, getFootnotes, getHeadings, getSerieSlug, getSeriesPart, isPartOfSeries, postReadingTime } from '@common/utils/blogpost';
 import { Footnotes, Sources } from '@common/components/post/blocks';
 import { blockRenderingElements } from '@common/utils/blockRendering';
 import { BlogPostLayout } from '@common/components/layout/Layout';
 import LinkHeading from '@common/components/post/LinkHeading';
 import { formatDate } from '@common/utils/misc';
+import type * as Schema from "@common/sanityTypes"
+import { BlogpostDataLoader } from '@common/utils/sanity/dataLoaders';
 
 interface PageProps {
-  post: PostWithSeries
+  post: Schema.PostWithSeries
 }
 
 // Renders the contents of a post
@@ -40,7 +42,7 @@ export const Contents = ({ headings }: { headings: Heading[] }) => {
   );
 }
 
-const Article = ({ post }: { post: PostWithSeries }) => {
+const Article = ({ post }: { post: Schema.PostWithSeries }) => {
   const formattedDate = formatDate(new Date(post.releaseDate));
   const isInSeries = isPartOfSeries(post);
   const headings = getHeadings(post);
