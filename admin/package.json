@@ -18,7 +18,8 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/code-input": "^3.0.1",
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@sanity/code-input": "^4.1.1",
     "@sanity/icons": "^2.2.0",
     "@sanity/table": "^1.0.1",
     "@sanity/vision": "^3.0.6",
