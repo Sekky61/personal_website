@@ -633,7 +633,7 @@ export type SeriesWithPosts = Omit<Series, "posts"> & { posts: PostWithSeries[] 
 // Data I want to load from GitHub API
 export interface GitHubData {
   name: string;
-  description: string;
+  description?: string;
   updated_at: string;
   language: string;
 }

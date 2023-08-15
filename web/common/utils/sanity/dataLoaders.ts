@@ -100,14 +100,12 @@ export async function getPortfolio(): Promise<Schema.LoadedPortfolio> {
 }
 
 function isGitHubData(data: any): data is Schema.GitHubData {
-    console.log(`Checking ghdata: ${typeof data}`)
+    console.log(`envv: --${process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA}--`)
     if (typeof data !== 'object') return false;
     const hasName = typeof data.name === 'string';
-    const hasDescription = typeof data.description === 'string';
     const hasUpdatedAt = typeof data.updated_at === 'string';
     const hasLanguage = typeof data.language === 'string';
-    console.log(`After check: ${hasName} ${hasDescription} ${hasUpdatedAt} ${hasLanguage}`)
-    return hasName && hasDescription //&& hasUpdatedAt && hasLanguage;
+    return hasName && hasUpdatedAt && hasLanguage;
 }
 
 /**
