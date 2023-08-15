@@ -2,6 +2,7 @@
 import { groq } from "next-sanity";
 import { getClient } from "./sanity.server";
 import type * as Schema from "@common/sanityTypes";
+import { type } from "os";
 
 // Partial queries
 const ALL_POSTS = `*[_type == "post"]`;
@@ -99,12 +100,14 @@ export async function getPortfolio(): Promise<Schema.LoadedPortfolio> {
 }
 
 function isGitHubData(data: any): data is Schema.GitHubData {
+    console.log(`Checking ghdata: ${typeof data}`)
     if (typeof data !== 'object') return false;
     const hasName = typeof data.name === 'string';
     const hasDescription = typeof data.description === 'string';
     const hasUpdatedAt = typeof data.updated_at === 'string';
     const hasLanguage = typeof data.language === 'string';
-    return hasName && hasDescription && hasUpdatedAt && hasLanguage;
+    console.log(`After check: ${hasName} ${hasDescription} ${hasUpdatedAt} ${hasLanguage}`)
+    return hasName && hasDescription //&& hasUpdatedAt && hasLanguage;
 }
 
 /**

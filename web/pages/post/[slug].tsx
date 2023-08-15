@@ -99,7 +99,7 @@ const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
     // choose the first active section
     const activeIndex = activeFlags.indexOf(true);
     setActiveSectionIndex(activeIndex);
-  }, [activeFlags]);
+  }, [activeFlags, setActiveSectionIndex]);
 
   // Render the sections
   sections = sections.map((section, index) => {
