@@ -13,7 +13,7 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 @layer base {
   :root {
     /* SPACE SEPARATED For hsl(198deg 93% 60% / <alpha-value>) */
-    --color-primary: 57deg 100% 51%;
+    --color-primary: 65deg 100% 51%; /* #EAFF05 */
     --hue-sat-primary: 65deg 100%;
     @apply selection:bg-primary-40 selection:text-slate-800
   }
