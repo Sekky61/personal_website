@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import assert from 'assert';
 import { NextPageWithLayout } from 'pages/_app';
 import { PortableText } from '@portabletext/react'
@@ -14,6 +14,7 @@ import LinkHeading from '@common/components/post/LinkHeading';
 import { formatDate } from '@common/utils/misc';
 import type * as Schema from "@common/sanityTypes";
 import { getAllSlugs, getPostBySlug } from '@common/utils/sanity/dataLoaders';
+import ArticleSection from '@common/components/post/ArticleSection';
 
 interface PageProps {
   post: Schema.PostWithSeries
@@ -42,11 +43,30 @@ export const Contents = ({ headings }: { headings: Heading[] }) => {
   );
 }
 
-const Article = ({ post }: { post: Schema.PostWithSeries }) => {
+type ArticleProps = {
+  post: Schema.PostWithSeries,
+  setActiveSectionIndex: (index: number) => void
+}
+
+const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
+
+
   const formattedDate = formatDate(new Date(post.releaseDate));
   const isInSeries = isPartOfSeries(post);
   const headings = getHeadings(post);
   const footnotes = getFootnotes(post);
+
+  const defaultFlags = Array(headings.length).fill(false);
+  if (headings.length > 0) {
+    defaultFlags[0] = true; // First section is always active
+  }
+  const [activeFlags, setActiveFlags] = useState<boolean[]>(defaultFlags);
+
+  function setFlag(index: number, value: boolean) {
+    let newFlags = [...activeFlags];
+    newFlags[index] = value;
+    setActiveFlags(newFlags);
+  }
 
   let renderedArticle = PortableText({
     value: post.content,
@@ -66,16 +86,27 @@ const Article = ({ post }: { post: Schema.PostWithSeries }) => {
       currentSection.push(renderedArticle.props.children[i]);
     }
   }
-
   // Add the last section
   sections.push(currentSection);
+
+  function sectionBecameActive(active: boolean, index: number) {
+    setFlag(index, active);
+  }
+
+  useEffect(() => {
+    // TODO Sometimes the event does not fire and there is a hole in the array
+
+    // choose the first active section
+    const activeIndex = activeFlags.indexOf(true);
+    setActiveSectionIndex(activeIndex);
+  }, [activeFlags]);
 
   // Render the sections
   sections = sections.map((section, index) => {
     return (
-      <section key={index}>
+      <ArticleSection sectionIndex={index} key={index} active={(active) => sectionBecameActive(active, index)}>
         {section}
-      </section>
+      </ArticleSection>
     );
   });
 
@@ -115,9 +146,15 @@ const Article = ({ post }: { post: Schema.PostWithSeries }) => {
   );
 }
 
-const SideContents = ({ headings }: { headings: Heading[] }) => {
-  const heading_items = headings.map(({ text, slug }: Heading) =>
-    <li key={slug} className="hover:underline my-1.5">
+type SideContentsProps = {
+  headings: Heading[],
+  activeSectionIndex: number
+}
+
+const SideContents = ({ headings, activeSectionIndex }: SideContentsProps) => {
+  const heading_items = headings.map(({ text, slug }: Heading, index) =>
+    <li key={slug} className={"hover:underline my-1.5 pl-3 transition-all duration-250 border-l-2 "
+      + (index == activeSectionIndex ? "border-white" : "border-transparent")}>
       <a href={"#" + slug}>{text}</a>
     </li>
   );
@@ -125,7 +162,7 @@ const SideContents = ({ headings }: { headings: Heading[] }) => {
   return (
     <div className="pt-4">
       <h1 className="text-xl">Table of Contents</h1>
-      <ul className="pl-3 ml-4 border-l">
+      <ul className="ml-4 border-l">
         {heading_items}
       </ul>
     </div>
@@ -134,16 +171,18 @@ const SideContents = ({ headings }: { headings: Heading[] }) => {
 }
 
 const Page: NextPageWithLayout<PageProps> = ({ post }) => {
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+
   const headings = getHeadings(post);
   return (
     <div className="small-container mt-10 px-4">
       <div className="relative">
         <main>
-          <Article post={post}></Article>
+          <Article post={post} setActiveSectionIndex={setActiveSectionIndex}></Article>
         </main>
         <div className="absolute top-0 left-full ml-6 mt-32 w-48 h-full">
           <div className="sticky top-0 pt-14">
-            <SideContents headings={headings}></SideContents>
+            <SideContents headings={headings} activeSectionIndex={activeSectionIndex}></SideContents>
           </div>
         </div>
       </div>
