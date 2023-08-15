@@ -418,7 +418,12 @@ export interface RepositoryWithGithubData extends Repository {
   githubData: GitHubData;
 }
 
-export interface LoadedPortfolio {
-  text: PortableText;
-  projects: Array<RepositoryWithGithubData>;
-}
+/**
+ * Portfolio with Repository data loaded. Result of a query.
+ */
+export type PortfolioWithProjects = Omit<Portfolio, "projects"> & { projects: Array<Repository> }
+
+/**
+ * Portfolio with Repository data loaded and github data loaded.
+ */
+export type LoadedPortfolio = Omit<Portfolio, "projects"> & { projects: Array<RepositoryWithGithubData> }

@@ -12,8 +12,8 @@ import { blockRenderingElements } from '@common/utils/blockRendering';
 import { BlogPostLayout } from '@common/components/layout/Layout';
 import LinkHeading from '@common/components/post/LinkHeading';
 import { formatDate } from '@common/utils/misc';
-import type * as Schema from "@common/sanityTypes"
-import { BlogpostDataLoader } from '@common/utils/sanity/dataLoaders';
+import type * as Schema from "@common/sanityTypes";
+import { getAllSlugs, getPostBySlug } from '@common/utils/sanity/dataLoaders';
 
 interface PageProps {
   post: Schema.PostWithSeries
@@ -164,7 +164,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
   assert(typeof (slug) == "string");
 
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
-  const post = await BlogpostDataLoader.getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   return {
     props: {
@@ -174,7 +174,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await BlogpostDataLoader.getAllSlugs();
+  const slugs = await getAllSlugs();
   const paths = slugs.map((slug: string) => ({ params: { slug } }));
 
   return {

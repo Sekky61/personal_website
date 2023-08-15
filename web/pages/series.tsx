@@ -1,12 +1,13 @@
 import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 
-import { BlogpostDataLoader, SeriesWithPosts } from '@common/utils/blogpost';
+import type * as Schema from "@common/sanityTypes";
 import Head from 'next/head';
 import { Pills } from '@common/components/Pill';
+import { getPostSeries } from '@common/utils/sanity/dataLoaders';
 
 interface PageProps {
-    series: SeriesWithPosts[]
+    series: Schema.SeriesWithPosts[]
 }
 
 const SeriesPage: NextPage<PageProps> = ({ series }) => {
@@ -31,7 +32,7 @@ const SeriesPage: NextPage<PageProps> = ({ series }) => {
     );
 }
 
-export function SeriesCard({ series }: { series: SeriesWithPosts }) {
+export function SeriesCard({ series }: { series: Schema.SeriesWithPosts }) {
 
     const postsList = series.posts.map(({ title, _id }: any) =>
         <li key={_id} className="">
@@ -56,7 +57,7 @@ export function SeriesCard({ series }: { series: SeriesWithPosts }) {
 
 export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
 
-    const series = await BlogpostDataLoader.getPostSeries();
+    const series = await getPostSeries();
 
     return {
         props: { series },

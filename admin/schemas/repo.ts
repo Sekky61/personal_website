@@ -15,7 +15,13 @@ export const repo = defineType({
             name: 'link',
             type: 'url',
             title: 'GitHub link',
-            validation: (Rule: any) => Rule.required(),
+            validation: (Rule: any) => Rule.required().custom((link: string) => {
+                // The link must be to `github.com`
+                if (!link.includes('github.com')) {
+                    return 'Link must be to GitHub';
+                }
+                return true;
+            }),
         }),
         defineField({
             name: 'description',

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Pill } from "./Pill";
-import { RepositoryWithGithubData } from "@common/utils/blogpost";
+import type * as Schema from "@common/sanityTypes";
 
 type RepoCardProps = {
-    repo: RepositoryWithGithubData
+    repo: Schema.RepositoryWithGithubData
 }
 
 const RepoCard = ({ repo }: RepoCardProps) => {

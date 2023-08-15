@@ -1,12 +1,14 @@
-import { BlogpostDataLoader, PostWithSeries, getBeginningOfArticle } from '@common/utils/blogpost';
+import { getBeginningOfArticle } from '@common/utils/blogpost';
 import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '@common/utils/misc';
 import Head from 'next/head';
+import type * as Schema from "@common/sanityTypes";
+import { getPaginatedPosts } from '@common/utils/sanity/dataLoaders';
 
 type PageProps = {
-  postsData: PostWithSeries[]
+  postsData: Schema.PostWithSeries[]
 }
 
 const Home: NextPage<PageProps> = ({ postsData }) => {
@@ -47,7 +49,7 @@ const Home: NextPage<PageProps> = ({ postsData }) => {
   )
 }
 
-const PostCard = ({ postData }: { postData: PostWithSeries }) => {
+const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
   // format date
   const date = new Date(postData.releaseDate);
   const formattedDate = formatDate(date);
@@ -74,7 +76,7 @@ const PostCard = ({ postData }: { postData: PostWithSeries }) => {
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
-  const postsData = await BlogpostDataLoader.getPaginatedPosts(0, 3);
+  const postsData = await getPaginatedPosts(0, 3);
 
   return {
     props: {

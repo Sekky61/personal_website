@@ -1,10 +1,11 @@
-import { formatDate } from "@common/utils/misc";
 import Link from "next/link"
+import { formatDate } from "@common/utils/misc";
 import { Pill } from "./Pill";
-import { PostWithSeries, getBeginningOfArticle, isPartOfSeries } from "@common/utils/blogpost";
+import { getBeginningOfArticle, isPartOfSeries } from "@common/utils/blogpost";
+import type * as Schema from "@common/sanityTypes";
 
 interface BlogPostCardProps {
-  post: PostWithSeries
+  post: Schema.PostWithSeries
 }
 
 export default function BlogPostCard({ post }: BlogPostCardProps) {

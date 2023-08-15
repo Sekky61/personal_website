@@ -2,11 +2,12 @@ import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { PortableText } from '@portabletext/react';
 import { blockRenderingElements } from '@common/utils/blockRendering';
-import { LoadedPortfolio, RepositoriesLoader } from '@common/utils/blogpost';
 import RepoCard from '@common/components/RepoCard';
+import type * as Schema from "@common/sanityTypes";
+import { getPortfolio } from '@common/utils/sanity/dataLoaders';
 
 type PageProps = {
-    portfolio: LoadedPortfolio
+    portfolio: Schema.LoadedPortfolio
 }
 
 const Portfolio: NextPage<PageProps> = ({ portfolio }) => {
@@ -35,7 +36,7 @@ const Portfolio: NextPage<PageProps> = ({ portfolio }) => {
 
 // Load data for highlighted repositories
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-    const portfolio: LoadedPortfolio = await RepositoriesLoader.getPortfolio();
+    const portfolio = await getPortfolio();
 
     return {
         props: {
