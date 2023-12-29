@@ -76,6 +76,7 @@ const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
+  console.log('Fetching posts data');
   const postsData = await getPaginatedPosts(0, 3);
 
   return {
