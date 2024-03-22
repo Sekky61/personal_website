@@ -91,7 +91,7 @@ export function getRenderer(tokens: Token[], highlightedLines: number[]): Render
 
     // Return the renderer function
     return (props: rendererProps): ReactNode => {
-        const renderedLines = props.rows.map((row: any, number: number) => {
+        const renderedLines = props.rows.map((row: rendererNode, number) => {
             const lineNumber = number + 1;
             return rowRenderer(props, row, lineNumber);
         })

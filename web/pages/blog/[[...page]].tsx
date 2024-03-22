@@ -1,27 +1,24 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import Link from 'next/link';
+import Head from 'next/head';
+import { ParsedUrlQuery } from 'querystring';
 
 import BlogPostCard from '@components/BlogPostCard';
 import Pagination from '@components/Pagination';
-import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
-import Link from 'next/link';
-import { ParsedUrlQuery } from 'querystring';
-import Head from 'next/head';
+import type * as Schema from "@common/sanityTypes";
+import { getPaginatedPosts, getPostsCount } from '@common/utils/sanity/dataLoaders';
 
 export const resultsPerPage = 10;
 
 interface BlogListingProps {
-    postsData: any;
+    postsData: Schema.PostWithSeries[];
     postsCount: number;
     currentPage: number;
 }
 
 const BlogListing: NextPage<BlogListingProps> = ({ postsData, postsCount, currentPage }) => {
-    const posts = postsData.map((data: any) => {
-        return new Blogpost(data);
-    });
-
-    const postsCards = posts.map((post: Blogpost) => (
-        <li key={post.slug}>
+    const postsCards = postsData.map((post) => (
+        <li key={post.slug.current}>
             <BlogPostCard post={post}></BlogPostCard>
         </li>
     ));
@@ -69,8 +66,8 @@ export const getStaticProps: GetStaticProps<BlogListingProps, BlogPageParams> = 
     const from = (currentPage - 1) * resultsPerPage;
     const to = from + resultsPerPage;
 
-    const postsData = await BlogpostDataLoader.getPaginatedPosts(from, to);
-    const postsCount = await BlogpostDataLoader.getPostsCount();
+    const postsData = await getPaginatedPosts(from, to);
+    const postsCount = await getPostsCount();
 
     return {
         props: {
@@ -84,7 +81,7 @@ export const getStaticProps: GetStaticProps<BlogListingProps, BlogPageParams> = 
 // This function returns a list of page paths so that the pages can be pre-rendered.
 // eg. /blog/1 -> {params: {page: ['blog', '1']}}
 export const getStaticPaths: GetStaticPaths<BlogPageParams> = async () => {
-    const postsCount = await BlogpostDataLoader.getPostsCount();
+    const postsCount = await getPostsCount();
     const pagesCount = Math.max(Math.ceil(postsCount / resultsPerPage), 1);  // At least one
     const pageNumbers = Array.from({ length: pagesCount }, (_, i) => i + 1); // Numbers 1..=pagesCount
 

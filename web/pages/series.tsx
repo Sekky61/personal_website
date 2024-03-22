@@ -1,47 +1,19 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 
-import { BlogpostDataLoader, BlogpostSeries } from '@common/utils/blogpost';
+import type * as Schema from "@common/sanityTypes";
 import Head from 'next/head';
+import { Pills } from '@common/components/Pill';
+import { getPostSeries } from '@common/utils/sanity/dataLoaders';
 
-export function SeriesCard({ series }: { series: BlogpostSeries }) {
-
-    const tagsElements = series.tags.map(({ label, value }: any) =>
-        <div key={value} className="tag-pill bg-primary-20 hover:bg-primary-30">
-            {label}
-        </div>
-    );
-
-    const postsList = series.posts.map(({ title, _id }: any) =>
-        <li key={_id} className="">
-            {title}
-        </li>
-    );
-
-    return (
-        <Link href={`/post/${series.slug}`}>
-            <div className="group duration-100 w-full p-4 hover:bg-primary-40/[.08]">
-                <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
-                    {series.title}
-                </h2>
-                <div className="flex gap-1 h-7">
-                    {tagsElements}
-                </div>
-                <ol className='list-decimal mt-2 pl-4'>
-                    {postsList}
-                </ol>
-            </div>
-        </Link>
-    )
+interface PageProps {
+    series: Schema.SeriesWithPosts[]
 }
 
-export default function BlogListing({ seriesRaw }: any) {
-    const series = seriesRaw.map((serie: any) => {
-        return new BlogpostSeries(serie);
-    });
+const SeriesPage: NextPage<PageProps> = ({ series }) => {
 
-    const seriesCards = series.map((series: BlogpostSeries) => (
-        <li key={series.slug}>
+    const seriesCards = series.map((series) => (
+        <li key={series.slug.current}>
             <SeriesCard series={series}></SeriesCard>
         </li>
     ))
@@ -60,11 +32,36 @@ export default function BlogListing({ seriesRaw }: any) {
     );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export function SeriesCard({ series }: { series: Schema.SeriesWithPosts }) {
 
-    const seriesRaw = await BlogpostDataLoader.getPostSeries();
+    const postsList = series.posts.map(({ title, _id }: any) =>
+        <li key={_id} className="">
+            {title}
+        </li>
+    );
+
+    return (
+        <Link href={`/post/${series.slug}`}>
+            <div className="group duration-100 w-full p-4 hover:bg-primary-40/[.08]">
+                <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
+                    {series.title}
+                </h2>
+                <Pills texts={series.tags.map((tag: any) => tag.label)}></Pills>
+                <ol className='list-decimal mt-2 pl-4'>
+                    {postsList}
+                </ol>
+            </div>
+        </Link>
+    )
+}
+
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
+
+    const series = await getPostSeries();
 
     return {
-        props: { seriesRaw },
+        props: { series },
     };
 }
+
+export default SeriesPage;

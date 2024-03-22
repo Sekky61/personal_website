@@ -8,17 +8,26 @@ export const repo = defineType({
         defineField({
             name: 'name',
             type: 'string',
-            title: 'Name'
+            title: 'Name',
+            validation: (Rule: any) => Rule.required(),
         }),
         defineField({
             name: 'link',
             type: 'url',
-            title: 'GitHub link'
+            title: 'GitHub link',
+            validation: (Rule: any) => Rule.required().custom((link: string) => {
+                // The link must be to `github.com`
+                if (!link.includes('github.com')) {
+                    return 'Link must be to GitHub';
+                }
+                return true;
+            }),
         }),
         defineField({
             name: 'description',
             type: 'string',
-            title: 'Description'
+            title: 'Description',
+            validation: (Rule: any) => Rule.required(),
         }),
         defineField({
             name: 'technologies',

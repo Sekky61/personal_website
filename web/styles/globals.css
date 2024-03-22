@@ -13,7 +13,7 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 @layer base {
   :root {
     /* SPACE SEPARATED For hsl(198deg 93% 60% / <alpha-value>) */
-    --color-primary: 57deg 100% 51%;
+    --color-primary: 65deg 100% 51%; /* #EAFF05 */
     --hue-sat-primary: 65deg 100%;
     @apply selection:bg-primary-40 selection:text-slate-800
   }
@@ -83,7 +83,7 @@ https://m3.material.io/styles/color/the-color-system/color-roles
   }
 
   .tag-pill {
-    @apply rounded-md font-semibold text-sm px-2.5 py-1 h-7 bg-primary-60 dark:bg-primary-70 text-primary-20
+    @apply rounded-md font-semibold text-sm px-2.5 py-1 h-7 bg-primary-60 dark:bg-primary-70 text-primary-20;
   }
 }
 

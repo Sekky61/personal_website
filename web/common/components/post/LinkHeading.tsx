@@ -1,11 +1,11 @@
 import LinkChain from "@common/svg/LinkChain";
-import { Blogpost } from "@common/utils/blogpost";
+import { childrenToPlainText, makeSlug } from "@common/utils/blogpost";
 
 // LinkHeading takes its text value and adds id and href to itself
 // so that it can be linked to from elsewhere in the page.
 const LinkHeading = ({ children }: any) => {
-    const text = Blogpost.childrenToPlainText(children);
-    const textSlug = Blogpost.makeSlug(text);
+    const text = childrenToPlainText(children);
+    const textSlug = makeSlug(text);
     return (
         <h2 className="group -ml-4 pl-4 flex pt-8">
             <a id={textSlug} href={`#${textSlug}`} aria-label="Anchor" className="scroll-mt-20">

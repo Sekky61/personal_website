@@ -1,44 +1,21 @@
-import { Blogpost, BlogpostDataLoader } from '@common/utils/blogpost';
-import type { GetStaticProps, NextPage } from 'next'
+import { getBeginningOfArticle } from '@common/utils/blogpost';
+import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '@common/utils/misc';
 import Head from 'next/head';
+import type * as Schema from "@common/sanityTypes";
+import { getPaginatedPosts } from '@common/utils/sanity/dataLoaders';
 
-const PostCard = ({ postData }: { postData: Blogpost }) => {
-  // format date
-  const date = postData.releaseDate;
-  const formattedDate = formatDate(date);
-  const text = postData.getBeginningOfArticle(240);
-
-  return (
-    <li className='flex-grow'>
-      <Link href={`/post/${postData.slug}`}>
-        <div className='card p-4 flex flex-col group hover:cursor-pointer h-full gap-2'>
-          <span className='group-hover:underline text-xl decoration-primary-40 two-line-text-ellipsis'>{postData.data.title}</span>
-          <div className="mt-auto">
-            <div className="flex justify-between primary-text text-sm font-semibold">
-              <span>Article</span>
-              <span>{formattedDate}</span>
-            </div>
-            <span className='two-line-text-ellipsis'>
-              {text}
-            </span>
-          </div>
-        </div>
-      </Link>
-    </li>
-  );
+type PageProps = {
+  postsData: Schema.PostWithSeries[]
 }
 
-const Home: NextPage = ({ postsData }: any) => {
-  const posts = postsData.map((data: any) => {
-    return new Blogpost(data);
-  });
+const Home: NextPage<PageProps> = ({ postsData }) => {
 
-  const postCards = posts.map((postData: Blogpost) => {
+  const postCards = postsData.map((postData) => {
     return (
-      <PostCard postData={postData} key={postData.data._id}></PostCard>
+      <PostCard postData={postData} key={postData._id}></PostCard>
     );
   });
 
@@ -72,8 +49,35 @@ const Home: NextPage = ({ postsData }: any) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const postsData = await BlogpostDataLoader.getPaginatedPosts(0, 3);
+const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
+  // format date
+  const date = new Date(postData.releaseDate);
+  const formattedDate = formatDate(date);
+  const text = getBeginningOfArticle(postData, 240);
+
+  return (
+    <li className='flex-grow'>
+      <Link href={`/post/${postData.slug}`}>
+        <div className='card p-4 flex flex-col group hover:cursor-pointer h-full gap-2'>
+          <span className='group-hover:underline text-xl decoration-primary-40 two-line-text-ellipsis'>{postData.title}</span>
+          <div className="mt-auto">
+            <div className="flex justify-between primary-text text-sm font-semibold">
+              <span>Article</span>
+              <span>{formattedDate}</span>
+            </div>
+            <span className='two-line-text-ellipsis'>
+              {text}
+            </span>
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
+}
+
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
+  console.log('Fetching posts data');
+  const postsData = await getPaginatedPosts(0, 3);
 
   return {
     props: {

@@ -1,26 +1,31 @@
-import { Blogpost } from "@common/utils/blogpost";
-import { formatDate } from "@common/utils/misc";
 import Link from "next/link"
+import { formatDate } from "@common/utils/misc";
+import { Pill } from "./Pill";
+import { getBeginningOfArticle, isPartOfSeries } from "@common/utils/blogpost";
+import type * as Schema from "@common/sanityTypes";
 
-export default function BlogPostCard({ post }: { post: Blogpost }) {
+interface BlogPostCardProps {
+  post: Schema.PostWithSeries
+}
 
-  let newTags = post.data.tags;
-  if (post.data.tags === undefined) newTags = [];
-  if (post.isPartOfSeries()) {
+export default function BlogPostCard({ post }: BlogPostCardProps) {
+
+  let tags = post.tags || [];
+  if (isPartOfSeries(post)) {
     // Concat doesn’t modify the original array
-    newTags = post.data.tags.concat([{ label: "Series", value: "series" }]);
+    tags = tags.concat([{ label: "Series", value: "series" }]);
   }
 
-  const date = post.releaseDate;
+  const date = new Date(post.releaseDate);
   const formattedDate = formatDate(date);
 
-  let truncatedText = post.getBeginningOfArticle(250);
+  let truncatedText = getBeginningOfArticle(post, 250);
 
   return (
-    <Link href={`/post/${post.slug}`}>
+    <Link href={`/post/${post.slug.current}`}>
       <div className="flex flex-col gap-1 group duration-100 w-full px-4 py-2 hover:bg-primary-40/[.08]">
         <h2 className="text-2xl mb-1 group-hover:underline decoration-primary-40">
-          {post.data.title}
+          {post.title}
         </h2>
         <div className="flex gap-4 primary-text text-sm font-semibold">
           <span>Article</span>
@@ -31,10 +36,8 @@ export default function BlogPostCard({ post }: { post: Blogpost }) {
         </p>
         <div className="flex gap-2 h-7">
           {
-            newTags.map(({ label, value }: any) =>
-              <div key={value} className="tag-pill">
-                {label}
-              </div>
+            tags.map(({ label, value }: any) =>
+              <Pill key={label} text={label}></Pill>
             )
           }
         </div>

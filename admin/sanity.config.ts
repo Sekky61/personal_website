@@ -11,7 +11,16 @@ const common = {
     projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
     plugins: [
         deskTool(),
-        codeInput(),
+        codeInput({
+            codeModes: [
+                {
+                    name: 'cpp',
+                    // dynamic import the angular package, and initialize the plugin after it is loaded
+                    // This way, the language is only when it is selected
+                    loader: () => import('@codemirror/lang-cpp').then(({ cpp }) => cpp()),
+                },
+            ],
+        }),
         visionTool(),
         latexInput(),
         table(),
