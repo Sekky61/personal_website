@@ -68,7 +68,7 @@ const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
 						{postData.title}
 					</span>
 					<div className="mt-auto">
-						<div className="flex justify-between primary-text text-sm font-semibold">
+						<div className="flex justify-between text-sm font-semibold">
 							<span>Article</span>
 							<span>{formattedDate}</span>
 						</div>
