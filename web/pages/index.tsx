@@ -43,7 +43,7 @@ const Home: NextPage<PageProps> = ({ postsData }) => {
 						priority
 					/>
 				</div>
-			</div>
+				</div>
 			<div className="latest-posts">
 				<h2 className="heading-primary text-4xl font-semibold mb-5">
 					Latest posts

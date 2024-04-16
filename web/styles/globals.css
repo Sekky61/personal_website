@@ -23,6 +23,14 @@ https://m3.material.io/styles/color/the-color-system/color-roles
     @apply neutral-bg
   }
 
+  h1 {
+    @apply text-4xl heading-primary;
+  }
+
+  h2 {
+    @apply text-2xl  mt-8;
+  }
+
   .neutral-bg {
     @apply bg-neutral-99 dark:bg-neutral-10 text-neutral-10 dark:text-neutral-99
   }
