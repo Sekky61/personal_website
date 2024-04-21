@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { linksToDisplay } from "@common/static";
+import { ThemeSwitch } from "../ThemeSwitch";
 
 export const Hamburger = () => {
 	// State for opening menu

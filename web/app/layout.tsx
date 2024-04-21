@@ -16,6 +16,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
+			<body>
 			<ThemeProvider attribute="class">
 				<div className="min-h-screen grid grid-rows-layout">
 					<Header></Header>
@@ -25,6 +26,7 @@ export default function RootLayout({
 					<Footer></Footer>
 				</div>
 			</ThemeProvider>
+			</body>
 		</html>
 	);
 }

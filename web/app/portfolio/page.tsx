@@ -1,18 +1,18 @@
-import type {  NextPage } from "next";
-import Head from "next/head";
+import type { NextPage } from "next";
 import { PortableText } from "@portabletext/react";
 import { blockRenderingElements } from "@common/utils/blockRendering";
 import RepoCard from "@common/components/RepoCard";
 import { getPortfolio } from "@common/utils/sanity/dataLoaders";
+
+export const metadata = {
+	title: "Majer - Portfolio",
+};
 
 const Portfolio: NextPage = async () => {
 	const portfolio = await getPortfolio();
 	const { projects, text } = portfolio;
 	return (
 		<>
-			<Head>
-				<title>Majer - portfolio</title>
-			</Head>
 			<h1 className="heading-primary">My portfolio</h1>
 			<PortableText value={text} components={blockRenderingElements} />
 			<h2 className="metablock-heading">Highlighted repositories</h2>

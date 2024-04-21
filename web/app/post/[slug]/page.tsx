@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 
@@ -196,7 +195,7 @@ const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
 						setActiveSectionIndex={setActiveSectionIndex}
 					></Article>
 				</main>
-				<div className="absolute top-0 left-full ml-6 mt-32 w-48 h-full">
+				<div className="absolute top-0 left-full ml-6 mt-32 w-64 h-full">
 					<div className="sticky top-0 pt-14">
 						<SideContents
 							headings={headings}

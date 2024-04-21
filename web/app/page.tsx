@@ -1,11 +1,14 @@
 import { getBeginningOfArticle } from "@common/utils/blogpost";
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@common/utils/misc";
-import Head from "next/head";
 import type * as Schema from "@common/sanityTypes";
 import { getPaginatedPosts } from "@common/utils/sanity/dataLoaders";
+
+export const metadata = {
+  title: "Majer",
+};
 
 const Home: NextPage = async () => {
 	const postsData = await getPaginatedPosts(0, 3);
@@ -15,9 +18,6 @@ const Home: NextPage = async () => {
 
 	return (
 		<>
-			<Head>
-				<title>Majer</title>
-			</Head>
 			<div className="flex flex-col md:flex-row gap-16 mt-20 mb-12 items-center">
 				<div>
 					<h1 className="heading-primary leading-tight text-6xl text-center lg:text-right font-bold mb-8">

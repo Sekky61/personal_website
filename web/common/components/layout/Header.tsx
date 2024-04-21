@@ -8,15 +8,6 @@ import { Hamburger } from "./Hamburger";
 import { linksToDisplay } from "@common/static";
 
 const Header = () => {
-	const navLinks = linksToDisplay.map((link) => {
-		return (
-			<li key={link.label}>
-				<NavLink href={link.href}>
-					<span className="navlink">{link.label}</span>
-				</NavLink>
-			</li>
-		);
-	});
 
 	return (
 		<div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 z-10 h-14">
@@ -41,7 +32,16 @@ const Header = () => {
 									<ThemeSwitch></ThemeSwitch>
 								</div>
 								<nav>
-									<ul className="flex space-x-5">{navLinks}</ul>
+									<ul className="flex space-x-5">
+
+	{linksToDisplay.map((link) => {
+		return (
+			<li key={link.label}>
+				<NavLink href={link.href} label={link.label} />
+			</li>
+		);
+	})}
+									</ul>
 								</nav>
 								<div className="pl-8 ml-8 border-l">
 									<a
