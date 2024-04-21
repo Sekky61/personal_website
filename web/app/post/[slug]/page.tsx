@@ -19,7 +19,7 @@ import type * as Schema from "@common/sanityTypes";
 import { getPostBySlug } from "@common/utils/sanity/dataLoaders";
 import ArticleSection from "@common/components/post/ArticleSection";
 
-export async function generateMetadata({ slug }: { slug: string }) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
 	return {
 		title: "Majer - Post",
 	};

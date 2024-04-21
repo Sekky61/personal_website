@@ -1,4 +1,4 @@
-import {  NextPage } from "next";
+import { NextPage } from "next";
 import Link from "next/link";
 
 import BlogPostCard from "@components/BlogPostCard";
@@ -14,13 +14,13 @@ export const metadata = {
 
 const resultsPerPage = 10;
 
-interface BlogListingProps {
+type BlogListingProps = {
 	// Optional path like /blog/1, /blog/2, but also /blog
 	// If more than one is submitted, throw an error
-	page?: string[];
-}
+	params: { page?: string[] };
+};
 
-const BlogListing: NextPage<BlogListingProps> = async ({ page = ["1"] }) => {
+const BlogListing: NextPage<BlogListingProps> = async ({ params: {page = ["1"]} }) => {
 	if (page.length > 1) {
 		throw new Error("Only one page number is allowed");
 	}

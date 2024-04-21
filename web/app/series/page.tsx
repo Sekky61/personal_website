@@ -26,7 +26,7 @@ const SeriesPage: NextPage = async () => {
 	);
 };
 
-export function SeriesCard({ series }: { series: Schema.SeriesWithPosts }) {
+function SeriesCard({ series }: { series: Schema.SeriesWithPosts }) {
 	const postsList = series.posts.map(({ title, _id }: any) => (
 		<li key={_id} className="">
 			{title}
