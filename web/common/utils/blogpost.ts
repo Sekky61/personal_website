@@ -103,11 +103,15 @@ export function getSeriesPart(post: Schema.PostWithSeries) {
     throw new Error("Post is part of series, but series is empty.");
   }
 
-  return (
-    post.series[0].posts?.findIndex((el: any) => {
-      return el._ref === post._id;
-    }) + 1
-  );
+  const postIndex = post.series[0].posts?.findIndex((el) => {
+    return el._ref === post._id;
+  });
+
+  if (postIndex === -1 || postIndex === undefined) {
+    throw new Error("Post is part of series, but not found in series.");
+  }
+
+  return postIndex + 1;
 }
 
 export function getSerieSlug(post: Schema.PostWithSeries) {

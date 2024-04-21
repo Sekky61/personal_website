@@ -2,7 +2,7 @@ import { PortableText } from "@portabletext/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 
-import ArticleSection from "@common/components/post/ArticleSection";
+import ArticleSection, { ArticleSectionProvider } from "@common/components/post/ArticleSection";
 import LinkHeading from "@common/components/post/LinkHeading";
 import { Footnotes, Sources } from "@common/components/post/blocks";
 import type * as Schema from "@common/sanityTypes";
@@ -18,6 +18,7 @@ import {
 } from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
 import { getAllSlugs, getPostBySlug } from "@common/utils/sanity/dataLoaders";
+import { SideContents } from "@common/components/SideContents";
 
 export async function generateMetadata({
   params,
@@ -59,10 +60,9 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
 
 type ArticleProps = {
   post: Schema.PostWithSeries;
-  setActiveSectionIndex: (index: number) => void;
 };
 
-const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
+const Article = ({ post }: ArticleProps) => {
   const formattedDate = formatDate(new Date(post.releaseDate));
   const isInSeries = isPartOfSeries(post);
   const headings = getHeadings(post);
@@ -71,15 +71,6 @@ const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
   const defaultFlags = Array(headings.length).fill(false);
   if (headings.length > 0) {
     defaultFlags[0] = true; // First section is always active
-  }
-  // const [activeFlags, setActiveFlags] = useState<boolean[]>(defaultFlags);
-  const activeFlags = defaultFlags;
-  const setActiveFlags = (flags: boolean[]) => {};
-
-  function setFlag(index: number, value: boolean) {
-    const newFlags = [...activeFlags];
-    newFlags[index] = value;
-    setActiveFlags(newFlags);
   }
 
   const renderedArticle = PortableText({
@@ -103,26 +94,10 @@ const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
   // Add the last section
   sections.push(currentSection);
 
-  function sectionBecameActive(active: boolean, index: number) {
-    setFlag(index, active);
-  }
-
-  // useEffect(() => {
-  // 	// TODO Sometimes the event does not fire and there is a hole in the array
-  //
-  // 	// choose the first active section
-  // 	const activeIndex = activeFlags.indexOf(true);
-  // 	setActiveSectionIndex(activeIndex);
-  // }, [activeFlags, setActiveSectionIndex]);
-
   // Render the sections
   sections = sections.map((section, index) => {
     return (
-      <ArticleSection
-        sectionIndex={index}
-        key={index}
-        active={(active) => sectionBecameActive(active, index)}
-      >
+      <ArticleSection sectionIndex={index} key={index}>
         {section}
       </ArticleSection>
     );
@@ -157,31 +132,6 @@ const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
   );
 };
 
-type SideContentsProps = {
-  headings: Heading[];
-  activeSectionIndex: number;
-};
-
-const SideContents = ({ headings, activeSectionIndex }: SideContentsProps) => {
-  const heading_items = headings.map(({ text, slug }: Heading, index) => (
-    <li
-      key={slug}
-      className={`hover:underline my-1.5 pl-3 transition-all duration-250 border-l-2 ${
-        index === activeSectionIndex ? "border-white" : "border-transparent"
-      }`}
-    >
-      <a href={`#${slug}`}>{text}</a>
-    </li>
-  ));
-
-  return (
-    <div className="pt-4">
-      <h1 className="text-xl">Table of Contents</h1>
-      <ul className="ml-4 border-l">{heading_items}</ul>
-    </div>
-  );
-};
-
 type PageProps = {
   params: {
     slug: string;
@@ -191,25 +141,21 @@ type PageProps = {
 const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await getPostBySlug(slug);
-  // const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const activeSectionIndex = 0;
-  const setActiveSectionIndex = (index: number) => {};
-
   const headings = getHeadings(post);
+
   return (
     <div className="small-container mt-10 px-4">
       <div className="relative">
-        <main>
-          <Article post={post} setActiveSectionIndex={setActiveSectionIndex} />
-        </main>
-        <div className="absolute top-0 left-full ml-6 mt-32 w-64 h-full">
-          <div className="sticky top-0 pt-14">
-            <SideContents
-              headings={headings}
-              activeSectionIndex={activeSectionIndex}
-            />
+        <ArticleSectionProvider>
+          <main>
+            <Article post={post} />
+          </main>
+          <div className="absolute top-0 left-full ml-6 mt-32 w-64 h-full">
+            <div className="sticky top-0 pt-14">
+              <SideContents headings={headings} />
+            </div>
           </div>
-        </div>
+        </ArticleSectionProvider>
       </div>
     </div>
   );

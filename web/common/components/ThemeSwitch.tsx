@@ -2,18 +2,9 @@
 
 import { MoonIcon, SunIcon } from "@common/svg/LightSwitch";
 import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react";
 
 export const ThemeSwitch = () => {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return <></>;
-
   const usesLight = resolvedTheme === "light";
 
   return (
