@@ -130,7 +130,7 @@ const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
 
 	return (
 		<div className="article">
-			<Link href={`/post`}>
+			<Link href={`/post/${post.slug.current}`}>
 				<h1 className="heading-primary text-5xl mb-8">{post.title}</h1>
 			</Link>
 			<div className="flex divide-x mb-6">
