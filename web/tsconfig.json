@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,21 +16,11 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@common/*": [
-        "common/*"
-      ],
-      "@components/*": [
-        "common/components/*"
-      ],
-      "@utils/*": [
-        "common/utils/*"
-      ],
-      "@sanity/*": [
-        "common/utils/sanity/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ]
+      "@common/*": ["common/*"],
+      "@components/*": ["common/components/*"],
+      "@utils/*": ["common/utils/*"],
+      "@sanity/*": ["common/utils/sanity/*"],
+      "@styles/*": ["styles/*"]
     },
     "plugins": [
       {
@@ -49,7 +35,5 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

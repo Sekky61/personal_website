@@ -1,15 +1,14 @@
-import Link from "next/link"
+import Link from "next/link";
 import { formatDate } from "@common/utils/misc";
 import { Pill } from "./Pill";
 import { getBeginningOfArticle, isPartOfSeries } from "@common/utils/blogpost";
 import type * as Schema from "@common/sanityTypes";
 
 interface BlogPostCardProps {
-  post: Schema.PostWithSeries
+  post: Schema.PostWithSeries;
 }
 
 export default function BlogPostCard({ post }: BlogPostCardProps) {
-
   let tags = post.tags || [];
   if (isPartOfSeries(post)) {
     // Concat doesn’t modify the original array
@@ -29,19 +28,15 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
         </h2>
         <div className="flex gap-4  text-sm font-semibold">
           <span>Article</span>
-          <span className=''>{formattedDate}</span>
+          <span className="">{formattedDate}</span>
         </div>
-        <p className="two-line-text-ellipsis h-12 m-0">
-          {truncatedText}
-        </p>
+        <p className="two-line-text-ellipsis h-12 m-0">{truncatedText}</p>
         <div className="flex gap-2 h-7">
-          {
-            tags.map(({ label, value }: any) =>
-              <Pill key={label} text={label}></Pill>
-            )
-          }
+          {tags.map(({ label, value }: any) => (
+            <Pill key={label} text={label}></Pill>
+          ))}
         </div>
       </div>
     </Link>
-  )
+  );
 }
