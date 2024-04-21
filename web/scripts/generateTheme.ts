@@ -119,12 +119,14 @@ function convertToTailwind(theme: MaterialTheme) {
 			...palette,
 			DEFAULT: palette["40"],
 		};
+		// @ts-ignore
 		colorExtend[paletteName] = paletteWithDefault;
 	}
 
 	// add the schemes to colors
 	for (const schemeName in theme.schemes) {
 		const scheme = theme.schemes[schemeName as SchemeName];
+		// @ts-ignore
 		    colorExtend[schemeName] = scheme;
 	}
 
