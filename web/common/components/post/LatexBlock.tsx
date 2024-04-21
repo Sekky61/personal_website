@@ -1,10 +1,10 @@
-import 'katex/dist/katex.min.css';
-import { InlineMath, BlockMath } from 'react-katex';
+import "katex/dist/katex.min.css";
+import { BlockMath, InlineMath } from "react-katex";
 
 export const LatexBlock = ({ value }: any) => {
-    return <BlockMath>{value.body}</BlockMath>
+  return <BlockMath>{value.body}</BlockMath>;
 };
 
 export const LatexInline = ({ value }: any) => {
-    return <InlineMath>{value.body}</InlineMath>
+  return <InlineMath>{value.body}</InlineMath>;
 };
