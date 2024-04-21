@@ -43,7 +43,7 @@ const Home: NextPage<PageProps> = ({ postsData }) => {
 						priority
 					/>
 				</div>
-			</div>
+				</div>
 			<div className="latest-posts">
 				<h2 className="heading-primary text-4xl font-semibold mb-5">
 					Latest posts
@@ -68,7 +68,7 @@ const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
 						{postData.title}
 					</span>
 					<div className="mt-auto">
-						<div className="flex justify-between primary-text text-sm font-semibold">
+						<div className="flex justify-between text-sm font-semibold">
 							<span>Article</span>
 							<span>{formattedDate}</span>
 						</div>

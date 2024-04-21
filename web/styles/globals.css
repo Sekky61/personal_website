@@ -12,19 +12,24 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 
 @layer base {
   :root {
-    /* SPACE SEPARATED For hsl(198deg 93% 60% / <alpha-value>) */
-    --color-primary: 65deg 100% 51%; /* #EAFF05 */
-    --hue-sat-primary: 65deg 100%;
-    @apply selection:bg-primary-40 selection:text-slate-800
+    @apply selection:bg-light-tertiaryContainer selection:text-light-onTertiaryContainer;
   }
 
   body {
+    @apply surface;
     font-family: 'Open Sans', sans-serif;
-    @apply neutral-bg
   }
 
-  .neutral-bg {
-    @apply bg-neutral-99 dark:bg-neutral-10 text-neutral-10 dark:text-neutral-99
+  h1 {
+    @apply text-4xl heading-primary;
+  }
+
+  h2 {
+    @apply text-2xl mt-8;
+  }
+
+  .surface {
+    @apply bg-light-surface text-light-onSurface dark:bg-dark-surface dark:text-dark-onSurface;
   }
 
   p {
@@ -37,27 +42,28 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 
   /* Primary is for active states, important buttons */
   .primary {
-    @apply bg-primary-40 text-white dark:bg-primary-80 dark:text-primary-20
+    @apply bg-light-primary text-light-onPrimary dark:bg-dark-primary dark:text-dark-onPrimary;
   }
 
   /* Less emphasis */
   .primary-cont {
-    @apply bg-primary-90 text-primary-10 dark:bg-primary-30 dark:text-primary-90
+    @apply bg-light-primaryContainer text-light-onPrimaryContainer dark:bg-dark-primaryContainer dark:text-dark-onPrimaryContainer;
+  }
+
+  .secondary-cont {
+    @apply bg-light-secondaryContainer text-light-onSecondaryContainer dark:bg-dark-secondaryContainer dark:text-dark-onSecondaryContainer;
   }
 
   .heading-underline {
     @apply underline decoration-4 underline-offset-[5px] decoration-primary-40 dark:decoration-primary-80
   }
 
-  .primary-text {
-    @apply text-primary-20 dark:text-primary-70
-  }
 }
 
 /* Extra layer to make active links style take precedence over hover */
 @layer hover-priority {
   .navlink {
-    @apply font-semibold duration-150 px-3 py-1.5 rounded-md hover:bg-primary-80 hover:dark:bg-primary-20 whitespace-nowrap focus:ring focus:ring-primary-80;
+    @apply font-semibold duration-150 px-3 py-1.5 rounded-md hover:bg-secondary-90 hover:dark:bg-primary-20 whitespace-nowrap focus:ring focus:ring-primary-80;
   }
 }
 
@@ -67,11 +73,11 @@ https://m3.material.io/styles/color/the-color-system/color-roles
   }
 
   .card {
-    @apply rounded-md drop-shadow bg-white dark:bg-white/5
+    @apply rounded-md drop-shadow bg-light-surfaceContainerLow dark:bg-dark-surfaceContainerLow;
   }
 
   .navlink-active {
-    @apply primary
+    @apply secondary-cont;
   }
 
   .metablock {
@@ -83,7 +89,7 @@ https://m3.material.io/styles/color/the-color-system/color-roles
   }
 
   .tag-pill {
-    @apply rounded-md font-semibold text-sm px-2.5 py-1 h-7 bg-primary-60 dark:bg-primary-70 text-primary-20;
+    @apply rounded-md font-semibold text-sm px-2.5 py-1 h-7 primary-cont;
   }
 }
 

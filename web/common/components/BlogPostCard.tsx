@@ -27,7 +27,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
         <h2 className="text-2xl mb-1 group-hover:underline decoration-primary-40">
           {post.title}
         </h2>
-        <div className="flex gap-4 primary-text text-sm font-semibold">
+        <div className="flex gap-4  text-sm font-semibold">
           <span>Article</span>
           <span className=''>{formattedDate}</span>
         </div>

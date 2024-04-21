@@ -1,31 +1,40 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import type { NextPage } from "next";
+import Head from "next/head";
 
 const About: NextPage = () => {
-    return (
-        <>
-            <Head>
-                <title>Majer - about</title>
-            </Head>
-            <h1 className='heading-primary' >About me</h1>
+	return (
+		<>
+			<Head>
+				<title>Majer - about</title>
+			</Head>
+			<h1 className="heading-primary">About me</h1>
+			<p>Hello.</p>
+			<p>
+				I am a programmer who enjoys web technologies and admires low-level
+				programming and systems programming. I love exploring new languages. I
+				have a lot of opinions about the world of software and I can&apos;t wait to
+				have them destroyed by new experiences.
+			</p>
+			<p>
+				I have a bachelors degree from Faculty of Information Technology of the
+				Brno University of Technology.
+			</p>
+			<h2>What is in my toolbox?</h2>
             <p>
-                Hello.
-            </p>
-            <p>
-                My name is Michal and I am a programmer with a passion for crafting efficient and elegant solutions to complex problems.
-                I have a bachelors degree from Faculty of Information Technology of the Brno University of Technology.
-                No experience working in the industry (yet).
-            </p>
-            <p>
-                I am skilled in a wide range of programming languages and technologies, including Rust, Python, and JavaScript,
-                and I am always looking for opportunities to learn and grow as a developer.
-                In my free time, I enjoy staying up-to-date with the latest developments in the field and exploring new tools and concepts.
-            </p>
-            <p>
-                Tbh AI wrote most of this. Thanks AI ❤️
-            </p>
-        </>
-    )
-}
+				My favorite technologies so far are <b>Rust, TypeScript, and React</b>. I
+				recently fell in love with Neovim and a windowing manager.
+                I like to automate what I can with scripts.
+			</p>
+			<p>I also have experience in languages like Java, C, C++ and Python.</p>
+			<p>I am currently exploring Nix and Zig.</p>
+			<h2>What do I do in my free time?</h2>
+			<p>
+				Outside of computers, I enjoy reading a good sci-fi book, playing the
+				occasional video game and lifting weights. I have also recently found a
+				passion for bouldering. 🧗
+			</p>
+		</>
+	);
+};
 
-export default About
+export default About;
