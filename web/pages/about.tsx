@@ -12,7 +12,7 @@ const About: NextPage = () => {
 			<p>
 				I am a programmer who enjoys web technologies and admires low-level
 				programming and systems programming. I love exploring new languages. I
-				have a lot of opinions about the world of software and I can't wait to
+				have a lot of opinions about the world of software and I can&apos;t wait to
 				have them destroyed by new experiences.
 			</p>
 			<p>
