@@ -4,6 +4,8 @@ export const metadata = {
 	title: "Majer - About",
 };
 
+export const dynamic = "force-static";
+
 const About: NextPage = () => {
 	return (
 		<>

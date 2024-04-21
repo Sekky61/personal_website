@@ -12,6 +12,25 @@ export const metadata = {
 	title: "Majer - Blog",
 };
 
+// This function returns a list of page paths so that the pages can be pre-rendered.
+// eg. /blog/1 -> {params: {page: ['blog', '1']}}
+export const generateStaticParams = async () => {
+	const postsCount = await getPostsCount();
+	const pagesCount = Math.max(Math.ceil(postsCount / resultsPerPage), 1); // At least one
+	const pageNumbers = Array.from({ length: pagesCount }, (_, i) => i + 1); // Numbers 1..=pagesCount
+
+	// Create an array of page paths, each containing a page number
+	const pagePaths: { page: string[] }[] = pageNumbers.map(
+		(pageNumber: number) => ({ page: [pageNumber.toString()] }),
+	);
+	// add the /blog path
+	pagePaths.push({ page: [] });
+
+	return pagePaths;
+};
+
+export const dynamic = "force-static";
+
 const resultsPerPage = 10;
 
 type BlogListingProps = {
@@ -20,7 +39,8 @@ type BlogListingProps = {
 	params: { page?: string[] };
 };
 
-const BlogListing: NextPage<BlogListingProps> = async ({ params: {page = ["1"]} }) => {
+const BlogListing: NextPage<BlogListingProps> = async ({ params }) => {
+	const page = params.page ?? ["1"];
 	if (page.length > 1) {
 		throw new Error("Only one page number is allowed");
 	}
@@ -60,20 +80,3 @@ const BlogListing: NextPage<BlogListingProps> = async ({ params: {page = ["1"]} 
 };
 
 export default BlogListing;
-
-// This function returns a list of page paths so that the pages can be pre-rendered.
-// eg. /blog/1 -> {params: {page: ['blog', '1']}}
-export const generateStaticParams = async () => {
-	const postsCount = await getPostsCount();
-	const pagesCount = Math.max(Math.ceil(postsCount / resultsPerPage), 1); // At least one
-	const pageNumbers = Array.from({ length: pagesCount }, (_, i) => i + 1); // Numbers 1..=pagesCount
-
-	// Create an array of page paths, each containing a page number
-	const pagePaths: { params: { page: string[] } }[] = pageNumbers.map(
-		(pageNumber: number) => ({ params: { page: [pageNumber.toString()] } }),
-	);
-	// add the /blog path
-	pagePaths.push({ params: { page: [] } });
-
-	return pagePaths;
-};

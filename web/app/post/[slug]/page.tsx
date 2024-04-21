@@ -16,14 +16,25 @@ import { blockRenderingElements } from "@common/utils/blockRendering";
 import LinkHeading from "@common/components/post/LinkHeading";
 import { formatDate } from "@common/utils/misc";
 import type * as Schema from "@common/sanityTypes";
-import { getPostBySlug } from "@common/utils/sanity/dataLoaders";
+import { getAllSlugs, getPostBySlug } from "@common/utils/sanity/dataLoaders";
 import ArticleSection from "@common/components/post/ArticleSection";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({
+	params,
+}: { params: { slug: string } }) {
 	return {
 		title: "Majer - Post",
 	};
 }
+
+export const generateStaticParams = async () => {
+	const slugs = await getAllSlugs();
+	const paths = slugs.map((slug: string) => ({ slug }));
+
+	return paths;
+};
+
+export const dynamic = "force-static";
 
 // Renders the contents of a post
 const Contents = ({ headings }: { headings: Heading[] }) => {
@@ -207,12 +218,5 @@ const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
 		</div>
 	);
 };
-
-// export const generateStaticParams = async () => {
-// 	const slugs = await getAllSlugs();
-// 	const paths = slugs.map((slug: string) => ({ slug }));
-//
-// 	return paths;
-// };
 
 export default Page;

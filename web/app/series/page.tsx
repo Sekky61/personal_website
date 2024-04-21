@@ -9,6 +9,8 @@ export const metadata = {
 	title: "Majer - Post series",
 };
 
+export const dynamic = "force-static";
+
 const SeriesPage: NextPage = async () => {
 	const series = await getPostSeries();
 	const seriesCards = series.map((series) => (

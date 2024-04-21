@@ -10,6 +10,8 @@ export const metadata = {
   title: "Majer",
 };
 
+export const dynamic = "force-static";
+
 const Home: NextPage = async () => {
 	const postsData = await getPaginatedPosts(0, 3);
 	const postCards = postsData.map((postData) => {

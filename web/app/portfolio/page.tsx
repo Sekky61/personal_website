@@ -8,6 +8,8 @@ export const metadata = {
 	title: "Majer - Portfolio",
 };
 
+export const dynamic = "force-static";
+
 const Portfolio: NextPage = async () => {
 	const portfolio = await getPortfolio();
 	const { projects, text } = portfolio;
