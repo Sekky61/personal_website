@@ -2,6 +2,7 @@ import Footer from "@common/components/layout/Footer";
 import Header from "@common/components/layout/Header";
 import { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
+import React from "react";
 
 import "../styles/globals.css";
 
