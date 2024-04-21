@@ -1,3 +1,4 @@
+"use server";
 import { groq } from "next-sanity";
 import { getClient } from "./sanity.server";
 import type * as Schema from "@common/sanityTypes";
@@ -15,7 +16,6 @@ const POST_BY_SLUG = `*[_type == "post" && slug.current == $slug][0]`; // Parame
  * @returns A list of posts, sorted by release date, from newest to oldest
  */
 export async function getPaginatedPosts(from: number, to: number) {
-	'use server';
 	return getClient().fetch<Schema.PostWithSeries[]>(
 		groq`${ALL_PUBLISHED_POSTS} | order(releaseDate desc) [$from...$to]{
             ...,

@@ -12,3 +12,5 @@ export const linksToDisplay = [
 		label: "Portfolio",
 	},
 ];
+
+export const resultsPerPage = 10;
