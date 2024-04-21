@@ -1,26 +1,23 @@
 import { getBeginningOfArticle } from "@common/utils/blogpost";
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@common/utils/misc";
-import Head from "next/head";
 import type * as Schema from "@common/sanityTypes";
 import { getPaginatedPosts } from "@common/utils/sanity/dataLoaders";
 
-type PageProps = {
-	postsData: Schema.PostWithSeries[];
+export const metadata = {
+  title: "Majer",
 };
 
-const Home: NextPage<PageProps> = ({ postsData }) => {
+const Home: NextPage = async () => {
+	const postsData = await getPaginatedPosts(0, 3);
 	const postCards = postsData.map((postData) => {
 		return <PostCard postData={postData} key={postData._id}></PostCard>;
 	});
 
 	return (
 		<>
-			<Head>
-				<title>Majer</title>
-			</Head>
 			<div className="flex flex-col md:flex-row gap-16 mt-20 mb-12 items-center">
 				<div>
 					<h1 className="heading-primary leading-tight text-6xl text-center lg:text-right font-bold mb-8">
@@ -43,7 +40,7 @@ const Home: NextPage<PageProps> = ({ postsData }) => {
 						priority
 					/>
 				</div>
-				</div>
+			</div>
 			<div className="latest-posts">
 				<h2 className="heading-primary text-4xl font-semibold mb-5">
 					Latest posts
@@ -78,17 +75,6 @@ const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
 			</Link>
 		</li>
 	);
-};
-
-export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
-	console.log("Fetching posts data");
-	const postsData = await getPaginatedPosts(0, 3);
-
-	return {
-		props: {
-			postsData,
-		},
-	};
 };
 
 export default Home;

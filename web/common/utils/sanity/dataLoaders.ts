@@ -1,7 +1,9 @@
+"use server";
 import { groq } from "next-sanity";
 import { getClient } from "./sanity.server";
 import type * as Schema from "@common/sanityTypes";
-import { type } from "os";
+import { revalidateTag } from "next/cache";
+import { sanityCacheTag } from "@common/static";
 
 // Partial queries
 const ALL_POSTS = `*[_type == "post"]`;
@@ -15,6 +17,7 @@ const POST_BY_SLUG = `*[_type == "post" && slug.current == $slug][0]`; // Parame
  * @returns A list of posts, sorted by release date, from newest to oldest
  */
 export async function getPaginatedPosts(from: number, to: number) {
+	revalidateTag(sanityCacheTag);
 	return getClient().fetch<Schema.PostWithSeries[]>(
 		groq`${ALL_PUBLISHED_POSTS} | order(releaseDate desc) [$from...$to]{
             ...,
@@ -28,6 +31,7 @@ export async function getPaginatedPosts(from: number, to: number) {
  * @returns All slugs for all posts.
  */
 export async function getAllSlugs() {
+	revalidateTag(sanityCacheTag);
 	return getClient().fetch<string[]>(groq`${ALL_PUBLISHED_POSTS}.slug.current`);
 }
 
@@ -39,6 +43,7 @@ export async function getAllSlugs() {
  * @returns A single post.
  */
 export async function getPostBySlug(slug: string) {
+	revalidateTag(sanityCacheTag);
 	return getClient().fetch<Schema.PostWithSeries>(
 		groq`
         ${POST_BY_SLUG}{
@@ -65,6 +70,7 @@ export async function getPostBySlug(slug: string) {
  * @returns A list of all series, with their posts.
  */
 export async function getPostSeries() {
+	revalidateTag(sanityCacheTag);
 	return getClient().fetch<Schema.SeriesWithPosts[]>(groq`*[_type == "series"]{
             ...,
             posts[]->
@@ -76,6 +82,7 @@ export async function getPostSeries() {
  * @returns The total number of posts.
  */
 export async function getPostsCount() {
+	revalidateTag(sanityCacheTag);
 	return getClient().fetch<number>(groq`count(${ALL_PUBLISHED_POSTS})`);
 }
 
@@ -83,6 +90,7 @@ export async function getPostsCount() {
  * @returns The portfolio data, with featured projects and github data for each project.
  */
 export async function getPortfolio(): Promise<Schema.LoadedPortfolio> {
+	revalidateTag(sanityCacheTag);
 	// Get data from Sanity and join references to repositories
 	return getClient()
 		.fetch<Schema.PortfolioWithProjects>(
@@ -107,6 +115,7 @@ export async function getPortfolio(): Promise<Schema.LoadedPortfolio> {
 }
 
 function isGitHubData(data: any): data is Schema.GitHubData {
+	revalidateTag(sanityCacheTag);
 	if (typeof data !== "object") return false;
 	const hasName = typeof data.name === "string";
 	const hasUpdatedAt = typeof data.updated_at === "string";
@@ -122,6 +131,7 @@ function isGitHubData(data: any): data is Schema.GitHubData {
 export async function getGithubData(
 	repoUrl: string,
 ): Promise<Schema.GitHubData> {
+	revalidateTag(sanityCacheTag);
 	if (!repoUrl.includes("github.com")) {
 		throw new Error(
 			`Invalid GitHub URL: ${repoUrl} - provide a github.com URL`,
