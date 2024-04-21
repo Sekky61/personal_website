@@ -14,3 +14,6 @@ export const linksToDisplay = [
 ];
 
 export const resultsPerPage = 10;
+
+export const sanityCacheTag = "sanity";
+
