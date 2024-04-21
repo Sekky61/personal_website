@@ -1,9 +1,14 @@
-import { NextPage } from "next";
-import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import type { NextPage } from "next";
+import Link from "next/link";
 
+import ArticleSection from "@common/components/post/ArticleSection";
+import LinkHeading from "@common/components/post/LinkHeading";
+import { Footnotes, Sources } from "@common/components/post/blocks";
+import type * as Schema from "@common/sanityTypes";
+import { blockRenderingElements } from "@common/utils/blockRendering";
 import {
-  Heading,
+  type Heading,
   getFootnotes,
   getHeadings,
   getSerieSlug,
@@ -11,13 +16,8 @@ import {
   isPartOfSeries,
   postReadingTime,
 } from "@common/utils/blogpost";
-import { Footnotes, Sources } from "@common/components/post/blocks";
-import { blockRenderingElements } from "@common/utils/blockRendering";
-import LinkHeading from "@common/components/post/LinkHeading";
 import { formatDate } from "@common/utils/misc";
-import type * as Schema from "@common/sanityTypes";
 import { getAllSlugs, getPostBySlug } from "@common/utils/sanity/dataLoaders";
-import ArticleSection from "@common/components/post/ArticleSection";
 
 export async function generateMetadata({
   params,
@@ -45,7 +45,7 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
 
   const heading_items = headings.map(({ text, slug }: Heading) => (
     <li key={slug} className="hover:underline">
-      <a href={"#" + slug}>{text}</a>
+      <a href={`#${slug}`}>{text}</a>
     </li>
   ));
 
@@ -77,12 +77,12 @@ const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
   const setActiveFlags = (flags: boolean[]) => {};
 
   function setFlag(index: number, value: boolean) {
-    let newFlags = [...activeFlags];
+    const newFlags = [...activeFlags];
     newFlags[index] = value;
     setActiveFlags(newFlags);
   }
 
-  let renderedArticle = PortableText({
+  const renderedArticle = PortableText({
     value: post.content,
     components: blockRenderingElements,
   });
@@ -147,12 +147,12 @@ const Article = ({ post, setActiveSectionIndex }: ArticleProps) => {
           .
         </p>
       )}
-      <Contents headings={headings}></Contents>
+      <Contents headings={headings} />
       <div className="my-8">{sections}</div>
       <div className="my-8">
-        <Footnotes footnotes={footnotes}></Footnotes>
+        <Footnotes footnotes={footnotes} />
       </div>
-      <Sources sources={post.sources}></Sources>
+      <Sources sources={post.sources} />
     </div>
   );
 };
@@ -166,12 +166,11 @@ const SideContents = ({ headings, activeSectionIndex }: SideContentsProps) => {
   const heading_items = headings.map(({ text, slug }: Heading, index) => (
     <li
       key={slug}
-      className={
-        "hover:underline my-1.5 pl-3 transition-all duration-250 border-l-2 " +
-        (index == activeSectionIndex ? "border-white" : "border-transparent")
-      }
+      className={`hover:underline my-1.5 pl-3 transition-all duration-250 border-l-2 ${
+        index === activeSectionIndex ? "border-white" : "border-transparent"
+      }`}
     >
-      <a href={"#" + slug}>{text}</a>
+      <a href={`#${slug}`}>{text}</a>
     </li>
   ));
 
@@ -201,17 +200,14 @@ const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
     <div className="small-container mt-10 px-4">
       <div className="relative">
         <main>
-          <Article
-            post={post}
-            setActiveSectionIndex={setActiveSectionIndex}
-          ></Article>
+          <Article post={post} setActiveSectionIndex={setActiveSectionIndex} />
         </main>
         <div className="absolute top-0 left-full ml-6 mt-32 w-64 h-full">
           <div className="sticky top-0 pt-14">
             <SideContents
               headings={headings}
               activeSectionIndex={activeSectionIndex}
-            ></SideContents>
+            />
           </div>
         </div>
       </div>

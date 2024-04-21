@@ -14,7 +14,7 @@ const Table = ({ value }: any) => {
         </td>
       );
     });
-    let rowStyle =
+    const rowStyle =
       styleFirstRowDifferent && rowIndex === 0 ? "font-semibold" : "";
     return (
       <tr key={rowIndex} className={rowStyle}>

@@ -1,6 +1,6 @@
-import { PortableTextBlock, TypedObject } from "@portabletext/types";
-import readingTime, { ReadTimeResults } from "reading-time";
 import type * as Schema from "@common/sanityTypes";
+import type { PortableTextBlock, TypedObject } from "@portabletext/types";
+import readingTime, { type ReadTimeResults } from "reading-time";
 
 export type Footnote = {
   text: string;
@@ -17,21 +17,21 @@ export type Source = {
   link: string;
 };
 
-export function getBeginningOfArticle(post: Schema.Post, length: number = 100) {
+export function getBeginningOfArticle(post: Schema.Post, length = 100) {
   const text = blocksToPlainText(post.content);
   return text.slice(0, length);
 }
 
 function isBlock(block: any): block is PortableTextBlock {
-  return block._type == "block";
+  return block._type === "block";
 }
 
 function isHeading(block: PortableTextBlock): boolean {
-  return block.style == "heading";
+  return block.style === "heading";
 }
 
 function isFootnote(block: TypedObject): block is Schema.FootnoteInlineBlock {
-  return block._type == "footnote";
+  return block._type === "footnote";
 }
 
 export function getFootnotes(post: Schema.Post): Footnote[] {
@@ -104,8 +104,8 @@ export function getSeriesPart(post: Schema.PostWithSeries) {
   }
 
   return (
-    post.series[0].posts!.findIndex((el: any) => {
-      return el._ref == post._id;
+    post.series[0].posts?.findIndex((el: any) => {
+      return el._ref === post._id;
     }) + 1
   );
 }
@@ -131,12 +131,11 @@ export function makeSlug(text: string) {
 export function childrenToPlainText(children: any[] = []) {
   return children
     .map((child: any) => {
-      if (typeof child == "string") {
+      if (typeof child === "string") {
         return child;
-      } else {
-        // Object
-        return child.props.text;
       }
+      // Object
+      return child.props.text;
     })
     .join("");
 }

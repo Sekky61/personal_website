@@ -1,9 +1,9 @@
 "use server";
-import { groq } from "next-sanity";
-import { getClient } from "./sanity.server";
 import type * as Schema from "@common/sanityTypes";
-import { revalidateTag } from "next/cache";
 import { sanityCacheTag } from "@common/static";
+import { groq } from "next-sanity";
+import { revalidateTag } from "next/cache";
+import { getClient } from "./sanity.server";
 
 // Partial queries
 const ALL_POSTS = `*[_type == "post"]`;

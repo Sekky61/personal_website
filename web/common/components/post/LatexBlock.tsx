@@ -1,5 +1,5 @@
 import "katex/dist/katex.min.css";
-import { InlineMath, BlockMath } from "react-katex";
+import { BlockMath, InlineMath } from "react-katex";
 
 export const LatexBlock = ({ value }: any) => {
   return <BlockMath>{value.body}</BlockMath>;

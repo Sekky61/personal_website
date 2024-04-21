@@ -1,8 +1,8 @@
-import React from "react";
+import type React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"; // css object
 
-import { getRenderer, Token } from "@common/utils/codeRendering";
+import { type Token, getRenderer } from "@common/utils/codeRendering";
 import { CopyButton } from "../CopyButton";
 
 interface CodeSampleProps {
@@ -51,7 +51,7 @@ const CodeSample = ({ value }: CodeSampleProps) => {
             {fileName}
           </div>
         )}
-        <CopyButton code={code}></CopyButton>
+        <CopyButton code={code} />
         <SyntaxHighlighter
           language={language}
           style={a11yDark}
@@ -65,7 +65,7 @@ const CodeSample = ({ value }: CodeSampleProps) => {
           {code}
         </SyntaxHighlighter>
       </div>
-      {hasOutput && <CodeOutput output={output}></CodeOutput>}
+      {hasOutput && <CodeOutput output={output} />}
     </div>
   );
 };

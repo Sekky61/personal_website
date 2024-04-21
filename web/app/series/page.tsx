@@ -1,8 +1,8 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Link from "next/link";
 
-import type * as Schema from "@common/sanityTypes";
 import { Pills } from "@common/components/Pill";
+import type * as Schema from "@common/sanityTypes";
 import { getPostSeries } from "@common/utils/sanity/dataLoaders";
 
 export const metadata = {
@@ -15,7 +15,7 @@ const SeriesPage: NextPage = async () => {
   const series = await getPostSeries();
   const seriesCards = series.map((series) => (
     <li key={series.slug.current}>
-      <SeriesCard series={series}></SeriesCard>
+      <SeriesCard series={series} />
     </li>
   ));
 
@@ -41,7 +41,7 @@ function SeriesCard({ series }: { series: Schema.SeriesWithPosts }) {
         <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
           {series.title}
         </h2>
-        <Pills texts={series.tags.map((tag: any) => tag.label)}></Pills>
+        <Pills texts={series.tags.map((tag: any) => tag.label)} />
         <ol className="list-decimal mt-2 pl-4">{postsList}</ol>
       </div>
     </Link>

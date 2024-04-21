@@ -6,9 +6,9 @@
  * Source: https://github.com/ricokahler/sanity-codegen/blob/main/src/types.ts
  */
 
-import { TypedObject } from "@portabletext/types";
+import type { TypedObject } from "@portabletext/types";
 
-import { ResolveConfigOptions } from "prettier";
+import type { ResolveConfigOptions } from "prettier";
 
 type ArrayType = { type: "array"; of: Array<{ type: string }> };
 type BlockType = { type: "block" };

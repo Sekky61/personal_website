@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { linksToDisplay } from "@common/static";
+import { useState } from "react";
 import { ThemeSwitch } from "../ThemeSwitch";
 
 export const Hamburger = () => {
@@ -27,9 +27,9 @@ export const Hamburger = () => {
   const burger = (
     <div className="relative flex overflow-hidden items-center justify-center rounded-lg w-8 h-8">
       <div className="flex flex-col justify-between w-5 h-5 overflow-hidden">
-        <div className=" dark:bg-white bg-primary-10 h-[2px] w-5 origin-left"></div>
-        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 rounded"></div>
-        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 origin-left"></div>
+        <div className=" dark:bg-white bg-primary-10 h-[2px] w-5 origin-left" />
+        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 rounded" />
+        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 origin-left" />
       </div>
     </div>
   );
@@ -62,13 +62,13 @@ export const Hamburger = () => {
                     strokeLinejoin="round"
                     strokeWidth="2"
                     d="M6 18L18 6M6 6l12 12"
-                  ></path>
+                  />
                 </svg>
               </button>
               <ul className="space-y-6">{links}</ul>
               <div className="pt-4 mt-4 border-t border-neutral-10 dark:border-neutral-99 flex items-center gap-2">
                 <span className="block pt-[2px]">Switch theme</span>
-                <ThemeSwitch></ThemeSwitch>
+                <ThemeSwitch />
               </div>
             </div>
           </div>

@@ -1,11 +1,11 @@
 import Link from "next/link";
 
+import { ThemeSwitch } from "@common/components/ThemeSwitch";
+import { linksToDisplay } from "@common/static";
 import GithubLogo from "@common/svg/GithubLogo";
 import React from "react";
-import { ThemeSwitch } from "@common/components/ThemeSwitch";
-import { NavLink } from "./NavLink";
 import { Hamburger } from "./Hamburger";
-import { linksToDisplay } from "@common/static";
+import { NavLink } from "./NavLink";
 
 const Header = () => {
   return (
@@ -21,14 +21,14 @@ const Header = () => {
                 Majer
               </div>
             </Link>
-            <div className="flex-grow"></div>
+            <div className="flex-grow" />
             <div>
               <div className="md:hidden flex items-center justify-center">
-                <Hamburger></Hamburger>
+                <Hamburger />
               </div>
               <div className="hidden md:flex items-center text-sm">
                 <div className="mr-5">
-                  <ThemeSwitch></ThemeSwitch>
+                  <ThemeSwitch />
                 </div>
                 <nav>
                   <ul className="flex space-x-5">
@@ -48,7 +48,7 @@ const Header = () => {
                     rel="noreferrer noopener"
                     title="Personal GitHub page"
                   >
-                    <GithubLogo></GithubLogo>
+                    <GithubLogo />
                   </a>
                 </div>
               </div>

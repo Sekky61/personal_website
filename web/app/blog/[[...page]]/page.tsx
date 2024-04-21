@@ -1,12 +1,12 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Link from "next/link";
 
-import BlogPostCard from "@components/BlogPostCard";
-import Pagination from "@components/Pagination";
 import {
   getPaginatedPosts,
   getPostsCount,
 } from "@common/utils/sanity/dataLoaders";
+import BlogPostCard from "@components/BlogPostCard";
+import Pagination from "@components/Pagination";
 
 export const metadata = {
   title: "Majer - Blog",
@@ -53,7 +53,7 @@ const BlogListing: NextPage<BlogListingProps> = async ({ params }) => {
   const postsCount = await getPostsCount();
   const postsCards = postsData.map((post) => (
     <li key={post.slug.current}>
-      <BlogPostCard post={post}></BlogPostCard>
+      <BlogPostCard post={post} />
     </li>
   ));
 
@@ -62,7 +62,7 @@ const BlogListing: NextPage<BlogListingProps> = async ({ params }) => {
       <h1 className="heading-primary">The Blog</h1>
       <p className="mb-6">
         Or check out blogposts sorted by{" "}
-        <Link href={`/series`} className="link">
+        <Link href={"/series"} className="link">
           series
         </Link>
       </p>
@@ -73,7 +73,7 @@ const BlogListing: NextPage<BlogListingProps> = async ({ params }) => {
           perPage={resultsPerPage}
           total={postsCount}
           pathPrefix="/blog"
-        ></Pagination>
+        />
       </div>
     </>
   );

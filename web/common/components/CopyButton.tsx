@@ -14,14 +14,13 @@ export const CopyButton = ({ code }: any) => {
 
   return (
     <button
-      className={
-        "absolute top-0 right-0 m-2 p-0.5 duration-100 bg-white/5 rounded-sm " +
-        (showCheck ? "hover:bg-green-400" : "hover:bg-primary-40")
-      }
+      className={`absolute top-0 right-0 m-2 p-0.5 duration-100 bg-white/5 rounded-sm ${
+        showCheck ? "hover:bg-green-400" : "hover:bg-primary-40"
+      }`}
       onClick={copyClicked}
       onMouseLeave={mouseLeave}
     >
-      {showCheck ? <CheckmarkIcon></CheckmarkIcon> : <CopyIcon></CopyIcon>}
+      {showCheck ? <CheckmarkIcon /> : <CopyIcon />}
     </button>
   );
 };

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { createElement } from "react-syntax-highlighter";
 
 // One piece of line styling information, eg. make line 5 a warning
@@ -12,19 +12,19 @@ export type Token = {
 const lineStyle = {
   highlighted: {
     line: ["bg-lime-700/30", "rounded"],
-    text: ["token-message", `highlight-token`],
+    text: ["token-message", "highlight-token"],
   },
   error: {
     line: ["bg-red-700/25", "rounded"],
-    text: ["token-message", `error-token`],
+    text: ["token-message", "error-token"],
   },
   warning: {
     line: ["bg-yellow-700/25", "rounded"],
-    text: ["token-message", `warning-token`],
+    text: ["token-message", "warning-token"],
   },
   info: {
     line: ["bg-blue-700/25", "rounded"],
-    text: ["token-message", `info-token`],
+    text: ["token-message", "info-token"],
   },
 };
 
@@ -81,7 +81,7 @@ export function getRenderer(
       row.properties.className = [];
     }
 
-    let rowElement = createElement({
+    const rowElement = createElement({
       node: row,
       stylesheet,
       useInlineStyles,

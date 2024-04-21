@@ -1,6 +1,6 @@
+import type * as Schema from "@common/sanityTypes";
 import Link from "next/link";
 import { Pill } from "./Pill";
-import type * as Schema from "@common/sanityTypes";
 
 type RepoCardProps = {
   repo: Schema.RepositoryWithGithubData;
@@ -8,7 +8,7 @@ type RepoCardProps = {
 
 const RepoCard = ({ repo }: RepoCardProps) => {
   const technologiesPills = repo.technologies.map((tech) => {
-    return <Pill key={tech} text={tech}></Pill>;
+    return <Pill key={tech} text={tech} />;
   });
 
   return (

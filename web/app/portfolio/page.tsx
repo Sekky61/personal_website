@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import { PortableText } from "@portabletext/react";
-import { blockRenderingElements } from "@common/utils/blockRendering";
 import RepoCard from "@common/components/RepoCard";
+import { blockRenderingElements } from "@common/utils/blockRendering";
 import { getPortfolio } from "@common/utils/sanity/dataLoaders";
+import { PortableText } from "@portabletext/react";
+import type { NextPage } from "next";
 
 export const metadata = {
   title: "Majer - Portfolio",

@@ -1,10 +1,10 @@
-import { getBeginningOfArticle } from "@common/utils/blogpost";
-import type { NextPage } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { formatDate } from "@common/utils/misc";
 import type * as Schema from "@common/sanityTypes";
+import { getBeginningOfArticle } from "@common/utils/blogpost";
+import { formatDate } from "@common/utils/misc";
 import { getPaginatedPosts } from "@common/utils/sanity/dataLoaders";
+import type { NextPage } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = {
   title: "Majer",
@@ -15,7 +15,7 @@ export const dynamic = "force-static";
 const Home: NextPage = async () => {
   const postsData = await getPaginatedPosts(0, 3);
   const postCards = postsData.map((postData) => {
-    return <PostCard postData={postData} key={postData._id}></PostCard>;
+    return <PostCard postData={postData} key={postData._id} />;
   });
 
   return (

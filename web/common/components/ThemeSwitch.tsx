@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@common/svg/LightSwitch";
+import { useTheme } from "next-themes";
+import React, { useEffect, useState } from "react";
 
 export const ThemeSwitch = () => {
   const { resolvedTheme, setTheme } = useTheme();

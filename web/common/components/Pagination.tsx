@@ -1,7 +1,7 @@
 "use client";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { ReactElement, useState } from "react";
+import { type ReactElement, useState } from "react";
 
 // maxLinks should be odd to look symmetrical, and at least 5
 function render_page_numbers(
@@ -15,89 +15,87 @@ function render_page_numbers(
       <PageLink
         pathPrefix={pathPrefix}
         key={i + 1}
-        active={currentPage == i + 1}
+        active={currentPage === i + 1}
         pageNumber={i + 1}
-      ></PageLink>
+      />
     ));
-  } else {
-    // Too many pages to show
-    const three_dots = (
-      <span
-        key="dots"
-        className="relative inline-flex items-center border border-gray-300  px-4 py-2 text-sm font-medium text-gray-700"
-      >
-        ...
-      </span>
-    );
-    if (currentPage <= 3 || currentPage >= pagesCount - 2) {
-      // three dots in middle
-      const els = [];
-      const dotsPosition = Math.floor(maxLinks / 2); // 7 --> 3, 8 --> 4
-      for (let i = 1; i <= dotsPosition; i++) {
-        const element = (
-          <PageLink
-            pathPrefix={pathPrefix}
-            key={i}
-            active={i == currentPage}
-            pageNumber={i}
-          ></PageLink>
-        );
-        els.push(element);
-      }
-      els.push(three_dots);
-      for (let i = pagesCount - 2; i <= pagesCount; i++) {
-        const element = (
-          <PageLink
-            pathPrefix={pathPrefix}
-            key={i}
-            active={i == currentPage}
-            pageNumber={i}
-          ></PageLink>
-        );
-        els.push(element);
-      }
-      return els;
-    } else {
-      // 1 ... middle however many ... last
-      const els = [];
-      els.push(
-        <PageLink
-          pathPrefix={pathPrefix}
-          key={1}
-          active={1 == currentPage}
-          pageNumber={1}
-        ></PageLink>,
-      );
-      els.push(three_dots);
-
-      const middleElCount = maxLinks - 4;
-      const middleOffset = currentPage - Math.floor(middleElCount / 2); //
-      for (let i = 0; i < middleElCount; i++) {
-        const page = middleOffset + i;
-        const element = (
-          <PageLink
-            pathPrefix={pathPrefix}
-            key={page}
-            active={page == currentPage}
-            pageNumber={page}
-          ></PageLink>
-        );
-        els.push(element);
-      }
-
-      els.push(three_dots);
-      els.push(
-        <PageLink
-          pathPrefix={pathPrefix}
-          key={pagesCount}
-          active={pagesCount == currentPage}
-          pageNumber={pagesCount}
-        ></PageLink>,
-      );
-
-      return els;
-    }
   }
+  // Too many pages to show
+  const three_dots = (
+    <span
+      key="dots"
+      className="relative inline-flex items-center border border-gray-300  px-4 py-2 text-sm font-medium text-gray-700"
+    >
+      ...
+    </span>
+  );
+  if (currentPage <= 3 || currentPage >= pagesCount - 2) {
+    // three dots in middle
+    const els = [];
+    const dotsPosition = Math.floor(maxLinks / 2); // 7 --> 3, 8 --> 4
+    for (let i = 1; i <= dotsPosition; i++) {
+      const element = (
+        <PageLink
+          pathPrefix={pathPrefix}
+          key={i}
+          active={i === currentPage}
+          pageNumber={i}
+        />
+      );
+      els.push(element);
+    }
+    els.push(three_dots);
+    for (let i = pagesCount - 2; i <= pagesCount; i++) {
+      const element = (
+        <PageLink
+          pathPrefix={pathPrefix}
+          key={i}
+          active={i === currentPage}
+          pageNumber={i}
+        />
+      );
+      els.push(element);
+    }
+    return els;
+  }
+  // 1 ... middle however many ... last
+  const els = [];
+  els.push(
+    <PageLink
+      pathPrefix={pathPrefix}
+      key={1}
+      active={1 === currentPage}
+      pageNumber={1}
+    />,
+  );
+  els.push(three_dots);
+
+  const middleElCount = maxLinks - 4;
+  const middleOffset = currentPage - Math.floor(middleElCount / 2); //
+  for (let i = 0; i < middleElCount; i++) {
+    const page = middleOffset + i;
+    const element = (
+      <PageLink
+        pathPrefix={pathPrefix}
+        key={page}
+        active={page === currentPage}
+        pageNumber={page}
+      />
+    );
+    els.push(element);
+  }
+
+  els.push(three_dots);
+  els.push(
+    <PageLink
+      pathPrefix={pathPrefix}
+      key={pagesCount}
+      active={pagesCount === currentPage}
+      pageNumber={pagesCount}
+    />,
+  );
+
+  return els;
 }
 
 function PageLink({ active, pageNumber, pathPrefix }: any) {
@@ -105,12 +103,11 @@ function PageLink({ active, pageNumber, pathPrefix }: any) {
     <Link
       href={`${pathPrefix}/${pageNumber}`}
       aria-current="page"
-      className={
-        "relative inline-flex items-center border px-4 py-2 text-sm font-medium  focus:z-20 " +
-        (active
+      className={`relative inline-flex items-center border px-4 py-2 text-sm font-medium  focus:z-20 ${
+        active
           ? "z-20 bg-primary-90 dark:bg-primary-10 border-primary-40 text-primary-40"
-          : " border-gray-300 text-gray-500 hover:bg-gray-50")
-      }
+          : " border-gray-300 text-gray-500 hover:bg-gray-50"
+      }`}
     >
       {pageNumber}
     </Link>
@@ -157,19 +154,17 @@ export default function Pagination({
       <div className="flex flex-1 justify-between m-2 sm:hidden">
         <Link
           href={`${pathPrefix}/${currentPage - 1}`}
-          className={
-            "rounded-md border border-gray-300  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 " +
-            (canGoPrevious ? "" : "invisible")
-          }
+          className={`rounded-md border border-gray-300  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 ${
+            canGoPrevious ? "" : "invisible"
+          }`}
         >
           Previous
         </Link>
         <Link
           href={`${pathPrefix}/${currentPage + 1}`}
-          className={
-            "rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 " +
-            (canGoNext ? "" : "invisible")
-          }
+          className={`rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 ${
+            canGoNext ? "" : "invisible"
+          }`}
         >
           Next
         </Link>
@@ -189,10 +184,9 @@ export default function Pagination({
           >
             <Link
               href={`${pathPrefix}/${currentPage - 1}`}
-              className={
-                "relative inline-flex items-center rounded-l-md border border-gray-300  px-2 py-2 text-sm font-medium text-gray-500 focus:z-20 " +
-                (canGoPrevious ? "hover:bg-gray-50" : "cursor-default")
-              }
+              className={`relative inline-flex items-center rounded-l-md border border-gray-300  px-2 py-2 text-sm font-medium text-gray-500 focus:z-20 ${
+                canGoPrevious ? "hover:bg-gray-50" : "cursor-default"
+              }`}
               onClick={handleClickPrevious}
             >
               <span className="sr-only">Previous</span>
@@ -201,10 +195,9 @@ export default function Pagination({
             {pageLinks.map((el) => el)}
             <Link
               href={`${pathPrefix}/${currentPage + 1}`}
-              className={
-                "relative inline-flex items-center rounded-r-md border border-gray-300 px-2 py-2 text-sm font-medium text-gray-500  focus:z-20 " +
-                (canGoNext ? "hover:bg-gray-50" : "cursor-default")
-              }
+              className={`relative inline-flex items-center rounded-r-md border border-gray-300 px-2 py-2 text-sm font-medium text-gray-500  focus:z-20 ${
+                canGoNext ? "hover:bg-gray-50" : "cursor-default"
+              }`}
               onClick={handleClickNext}
             >
               <span className="sr-only">Next</span>
