@@ -1,6 +1,10 @@
 // Pill component, used for tags
 export function Pill({ text }: { text: string }) {
-  return <div className="tag-pill">{text}</div>;
+  return (
+    <div className="rounded-md font-semibold text-sm px-2.5 py-1 primary-cont">
+      {text}
+    </div>
+  );
 }
 
 // Pills component,

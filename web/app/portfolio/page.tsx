@@ -1,4 +1,4 @@
-import RepoCard from "@common/components/RepoCard";
+import { RepoCard } from "@common/components/RepoCard";
 import { blockRenderingElements } from "@common/utils/blockRendering";
 import { getPortfolio } from "@common/utils/sanity/dataLoaders";
 import { PortableText } from "@portabletext/react";
@@ -17,8 +17,8 @@ const Portfolio: NextPage = async () => {
     <>
       <h1 className="heading-primary">My portfolio</h1>
       <PortableText value={text} components={blockRenderingElements} />
-      <h2 className="metablock-heading">Highlighted repositories</h2>
-      <div className="grid grid-cols-3 gap-2">
+      <h2 className="metablock-heading">Highlighted Repositories</h2>
+      <div className="grid grid-cols-2 gap-4">
         {projects.map((repo) => {
           return <RepoCard repo={repo} key={repo.name} />;
         })}

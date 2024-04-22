@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="small-container flex-col">
         <div>Michal Majer, {year}</div>
         <div className="flex gap-1">
-          <span>Got a problem or feedback? Check out</span>
+          <span>Got feedback? Visit</span>
           <a
             target="_blank"
             href="https://github.com/Sekky61/personal_website/issues"

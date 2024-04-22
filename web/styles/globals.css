@@ -54,6 +54,10 @@ https://m3.material.io/styles/color/the-color-system/color-roles
     @apply bg-light-secondaryContainer text-light-onSecondaryContainer dark:bg-dark-secondaryContainer dark:text-dark-onSecondaryContainer;
   }
 
+  .surface-container-low {
+    @apply bg-light-surfaceContainerLow text-light-onSurface dark:bg-dark-surfaceContainerLow dark:text-dark-onSurface;
+  }
+
   .heading-underline {
     @apply underline decoration-4 underline-offset-[5px] decoration-primary-40 dark:decoration-primary-80
   }
@@ -73,7 +77,7 @@ https://m3.material.io/styles/color/the-color-system/color-roles
   }
 
   .card {
-    @apply rounded-md drop-shadow bg-light-surfaceContainerLow dark:bg-dark-surfaceContainerLow;
+    @apply rounded-xl drop-shadow;
   }
 
   .navlink-active {
@@ -86,10 +90,6 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 
   .metablock-heading {
     @apply text-xl font-bold pb-3
-  }
-
-  .tag-pill {
-    @apply rounded-md font-semibold text-sm px-2.5 py-1 h-7 primary-cont;
   }
 }
 
