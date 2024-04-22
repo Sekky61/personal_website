@@ -2,10 +2,10 @@ import Link from "next/link";
 
 import { ThemeSwitch } from "@common/components/ThemeSwitch";
 import { linksToDisplay } from "@common/static";
-import GithubLogo from "@common/svg/GithubLogo";
 import React from "react";
 import { Hamburger } from "./Hamburger";
 import { NavLink } from "./NavLink";
+import { GithubLogo } from "@common/svg/GithubLogo";
 
 const Header = () => {
   return (
@@ -48,7 +48,7 @@ const Header = () => {
                     rel="noreferrer noopener"
                     title="Personal GitHub page"
                   >
-                    <GithubLogo />
+            <GithubLogo className="w-6 h-6 duration-150 fill-black dark:fill-white dark:hover:fill-primary-80 hover:fill-primary-20" />
                   </a>
                 </div>
               </div>

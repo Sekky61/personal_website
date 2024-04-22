@@ -12,7 +12,7 @@
     "build": "sanity build public -y",
     "dev": "sanity dev",
     "deploy": "sanity deploy",
-    "typegen": "npx sanity-codegen",
+    "typegen": "sanity schema extract",
     "dependencies": "npx npm-check-updates --interactive"
   },
   "keywords": [
