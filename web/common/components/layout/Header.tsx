@@ -9,7 +9,7 @@ import { GithubLogo } from "@common/svg/GithubLogo";
 
 const Header = () => {
   return (
-    <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 z-10 h-14">
+    <div className="sticky top-0 w-full border-b divide-slate-500 z-10 h-14">
       <div className="surface px-4 flex items-center h-full">
         <div className="small-container">
           <div className="flex gap-3 items-center">

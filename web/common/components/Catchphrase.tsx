@@ -26,7 +26,7 @@ export const Catchphrase = () => {
   return (
     <>
       {client ? (
-        <div className="text-2xl ml-8 p-4 tertiary-cont rounded-bl-xl font-semibold">
+        <div className="text-2xl slanted ml-8 p-4 tertiary-cont rounded-bl-xl font-semibold">
           {randomCatchPhrase}
         </div>
       ) : null}

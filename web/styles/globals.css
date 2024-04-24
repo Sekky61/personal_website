@@ -3,13 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
-
-/* 
-TODO refactor bg-primary-40/[.08] into elevation
-https://m3.material.io/styles/color/the-color-system/color-roles
-*/
-
 @layer base {
   :root {
     @apply selection:bg-light-tertiaryContainer selection:text-light-onTertiaryContainer;
@@ -21,7 +14,6 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 
   body {
     @apply surface;
-    font-family: 'Open Sans', sans-serif;
   }
 
   h1 {
@@ -108,6 +100,10 @@ https://m3.material.io/styles/color/the-color-system/color-roles
 
   .elevation-3 {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
+  }
+
+  .slanted {
+    font-variation-settings: 'slnt' -8;
   }
 }
 
