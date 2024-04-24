@@ -48,7 +48,7 @@ const Header = () => {
                     rel="noreferrer noopener"
                     title="Personal GitHub page"
                   >
-            <GithubLogo className="w-6 h-6 duration-150 fill-black dark:fill-white dark:hover:fill-primary-80 hover:fill-primary-20" />
+                    <GithubLogo className="w-6 h-6 duration-150 fill-light-onSurface dark:fill-dark-onSurface dark:hover:fill-primary-70 hover:fill-primary-35" />
                   </a>
                 </div>
               </div>

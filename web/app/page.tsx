@@ -1,10 +1,11 @@
+import { Catchphrase } from "@common/components/Catchphrase";
+import { ImageCard } from "@common/components/ImageCard";
 import type * as Schema from "@common/sanityTypes";
 import { getBeginningOfArticle } from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
 import { getPaginatedPosts } from "@common/utils/sanity/dataLoaders";
 import type { NextPage } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 export const metadata = {
   title: "Majer",
@@ -13,31 +14,30 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const Home: NextPage = async () => {
-  const postsData = await getPaginatedPosts(0, 3);
+  const postsData = await getPaginatedPosts(0, 2);
   const postCards = postsData.map((postData) => {
-    return <PostCard postData={postData} key={postData._id} />;
+    return (
+      <li key={postData._id}>
+        <PostCard postData={postData} />
+      </li>
+    );
   });
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-16 mt-20 mb-12 items-center">
+      <div className="flex flex-col-reverse justify-stretch items-stretch md:flex-row mb-12 ">
         <div>
-          <h1 className="heading-primary leading-tight text-6xl text-center lg:text-right font-bold mb-8">
-            Welcome to my website!
-          </h1>
-          <h2 className="text-4xl text-center lg:text-right font-semibold hover:decoration-primary-60">
-            <Link href="/portfolio">
-              Check my&nbsp;
-              <span className="link">projects</span>
-            </Link>
-          </h2>
+          <div className="text-5xl text-nowrap p-4 primary-cont rounded-b-xl md:rounded-xl md:rounded-r-none font-semibold">
+            Hi, I'm Michal.
+          </div>
+          <Catchphrase />
         </div>
-        <div className="rounded-md p-2 primary inline-block w-80 md:w-full">
+        <div className="rounded-t-3xl md:rounded-3xl md:rounded-tl-none p-4 primary-cont w-full flex justify-center items-center">
           <Image
             src="/img/myFace.png"
             width={500}
             height={500}
-            className="rounded"
+            className="rounded-lg"
             alt="My face"
             priority
           />
@@ -47,7 +47,7 @@ const Home: NextPage = async () => {
         <h2 className="heading-primary text-4xl font-semibold mb-5">
           Latest posts
         </h2>
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">{postCards}</ul>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">{postCards}</ul>
       </div>
     </>
   );
@@ -60,22 +60,17 @@ const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
   const text = getBeginningOfArticle(postData, 240);
 
   return (
-    <li className="flex-grow">
-      <Link href={`/post/${postData.slug.current}`}>
-        <div className="card p-4 flex flex-col group hover:cursor-pointer h-full gap-2">
-          <span className="group-hover:underline text-xl decoration-primary-40 two-line-text-ellipsis">
-            {postData.title}
-          </span>
-          <div className="mt-auto">
-            <div className="flex justify-between text-sm font-semibold">
-              <span>Article</span>
-              <span>{formattedDate}</span>
-            </div>
-            <span className="two-line-text-ellipsis">{text}</span>
-          </div>
-        </div>
-      </Link>
-    </li>
+    <ImageCard
+      imageUrl={postData.img}
+      imageAlt={postData.title}
+      link={`/post/${postData.slug.current}`}
+      imageMissingSvg={null}
+    >
+      <div className="p-4 flex-grow flex flex-col">
+        <h3 className="text-xl group-hover:underline">{postData.title}</h3>
+        <p className="text-sm three-line-text-ellipsis flex-grow">{text}</p>
+      </div>
+    </ImageCard>
   );
 };
 
