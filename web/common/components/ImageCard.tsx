@@ -32,7 +32,7 @@ export const ImageCard = ({
               className="w-full h-full object-cover rounded-xl"
             />
           ) : (
-            <div className="w-full h-full tertiary flex justify-center items-center">
+            <div className="w-full h-full secondary-cont flex justify-center items-center">
               {imageMissingSvg}
             </div>
           )}

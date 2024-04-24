@@ -7,10 +7,10 @@ const catchPhrases = [
   "Turning Coconuts into Code, One Byte at a Time!",
   "Now with Extra Quirkiness!",
   "Now Available with a Lifetime Supply of Innovation!",
-  "Just build lol",
-  "Now with 20% less bugs!*",
-  "Now with 20% more bugs!*",
-  '"Prolog is my passion" - Someone, probably',
+  "Just Build lol",
+  "Now with 20% Less Bugs!*",
+  "Now with 20% More Bugs!*",
+  '"Prolog is my Passion" - Someone, probably',
 ];
 
 export const Catchphrase = () => {
