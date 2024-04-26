@@ -13,7 +13,6 @@ type RepoCardProps = {
  * If no image is provided, a GitHub logo will be displayed.
  */
 export const RepoCard = ({ repo }: RepoCardProps) => {
-  console.dir(repo);
   const url = repo.imageUrl;
   return (
     <ImageCard

@@ -6,10 +6,7 @@ export const config = {
    *
    * https://nextjs.org/docs/basic-features/environment-variables
    **/
-  dataset:
-    (process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_SANITY_DATASET
-      : process.env.DEV_DATASET) || "production",
+  dataset: chooseDataset(),
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   apiVersion: "2022-08-21", // Learn more: https://www.sanity.io/docs/api-versioning
   /**
@@ -20,3 +17,19 @@ export const config = {
   useCdn: process.env.NODE_ENV === "production",
   token: process.env.SANITY_API_TOKEN,
 };
+
+/**
+ * Choose between the production and development dataset.
+ * Pick based on the NODE_ENV, but override if SANITY_DATASET is set.
+ */
+function chooseDataset() {
+  if (process.env.SANITY_DATASET) {
+    return process.env.SANITY_DATASET;
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    return process.env.NEXT_PUBLIC_SANITY_DATASET;
+  }
+
+  return process.env.DEV_DATASET || "production";
+}

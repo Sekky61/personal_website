@@ -60,17 +60,12 @@ const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
   const text = getBeginningOfArticle(postData, 240);
 
   return (
-    <ImageCard
-      imageUrl={postData.img}
-      imageAlt={postData.title}
-      link={`/post/${postData.slug.current}`}
-      imageMissingSvg={null}
-    >
+      <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
       <div className="p-4 flex-grow flex flex-col">
         <h3 className="text-xl group-hover:underline">{postData.title}</h3>
         <p className="text-sm three-line-text-ellipsis flex-grow">{text}</p>
       </div>
-    </ImageCard>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import type * as Schema from "@common/sanityTypes";
 import { getBeginningOfArticle, isPartOfSeries } from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
 import Link from "next/link";
-import { Pill } from "./Pill";
+import { Pills } from "./Pill";
 
 interface BlogPostCardProps {
   post: Schema.PostWithSeries;
@@ -22,20 +22,18 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
 
   return (
     <Link href={`/post/${post.slug.current}`}>
-      <div className="flex flex-col gap-1 group duration-100 w-full px-4 py-2 hover:bg-primary-40/[.08]">
-        <h2 className="text-2xl mb-1 group-hover:underline decoration-primary-40">
+      <div className="flex flex-col gap-3 group duration-100 w-full p-4 hover:surface-cont-high">
+        <h2 className="text-3xl m-0 group-hover:underline decoration-primary-40">
           {post.title}
         </h2>
-        <div className="flex gap-4  text-sm font-semibold">
+        <div className="flex gap-4 text-lg font-semibold">
           <span>Article</span>
           <span className="">{formattedDate}</span>
         </div>
-        <p className="two-line-text-ellipsis h-12 m-0">{truncatedText}</p>
-        <div className="flex gap-2 h-7">
-          {tags.map(({ label, value }: any) => (
-            <Pill key={label} text={label} />
-          ))}
-        </div>
+        <p className="two-line-text-ellipsis text-sm h-10 m-0">
+          {truncatedText}
+        </p>
+        <Pills texts={tags.map(({ label }) => label)} />
       </div>
     </Link>
   );

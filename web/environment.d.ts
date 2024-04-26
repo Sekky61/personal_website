@@ -2,6 +2,10 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       NEXT_PUBLIC_SANITY_PROJECT_ID: string;
+      /**
+      * Overrides decision based on environment.
+      */
+      SANITY_DATASET?: string;
       DEV_DATASET?: string;
       NODE_ENV: "development" | "production";
       PORT?: string;
