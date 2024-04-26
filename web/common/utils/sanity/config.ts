@@ -24,12 +24,15 @@ export const config = {
  */
 function chooseDataset() {
   if (process.env.SANITY_DATASET) {
+    console.log("Using dataset from SANITY_DATASET (overriding)");
     return process.env.SANITY_DATASET;
   }
 
   if (process.env.NODE_ENV === "production") {
+    console.log("Using production dataset");
     return process.env.NEXT_PUBLIC_SANITY_DATASET;
   }
 
+  console.log("Using development dataset");
   return process.env.DEV_DATASET || "production";
 }
