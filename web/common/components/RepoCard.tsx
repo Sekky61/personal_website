@@ -1,25 +1,35 @@
 import type * as Schema from "@common/sanityTypes";
-import Link from "next/link";
-import { Pill } from "./Pill";
+import { Pills } from "./Pill";
+import { GithubLogo } from "@common/svg/GithubLogo";
+import { ImageCard } from "./ImageCard";
 
 type RepoCardProps = {
   repo: Schema.RepositoryWithGithubData;
 };
 
-const RepoCard = ({ repo }: RepoCardProps) => {
-  const technologiesPills = repo.technologies.map((tech) => {
-    return <Pill key={tech} text={tech} />;
-  });
-
+/**
+ * A card component to display a repository.
+ * Clicking on the card will redirect to the repository's GitHub page.
+ * If no image is provided, a GitHub logo will be displayed.
+ */
+export const RepoCard = ({ repo }: RepoCardProps) => {
+  const url = repo.imageUrl;
   return (
-    <Link href={repo.link} className="p-4 card group flex flex-col h-full">
-      <h3 className="text-xl group-hover:underline mb-2">{repo.name}</h3>
-      <p className="mb-2 mt-0 three-line-text-ellipsis flex-grow">
-        {repo.description}
-      </p>
-      <div className="flex gap-2 flex-wrap">{technologiesPills}</div>
-    </Link>
+    <ImageCard
+      imageUrl={url}
+      imageAlt={repo.name}
+      link={repo.link}
+      imageMissingSvg={
+        <GithubLogo className="w-16 h-16 fill-light-onSecondary dark:fill-dark-onSecondary" />
+      }
+    >
+      <div className="p-4 flex-grow flex flex-col">
+        <h3 className="text-xl group-hover:underline">{repo.name}</h3>
+        <p className="text-sm three-line-text-ellipsis flex-grow">
+          {repo.description}
+        </p>
+        <Pills texts={repo.technologies} />
+      </div>
+    </ImageCard>
   );
 };
-
-export default RepoCard;

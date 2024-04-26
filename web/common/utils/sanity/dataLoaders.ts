@@ -94,7 +94,14 @@ export async function getPortfolio(): Promise<Schema.LoadedPortfolio> {
   // Get data from Sanity and join references to repositories
   return getClient()
     .fetch<Schema.PortfolioWithProjects>(
-      groq`*[_type == "portfolio"][0]{...,projects[]->}`,
+      groq`*[_type == "portfolio"][0]
+{
+  ...,
+  projects[]->{
+    ...,
+    "imageUrl": image.asset->url,
+  },
+}`,
     )
     .then(async (data: Schema.PortfolioWithProjects) => {
       // Get github data for each repo

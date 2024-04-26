@@ -2,14 +2,14 @@ import Link from "next/link";
 
 import { ThemeSwitch } from "@common/components/ThemeSwitch";
 import { linksToDisplay } from "@common/static";
-import GithubLogo from "@common/svg/GithubLogo";
 import React from "react";
 import { Hamburger } from "./Hamburger";
 import { NavLink } from "./NavLink";
+import { GithubLogo } from "@common/svg/GithubLogo";
 
 const Header = () => {
   return (
-    <div className="neutral-bg sticky top-0 w-full border-b divide-slate-500 z-10 h-14">
+    <div className="sticky top-0 w-full divide-slate-500 z-10 h-14">
       <div className="surface px-4 flex items-center h-full">
         <div className="small-container">
           <div className="flex gap-3 items-center">
@@ -48,7 +48,7 @@ const Header = () => {
                     rel="noreferrer noopener"
                     title="Personal GitHub page"
                   >
-                    <GithubLogo />
+                    <GithubLogo className="w-6 h-6 duration-150 fill-light-onSurface dark:fill-dark-onSurface dark:hover:fill-primary-70 hover:fill-primary-35" />
                   </a>
                 </div>
               </div>

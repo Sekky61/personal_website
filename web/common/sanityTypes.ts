@@ -392,6 +392,9 @@ export interface Repository extends SanityDocument {
    *
    */
   technologies: Array<SanityKeyed<string>>;
+
+  // added by hand, todo
+  imageUrl: string | null;
 }
 
 /**

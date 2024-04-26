@@ -41,5 +41,14 @@ export const repo = defineType({
                 })
             ]
         }),
+        defineField({
+          name: 'image',
+            type: 'image',
+            title: 'Image',
+            options: {
+                hotspot: true,
+            },
+            validation: (Rule: any) => Rule.required(),
+        }),
     ],
 })
