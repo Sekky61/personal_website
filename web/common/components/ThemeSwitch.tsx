@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export const ThemeSwitch = () => {
   // Prerender nothing
   const [client, setClient] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     setClient(true);
@@ -16,7 +17,6 @@ export const ThemeSwitch = () => {
     return null;
   }
 
-  const { resolvedTheme, setTheme } = useTheme();
   const usesLight = resolvedTheme === "light";
 
   return (

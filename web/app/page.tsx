@@ -1,5 +1,4 @@
 import { Catchphrase } from "@common/components/Catchphrase";
-import { ImageCard } from "@common/components/ImageCard";
 import type * as Schema from "@common/sanityTypes";
 import { getBeginningOfArticle } from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
@@ -28,7 +27,7 @@ const Home: NextPage = async () => {
       <div className="flex flex-col-reverse justify-stretch items-stretch md:flex-row mb-12 ">
         <div>
           <div className="text-5xl text-nowrap p-4 primary-cont rounded-b-xl md:rounded-xl md:rounded-r-none font-semibold">
-            Hi, I'm Michal.
+            Hi, I&apos;m Michal.
           </div>
           <Catchphrase />
         </div>
