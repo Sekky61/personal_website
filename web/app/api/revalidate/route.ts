@@ -1,7 +1,7 @@
 import { sanityCacheTag } from "@common/static";
 
 import { parseBody } from "next-sanity/webhook";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 
 // Source: https://victoreke.com/blog/sanity-webhooks-and-on-demand-revalidation-in-nextjs
@@ -33,13 +33,14 @@ export async function POST(req: NextRequest) {
     // for (let tag of blogPaths) {
     // 	revalidateTag(tag);
     // }
-
+    
+    // Revalidate all
+    revalidatePath('/', 'layout')
     revalidateTag(sanityCacheTag);
     return NextResponse.json({
       status: 200,
       revalidated: true,
       now: Date.now(),
-      body,
     });
   } catch (error: any) {
     console.error(error);
