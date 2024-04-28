@@ -105,6 +105,10 @@
   .slanted {
     font-variation-settings: 'slnt' -8;
   }
+
+  .grid-rows-layout {
+    grid-template-rows: auto 1fr auto;
+  }
 }
 
 @layer components {
@@ -121,11 +125,19 @@
   }
 
   .metablock {
-    @apply p-2 rounded-md drop-shadow bg-white dark:bg-white/5
+    @apply p-4 rounded-xl tertiary-cont;
   }
 
   .metablock-heading {
-    @apply text-xl font-bold pb-3
+    @apply text-2xl font-bold pb-3;
+  }
+
+  .table-of-contents-animation * {
+    @apply transition-colors ease-in-out duration-300;
+  }
+
+  [data-active='true'] {
+    @apply border-primary;
   }
 }
 
@@ -143,10 +155,6 @@
 
 .link {
   @apply underline underline-offset-2 decoration-1 hover:decoration-2 decoration-primary-40 font-bold
-}
-
-.article ul {
-  @apply list-disc ml-8
 }
 
 .token-message {

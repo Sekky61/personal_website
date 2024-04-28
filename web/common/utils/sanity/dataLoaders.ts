@@ -44,7 +44,7 @@ export async function getAllSlugs() {
  */
 export async function getPostBySlug(slug: string) {
   revalidateTag(sanityCacheTag);
-  return getClient().fetch<Schema.PostWithSeries>(
+  const post = await getClient().fetch<Schema.PostWithSeries>(
     groq`
         ${POST_BY_SLUG}{
             ...,
@@ -64,6 +64,12 @@ export async function getPostBySlug(slug: string) {
         }`,
     { slug },
   );
+
+  // sanitize empty content
+  if (!post.content) {
+    post.content = [];
+  }
+  return post;
 }
 
 /**

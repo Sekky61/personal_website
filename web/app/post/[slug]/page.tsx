@@ -2,7 +2,9 @@ import { PortableText } from "@portabletext/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 
-import ArticleSection, { ArticleSectionProvider } from "@common/components/post/ArticleSection";
+import ArticleSection, {
+  ArticleSectionProvider,
+} from "@common/components/post/ArticleSection";
 import LinkHeading from "@common/components/post/LinkHeading";
 import { Footnotes, Sources } from "@common/components/post/blocks";
 import type * as Schema from "@common/sanityTypes";
@@ -39,21 +41,23 @@ export const dynamic = "force-static";
 
 // Renders the contents of a post
 const Contents = ({ headings }: { headings: Heading[] }) => {
-  // Do not render if there is no content
+  // Do not render if there are no headings
   if (headings.length === 0) {
     return null;
   }
 
   const heading_items = headings.map(({ text, slug }: Heading) => (
-    <li key={slug} className="hover:underline">
-      <a href={`#${slug}`}>{text}</a>
+    <li key={slug} className="pb-1">
+      <a href={`#${slug}`} className="hover:underline">
+        {text}
+      </a>
     </li>
   ));
 
   return (
     <div className="metablock">
       <div className="metablock-heading">Contents</div>
-      <ul>{heading_items}</ul>
+      <ul className="list-none">{heading_items}</ul>
     </div>
   );
 };
@@ -146,20 +150,15 @@ const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
   const headings = getHeadings(post);
 
   return (
-    <div className="small-container mt-10 px-4">
-      <div className="relative">
-        <ArticleSectionProvider>
-          <main>
-            <Article post={post} />
-          </main>
-          <div className="absolute top-0 left-full ml-6 mt-32 w-64 h-full">
-            <div className="sticky top-0 pt-14">
-              <SideContents headings={headings} />
-            </div>
-          </div>
-        </ArticleSectionProvider>
+    <ArticleSectionProvider>
+      <Article post={post} />
+      <div className="absolute hidden lg:block top-0 left-full ml-6 mt-16 w-64 inset-y-0">
+        <div className="sticky top-0 pt-14">
+          <h1 className="text-xl">Table of Contents</h1>
+          <SideContents headings={headings} />
+        </div>
       </div>
-    </div>
+    </ArticleSectionProvider>
   );
 };
 
