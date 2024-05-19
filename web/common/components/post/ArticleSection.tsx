@@ -12,16 +12,16 @@ type ArticleSectionProps = {
 
 const ArticleSection = ({ children, sectionIndex }: ArticleSectionProps) => {
   const { setSectionActive } = useActiveSections();
-  const { ref, inView, entry } = useInView({
-    threshold: 0.1,
-    onChange: (inView, entry) => {
+  const { ref } = useInView({
+    threshold: 0.2,
+    onChange: (inView) => {
       setSectionActive(sectionIndex, inView);
     },
     initialInView: sectionIndex === 0,
   });
 
   return (
-    <div ref={ref} className="article-section">
+    <div ref={ref}>
       {children}
     </div>
   );

@@ -1,4 +1,4 @@
-import { type Footnote, Heading, type Source } from "@common/utils/blogpost";
+import type { Footnote, Source } from "@common/utils/blogpost";
 
 interface Footnotes {
   footnotes: Footnote[];

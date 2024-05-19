@@ -48,6 +48,7 @@ export function getFootnotes(post: Schema.Post): Footnote[] {
 }
 
 export function getHeadings(post: Schema.Post): Heading[] {
+  console.log(post);
   return post.content
     .filter(isBlock)
     .filter(isHeading)

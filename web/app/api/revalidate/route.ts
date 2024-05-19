@@ -19,20 +19,6 @@ export async function POST(req: NextRequest) {
     if (!body?._type) {
       return new Response("Bad Request", { status: 400 });
     }
-
-    // const blogPaths = [`/post/${body._type}`, "/blog", "/series", "/"];
-    //
-    // const blogSlugs = await getAllSlugs();
-    //
-    // // get number of pages in /blog, add path for each page
-    // const numPages = Math.ceil(blogSlugs.length / resultsPerPage);
-    // for (let i = 0; i < numPages; i++) {
-    // 	blogPaths.push(`/blog/${i + 1}`);
-    // }
-    //
-    // for (let tag of blogPaths) {
-    // 	revalidateTag(tag);
-    // }
     
     // Revalidate all
     revalidatePath('/', 'layout')

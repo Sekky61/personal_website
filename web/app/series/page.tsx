@@ -29,7 +29,7 @@ const SeriesPage: NextPage = async () => {
 };
 
 function SeriesCard({ series }: { series: Schema.SeriesWithPosts }) {
-  const postsList = series.posts.map(({ title, _id }: any) => (
+  const postsList = series.posts.map(({ title, _id }) => (
     <li key={_id} className="">
       {title}
     </li>
@@ -41,7 +41,7 @@ function SeriesCard({ series }: { series: Schema.SeriesWithPosts }) {
         <h2 className="text-2xl mb-2 group-hover:underline decoration-primary-40">
           {series.title}
         </h2>
-        <Pills texts={series.tags.map((tag: any) => tag.label)} />
+        <Pills texts={series.tags.map((tag) => tag.label)} />
         <ol className="list-decimal mt-2 pl-4">{postsList}</ol>
       </div>
     </Link>
