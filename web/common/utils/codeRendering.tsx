@@ -30,9 +30,7 @@ const lineStyle = {
 
 type TokenType = keyof typeof lineStyle;
 
-interface Renderer {
-  props: (rendererProps: rendererProps) => ReactNode;
-}
+type Renderer = (rendererProps: rendererProps) => ReactNode;
 
 // Returns a renderer function that will accept a row and outputs a ReactNode for that row
 // The row will be styled according to the tokens passed in tokens and highlightedLines
@@ -41,8 +39,8 @@ export function getRenderer(
   tokens?: Token[],
 ): Renderer {
   // Closure to keep track of the tokens and highlighted lines
-  const rowRenderer = (props: any, row: rendererNode, rowNumber: number) => {
-    const { stylesheet, useInlineStyles } = props;
+  const rowRenderer = (props: object, row: rendererNode, rowNumber: number) => {
+    const { stylesheet, useInlineStyles } = props.!;
     // find if there is a token for this line
     if (!row.properties) {
       row.properties = {
