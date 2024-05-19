@@ -111,7 +111,7 @@ const Article = ({ post }: ArticleProps) => {
   });
 
   return (
-    <div className="article">
+    <article className="article">
       <Link href={`/post/${post.slug.current}`}>
         <h1 className="heading-primary text-5xl mb-8">{post.title}</h1>
       </Link>
@@ -135,7 +135,7 @@ const Article = ({ post }: ArticleProps) => {
         <Footnotes footnotes={footnotes} />
       </div>
       <Sources sources={post.sources} />
-    </div>
+    </article>
   );
 };
 

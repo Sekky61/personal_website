@@ -5,7 +5,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <div className="mt-10 py-4 px-4">
+    <footer className="mt-10 py-4 px-4">
       <div className="small-container flex-col">
         <div>Michal Majer, {year}</div>
         <div className="flex gap-1">
@@ -21,7 +21,7 @@ const Footer = () => {
           <span className="text-transparent">{sha_text}</span>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

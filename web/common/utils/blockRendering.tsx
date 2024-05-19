@@ -32,6 +32,9 @@ export const blockRenderingElements: PortableTextComponents = {
     table: Table,
   },
   block: {
+    normal: ({ children }) => {
+      return <p>{children}</p>;
+    },
     heading: LinkHeading,
   },
   marks: {

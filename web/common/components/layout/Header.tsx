@@ -9,7 +9,7 @@ import { GithubLogo } from "@common/svg/GithubLogo";
 
 const Header = () => {
   return (
-    <div className="sticky top-0 w-full divide-slate-500 z-10 h-14">
+    <header className="sticky top-0 w-full divide-slate-500 z-10 h-14">
       <div className="surface px-4 flex items-center h-full">
         <div className="small-container">
           <div className="flex gap-3 items-center">
@@ -56,7 +56,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

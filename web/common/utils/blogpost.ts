@@ -1,5 +1,6 @@
 import type * as Schema from "@common/sanityTypes";
 import type { PortableTextBlock, TypedObject } from "@portabletext/types";
+import type { ReactNode } from "react";
 import readingTime, { type ReadTimeResults } from "reading-time";
 
 export type Footnote = {
@@ -48,7 +49,6 @@ export function getFootnotes(post: Schema.Post): Footnote[] {
 }
 
 export function getHeadings(post: Schema.Post): Heading[] {
-  console.log(post);
   return post.content
     .filter(isBlock)
     .filter(isHeading)
@@ -133,9 +133,13 @@ export function makeSlug(text: string) {
 }
 
 // Works on different format than `blocksToPlainText`
-export function childrenToPlainText(children: any[] = []) {
+export function childrenToPlainText(children: ReactNode) {
+  if (!children) {
+    return "";
+  }
   return children
-    .map((child: any) => {
+    .map?.((child: unknown) => {
+      console.log('child', child);
       if (typeof child === "string") {
         return child;
       }

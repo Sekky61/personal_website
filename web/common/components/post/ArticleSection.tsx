@@ -21,9 +21,9 @@ const ArticleSection = ({ children, sectionIndex }: ArticleSectionProps) => {
   });
 
   return (
-    <div ref={ref}>
+    <section ref={ref}>
       {children}
-    </div>
+    </section>
   );
 };
 
