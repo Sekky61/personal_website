@@ -25,8 +25,9 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: { params: { slug: string } }) {
+  const post = await getPostBySlug(params.slug);
   return {
-    title: "Majer - Post",
+    title: post.title,
   };
 }
 

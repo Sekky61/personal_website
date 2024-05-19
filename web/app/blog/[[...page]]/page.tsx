@@ -9,7 +9,7 @@ import BlogPostCard from "@components/BlogPostCard";
 import Pagination from "@components/Pagination";
 
 export const metadata = {
-  title: "Majer - Blog",
+  title: "Blog",
 };
 
 // This function returns a list of page paths so that the pages can be pre-rendered.

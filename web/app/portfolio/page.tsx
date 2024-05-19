@@ -5,7 +5,7 @@ import { PortableText } from "@portabletext/react";
 import type { NextPage } from "next";
 
 export const metadata = {
-  title: "Majer - Portfolio",
+  title: "Portfolio",
 };
 
 export const dynamic = "force-static";
