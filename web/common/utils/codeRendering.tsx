@@ -39,8 +39,8 @@ export function getRenderer(
   tokens?: Token[],
 ): Renderer {
   // Closure to keep track of the tokens and highlighted lines
-  const rowRenderer = (props: object, row: rendererNode, rowNumber: number) => {
-    const { stylesheet, useInlineStyles } = props.!;
+  const rowRenderer = (props: any, row: rendererNode, rowNumber: number) => {
+    const { stylesheet, useInlineStyles } = props;
     // find if there is a token for this line
     if (!row.properties) {
       row.properties = {
