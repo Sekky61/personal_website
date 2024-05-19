@@ -2,13 +2,29 @@ import Footer from "@common/components/layout/Footer";
 import Header from "@common/components/layout/Header";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import type React from "react";
 import { Roboto_Flex } from "next/font/google";
+import type React from "react";
 
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Majer",
+  title: {
+    template: "%s | Majer",
+    default: "Majer",
+  },
+  authors: [{ name: "Michal Majer" }],
+  keywords: ['"Michal Majer"', "blog", "programming", "web development"],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Majer",
+    title: "Majer's blog",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+  },
 };
 
 const roboto_flex = Roboto_Flex({

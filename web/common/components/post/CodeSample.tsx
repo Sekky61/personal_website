@@ -37,7 +37,7 @@ const CodeSample = ({ value }: CodeSampleProps) => {
   const hasOutput = output !== undefined && output !== null && output !== "";
   const startingLineNumber =
     lineStart !== undefined && lineStart !== null ? lineStart : 1;
-  const renderer = getRenderer(tokens, highlightedLines);
+  const renderer = getRenderer(highlightedLines, tokens);
 
   // Patch the style - remove margin
   a11yDark['pre[class*="language-"]'].margin = "0px";

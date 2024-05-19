@@ -7,7 +7,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 
 export const metadata = {
-  title: "Majer",
+   description: "Michal Majer's personal blog",
 };
 
 export const dynamic = "force-static";
@@ -59,7 +59,7 @@ const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
   const text = getBeginningOfArticle(postData, 240);
 
   return (
-      <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
+    <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
       <div className="p-4 flex-grow flex flex-col">
         <h3 className="text-xl group-hover:underline">{postData.title}</h3>
         <p className="text-sm three-line-text-ellipsis flex-grow">{text}</p>

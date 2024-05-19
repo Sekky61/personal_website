@@ -2,6 +2,7 @@ import { PortableText } from "@portabletext/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 
+import { SideContents } from "@common/components/SideContents";
 import ArticleSection, {
   ArticleSectionProvider,
 } from "@common/components/post/ArticleSection";
@@ -13,14 +14,13 @@ import {
   type Heading,
   getFootnotes,
   getHeadings,
-  getSerieSlug,
   getSeriesPart,
   isPartOfSeries,
   postReadingTime,
 } from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
 import { getAllSlugs, getPostBySlug } from "@common/utils/sanity/dataLoaders";
-import { SideContents } from "@common/components/SideContents";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -122,7 +122,7 @@ const Article = ({ post }: ArticleProps) => {
         <p>
           This article is part {getSeriesPart(post)} of a multipart series. Be
           sure to check out the other articles{" "}
-          <Link href={`/series/${getSerieSlug(post)}`} className="link">
+          <Link href={"/series"} className="link">
             in the series
           </Link>
           .
@@ -147,6 +147,11 @@ type PageProps = {
 const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await getPostBySlug(slug);
+
+  if (!post.published) {
+    notFound();
+  }
+
   const headings = getHeadings(post);
 
   return (

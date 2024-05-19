@@ -31,14 +31,14 @@ const lineStyle = {
 type TokenType = keyof typeof lineStyle;
 
 interface Renderer {
-  (props: rendererProps): ReactNode; // Callable
+  props: (rendererProps: rendererProps) => ReactNode;
 }
 
 // Returns a renderer function that will accept a row and outputs a ReactNode for that row
 // The row will be styled according to the tokens passed in tokens and highlightedLines
 export function getRenderer(
-  tokens: Token[],
   highlightedLines: number[],
+  tokens?: Token[],
 ): Renderer {
   // Closure to keep track of the tokens and highlighted lines
   const rowRenderer = (props: any, row: rendererNode, rowNumber: number) => {
@@ -49,7 +49,7 @@ export function getRenderer(
         className: [],
       };
     }
-    const token = tokens.find((t: any) => t.line === rowNumber);
+    const token = tokens?.find((t) => t.line === rowNumber);
     if (token) {
       const tokenType = token.type as TokenType;
       const style = lineStyle[tokenType];
