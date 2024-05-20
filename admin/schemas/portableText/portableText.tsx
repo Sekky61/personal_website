@@ -10,6 +10,7 @@ import { edit } from "./edit";
 import { abbr } from "./abbr";
 import { table } from "./table";
 import { component } from "./Component";
+import { sectionLink } from "./sectionLink";
 
 const HeadingStyle = (props: any) => (
     <span style={{ fontSize: '2em' }}>{props.children} </span>
@@ -44,6 +45,7 @@ export const portableText = defineType({
                 annotations: [
                     externalLink,
                     internalLink,
+                    sectionLink,
                     abbr,
                 ]
             }

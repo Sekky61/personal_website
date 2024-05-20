@@ -57,6 +57,13 @@ export const blockRenderingElements: PortableTextComponents = {
         </a>
       );
     },
+    sectionLink: ({ value, children }) => {
+      return (
+        <a href={value.href} className="link">
+          {children}
+        </a>
+      );
+    },
     abbr: Abbr,
   },
 };

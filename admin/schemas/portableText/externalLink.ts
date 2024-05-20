@@ -13,6 +13,7 @@ export const externalLink = {
 			name: "href",
 			type: "url",
 			title: "URL",
+			validation: (Rule: any) => Rule.uri({ scheme: ["http", "https"] }),
 			// validation: (Rule: any) => Rule.required(), // Removed so that I can link anchors (#) in the same page
 		}),
 		defineField({
