@@ -138,12 +138,14 @@ export function childrenToPlainText(children: ReactNode) {
     return "";
   }
   return children
-    .map?.((child: unknown) => {
-      console.log('child', child);
+    //@ts-ignore
+    ?.map?.((child: unknown) => {
+      console.log("child", child);
       if (typeof child === "string") {
         return child;
       }
       // Object
+      //@ts-ignore
       return child.props.text;
     })
     .join("");
