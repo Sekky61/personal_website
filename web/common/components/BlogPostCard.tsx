@@ -22,12 +22,11 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
 
   return (
     <Link href={`/post/${post.slug.current}`}>
-      <div className="flex flex-col gap-3 group duration-100 w-full p-4 hover:surface-cont-high">
-        <h2 className="text-3xl m-0 group-hover:underline decoration-primary-40">
+      <div className="flex flex-col group duration-100 w-full p-4 hover:surface-cont-high">
+        <h2 className="text-3xl m-0 mb-2 group-hover:underline decoration-primary-40">
           {post.title}
         </h2>
-        <div className="flex gap-4 text-lg font-semibold">
-          <span>Article</span>
+        <div className="flex gap-4 text-md pb-3 font-semibold">
           <span className="">{formattedDate}</span>
         </div>
         <p className="two-line-text-ellipsis text-sm h-10 m-0">
