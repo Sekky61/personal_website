@@ -6,7 +6,7 @@ import type * as Schema from "@common/sanityTypes";
 import { getPostSeries } from "@common/utils/sanity/dataLoaders";
 
 export const metadata = {
-  title: "Majer - Post series",
+  title: "Post series",
 };
 
 export const dynamic = "force-static";

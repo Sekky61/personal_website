@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
 export const metadata = {
-  title: "Majer - About",
+  title: "About",
 };
 
 export const dynamic = "force-static";

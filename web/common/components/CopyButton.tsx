@@ -2,7 +2,7 @@
 import { CheckmarkIcon, CopyIcon } from "@common/svg/CopyIcon";
 import { useState } from "react";
 
-export const CopyButton = ({ code }: any) => {
+export const CopyButton = ({ code }: {code: string}) => {
   const [showCheck, setShowCheck] = useState(false);
   const copyClicked = () => {
     navigator.clipboard.writeText(code);
@@ -14,6 +14,7 @@ export const CopyButton = ({ code }: any) => {
 
   return (
     <button
+      type="button"
       className={`absolute top-0 right-0 m-2 p-0.5 duration-100 bg-white/5 rounded-sm ${
         showCheck ? "hover:bg-green-400" : "hover:bg-primary-40"
       }`}

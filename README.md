@@ -32,6 +32,8 @@ cd web
 npm run dev
 ```
 
+To use the production dataset, set environment variable `SANITY_DATASET=production`.
+
 Open [http://localhost:3000](http://localhost:3000) in the browser to see the website.
 
 To run Sanity:
@@ -42,6 +44,12 @@ npm run dev
 ```
 
 Open [http://localhost:3333](http://localhost:3333) in the browser to see Content Studio.
+
+To push new version of Sanity to the Sanity cloud, run:
+
+```bash
+npm run deploy
+```
 
 ## License
 

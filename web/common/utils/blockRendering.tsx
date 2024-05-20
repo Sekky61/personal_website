@@ -32,6 +32,9 @@ export const blockRenderingElements: PortableTextComponents = {
     table: Table,
   },
   block: {
+    normal: ({ children }) => {
+      return <p>{children}</p>;
+    },
     heading: LinkHeading,
   },
   marks: {
@@ -50,6 +53,13 @@ export const blockRenderingElements: PortableTextComponents = {
           rel="noreferrer"
           className="link"
         >
+          {children}
+        </a>
+      );
+    },
+    sectionLink: ({ value, children }) => {
+      return (
+        <a href={value.href} className="link">
           {children}
         </a>
       );
