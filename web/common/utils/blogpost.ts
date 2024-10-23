@@ -137,16 +137,18 @@ export function childrenToPlainText(children: ReactNode) {
   if (!children) {
     return "";
   }
-  return children
-    //@ts-ignore
-    ?.map?.((child: unknown) => {
-      console.log("child", child);
-      if (typeof child === "string") {
-        return child;
-      }
-      // Object
+  return (
+    children
       //@ts-ignore
-      return child.props.text;
-    })
-    .join("");
+      ?.map?.((child: unknown) => {
+        console.log("child", child);
+        if (typeof child === "string") {
+          return child;
+        }
+        // Object
+        //@ts-ignore
+        return child.props.text;
+      })
+      .join("")
+  );
 }

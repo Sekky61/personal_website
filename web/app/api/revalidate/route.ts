@@ -19,9 +19,9 @@ export async function POST(req: NextRequest) {
     if (!body?._type) {
       return new Response("Bad Request", { status: 400 });
     }
-    
+
     // Revalidate all
-    revalidatePath('/', 'layout')
+    revalidatePath("/", "layout");
     revalidateTag(sanityCacheTag);
     return NextResponse.json({
       status: 200,

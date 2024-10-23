@@ -20,11 +20,7 @@ const ArticleSection = ({ children, sectionIndex }: ArticleSectionProps) => {
     initialInView: sectionIndex === 0,
   });
 
-  return (
-    <section ref={ref}>
-      {children}
-    </section>
-  );
+  return <section ref={ref}>{children}</section>;
 };
 
 type ArticleSectionContextType = {

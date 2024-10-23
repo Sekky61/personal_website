@@ -7,7 +7,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 
 export const metadata = {
-   description: "Michal Majer's personal blog",
+  description: "Michal Majer's personal blog",
 };
 
 export const dynamic = "force-static";

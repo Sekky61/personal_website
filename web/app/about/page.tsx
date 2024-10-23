@@ -18,7 +18,8 @@ const About: NextPage = () => {
         to have them destroyed by new experiences.
       </p>
       <p>
-I have a master's degree from the Faculty of Information Technology at Brno University of Technology.
+        I have a master's degree from the Faculty of Information Technology at
+        Brno University of Technology.
       </p>
       <h2>What is in my toolbox?</h2>
       <p>
