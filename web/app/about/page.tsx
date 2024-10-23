@@ -18,17 +18,16 @@ const About: NextPage = () => {
         to have them destroyed by new experiences.
       </p>
       <p>
-        I have a bachelors degree from Faculty of Information Technology of the
-        Brno University of Technology.
+I have a master's degree from the Faculty of Information Technology at Brno University of Technology.
       </p>
       <h2>What is in my toolbox?</h2>
       <p>
-        My favorite technologies so far are <b>Rust, TypeScript, and React</b>.
-        I recently fell in love with Neovim and a windowing manager. I like to
-        automate what I can with scripts.
+        My favorite technologies so far are{" "}
+        <b>Zig, Rust, TypeScript, and React</b>. I recently fell in love with
+        Neovim, Nix and windowing manager Hyprland. I like to automate what I
+        can with scripts.
       </p>
       <p>I also have experience in languages like Java, C, C++ and Python.</p>
-      <p>I am currently exploring Nix and Zig.</p>
       <h2>What do I do in my free time?</h2>
       <p>
         Outside of computers, I enjoy reading a good sci-fi book, playing the
