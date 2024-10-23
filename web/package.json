@@ -7,15 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npx @biomejs/biome check .",
+    "lint": "biome check .",
     "lint:fix": "biome check --apply .",
     "lint:fix-unsafe": "biome check --apply-unsafe .",
     "typecheck": "tsc --noEmit --incremental false",
     "sanity": "cd ../admin && npm run dev",
     "sanity-deploy": "cd ../admin && sanity deploy",
-    "format": "npx @biomejs/biome format . --write",
-    "format:check": "npx @biomejs/biome format .",
-    "dependencies": "npx npm-check-updates --interactive"
+    "format": "biome format . --write",
+    "format:check": "biome format .",
+    "dependencies": "bunx npm-check-updates --interactive"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
