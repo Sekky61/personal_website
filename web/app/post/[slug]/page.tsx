@@ -8,7 +8,12 @@ import ArticleSection, {
 } from "@common/components/post/ArticleSection";
 import LinkHeading from "@common/components/post/LinkHeading";
 import { Footnotes, Sources } from "@common/components/post/blocks";
-import { articleSlugs, articleBySlug } from "@common/mdxLoader";
+import {
+  type ArticleFrontmatter,
+  articleBySlug,
+  articleSlugs,
+  articlesFrontmatters,
+} from "@common/mdxLoader";
 import type * as Schema from "@common/sanityTypes";
 import { blockRenderingElements } from "@common/utils/blockRendering";
 import {
@@ -16,27 +21,22 @@ import {
   getFootnotes,
   getHeadings,
   getSeriesPart,
-  isPartOfSeries,
   postReadingTime,
 } from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
-import { getAllSlugs, getPostBySlug } from "@common/utils/sanity/dataLoaders";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
-}: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug);
+}: { params: ArticleFrontmatter }) {
   return {
-    title: post.title,
+    title: params.title,
   };
 }
 
 export const generateStaticParams = async () => {
-  const slugs = await articleSlugs();
-  const paths = slugs.map((slug: string) => ({ slug }));
-
-  return paths;
+  const frontmatters = await articlesFrontmatters();
+  return frontmatters;
 };
 
 export const dynamic = "force-static";
@@ -70,7 +70,6 @@ type ArticleProps = {
 
 const Article = ({ post }: ArticleProps) => {
   const formattedDate = formatDate(new Date(post.releaseDate));
-  const isInSeries = isPartOfSeries(post);
   const headings = getHeadings(post);
   const footnotes = getFootnotes(post);
 
@@ -147,30 +146,24 @@ type PageProps = {
 };
 
 const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
-  // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
-  const post = await getPostBySlug(slug);
   const Post = await articleBySlug(slug);
 
   if (!Post) {
     notFound();
   }
 
-  if (!post.published) {
-    notFound();
-  }
-
-  const headings = getHeadings(post);
+  // const headings = getHeadings(post);
+  const headings = [];
 
   return (
     <ArticleSectionProvider>
-      <Post />
-      <Article post={post} />
       <div className="absolute hidden lg:block top-0 left-full ml-6 mt-16 w-64 inset-y-0">
         <div className="sticky top-0 pt-14">
           <h1 className="text-xl">Table of Contents</h1>
           <SideContents headings={headings} />
         </div>
       </div>
+      <Post />
     </ArticleSectionProvider>
   );
 };
