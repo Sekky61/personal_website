@@ -8,6 +8,7 @@ import ArticleSection, {
 } from "@common/components/post/ArticleSection";
 import LinkHeading from "@common/components/post/LinkHeading";
 import { Footnotes, Sources } from "@common/components/post/blocks";
+import { articleSlugs, articleBySlug } from "@common/mdxLoader";
 import type * as Schema from "@common/sanityTypes";
 import { blockRenderingElements } from "@common/utils/blockRendering";
 import {
@@ -32,7 +33,7 @@ export async function generateMetadata({
 }
 
 export const generateStaticParams = async () => {
-  const slugs = await getAllSlugs();
+  const slugs = await articleSlugs();
   const paths = slugs.map((slug: string) => ({ slug }));
 
   return paths;
@@ -148,6 +149,11 @@ type PageProps = {
 const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
   // Note: drafts are loaded as well (they differ in ID) if user is authenticated (dev acc.)
   const post = await getPostBySlug(slug);
+  const Post = await articleBySlug(slug);
+
+  if (!Post) {
+    notFound();
+  }
 
   if (!post.published) {
     notFound();
@@ -157,6 +163,7 @@ const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
 
   return (
     <ArticleSectionProvider>
+      <Post />
       <Article post={post} />
       <div className="absolute hidden lg:block top-0 left-full ml-6 mt-16 w-64 inset-y-0">
         <div className="sticky top-0 pt-14">

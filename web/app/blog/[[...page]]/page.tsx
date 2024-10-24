@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 
+import { articleFrontmatters, articleSlugs, articles } from "@common/mdxLoader";
 import {
   getPaginatedPosts,
   getPostsCount,
@@ -49,10 +50,13 @@ const BlogListing: NextPage<BlogListingProps> = async ({ params }) => {
   const from = (pageNum - 1) * resultsPerPage;
   const to = from + resultsPerPage;
 
+  const allArticles = await articles();
+  console.log(allArticles);
+
   const postsData = await getPaginatedPosts(from, to);
   const postsCount = await getPostsCount();
-  const postsCards = postsData.map((post) => (
-    <li key={post.slug.current}>
+  const postsCards = allArticles.map((post) => (
+    <li key={post.slug}>
       <BlogPostCard post={post} />
     </li>
   ));

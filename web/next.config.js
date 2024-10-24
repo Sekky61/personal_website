@@ -1,3 +1,5 @@
+const createMDX = require("@next/mdx");
+
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
   destination:
@@ -6,9 +8,14 @@ const STUDIO_REWRITE = {
       : "/admin/index.html",
 };
 
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   swcMinify: true,
   rewrites: async () => [STUDIO_REWRITE],
   images: {
@@ -22,4 +29,5 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withMDX(nextConfig);
+
