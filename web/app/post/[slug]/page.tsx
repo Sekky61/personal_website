@@ -11,7 +11,6 @@ import { Footnotes, Sources } from "@common/components/post/blocks";
 import {
   type ArticleFrontmatter,
   articleBySlug,
-  articleSlugs,
   articlesFrontmatters,
 } from "@common/mdxLoader";
 import type * as Schema from "@common/sanityTypes";
@@ -28,9 +27,10 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
-}: { params: ArticleFrontmatter }) {
+}: { params: { slug: string } }) {
+  const article = await articleBySlug(params.slug);
   return {
-    title: params.title,
+    title: article?.title,
   };
 }
 
@@ -140,27 +140,25 @@ const Article = ({ post }: ArticleProps) => {
 };
 
 type PageProps = {
-  params: {
-    slug: string;
-  };
+  params: ArticleFrontmatter;
 };
 
-const Page: NextPage<PageProps> = async ({ params: { slug } }) => {
-  const Post = await articleBySlug(slug);
+const Page: NextPage<PageProps> = async ({ params }) => {
+  const article = await articleBySlug(params.slug);
+  console.log("render");
+  console.dir(article);
+  const Post = article?.component;
 
   if (!Post) {
     notFound();
   }
-
-  // const headings = getHeadings(post);
-  const headings = [];
 
   return (
     <ArticleSectionProvider>
       <div className="absolute hidden lg:block top-0 left-full ml-6 mt-16 w-64 inset-y-0">
         <div className="sticky top-0 pt-14">
           <h1 className="text-xl">Table of Contents</h1>
-          <SideContents headings={headings} />
+          <SideContents headings={article.headings} />
         </div>
       </div>
       <Post />

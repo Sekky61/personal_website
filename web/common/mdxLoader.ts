@@ -1,21 +1,24 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { makeSlug } from "./utils/blogpost";
 
 export interface ArticleFrontmatter {
+  /**
+   * The component that will be rendered
+   */
+  component: any;
+
   /**
    * Page Title — `string`
    */
   title: string;
 
   /**
-   * Slug — `slug`
-   *
    * Custom URL for the blogpost
    */
   slug: string;
 
   /**
-   * Published — `boolean`
    * Appears in the blogpost list iff true
    */
   published: boolean;
@@ -36,14 +39,27 @@ export interface ArticleFrontmatter {
    * Name and link to the source. Ordered. Link not required.
    */
   sources: Source[];
+
+  /**
+   * Headings
+   */
+  headings: Heading[];
 }
 
-type Tag = {
+// from stefanprobst/rehype-extract-toc plugin
+export type Heading = {
+  value: string;
+  depth: number;
+  slug: string;
+  children: any;
+};
+
+export type Tag = {
   label: string;
   value: string;
 };
 
-type Source = {
+export type Source = {
   /**
    * A sort of heading/name for a source
    */
@@ -67,19 +83,39 @@ const defaultFrontmatter: ArticleFrontmatter = {
   releaseDate: new Date(),
   tags: [],
   sources: [],
+  headings: [],
 };
 
 export async function articleBySlug(
   slug: string,
-): Promise<React.ComponentType | null> {
+): Promise<ArticleFrontmatter | null> {
   // The article will be at `content/${slug}.mdx`
   try {
-    const { default: Md } = await import(`../content/articles/${slug}.mdx`);
-    return Md;
+    const article = await import(`../content/articles/${slug}.mdx`);
+    return importToArticle(article);
   } catch (e) {
     console.error(`Failed to load article ${slug}.mdx`, e);
     return null;
   }
+}
+
+function importToArticle(article: any): ArticleFrontmatter {
+  const filepath = path.parse(article.filepath); // extract slug from file name
+  const headings = article.tableOfContents.map((heading: Heading) => {
+    return {
+      value: heading.value,
+      depth: heading.depth,
+      slug: makeSlug(heading.value),
+      children: heading.children,
+    };
+  });
+  return {
+    ...defaultFrontmatter,
+    slug: filepath.name,
+    headings,
+    ...article.frontmatter,
+    component: article.default,
+  };
 }
 
 export async function articleSlugs(): Promise<string[]> {
@@ -92,12 +128,7 @@ export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
   return Promise.all(
     slugs.map(async (slug) => {
       const all = await import(`../content/articles/${slug}.mdx`);
-      const filepath = path.parse(all.filepath); // extract slug from file name
-      return {
-        ...defaultFrontmatter,
-        slug: filepath.name,
-        ...all.frontmatter,
-      };
+      return importToArticle(all);
     }),
   );
 }

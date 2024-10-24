@@ -13,7 +13,8 @@ export const dynamic = "force-static";
 
 const BlogListing: NextPage = async () => {
   const frontmatters = await articlesFrontmatters();
-  console.log(frontmatters);
+  console.dir(frontmatters);
+  console.log(frontmatters[0].headings);
 
   const postsCards = frontmatters.map((post) => (
     <li key={post.slug}>
