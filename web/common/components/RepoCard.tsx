@@ -1,10 +1,23 @@
-import type * as Schema from "@common/sanityTypes";
-import { Pills } from "./Pill";
 import { GithubLogo } from "@common/svg/GithubLogo";
 import { ImageCard } from "./ImageCard";
+import { Pills } from "./Pill";
 
 type RepoCardProps = {
-  repo: Schema.RepositoryWithGithubData;
+  repo: Repo;
+};
+
+type Repo = {
+  name: string;
+  link: string;
+  description: string;
+  technologies: string[];
+  img: string | null;
+  githubData: {
+    name: string;
+    description: string;
+    updated_at: string;
+    language: string;
+  };
 };
 
 /**
@@ -13,7 +26,7 @@ type RepoCardProps = {
  * If no image is provided, a GitHub logo will be displayed.
  */
 export const RepoCard = ({ repo }: RepoCardProps) => {
-  const url = repo.imageUrl;
+  const url = repo.img || "";
   return (
     <ImageCard
       imageUrl={url}
