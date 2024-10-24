@@ -2,7 +2,7 @@ import type React from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"; // css object
 
-import { type Token, getRenderer } from "@common/utils/codeRendering";
+import { type Token, getRenderer } from "@common/codeRendering";
 import { CopyButton } from "../CopyButton";
 
 interface CodeSampleProps {

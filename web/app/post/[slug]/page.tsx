@@ -1,24 +1,16 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 
+import { mdxComponents } from "@common/blockRendering";
 import { SideContents } from "@common/components/SideContents";
 import { ArticleSectionProvider } from "@common/components/post/ArticleSection";
-import LinkHeading from "@common/components/post/LinkHeading";
-import { Footnotes, Sources } from "@common/components/post/blocks";
+import { Sources } from "@common/components/post/blocks";
 import {
   type ArticleFrontmatter,
   type Heading,
   articleBySlug,
   articlesFrontmatters,
 } from "@common/mdxLoader";
-import type * as Schema from "@common/sanityTypes";
-import { blockRenderingElements, mdxComponents } from "@common/utils/blockRendering";
-import {
-  getFootnotes,
-  getHeadings,
-  getSeriesPart,
-  postReadingTime,
-} from "@common/utils/blogpost";
 import { formatDate } from "@common/utils/misc";
 import { notFound } from "next/navigation";
 
@@ -74,6 +66,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
   }
 
   const formattedDate = formatDate(new Date(article?.releaseDate));
+  console.log(">>", article.readingTime);
 
   // todo
   // <Footnotes footnotes={article.footnotes} />
@@ -91,7 +84,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
         </Link>
         <div className="flex divide-x mb-6">
           <span className="pr-2">{formattedDate}</span>
-          <span className="px-2">{postReadingTime(article).text}</span>
+          <span className="px-2">{article.readingTime}</span>
         </div>
         <Contents headings={article.headings} />
         <Post components={mdxComponents} />

@@ -1,6 +1,8 @@
+"use server";
+
 import { promises as fs } from "fs";
 import path from "path";
-import { makeSlug } from "./utils/blogpost";
+import { fileReadingTime, makeSlug, readingTimeFormatted } from "./utils/misc";
 
 export interface ArticleFrontmatter {
   /**
@@ -27,6 +29,16 @@ export interface ArticleFrontmatter {
    * Release Date — `datetime`
    */
   releaseDate: Date;
+
+  /**
+   * fs path
+   */
+  filepath: string;
+
+  /**
+   * Reading time, formatted sentence
+   */
+  readingTime: string;
 
   /**
    * Tags — `tags`
@@ -85,6 +97,8 @@ const defaultFrontmatter: ArticleFrontmatter = {
   sources: [],
   headings: [],
   component: null,
+  filepath: "",
+  readingTime: "Who knows?",
 };
 
 export async function articleBySlug(
@@ -100,7 +114,13 @@ export async function articleBySlug(
   }
 }
 
-function importToArticle(article: any): ArticleFrontmatter {
+/**
+ * Optional file content to aproximate reading time
+ */
+function importToArticle(
+  article: any,
+  content: any = null,
+): ArticleFrontmatter {
   const filepath = path.parse(article.filepath); // extract slug from file name
   const headings = article.tableOfContents.map((heading: Heading) => {
     return {
@@ -111,6 +131,7 @@ function importToArticle(article: any): ArticleFrontmatter {
     };
   });
   const releaseDate = new Date(article.frontmatter.releaseDate);
+  const readingTime = content ? fileReadingTime(content) : 0;
   return {
     ...defaultFrontmatter,
     slug: filepath.name,
@@ -118,6 +139,8 @@ function importToArticle(article: any): ArticleFrontmatter {
     ...article.frontmatter,
     releaseDate,
     component: article.default,
+    filepath: article.filepath,
+    readingTime
   };
 }
 
@@ -128,11 +151,16 @@ export async function articleSlugs(): Promise<string[]> {
 
 export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
   const slugs = await articleSlugs();
-  return Promise.all(
+  const articles = await Promise.all(
     slugs.map(async (slug) => {
       const all = await import(`../content/articles/${slug}.mdx`);
       return importToArticle(all);
     }),
+  );
+
+  // sort by publication date
+  return articles.sort(
+    (a, b) => b.releaseDate.getTime() - a.releaseDate.getTime(),
   );
 }
 

@@ -1,10 +1,6 @@
-import { blockRenderingElements } from "@common/utils/blockRendering";
-import { PortableText } from "@portabletext/react";
-
 // Renders a tip in a post
 // text value is an array of blocks
-const Tip = ({ value, index }: any) => {
-  const { title, text } = value;
+const Tip = ({ children, title }: any) => {
   return (
     <div className="border-2 rounded-md p-4 flex my-4 border-primary-40 dark:border-primary-80">
       <div className="flex items-center mr-4">
@@ -25,9 +21,7 @@ const Tip = ({ value, index }: any) => {
       </div>
       <div>
         <div className="text-lg font-bold mb-2">{title}</div>
-        <div>
-          <PortableText value={text} components={blockRenderingElements} />
-        </div>
+        <div>{children}</div>
       </div>
     </div>
   );

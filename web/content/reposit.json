@@ -3,10 +3,7 @@
     "name": "This website",
     "link": "https://github.com/Sekky61/personal_website",
     "description": "Self referential!",
-    "technologies": [
-      "NextJS",
-      "TS"
-    ],
+    "technologies": ["NextJS", "TS"],
     "githubData": {
       "name": "personal_website",
       "description": "Personal website and portfolio",
@@ -19,10 +16,7 @@
     "name": "RISC-V simulator",
     "link": "https://github.com/Sekky61/riscv-sim",
     "description": "Superscalar processor simulator",
-    "technologies": [
-      "Java",
-      "NextJS"
-    ],
+    "technologies": ["Java", "NextJS"],
     "githubData": {
       "name": "riscv-sim",
       "description": "Web-based RISC-V superscalar simulator",
@@ -35,10 +29,7 @@
     "name": "Nix config",
     "link": "https://github.com/Sekky61/nix-config",
     "description": "NixOS configuration files",
-    "technologies": [
-      "Nix",
-      "Bash"
-    ],
+    "technologies": ["Nix", "Bash"],
     "githubData": {
       "name": "nix-config",
       "description": "My NixOS system configuration",
@@ -51,10 +42,7 @@
     "name": "Advent of Code solutions",
     "link": "https://github.com/Sekky61/rust-iterator-aoc",
     "description": "Solution to some AoC challanges using iterators in Rust",
-    "technologies": [
-      "Rust",
-      "Functional"
-    ],
+    "technologies": ["Rust", "Functional"],
     "githubData": {
       "name": "rust-iterator-aoc",
       "description": "Advent of Code challanges solved using Rust's iterators and functional programming",
@@ -67,10 +55,7 @@
     "name": "Katana",
     "link": "https://github.com/Sekky61/Katana",
     "description": "P2P in-browser file transfer using PeerJS library",
-    "technologies": [
-      "TS",
-      "React"
-    ],
+    "technologies": ["TS", "React"],
     "githubData": {
       "name": "Katana",
       "description": "P2P file transfer in browser using PeerJS",
@@ -83,10 +68,7 @@
     "name": "Volumetric raycaster",
     "link": "https://github.com/Sekky61/raycaster_lib",
     "description": "My bachelor's thesis. SW renderer of volumetric data.",
-    "technologies": [
-      "Rust",
-      "Computer graphics"
-    ],
+    "technologies": ["Rust", "Computer graphics"],
     "githubData": {
       "name": "raycaster_lib",
       "description": null,
@@ -99,9 +81,7 @@
     "name": "Vanilla Stamp",
     "link": "https://github.com/Sekky61/vanilla-stamp",
     "description": "Simple JS tool to generate JS functions",
-    "technologies": [
-      "JS"
-    ],
+    "technologies": ["JS"],
     "githubData": {
       "name": "vanilla-stamp",
       "description": "Create HTML components with vanilla JS",
@@ -114,9 +94,7 @@
     "name": "Domain history",
     "link": "https://github.com/Sekky61/domain-history",
     "description": "Google Chrome extension to quickly see history filtered by current domain",
-    "technologies": [
-      "JS"
-    ],
+    "technologies": ["JS"],
     "githubData": {
       "name": "domain-history",
       "description": "Google Chrome extension for quick history navigation in a domain",
@@ -129,9 +107,7 @@
     "name": "CSS school project",
     "link": "https://github.com/Sekky61/itw",
     "description": "Replicating design of a website using CSS",
-    "technologies": [
-      "CSS"
-    ],
+    "technologies": ["CSS"],
     "githubData": {
       "name": "itw",
       "description": "ITW school project, VUT. Replicating the CSS based on a picture.",
@@ -144,10 +120,7 @@
     "name": "MQTT inspector",
     "link": "https://github.com/Sekky61/MQTT-monitor",
     "description": "GUI inspector of MQTT traffic",
-    "technologies": [
-      "C++",
-      "QT"
-    ],
+    "technologies": ["C++", "QT"],
     "githubData": {
       "name": "MQTT-monitor",
       "description": "BUT FIT 4th semester - seminář c++ - projekt. MQTT traffic monitor",

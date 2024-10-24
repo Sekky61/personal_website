@@ -11,8 +11,6 @@
     "lint:fix": "biome check --apply .",
     "lint:fix-unsafe": "biome check --apply-unsafe .",
     "typecheck": "tsc --noEmit --incremental false",
-    "sanity": "cd ../admin && npm run dev",
-    "sanity-deploy": "cd ../admin && sanity deploy",
     "format": "biome format . --write",
     "format:check": "biome format .",
     "dependencies": "bunx npm-check-updates --interactive"

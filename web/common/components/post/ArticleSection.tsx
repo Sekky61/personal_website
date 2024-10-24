@@ -1,6 +1,6 @@
 "use client";
+import { type ReactNode, createContext, useContext, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { type ReactNode, createContext, useState, useContext } from "react";
 
 /**
  * ArticleSection component expects children to render and a function to be called when the section becomes active

@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { articlesFrontmatters } from "@common/mdxLoader";
 import BlogPostCard from "@components/BlogPostCard";
-import Pagination from "@components/Pagination";
 
 export const metadata = {
   title: "Blog",

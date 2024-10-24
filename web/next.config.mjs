@@ -1,5 +1,5 @@
 import createMDX from "@next/mdx";
-import withToc from "@stefanprobst/rehype-extract-toc"
+import withToc from "@stefanprobst/rehype-extract-toc";
 import withTocExport from "@stefanprobst/rehype-extract-toc/mdx";
 import recmaExportFilepath from "recma-export-filepath";
 import remarkFrontmatter from "remark-frontmatter";

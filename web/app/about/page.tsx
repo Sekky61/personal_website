@@ -1,5 +1,5 @@
+import { mdxComponents } from "@common/blockRendering";
 import { loadContent } from "@common/mdxLoader";
-import { mdxComponents } from "@common/utils/blockRendering";
 import type { NextPage } from "next";
 
 export const metadata = {
