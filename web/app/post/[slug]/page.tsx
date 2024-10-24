@@ -10,13 +10,13 @@ import LinkHeading from "@common/components/post/LinkHeading";
 import { Footnotes, Sources } from "@common/components/post/blocks";
 import {
   type ArticleFrontmatter,
+  type Heading,
   articleBySlug,
   articlesFrontmatters,
 } from "@common/mdxLoader";
 import type * as Schema from "@common/sanityTypes";
 import { blockRenderingElements } from "@common/utils/blockRendering";
 import {
-  type Heading,
   getFootnotes,
   getHeadings,
   getSeriesPart,
@@ -48,10 +48,10 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
     return null;
   }
 
-  const heading_items = headings.map(({ text, slug }: Heading) => (
+  const heading_items = headings.map(({ value, slug }: Heading) => (
     <li key={slug} className="pb-1">
       <a href={`#${slug}`} className="hover:underline">
-        {text}
+        {value}
       </a>
     </li>
   ));
@@ -112,9 +112,6 @@ const Article = ({ post }: ArticleProps) => {
 
   return (
     <article className="article">
-      <Link href={`/post/${post.slug.current}`}>
-        <h1 className="heading-primary text-5xl mb-8">{post.title}</h1>
-      </Link>
       <div className="flex divide-x mb-6">
         <span className="pr-2">{formattedDate}</span>
         <span className="px-2">{postReadingTime(post).text}</span>
@@ -129,7 +126,6 @@ const Article = ({ post }: ArticleProps) => {
           .
         </p>
       )}
-      <Contents headings={headings} />
       <div className="my-8">{sections}</div>
       <div className="my-8">
         <Footnotes footnotes={footnotes} />
@@ -145,8 +141,6 @@ type PageProps = {
 
 const Page: NextPage<PageProps> = async ({ params }) => {
   const article = await articleBySlug(params.slug);
-  console.log("render");
-  console.dir(article);
   const Post = article?.component;
 
   if (!Post) {
@@ -161,6 +155,10 @@ const Page: NextPage<PageProps> = async ({ params }) => {
           <SideContents headings={article.headings} />
         </div>
       </div>
+      <Link href={`/post/${article.slug}`}>
+        <h1 className="heading-primary text-5xl mb-8">{article.title}</h1>
+      </Link>
+      <Contents headings={article.headings} />
       <Post />
     </ArticleSectionProvider>
   );
