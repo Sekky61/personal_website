@@ -1,4 +1,6 @@
-const createMDX = require("@next/mdx");
+import createMDX from "@next/mdx";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
@@ -10,6 +12,10 @@ const STUDIO_REWRITE = {
 
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
+  options: {
+    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+    rehypePlugins: [],
+  },
 });
 
 /** @type {import('next').NextConfig} */
@@ -29,5 +35,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withMDX(nextConfig);
-
+export default withMDX(nextConfig);

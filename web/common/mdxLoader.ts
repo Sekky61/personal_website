@@ -86,14 +86,14 @@ export async function articleSlugs(): Promise<string[]> {
   return files.map((file) => file.replace(/\.mdx$/, ""));
 }
 
-export async function articles(): Promise<ArticleFrontmatter[]> {
+export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
   const slugs = await articleSlugs();
   return Promise.all(
     slugs.map(async (slug) => {
       const all = await import(`../content/articles/${slug}.mdx`);
       return {
         ...defaultFrontmatter,
-        ...all,
+        ...all.frontmatter,
       };
     }),
   );
