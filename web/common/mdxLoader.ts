@@ -110,11 +110,13 @@ function importToArticle(article: any): ArticleFrontmatter {
       children: heading.children,
     };
   });
+  const releaseDate = new Date(article.frontmatter.releaseDate);
   return {
     ...defaultFrontmatter,
     slug: filepath.name,
     headings,
     ...article.frontmatter,
+    releaseDate,
     component: article.default,
   };
 }
@@ -142,5 +144,3 @@ export async function loadContent(relativePath: string) {
   const content = await import(`../content/${relativePath}.mdx`);
   return content.default;
 }
-
-

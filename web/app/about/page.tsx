@@ -3,14 +3,13 @@ import { mdxComponents } from "@common/utils/blockRendering";
 import type { NextPage } from "next";
 
 export const metadata = {
-  title: "About",
+  title: "About me",
 };
 
 export const dynamic = "force-static";
 
 const About: NextPage = async () => {
   const Content = await loadContent("about_me");
-  console.log(Content);
   return (
     <>
       <h1 className="heading-primary">About me</h1>
