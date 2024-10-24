@@ -38,6 +38,7 @@
     "react-katex": "^3.0.1",
     "react-syntax-highlighter": "^15.6.1",
     "reading-time": "^1.5.0",
+    "recma-export-filepath": "^1.1.0",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^5.0.0"
   },

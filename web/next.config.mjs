@@ -1,6 +1,7 @@
 import createMDX from "@next/mdx";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import recmaExportFilepath from 'recma-export-filepath'
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
@@ -15,6 +16,7 @@ const withMDX = createMDX({
   options: {
     remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
     rehypePlugins: [],
+    recmaPlugins: [recmaExportFilepath]
   },
 });
 

@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import path from "path";
 
 export interface ArticleFrontmatter {
   /**
@@ -91,8 +92,10 @@ export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
   return Promise.all(
     slugs.map(async (slug) => {
       const all = await import(`../content/articles/${slug}.mdx`);
+      const filepath = path.parse(all.filepath); // extract slug from file name
       return {
         ...defaultFrontmatter,
+        slug: filepath.name,
         ...all.frontmatter,
       };
     }),
