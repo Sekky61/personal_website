@@ -24,6 +24,7 @@ npm run dev
 
 - The table of contents is generated for the highest level headers.
 Keep this in mind when writing articles - do not use `#`.
+- Use `[section link](#section-link)` to link to sections within the same article.
 
 ## License
 
