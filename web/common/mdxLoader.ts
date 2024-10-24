@@ -84,6 +84,7 @@ const defaultFrontmatter: ArticleFrontmatter = {
   tags: [],
   sources: [],
   headings: [],
+  component: null,
 };
 
 export async function articleBySlug(
@@ -132,3 +133,14 @@ export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
     }),
   );
 }
+
+/**
+ * Load content from the content directory
+ * @param relativePath - the path to the content file, relative to the content directory
+ */
+export async function loadContent(relativePath: string) {
+  const content = await import(`../content/${relativePath}.mdx`);
+  return content.default;
+}
+
+
