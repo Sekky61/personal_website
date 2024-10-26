@@ -5,6 +5,7 @@ import recmaExportFilepath from "recma-export-filepath";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import myRemarkSectionize from "./common/remark-sections.mjs";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
@@ -22,7 +23,7 @@ const withMDX = createMDX({
       remarkMdxFrontmatter,
       myRemarkSectionize,
     ],
-    rehypePlugins: [withToc, withTocExport],
+    rehypePlugins: [withToc, withTocExport, rehypeUnwrapImages],
     recmaPlugins: [recmaExportFilepath],
   },
 });

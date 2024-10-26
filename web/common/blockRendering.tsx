@@ -24,6 +24,7 @@ export const mdxComponents = {
       <div className="bg-gray-800 rounded-md p-4 text-gray-50">{children}</div>
     );
   },
+  img: CustomImage,
   CodeSample,
   LatexInline,
   LatexBlock,

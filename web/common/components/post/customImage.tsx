@@ -1,19 +1,22 @@
 import Image from "next/image";
 
-const CustomImage = ({ value }: any) => {
-  const { caption, alt, url } = value;
+type CustomImageProps = {
+  src: string;
+  alt: string;
+};
 
+const CustomImage = ({ src, alt }: CustomImageProps) => {
   return (
     <div className="flex justify-center">
       <figure className="rounded-md overflow-hidden">
         <Image
-          src={url}
+          src={src}
           alt={alt}
           width={450}
           height={450}
           className="mx-auto"
         />
-        <figcaption className="text-center mt-1">{caption}</figcaption>
+        <figcaption className="text-center mt-1">{alt}</figcaption>
       </figure>
     </div>
   );
