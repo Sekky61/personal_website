@@ -57,6 +57,11 @@ export interface ArticleFrontmatter {
    * Headings
    */
   headings: Heading[];
+
+  /**
+   * Summary. A teaser for the article.
+   */
+  summary?: string;
 }
 
 // from stefanprobst/rehype-extract-toc plugin

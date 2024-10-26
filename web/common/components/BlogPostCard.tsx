@@ -11,8 +11,6 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
   const date = post.releaseDate;
   const formattedDate = formatDate(date);
 
-  // const truncatedText = getBeginningOfArticle(post, 250);
-
   return (
     <Link href={`/post/${post.slug}`}>
       <div className="flex flex-col group duration-100 w-full p-4 hover:surface-cont-high">
@@ -22,7 +20,9 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
         <div className="flex gap-4 text-md pb-3 font-semibold">
           <span className="">{formattedDate}</span>
         </div>
-        <p className="two-line-text-ellipsis text-sm h-10 m-0">todo</p>
+        <p className="two-line-text-ellipsis text-sm h-10 m-0">
+          {post.summary}
+        </p>
         <Pills texts={post.tags.map(({ label }) => label)} />
       </div>
     </Link>
