@@ -9,7 +9,7 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const About: NextPage = async () => {
-  const Content = await loadContent("about_me");
+  const Content = await loadContent("about_me.mdx");
   return (
     <>
       <h1 className="heading-primary">About me</h1>

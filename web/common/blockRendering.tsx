@@ -18,6 +18,12 @@ export const mdxComponents = {
     );
   },
   section: ArticleSection,
+  pre: ({ children }) => {
+    // todo temporary
+    return (
+      <div className="bg-gray-800 rounded-md p-4 text-gray-50">{children}</div>
+    );
+  },
   CodeSample,
   LatexInline,
   LatexBlock,
