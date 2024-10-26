@@ -18,7 +18,6 @@ function transform(tree) {
       sectionize,
     );
   }
-  console.dir(tree, { maxArrayLength: null, depth: null });
 }
 
 function sectionize(node, index, parent) {
@@ -27,8 +26,6 @@ function sectionize(node, index, parent) {
   const depth = start.depth;
 
   const headingSlug = makeSlug(start.children[0].value);
-  console.log(`headingSlug: ${headingSlug}`);
-  console.dir(start);
 
   const isEnd = (node) =>
     (node.type === "heading" && node.depth <= depth) || node.type === "export";

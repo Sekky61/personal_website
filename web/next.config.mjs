@@ -2,10 +2,12 @@ import createMDX from "@next/mdx";
 import withToc from "@stefanprobst/rehype-extract-toc";
 import withTocExport from "@stefanprobst/rehype-extract-toc/mdx";
 import recmaExportFilepath from "recma-export-filepath";
+import rehypeKatex from "rehype-katex";
+import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import myRemarkSectionize from "./common/remark-sections.mjs";
-import rehypeUnwrapImages from "rehype-unwrap-images";
+import remarkMath from 'remark-math';
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
@@ -22,8 +24,9 @@ const withMDX = createMDX({
       remarkFrontmatter,
       remarkMdxFrontmatter,
       myRemarkSectionize,
+      remarkMath,
     ],
-    rehypePlugins: [withToc, withTocExport, rehypeUnwrapImages],
+    rehypePlugins: [withToc, withTocExport, rehypeUnwrapImages, rehypeKatex],
     recmaPlugins: [recmaExportFilepath],
   },
 });
