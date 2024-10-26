@@ -14,7 +14,7 @@ type Repo = {
   img: string | null;
   githubData: {
     name: string;
-    description: string;
+    description: string | null;
     updated_at: string;
     language: string;
   };

@@ -1,6 +1,5 @@
 import { RepoCard } from "@common/components/RepoCard";
-import portfolio from "@content/reposit.json";
-import { PortableText } from "@portabletext/react";
+import projects from "@content/reposit.json";
 import type { NextPage } from "next";
 
 export const metadata = {
@@ -10,10 +9,6 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const Portfolio: NextPage = async () => {
-  // const portfolio = await getPortfolio();
-  // console.log(JSON.stringify(portfolio, null, 2));
-  // const { projects, text } = portfolio;
-  const projects = portfolio;
   return (
     <>
       <h1 className="heading-primary">My portfolio</h1>

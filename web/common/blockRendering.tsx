@@ -10,7 +10,7 @@ import ArticleSection from "./components/post/ArticleSection";
 
 export const mdxComponents = {
   h2: LinkHeading,
-  a: ({ href, children }) => {
+  a: ({ href, children }: any) => {
     return (
       <Link href={href} target="_blank" rel="noreferrer" className="link">
         {children}
@@ -18,7 +18,7 @@ export const mdxComponents = {
     );
   },
   section: ArticleSection,
-  pre: ({ children }) => {
+  pre: ({ children }: any) => {
     // todo temporary
     return (
       <div className="bg-gray-800 rounded-md p-4 text-gray-50">{children}</div>
