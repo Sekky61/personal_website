@@ -5,10 +5,10 @@ import recmaExportFilepath from "recma-export-filepath";
 import rehypeKatex from "rehype-katex";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import myRemarkSectionize from "./common/remark-sections.mjs";
-import remarkGfm from 'remark-gfm';
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",

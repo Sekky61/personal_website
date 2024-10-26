@@ -1,8 +1,8 @@
 "use server";
 
-import { promises as fs } from "fs";
+import { promises as fs } from "node:fs";
 import path from "path";
-import { fileReadingTime, makeSlug, readingTimeFormatted } from "./utils/misc";
+import { fileReadingTime, makeSlug } from "./utils/misc";
 
 export interface ArticleFrontmatter {
   /**
