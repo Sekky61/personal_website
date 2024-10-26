@@ -4,7 +4,6 @@ import Link from "next/link";
 import { mdxComponents } from "@common/blockRendering";
 import { SideContents } from "@common/components/SideContents";
 import { ArticleSectionProvider } from "@common/components/post/ArticleSection";
-import { Sources } from "@common/components/post/blocks";
 import {
   type ArticleFrontmatter,
   type Heading,
@@ -25,7 +24,10 @@ export async function generateMetadata({
 
 export const generateStaticParams = async () => {
   const frontmatters = await articlesFrontmatters();
-  console.info("Generating articles:", frontmatters.map((a) => a.slug));
+  console.info(
+    "Generating articles:",
+    frontmatters.map((a) => a.slug),
+  );
   return frontmatters;
 };
 
@@ -90,7 +92,6 @@ const Page: NextPage<PageProps> = async ({ params }) => {
         <Contents headings={article.headings} />
         <Post components={mdxComponents} />
         <div className="my-8"></div>
-        <Sources sources={article.sources} />
       </article>
     </ArticleSectionProvider>
   );

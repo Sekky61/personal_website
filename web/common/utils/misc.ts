@@ -19,4 +19,4 @@ export function readingTimeFormatted(content: string): string {
   return stats.text;
 }
 
-export { makeSlug } from "./makeSlug";
+export { makeSlug } from "./makeSlug.mjs";
