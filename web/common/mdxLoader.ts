@@ -118,16 +118,18 @@ export async function articleBySlug(
 /**
  * Optional file content to aproximate reading time
  */
-async function importToArticle(article: any): ArticleFrontmatter {
+async function importToArticle(article: any): Promise<ArticleFrontmatter> {
   const filepath = path.parse(article.filepath); // extract slug from file name
-  const headings = article.tableOfContents.map((heading: Heading) => {
-    return {
-      value: heading.value,
-      depth: heading.depth,
-      slug: makeSlug(heading.value),
-      children: heading.children,
-    };
-  });
+  const headings = article.tableOfContents
+    .map((heading: Heading) => {
+      return {
+        value: heading.value,
+        depth: heading.depth,
+        slug: makeSlug(heading.value),
+        children: heading.children,
+      };
+    })
+    .filter((heading: any) => heading.value !== "Footnotes");
   const releaseDate = new Date(article.frontmatter.releaseDate);
   const readingTime = await fileReadingTime(filepath);
   return {

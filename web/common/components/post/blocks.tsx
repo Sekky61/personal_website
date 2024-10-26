@@ -9,9 +9,8 @@ export const Footnotes = ({ children }: any) => {
     return null;
   }
 
-  // <ol className="list-inside list-decimal">{footnoteItems}</ol>
   return (
-    <div className="metablock">
+    <div className="footnotes">
       <div className="metablock-heading">Footnotes</div>
       {children}
     </div>

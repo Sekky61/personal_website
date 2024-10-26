@@ -15,10 +15,10 @@ const ArticleSection = ({
   children,
   "data-section": section,
 }: ArticleSectionProps) => {
-  console.log("ArticleSection", section, children);
-
   const isFootnotes =
-    section === undefined && Array.isArray(children) && children[0]?.props?.id === "footnotes";
+    section === undefined &&
+    Array.isArray(children) &&
+    children[0]?.props?.id === "footnotes";
   if (isFootnotes) {
     const footnotesListOl = children[2];
     return <Footnotes>{footnotesListOl}</Footnotes>;
