@@ -21,7 +21,8 @@ export interface ArticleFrontmatter {
   slug: string;
 
   /**
-   * Appears in the blogpost list iff true
+   * Appears in the blogpost list iff true.
+   * Still rendered and /post path exists if false.
    */
   published: boolean;
 

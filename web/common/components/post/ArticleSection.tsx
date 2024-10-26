@@ -1,6 +1,7 @@
 "use client";
 import { type ReactNode, createContext, useContext, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { Footnotes } from "./blocks";
 
 /**
  * ArticleSection component expects children to render and a function to be called when the section becomes active
@@ -11,6 +12,22 @@ type ArticleSectionProps = {
 };
 
 const ArticleSection = ({
+  children,
+  "data-section": section,
+}: ArticleSectionProps) => {
+  console.log("ArticleSection", section, children);
+
+  const isFootnotes =
+    section === undefined && Array.isArray(children) && children[0]?.props?.id === "footnotes";
+  if (isFootnotes) {
+    const footnotesListOl = children[2];
+    return <Footnotes>{footnotesListOl}</Footnotes>;
+  }
+
+  return <ArticleSectionShown {...{ children, "data-section": section }} />;
+};
+
+const ArticleSectionShown = ({
   children,
   "data-section": section,
 }: ArticleSectionProps) => {

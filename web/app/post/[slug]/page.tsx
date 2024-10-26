@@ -25,6 +25,7 @@ export async function generateMetadata({
 
 export const generateStaticParams = async () => {
   const frontmatters = await articlesFrontmatters();
+  console.info("Generating articles:", frontmatters.map((a) => a.slug));
   return frontmatters;
 };
 

@@ -11,9 +11,9 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const BlogListing: NextPage = async () => {
-  const frontmatters = await articlesFrontmatters();
+  const all = await articlesFrontmatters();
+  const frontmatters = all.filter((post) => post.published);
   console.dir(frontmatters);
-  console.log(frontmatters[0].headings);
 
   const postsCards = frontmatters.map((post) => (
     <li key={post.slug}>

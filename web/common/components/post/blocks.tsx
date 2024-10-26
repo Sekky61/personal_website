@@ -1,26 +1,19 @@
-import type { Footnote, Source } from "@common/utils/blogpost";
-
 interface Footnotes {
   footnotes: Footnote[];
 }
 
 // Renders the footnotes of a post
-export const Footnotes = ({ footnotes }: Footnotes) => {
+export const Footnotes = ({ children }: any) => {
   // Do not render if there are no footnotes
-  if (footnotes.length === 0) {
+  if (children.length === 0) {
     return null;
   }
 
-  const footnoteItems = footnotes.map(({ text, number }: Footnote) => (
-    <li key={number} id={`#footnote-${number}`}>
-      {text}
-    </li>
-  ));
-
+  // <ol className="list-inside list-decimal">{footnoteItems}</ol>
   return (
     <div className="metablock">
       <div className="metablock-heading">Footnotes</div>
-      <ol className="list-inside list-decimal">{footnoteItems}</ol>
+      {children}
     </div>
   );
 };

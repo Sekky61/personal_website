@@ -5,9 +5,10 @@ import recmaExportFilepath from "recma-export-filepath";
 import rehypeKatex from "rehype-katex";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkMath from "remark-math";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import myRemarkSectionize from "./common/remark-sections.mjs";
-import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
@@ -25,6 +26,7 @@ const withMDX = createMDX({
       remarkMdxFrontmatter,
       myRemarkSectionize,
       remarkMath,
+      remarkGfm,
     ],
     rehypePlugins: [withToc, withTocExport, rehypeUnwrapImages, rehypeKatex],
     recmaPlugins: [recmaExportFilepath],
