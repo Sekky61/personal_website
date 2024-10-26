@@ -1,15 +1,14 @@
 import LinkChain from "@common/svg/LinkChain";
-import { makeSlug } from "@common/utils/blogpost";
-import {
-  type PortableTextBlockComponent,
-  toPlainText,
-} from "@portabletext/react";
+import { makeSlug } from "@common/utils/misc";
+
+type LinkHeadingProps = {
+  children: string;
+};
 
 // LinkHeading takes its text value and adds id and href to itself
 // so that it can be linked to from elsewhere in the page.
-const LinkHeading: PortableTextBlockComponent = ({ children, value }) => {
-  const text = toPlainText(value);
-  const textSlug = makeSlug(text);
+const LinkHeading = ({ children }: LinkHeadingProps) => {
+  const textSlug = makeSlug(children);
   return (
     <a
       id={textSlug}

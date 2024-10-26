@@ -2,10 +2,10 @@ import Link from "next/link";
 
 import { ThemeSwitch } from "@common/components/ThemeSwitch";
 import { linksToDisplay } from "@common/static";
+import { GithubLogo } from "@common/svg/GithubLogo";
 import React from "react";
 import { Hamburger } from "./Hamburger";
 import { NavLink } from "./NavLink";
-import { GithubLogo } from "@common/svg/GithubLogo";
 
 const Header = () => {
   return (
