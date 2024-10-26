@@ -117,10 +117,7 @@ export async function articleBySlug(
 /**
  * Optional file content to aproximate reading time
  */
-function importToArticle(
-  article: any,
-  content: any = null,
-): ArticleFrontmatter {
+function importToArticle(article: any): ArticleFrontmatter {
   const filepath = path.parse(article.filepath); // extract slug from file name
   const headings = article.tableOfContents.map((heading: Heading) => {
     return {
@@ -131,7 +128,7 @@ function importToArticle(
     };
   });
   const releaseDate = new Date(article.frontmatter.releaseDate);
-  const readingTime = content ? fileReadingTime(content) : 0;
+  const readingTime = fileReadingTime(filepath);
   return {
     ...defaultFrontmatter,
     slug: filepath.name,
@@ -140,7 +137,7 @@ function importToArticle(
     releaseDate,
     component: article.default,
     filepath: article.filepath,
-    readingTime
+    readingTime,
   };
 }
 
@@ -169,6 +166,6 @@ export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
  * @param relativePath - the path to the content file, relative to the content directory
  */
 export async function loadContent(relativePath: string) {
-  const content = await import(`../content/${relativePath}.mdx`);
+  const content = await import(`../content/${relativePath}`);
   return content.default;
 }

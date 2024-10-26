@@ -1,14 +1,16 @@
 // Nowhere-belonging utility functions
 
 import { promises as fs } from "fs";
+import type { ParsedPath } from "path";
 import readingTime from "reading-time";
 
 export function formatDate(date: Date): string {
   return date.toISOString().split("T")[0];
 }
 
-export async function fileReadingTime(filePath: string): Promise<string> {
-  const content = await fs.readFile(filePath, "utf-8");
+export async function fileReadingTime(filePath: ParsedPath): Promise<string> {
+  const p = filePath.dir + "/" + filePath.base;
+  const content = await fs.readFile(p, "utf-8");
   return readingTimeFormatted(content);
 }
 
