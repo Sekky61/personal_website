@@ -13,7 +13,7 @@ export const SideContents = ({ headings }: SideContentsProps) => {
   const { activeSections } = useActiveSections();
 
   const heading_items = headings.map(({ value, slug }: Heading, index) => {
-    const isActive = activeSections.includes(index);
+    const isActive = activeSections.includes(slug);
     return (
       <li
         key={slug}

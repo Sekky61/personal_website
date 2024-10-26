@@ -6,6 +6,7 @@ import Tip from "@common/components/post/tip";
 import CodeSample from "@components/post/CodeSample";
 import LinkHeading from "@components/post/LinkHeading";
 import Link from "next/link";
+import ArticleSection from "./components/post/ArticleSection";
 
 export const mdxComponents = {
   h2: LinkHeading,
@@ -16,6 +17,7 @@ export const mdxComponents = {
       </Link>
     );
   },
+  section: ArticleSection,
   CodeSample,
   LatexInline,
   LatexBlock,

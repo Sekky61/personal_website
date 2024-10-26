@@ -4,6 +4,7 @@ import withTocExport from "@stefanprobst/rehype-extract-toc/mdx";
 import recmaExportFilepath from "recma-export-filepath";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import myRemarkSectionize from "./common/remark-sections.mjs";
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
@@ -16,7 +17,11 @@ const STUDIO_REWRITE = {
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
-    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+    remarkPlugins: [
+      remarkFrontmatter,
+      remarkMdxFrontmatter,
+      myRemarkSectionize,
+    ],
     rehypePlugins: [withToc, withTocExport],
     recmaPlugins: [recmaExportFilepath],
   },

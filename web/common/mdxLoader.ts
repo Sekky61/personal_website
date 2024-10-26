@@ -117,7 +117,7 @@ export async function articleBySlug(
 /**
  * Optional file content to aproximate reading time
  */
-function importToArticle(article: any): ArticleFrontmatter {
+async function importToArticle(article: any): ArticleFrontmatter {
   const filepath = path.parse(article.filepath); // extract slug from file name
   const headings = article.tableOfContents.map((heading: Heading) => {
     return {
@@ -128,7 +128,7 @@ function importToArticle(article: any): ArticleFrontmatter {
     };
   });
   const releaseDate = new Date(article.frontmatter.releaseDate);
-  const readingTime = fileReadingTime(filepath);
+  const readingTime = await fileReadingTime(filepath);
   return {
     ...defaultFrontmatter,
     slug: filepath.name,

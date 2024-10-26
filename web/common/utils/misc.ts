@@ -19,12 +19,4 @@ export function readingTimeFormatted(content: string): string {
   return stats.text;
 }
 
-// Make a slug from a string.
-export function makeSlug(text: string) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+export { makeSlug } from "./makeSlug";
