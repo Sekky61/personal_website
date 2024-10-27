@@ -69,10 +69,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
   }
 
   const formattedDate = formatDate(new Date(article?.releaseDate));
-  console.log(">>", article.readingTime);
 
-  // todo
-  // <Footnotes footnotes={article.footnotes} />
   return (
     <ArticleSectionProvider>
       <article className="article">
@@ -91,7 +88,6 @@ const Page: NextPage<PageProps> = async ({ params }) => {
         </div>
         <Contents headings={article.headings} />
         <Post components={mdxComponents} />
-        <div className="my-8"></div>
       </article>
     </ArticleSectionProvider>
   );

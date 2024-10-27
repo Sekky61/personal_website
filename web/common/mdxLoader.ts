@@ -163,8 +163,10 @@ export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
     }),
   );
 
+  const published = articles.filter((post) => post.published);
+
   // sort by publication date
-  return articles.sort(
+  return published.sort(
     (a, b) => b.releaseDate.getTime() - a.releaseDate.getTime(),
   );
 }
@@ -177,3 +179,4 @@ export async function loadContent(relativePath: string) {
   const content = await import(`../content/${relativePath}`);
   return content.default;
 }
+

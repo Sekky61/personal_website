@@ -18,7 +18,6 @@ export const mdxComponents = {
     );
   },
   pre: (p: any) => {
-    console.log('ren', p);    
     // This supports the markdown
     //
     // ```lang propname={propvalue} ...

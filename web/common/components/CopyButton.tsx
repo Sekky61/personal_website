@@ -1,5 +1,5 @@
 "use client";
-import { CheckmarkIcon, CopyIcon } from "@common/svg/CopyIcon";
+import { CheckmarkIcon } from "@common/svg/CopyIcon";
 import { useState } from "react";
 
 export const CopyButton = ({ code }: { code: string }) => {

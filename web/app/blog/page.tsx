@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import Link from "next/link";
 
 import { articlesFrontmatters } from "@common/mdxLoader";
 import BlogPostCard from "@components/BlogPostCard";
@@ -11,9 +10,7 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const BlogListing: NextPage = async () => {
-  const all = await articlesFrontmatters();
-  const frontmatters = all.filter((post) => post.published);
-
+  const frontmatters = await articlesFrontmatters();
   const postsCards = frontmatters.map((post) => (
     <li key={post.slug}>
       <BlogPostCard post={post} />
