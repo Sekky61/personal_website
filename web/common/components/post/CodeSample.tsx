@@ -6,17 +6,12 @@ import { type Token, getRenderer } from "@common/codeRendering";
 import { CopyButton } from "../CopyButton";
 
 interface CodeSampleProps {
-  value: {
-    fileName: string;
-    lineStart?: number;
-    tokens: Token[];
-    output?: string;
-    code: {
-      code: string;
-      language: string;
-      highlightedLines: number[];
-    };
-  };
+  code: string;
+  language: string;
+  fileName?: string;
+  lineStart?: number;
+  highlights?: (Token | number)[];
+  output?: string;
 }
 
 const lineNumberStyle: React.CSSProperties = {
@@ -24,20 +19,18 @@ const lineNumberStyle: React.CSSProperties = {
 };
 
 // Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
-const CodeSample = ({ value }: CodeSampleProps) => {
+const CodeSample = (props: CodeSampleProps) => {
   const {
+    code,
+    language,
     fileName,
-    lineStart,
-    tokens,
-    code: { code, language, highlightedLines = [] },
+    lineStart = 1,
+    highlights = [],
     output,
-  } = value;
-  const hasFileName =
-    fileName !== undefined && fileName !== null && fileName !== "";
-  const hasOutput = output !== undefined && output !== null && output !== "";
-  const startingLineNumber =
-    lineStart !== undefined && lineStart !== null ? lineStart : 1;
-  const renderer = getRenderer(highlightedLines, tokens);
+  } = props;
+
+  const hasFileName = fileName !== undefined && fileName !== "";
+  const renderer = getRenderer(highlights, highlights);
 
   // Patch the style - remove margin
   a11yDark['pre[class*="language-"]'].margin = "0px";
@@ -48,7 +41,7 @@ const CodeSample = ({ value }: CodeSampleProps) => {
       <div className="relative">
         {hasFileName && (
           <div className="overflow-hidden bg-white/[.08] text-white px-6 py-1 rounded-tl-lg rounded-br-lg font-mono text-sm absolute top-0 left-0">
-            {fileName}
+            {fileName} - {language}
           </div>
         )}
         <CopyButton code={code} />
@@ -59,13 +52,13 @@ const CodeSample = ({ value }: CodeSampleProps) => {
           showLineNumbers
           wrapLongLines
           wrapLines
-          startingLineNumber={startingLineNumber}
+          startingLineNumber={lineStart}
           renderer={renderer}
         >
           {code}
         </SyntaxHighlighter>
       </div>
-      {hasOutput && <CodeOutput output={output} />}
+      {output && <CodeOutput output={output} />}
     </div>
   );
 };

@@ -22,13 +22,7 @@ const BlogListing: NextPage = async () => {
 
   return (
     <>
-      <h1 className="heading-primary">The Blog</h1>
-      <p className="mb-6">
-        Or check out blogposts sorted by{" "}
-        <Link href={"/series"} className="link">
-          series
-        </Link>
-      </p>
+      <h1 className="heading-primary mb-8">The Blog</h1>
       <ul className="flex flex-col divide-y">{postsCards}</ul>
     </>
   );

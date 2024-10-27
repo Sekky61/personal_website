@@ -17,13 +17,19 @@ export const mdxComponents = {
       </Link>
     );
   },
-  section: ArticleSection,
-  pre: ({ children }: any) => {
-    // todo temporary
-    return (
-      <div className="bg-gray-800 rounded-md p-4 text-gray-50">{children}</div>
-    );
+  pre: (p: any) => {
+    // This supports the markdown ```lang code``` syntax.
+    // For richer code blocks, use <CodeSample> directly
+    const codeTag = p.children;
+    if (codeTag === undefined) {
+      throw new Error("Code block is empty");
+    }
+
+    const language = codeTag.props.className?.replace("language-", "") || "text";
+    const code = codeTag.props.children;
+    return <CodeSample code={code} language={language} />;
   },
+  section: ArticleSection,
   img: CustomImage,
   CodeSample,
   LatexInline,
