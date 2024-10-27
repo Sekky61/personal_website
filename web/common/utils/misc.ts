@@ -1,5 +1,6 @@
 // Nowhere-belonging utility functions
 
+import type { ArticleFrontmatter } from "@common/mdxLoader";
 import { promises as fs } from "fs";
 import type { ParsedPath } from "path";
 import readingTime from "reading-time";
@@ -9,7 +10,7 @@ export function formatDate(date: Date): string {
 }
 
 export async function fileReadingTime(filePath: ParsedPath): Promise<string> {
-  const p = filePath.dir + "/" + filePath.base;
+  const p = `${filePath.dir}/${filePath.base}`;
   const content = await fs.readFile(p, "utf-8");
   return readingTimeFormatted(content);
 }
@@ -17,6 +18,10 @@ export async function fileReadingTime(filePath: ParsedPath): Promise<string> {
 export function readingTimeFormatted(content: string): string {
   const stats = readingTime(content);
   return stats.text;
+}
+
+export function postUrl(article: ArticleFrontmatter) {
+  return `/post/${article.slug}`;
 }
 
 export { makeSlug } from "./makeSlug.mjs";

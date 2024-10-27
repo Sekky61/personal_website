@@ -3,9 +3,10 @@ import {
   type ArticleFrontmatter,
   articlesFrontmatters,
 } from "@common/mdxLoader";
-import { formatDate } from "@common/utils/misc";
+import { formatDate, postUrl } from "@common/utils/misc";
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = {
   description: "Michal Majer's personal blog",
@@ -57,17 +58,18 @@ const PostCard = ({ postData }: { postData: ArticleFrontmatter }) => {
   // format date
   const date = postData.releaseDate;
   const formattedDate = formatDate(date);
-  // const text = getBeginningOfArticle(postData, 240);
-  // todo
-  const text = "";
+  const text = postData.summary;
 
   return (
-    <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
-      <div className="p-4 flex-grow flex flex-col">
-        <h3 className="text-xl group-hover:underline">{postData.title}</h3>
-        <p className="text-sm three-line-text-ellipsis flex-grow">{text}</p>
+    <Link href={postUrl(postData)}>
+      <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
+        <div className="p-4 flex-grow flex flex-col">
+          <h3 className="text-xl group-hover:underline">{postData.title}</h3>
+          <p className="text-sm text-gray-500">{formattedDate}</p>
+          <p className="text-sm three-line-text-ellipsis flex-grow">{text}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
