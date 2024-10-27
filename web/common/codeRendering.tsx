@@ -26,6 +26,10 @@ const lineStyle = {
     line: ["bg-blue-700/25", "rounded"],
     text: ["token-message", "info-token"],
   },
+  highlight: {
+    line: ["bg-lime-700/30", "rounded"],
+    text: ["token-message", "highlight-token"],
+  },
 };
 
 type TokenType = keyof typeof lineStyle;
@@ -35,7 +39,6 @@ type Renderer = (rendererProps: rendererProps) => ReactNode;
 // Returns a renderer function that will accept a row and outputs a ReactNode for that row
 // The row will be styled according to the tokens passed in tokens and highlightedLines
 export function getRenderer(
-  highlightedLines: number[],
   tokens?: Token[],
 ): Renderer {
   // Closure to keep track of the tokens and highlighted lines
@@ -72,8 +75,6 @@ export function getRenderer(
       } else {
         row.children = [child];
       }
-    } else if (highlightedLines.includes(rowNumber)) {
-      row.properties.className = lineStyle.highlighted.line;
     } else {
       // It needs to be reset
       row.properties.className = [];

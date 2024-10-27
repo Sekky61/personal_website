@@ -5,8 +5,11 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"; // cs
 import { type Token, getRenderer } from "@common/codeRendering";
 import { CopyButton } from "../CopyButton";
 
-interface CodeSampleProps {
-  code: string;
+interface CodeProps {
+  /**
+   * The code to display
+   */
+  children?: string;
   language: string;
   fileName?: string;
   lineStart?: number;
@@ -19,9 +22,9 @@ const lineNumberStyle: React.CSSProperties = {
 };
 
 // Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
-const CodeSample = (props: CodeSampleProps) => {
+const Code = (props: CodeProps) => {
   const {
-    code,
+    children: code = "",
     language,
     fileName,
     lineStart = 1,
@@ -82,4 +85,4 @@ const CodeOutput = ({ output }: any) => {
   );
 };
 
-export default CodeSample;
+export default Code;

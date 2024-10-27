@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import myRemarkSectionize from "./common/remark-sections.mjs";
+import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 
 const STUDIO_REWRITE = {
   source: "/admin/:path*",
@@ -28,7 +29,7 @@ const withMDX = createMDX({
       remarkMath,
       remarkGfm,
     ],
-    rehypePlugins: [withToc, withTocExport, rehypeUnwrapImages, rehypeKatex],
+    rehypePlugins: [withToc, withTocExport, rehypeUnwrapImages, rehypeKatex, rehypeMdxCodeProps],
     recmaPlugins: [recmaExportFilepath],
   },
 });

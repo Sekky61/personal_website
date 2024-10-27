@@ -3,7 +3,7 @@ import CustomImage from "@common/components/post/customImage";
 import Edit from "@common/components/post/edit";
 import Table from "@common/components/post/table";
 import Tip from "@common/components/post/tip";
-import CodeSample from "@components/post/CodeSample";
+import Code from "@components/post/CodeSample";
 import LinkHeading from "@components/post/LinkHeading";
 import Link from "next/link";
 import ArticleSection from "./components/post/ArticleSection";
@@ -18,20 +18,26 @@ export const mdxComponents = {
     );
   },
   pre: (p: any) => {
-    // This supports the markdown ```lang code``` syntax.
-    // For richer code blocks, use <CodeSample> directly
+    console.log('ren', p);    
+    // This supports the markdown
+    //
+    // ```lang propname={propvalue} ...
+    // code
+    // ```
+    // syntax.
     const codeTag = p.children;
     if (codeTag === undefined) {
       throw new Error("Code block is empty");
     }
 
-    const language = codeTag.props.className?.replace("language-", "") || "text";
+    const language =
+      codeTag.props.className?.replace("language-", "") || "text";
     const code = codeTag.props.children;
-    return <CodeSample code={code} language={language} />;
+    return <Code language={language} {...p}>{code}</Code>;
   },
   section: ArticleSection,
   img: CustomImage,
-  CodeSample,
+  Code, // Manual option
   LatexInline,
   LatexBlock,
   CustomImage,
