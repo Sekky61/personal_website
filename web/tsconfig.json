@@ -20,7 +20,8 @@
       "@components/*": ["common/components/*"],
       "@utils/*": ["common/utils/*"],
       "@sanity/*": ["common/utils/sanity/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@content/*": ["content/*"]
     },
     "plugins": [
       {

@@ -1,35 +1,51 @@
 "use client";
+import { type ReactNode, createContext, useContext, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { type ReactNode, createContext, useState, useContext } from "react";
+import { Footnotes } from "./blocks";
 
 /**
  * ArticleSection component expects children to render and a function to be called when the section becomes active
  */
 type ArticleSectionProps = {
   children: ReactNode;
-  sectionIndex: number;
+  "data-section": string; // slug
 };
 
-const ArticleSection = ({ children, sectionIndex }: ArticleSectionProps) => {
+const ArticleSection = ({
+  children,
+  "data-section": section,
+}: ArticleSectionProps) => {
+  const isFootnotes =
+    section === undefined &&
+    Array.isArray(children) &&
+    children[0]?.props?.id === "footnotes";
+  if (isFootnotes) {
+    const footnotesListOl = children[2];
+    return <Footnotes>{footnotesListOl}</Footnotes>;
+  }
+
+  return <ArticleSectionShown {...{ children, "data-section": section }} />;
+};
+
+const ArticleSectionShown = ({
+  children,
+  "data-section": section,
+}: ArticleSectionProps) => {
   const { setSectionActive } = useActiveSections();
   const { ref } = useInView({
     threshold: 0.2,
     onChange: (inView) => {
-      setSectionActive(sectionIndex, inView);
+      setSectionActive(section, inView);
     },
-    initialInView: sectionIndex === 0,
+    initialInView: false,
   });
 
-  return (
-    <section ref={ref}>
-      {children}
-    </section>
-  );
+  return <section ref={ref}>{children}</section>;
 };
 
 type ArticleSectionContextType = {
-  activeSections: number[];
-  setSectionActive: (sectionIndex: number, active: boolean) => void;
+  activeSections: string[];
+  setSectionActive: (sectionSlug: string, active: boolean) => void;
 };
 
 // context for active section
@@ -44,14 +60,14 @@ const ArticleSectionContext = createContext<ArticleSectionContextType>({
 export const ArticleSectionProvider = ({
   children,
 }: { children: ReactNode }) => {
-  const [activeSections, setActiveSections] = useState<number[]>([]);
+  const [activeSections, setActiveSections] = useState<string[]>([]);
 
-  const setSectionActive = (sectionIndex: number, active: boolean) => {
+  const setSectionActive = (sectionSlug: string, active: boolean) => {
     if (active) {
-      setActiveSections((prev) => [...prev, sectionIndex]);
+      setActiveSections((prev) => [...prev, sectionSlug]);
     } else {
       setActiveSections((prev) =>
-        prev.filter((index) => index !== sectionIndex),
+        prev.filter((index) => index !== sectionSlug),
       );
     }
   };

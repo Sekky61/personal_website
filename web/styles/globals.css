@@ -158,7 +158,7 @@
 }
 
 .token-message {
-  @apply text-white/50 ml-3
+  @apply text-white/50 ml-8
 }
 
 .error-token {
@@ -191,3 +191,4 @@
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
+

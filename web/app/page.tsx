@@ -1,22 +1,23 @@
 import { Catchphrase } from "@common/components/Catchphrase";
-import type * as Schema from "@common/sanityTypes";
-import { getBeginningOfArticle } from "@common/utils/blogpost";
+import {
+  type ArticleFrontmatter,
+  articlesFrontmatters,
+} from "@common/mdxLoader";
 import { formatDate } from "@common/utils/misc";
-import { getPaginatedPosts } from "@common/utils/sanity/dataLoaders";
 import type { NextPage } from "next";
 import Image from "next/image";
 
 export const metadata = {
-   description: "Michal Majer's personal blog",
+  description: "Michal Majer's personal blog",
 };
 
 export const dynamic = "force-static";
 
 const Home: NextPage = async () => {
-  const postsData = await getPaginatedPosts(0, 2);
-  const postCards = postsData.map((postData) => {
+  const postsData = await articlesFrontmatters();
+  const postCards = postsData.slice(0, 2).map((postData) => {
     return (
-      <li key={postData._id}>
+      <li key={postData.slug}>
         <PostCard postData={postData} />
       </li>
     );
@@ -52,11 +53,13 @@ const Home: NextPage = async () => {
   );
 };
 
-const PostCard = ({ postData }: { postData: Schema.PostWithSeries }) => {
+const PostCard = ({ postData }: { postData: ArticleFrontmatter }) => {
   // format date
-  const date = new Date(postData.releaseDate);
+  const date = postData.releaseDate;
   const formattedDate = formatDate(date);
-  const text = getBeginningOfArticle(postData, 240);
+  // const text = getBeginningOfArticle(postData, 240);
+  // todo
+  const text = "";
 
   return (
     <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
