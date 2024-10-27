@@ -88,7 +88,6 @@ const Page: NextPage<PageProps> = async ({ params }) => {
         </div>
         <Contents headings={article.headings} />
         <Post components={mdxComponents} />
-        <div className="my-8"></div>
       </article>
     </ArticleSectionProvider>
   );
