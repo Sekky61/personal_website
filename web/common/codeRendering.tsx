@@ -10,10 +10,6 @@ export type Token = {
 
 // Styles for each type of token
 const lineStyle = {
-  highlighted: {
-    line: ["bg-lime-700/30", "rounded"],
-    text: ["token-message", "highlight-token"],
-  },
   error: {
     line: ["bg-red-700/25", "rounded"],
     text: ["token-message", "error-token"],

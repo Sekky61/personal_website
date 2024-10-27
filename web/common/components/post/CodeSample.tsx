@@ -13,7 +13,7 @@ interface CodeProps {
   language: string;
   fileName?: string;
   lineStart?: number;
-  highlights?: (Token | number)[];
+  highlights?: Token[];
   output?: string;
 }
 
@@ -33,21 +33,23 @@ const Code = (props: CodeProps) => {
   } = props;
 
   const hasFileName = fileName !== undefined && fileName !== "";
-  const renderer = getRenderer(highlights, highlights);
+  const renderer = getRenderer(highlights);
 
   // Patch the style - remove margin
   a11yDark['pre[class*="language-"]'].margin = "0px";
-  a11yDark['pre[class*="language-"]'].paddingTop = "40px";
+  a11yDark['pre[class*="language-"]'].paddingTop = "20px";
+
+  const topBar = (<div className="flex items-center justify-between p-1 pl-4">
+    <span>{fileName}</span>
+    <div className="flex gap-4 items-center">
+      <span>{language}</span>
+      <CopyButton code={code} />
+    </div>
+    </div>);
 
   return (
-    <div>
-      <div className="relative">
-        {hasFileName && (
-          <div className="overflow-hidden bg-white/[.08] text-white px-6 py-1 rounded-tl-lg rounded-br-lg font-mono text-sm absolute top-0 left-0">
-            {fileName} - {language}
-          </div>
-        )}
-        <CopyButton code={code} />
+    <div className="card primary-cont overflow-clip">
+        {topBar}
         <SyntaxHighlighter
           language={language}
           style={a11yDark}
@@ -60,7 +62,6 @@ const Code = (props: CodeProps) => {
         >
           {code}
         </SyntaxHighlighter>
-      </div>
       {output && <CodeOutput output={output} />}
     </div>
   );

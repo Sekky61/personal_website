@@ -15,13 +15,13 @@ export const CopyButton = ({ code }: { code: string }) => {
   return (
     <button
       type="button"
-      className={`absolute top-0 right-0 m-2 p-0.5 duration-100 bg-white/5 rounded-sm ${
-        showCheck ? "hover:bg-green-400" : "hover:bg-primary-40"
+      className={`w-12 flex justify-center items-center secondary m-2 p-0.5 duration-100 rounded ${
+        showCheck ? "hover:bg-green-400" : "hover:bg-primary-30"
       }`}
       onClick={copyClicked}
       onMouseLeave={mouseLeave}
     >
-      {showCheck ? <CheckmarkIcon /> : <CopyIcon />}
+      {showCheck ? <CheckmarkIcon /> : "Copy"}
     </button>
   );
 };
