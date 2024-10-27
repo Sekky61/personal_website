@@ -69,10 +69,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
   }
 
   const formattedDate = formatDate(new Date(article?.releaseDate));
-  console.log(">>", article.readingTime);
 
-  // todo
-  // <Footnotes footnotes={article.footnotes} />
   return (
     <ArticleSectionProvider>
       <article className="article">
