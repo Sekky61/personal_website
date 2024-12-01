@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={roboto_flex.className}>
+    <html lang="en" className={roboto_flex.className} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class">
           <div className="min-h-screen grid grid-rows-layout">

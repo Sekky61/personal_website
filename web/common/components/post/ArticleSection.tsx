@@ -49,11 +49,10 @@ type ArticleSectionContextType = {
 };
 
 // context for active section
+// Used when not in an article
 const ArticleSectionContext = createContext<ArticleSectionContextType>({
   activeSections: [],
-  setSectionActive: () => {
-    console.error("setSectionActive not implemented");
-  },
+  setSectionActive: () => {},
 });
 
 // provider for active section

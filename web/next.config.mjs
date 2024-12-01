@@ -38,7 +38,6 @@ const withMDX = createMDX({
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  swcMinify: true,
   rewrites: async () => [STUDIO_REWRITE],
   images: {
     remotePatterns: [

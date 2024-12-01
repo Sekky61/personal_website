@@ -13,10 +13,11 @@ import {
 import { formatDate } from "@common/utils/misc";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: { params: { slug: string } }) {
-  const article = await articleBySlug(params.slug);
+type Params = Promise<{ slug: string }>;
+
+export async function generateMetadata({ params }: { params: Params }) {
+  const slug = (await params).slug;
+  const article = await articleBySlug(slug);
   return {
     title: article?.title,
   };
@@ -56,11 +57,10 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
   );
 };
 
-type PageProps = {
-  params: ArticleFrontmatter;
-};
-
-const Page: NextPage<PageProps> = async ({ params }) => {
+export default async function Page(props: {
+  params: Promise<ArticleFrontmatter>;
+}) {
+  const params = await props.params;
   const article = await articleBySlug(params.slug);
   const Post = article?.component;
 
@@ -91,6 +91,5 @@ const Page: NextPage<PageProps> = async ({ params }) => {
       </article>
     </ArticleSectionProvider>
   );
-};
+}
 
-export default Page;
