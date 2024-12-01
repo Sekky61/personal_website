@@ -1,8 +1,8 @@
 // Nowhere-belonging utility functions
 
-import type { ArticleFrontmatter } from "@common/mdxLoader";
 import { promises as fs } from "fs";
 import type { ParsedPath } from "path";
+import type { ArticleFrontmatter } from "@common/mdxLoader";
 import readingTime from "reading-time";
 
 export function formatDate(date: Date): string {

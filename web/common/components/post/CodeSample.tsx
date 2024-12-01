@@ -39,29 +39,31 @@ const Code = (props: CodeProps) => {
   a11yDark['pre[class*="language-"]'].margin = "0px";
   a11yDark['pre[class*="language-"]'].paddingTop = "20px";
 
-  const topBar = (<div className="flex items-center justify-between p-1 pl-4">
-    <span>{fileName}</span>
-    <div className="flex gap-4 items-center">
-      <span>{language}</span>
-      <CopyButton code={code} />
+  const topBar = (
+    <div className="flex items-center justify-between p-1 pl-4">
+      <span>{fileName}</span>
+      <div className="flex gap-4 items-center">
+        <span>{language}</span>
+        <CopyButton code={code} />
+      </div>
     </div>
-    </div>);
+  );
 
   return (
     <div className="card primary-cont overflow-clip">
-        {topBar}
-        <SyntaxHighlighter
-          language={language}
-          style={a11yDark}
-          lineNumberStyle={lineNumberStyle}
-          showLineNumbers
-          wrapLongLines
-          wrapLines
-          startingLineNumber={lineStart}
-          renderer={renderer}
-        >
-          {code}
-        </SyntaxHighlighter>
+      {topBar}
+      <SyntaxHighlighter
+        language={language}
+        style={a11yDark}
+        lineNumberStyle={lineNumberStyle}
+        showLineNumbers
+        wrapLongLines
+        wrapLines
+        startingLineNumber={lineStart}
+        renderer={renderer}
+      >
+        {code}
+      </SyntaxHighlighter>
       {output && <CodeOutput output={output} />}
     </div>
   );

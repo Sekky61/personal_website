@@ -164,7 +164,10 @@ export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
   );
 
   // only show published articles in production
-  const published = (process.env.NODE_ENV === 'production') ? articles.filter((post) => post.published) : articles;
+  const published =
+    process.env.NODE_ENV === "production"
+      ? articles.filter((post) => post.published)
+      : articles;
 
   // sort by publication date
   return published.sort(
@@ -180,4 +183,3 @@ export async function loadContent(relativePath: string) {
   const content = await import(`../content/${relativePath}`);
   return content.default;
 }
-

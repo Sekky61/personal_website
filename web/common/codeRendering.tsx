@@ -34,9 +34,7 @@ type Renderer = (rendererProps: rendererProps) => ReactNode;
 
 // Returns a renderer function that will accept a row and outputs a ReactNode for that row
 // The row will be styled according to the tokens passed in tokens and highlightedLines
-export function getRenderer(
-  tokens?: Token[],
-): Renderer {
+export function getRenderer(tokens?: Token[]): Renderer {
   // Closure to keep track of the tokens and highlighted lines
   const rowRenderer = (props: any, row: rendererNode, rowNumber: number) => {
     const { stylesheet, useInlineStyles } = props;

@@ -32,7 +32,11 @@ export const mdxComponents = {
     const language =
       codeTag.props.className?.replace("language-", "") || "text";
     const code = codeTag.props.children;
-    return <Code language={language} {...p}>{code}</Code>;
+    return (
+      <Code language={language} {...p}>
+        {code}
+      </Code>
+    );
   },
   section: ArticleSection,
   img: CustomImage,
