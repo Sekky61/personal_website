@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   },
   authors: [{ name: "Michal Majer" }],
   keywords: ['"Michal Majer"', "blog", "programming", "web development"],
+  description:
+    "Personal blog of Michal Majer, focused on programming and web development.",
+  creator: "Michal Majer",
   openGraph: {
     type: "website",
     locale: "en_US",

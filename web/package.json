@@ -5,6 +5,7 @@
   "license": "MIT License",
   "scripts": {
     "dev": "next dev",
+    "scan": "next dev & npx react-scan@latest localhost:3000",
     "build": "next build",
     "start": "next start",
     "lint": "biome check .",
