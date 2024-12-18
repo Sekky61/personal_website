@@ -16,6 +16,11 @@ export interface ArticleFrontmatter {
   title: string;
 
   /**
+   * Path to a title picture. The picture should be in /public.
+   */
+  titleImage?: string;
+
+  /**
    * Custom URL for the blogpost
    */
   slug: string;

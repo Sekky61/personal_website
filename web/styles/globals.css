@@ -139,6 +139,20 @@
   [data-active='true'] {
     @apply border-primary;
   }
+
+  .material-card {
+    @apply card surface-cont-low elevation-1 hover:elevation-2 active:elevation-1;
+  }
+  .elevated-card:hover::after {
+    content: '';
+    @apply absolute inset-0 bg-onS
+    position: absolute;
+    inset: 0;
+    background-color: var(--md-sys-color-on-surface);
+    opacity: 0.08; /* hover state opacity */
+    pointer-events: none;
+  }
+
 }
 
 .footnotes {

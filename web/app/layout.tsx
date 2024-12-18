@@ -48,7 +48,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class">
           <div className="min-h-screen grid grid-rows-layout">
             <Header />
-            <div className="small-container relative md:mt-10 p-8 surface-cont-low md:rounded-xl">
+            <div className="small-container relative md:mt-10 p-8">
               <main>{children}</main>
             </div>
             <Footer />
