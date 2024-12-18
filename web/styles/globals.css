@@ -1,7 +1,18 @@
+@import './theme/light';
+@import './theme/dark';
+@import './material-tokens/baseline.css';
+
 /* This shows the order of css rules - rules from components layer will override base*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* :root { */
+/*   @media (prefers-color-scheme: dark) { */
+/*     @include color.dark-theme; */
+/*   } */
+/* } */
+/**/
 
 @layer base {
   :root {
@@ -14,6 +25,7 @@
 
   body {
     @apply surface;
+    background-color: var(--md-comp-fab-primary-container-color);
   }
 
   h1 {
