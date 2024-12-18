@@ -21,7 +21,7 @@ const Header = () => {
                 Majer
               </div>
             </Link>
-            <div className="flex-grow" />
+            <div className="grow" />
             <div>
               <div className="md:hidden flex items-center justify-center">
                 <Hamburger />

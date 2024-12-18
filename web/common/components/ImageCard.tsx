@@ -37,7 +37,7 @@ export const ImageCard = ({
             </div>
           )}
         </div>
-        <div className="p-4 flex-grow flex flex-col">{children}</div>
+        <div className="p-4 grow flex flex-col">{children}</div>
       </div>
     </Link>
   );

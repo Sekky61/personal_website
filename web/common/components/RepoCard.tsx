@@ -36,9 +36,9 @@ export const RepoCard = ({ repo }: RepoCardProps) => {
         <GithubLogo className="w-16 h-16 fill-light-onSecondary dark:fill-dark-onSecondary" />
       }
     >
-      <div className="p-4 flex-grow flex flex-col">
+      <div className="p-4 grow flex flex-col">
         <h3 className="text-xl group-hover:underline">{repo.name}</h3>
-        <p className="text-sm three-line-text-ellipsis flex-grow">
+        <p className="text-sm three-line-text-ellipsis grow">
           {repo.description}
         </p>
         <Pills texts={repo.technologies} />

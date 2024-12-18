@@ -26,7 +26,7 @@ export const ThemeSwitch = () => {
       }}
       type="button"
       aria-label="Change theme"
-      className="focus:ring focus:ring-primary-70 text-primary-40 dark:text-primary-40 hover:bg-primary-95 dark:hover:bg-primary-15 focus:outline-none rounded-full text-sm p-1.5"
+      className="focus:ring-3 focus:ring-primary-70 text-primary-40 dark:text-primary-40 hover:bg-primary-95 dark:hover:bg-primary-15 focus:outline-hidden rounded-full text-sm p-1.5"
     >
       {usesLight ? <SunIcon /> : <MoonIcon />}
     </button>

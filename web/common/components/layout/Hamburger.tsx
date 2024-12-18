@@ -28,7 +28,7 @@ export const Hamburger = () => {
     <div className="relative flex overflow-hidden items-center justify-center rounded-lg w-8 h-8">
       <div className="flex flex-col justify-between w-5 h-5 overflow-hidden">
         <div className=" dark:bg-white bg-primary-10 h-[2px] w-5 origin-left" />
-        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 rounded" />
+        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 rounded-sm" />
         <div className="dark:bg-white bg-primary-10 h-[2px] w-5 origin-left" />
       </div>
     </div>
@@ -47,7 +47,7 @@ export const Hamburger = () => {
       />
       {open && (
         <div className="fixed z-50 inset-0 md:hidden">
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-xs">
             <div className="fixed w-full top-4 right-4 bg-neutral-99 dark:bg-neutral-10 rounded-lg max-w-xs shadow-lg p-6 pt-8">
               <button onClick={closeModal} className="absolute top-4 right-4">
                 <svg

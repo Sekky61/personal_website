@@ -11,19 +11,19 @@ export type Token = {
 // Styles for each type of token
 const lineStyle = {
   error: {
-    line: ["bg-red-700/25", "rounded"],
+    line: ["bg-red-700/25", "rounded-sm"],
     text: ["token-message", "error-token"],
   },
   warning: {
-    line: ["bg-yellow-700/25", "rounded"],
+    line: ["bg-yellow-700/25", "rounded-sm"],
     text: ["token-message", "warning-token"],
   },
   info: {
-    line: ["bg-blue-700/25", "rounded"],
+    line: ["bg-blue-700/25", "rounded-sm"],
     text: ["token-message", "info-token"],
   },
   highlight: {
-    line: ["bg-lime-700/30", "rounded"],
+    line: ["bg-lime-700/30", "rounded-sm"],
     text: ["token-message", "highlight-token"],
   },
 };
