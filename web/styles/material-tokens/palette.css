@@ -128,6 +128,29 @@
   --md-ref-palette-neutral98: #F9FAF3;
   --md-ref-palette-neutral99: #FCFDF6;
   --md-ref-palette-neutral100: #FFFFFF;
+
+  /* by hand for containers */
+
+  /* Light */
+  /* Lowest is 100 */
+  /* Low */
+  --md-ref-palette-neutral96: #F2F5EB;
+  /* Container */
+  --md-ref-palette-neutral94: #ECEFE5;
+  /* High */
+  --md-ref-palette-neutral92: #E6E9E0;
+  /* Highest is 90 */
+
+  /* Dark */
+  /* Lowest */
+  --md-ref-palette-neutral4: #0B0F0A;
+  /* Low is 10 */
+  /* Container */
+  --md-ref-palette-neutral12: #1D211B;
+  /* High */
+  --md-ref-palette-neutral17: #272B25;
+  /* Highest */
+  --md-ref-palette-neutral24: #32362F;
 }
 :root {
   --md-ref-palette-neutral-variant0: #000000;

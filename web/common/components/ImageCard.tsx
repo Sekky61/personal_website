@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ElevatedCard } from "./Card";
 
 type ImageCardProps = {
   imageUrl: string | null;
@@ -23,7 +24,7 @@ export const ImageCard = ({
 }: ImageCardProps) => {
   return (
     <Link href={link}>
-      <div className="card transition duration-150 surface-container hover:elevation-1 group flex flex-col h-full">
+      <ElevatedCard>
         <div className="w-full h-48 rounded-xl overflow-hidden">
           {imageUrl ? (
             <img
@@ -38,7 +39,7 @@ export const ImageCard = ({
           )}
         </div>
         <div className="p-4 grow flex flex-col">{children}</div>
-      </div>
+      </ElevatedCard>
     </Link>
   );
 };
