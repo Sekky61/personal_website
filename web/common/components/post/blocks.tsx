@@ -1,4 +1,4 @@
-import {MetaBlock, MetaBlockHeading} from "./MetaBlock";
+import { MetaBlock, MetaBlockHeading } from "./MetaBlock";
 
 // Renders the footnotes of a post
 export const Footnotes = ({ children }: any) => {

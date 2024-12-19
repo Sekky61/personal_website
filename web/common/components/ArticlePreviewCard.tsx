@@ -19,7 +19,13 @@ export function ArticlePreviewCard({ post }: BlogPostCardProps) {
       <ElevatedCard className="flex group h-[200px]">
         {post.titleImage && (
           <div className="h-full card overflow-hidden aspect-square">
-              <Image width={400} height={400} src={post.titleImage} className="w-full h-full object-cover object-center" alt={post.summary ?? ""} />
+            <Image
+              width={400}
+              height={400}
+              src={post.titleImage}
+              className="w-full h-full object-cover object-center"
+              alt={post.summary ?? ""}
+            />
           </div>
         )}
         <div className="p-4">

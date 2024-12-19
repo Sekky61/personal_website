@@ -296,9 +296,7 @@
   --md-sys-typescale-display-small-size-unit: 2px;
   --md-sys-typescale-display-small-size: 36px;
   /* Display Small font weight */
-  --md-sys-typescale-display-small-weight: var(
-    --md-ref-typeface-weight-regular
-  );
+  --md-sys-typescale-display-small-weight: var(--md-ref-typeface-weight-regular);
   /* Display Small font name */
   --md-sys-typescale-display-small-font: var(--md-ref-typeface-brand);
   /* Display Medium */
@@ -342,9 +340,7 @@
   --md-sys-typescale-display-large-size-unit: 2px;
   --md-sys-typescale-display-large-size: 57px;
   /* Display Large font weight */
-  --md-sys-typescale-display-large-weight: var(
-    --md-ref-typeface-weight-regular
-  );
+  --md-sys-typescale-display-large-weight: var(--md-ref-typeface-weight-regular);
   /* Display Large font name */
   --md-sys-typescale-display-large-font: var(--md-ref-typeface-brand);
   /* Plain typeface */

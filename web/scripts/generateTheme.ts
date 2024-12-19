@@ -123,7 +123,7 @@ function convertToTailwind(theme: MaterialTheme) {
   for (const paletteName in theme.palettes) {
     output += ":root {\n";
     const palette = theme.palettes[paletteName as PaletteName];
-    for(const tok in palette) {
+    for (const tok in palette) {
       // @ts-ignore
       const line = `  ${formatVar(paletteName, tok)}: ${palette[tok]};\n`;
       output += line;

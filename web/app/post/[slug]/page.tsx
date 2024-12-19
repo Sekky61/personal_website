@@ -4,7 +4,7 @@ import Link from "next/link";
 import { mdxComponents } from "@common/blockRendering";
 import { SideContents } from "@common/components/SideContents";
 import { ArticleSectionProvider } from "@common/components/post/ArticleSection";
-import {MetaBlock, MetaBlockHeading} from "@common/components/post/MetaBlock";
+import { MetaBlock, MetaBlockHeading } from "@common/components/post/MetaBlock";
 import {
   type ArticleFrontmatter,
   type Heading,
