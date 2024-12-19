@@ -14,7 +14,7 @@
  limitations under the License.
 */
 
-:root {
+.dark {
   color-scheme: dark;
   /* Surface tint */
   --md-sys-color-surface-tint: var(--md-sys-color-primary);
