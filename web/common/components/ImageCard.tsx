@@ -23,7 +23,7 @@ export const ImageCard = ({
 }: ImageCardProps) => {
   return (
     <Link href={link}>
-      <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
+      <div className="card transition duration-150 surface-container hover:elevation-1 group flex flex-col h-full">
         <div className="w-full h-48 rounded-xl overflow-hidden">
           {imageUrl ? (
             <img
@@ -32,7 +32,7 @@ export const ImageCard = ({
               className="w-full h-full object-cover rounded-xl"
             />
           ) : (
-            <div className="w-full h-full secondary-cont flex justify-center items-center">
+            <div className="w-full h-full secondary-container flex justify-center items-center">
               {imageMissingSvg}
             </div>
           )}

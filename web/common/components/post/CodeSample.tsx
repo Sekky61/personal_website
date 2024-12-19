@@ -50,7 +50,7 @@ const Code = (props: CodeProps) => {
   );
 
   return (
-    <div className="card primary-cont overflow-clip">
+    <div className="card primary-container overflow-clip">
       {topBar}
       <SyntaxHighlighter
         language={language}

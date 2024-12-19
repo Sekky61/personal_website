@@ -44,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={roboto_flex.className} suppressHydrationWarning>
-      <body>
+      <body className="body-large">
         <ThemeProvider attribute="class">
           <div className="min-h-screen grid grid-rows-layout">
             <Header />

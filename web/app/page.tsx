@@ -26,14 +26,14 @@ const Home: NextPage = async () => {
 
   return (
     <>
-      <div className="flex flex-col-reverse justify-stretch items-stretch md:flex-row mb-12 ">
+      <div className="flex flex-col-reverse justify-stretch items-stretch md:flex-row mb-12">
         <div>
-          <div className="text-5xl text-nowrap p-4 primary-cont rounded-b-xl md:rounded-xl md:rounded-r-none font-semibold">
+          <div className="text-5xl text-nowrap p-4 primary-container rounded-b-xl md:rounded-xl md:rounded-r-none font-semibold">
             Hi, I&apos;m Michal.
           </div>
           <Catchphrase />
         </div>
-        <div className="rounded-t-3xl md:rounded-3xl md:rounded-tl-none p-4 primary-cont w-full flex justify-center items-center">
+        <div className="rounded-t-3xl md:rounded-3xl md:rounded-tl-none p-4 primary-container w-full flex justify-center items-center">
           <Image
             src="/img/myFace.png"
             width={500}
@@ -62,7 +62,7 @@ const PostCard = ({ postData }: { postData: ArticleFrontmatter }) => {
 
   return (
     <Link href={postUrl(postData)}>
-      <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
+      <div className="card transition duration-150 surface-container hover:elevation-1 group flex flex-col h-full">
         <div className="p-4 grow flex flex-col">
           <h3 className="text-xl group-hover:underline">{postData.title}</h3>
           <p className="text-sm text-gray-500">{formattedDate}</p>
