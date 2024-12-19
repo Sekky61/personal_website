@@ -1,3 +1,4 @@
+import { ElevatedCard } from "@common/components/Card";
 import { Catchphrase } from "@common/components/Catchphrase";
 import {
   type ArticleFrontmatter,
@@ -62,13 +63,11 @@ const PostCard = ({ postData }: { postData: ArticleFrontmatter }) => {
 
   return (
     <Link href={postUrl(postData)}>
-      <div className="card transition duration-150 surface-container hover:elevation-1 group flex flex-col h-full">
-        <div className="p-4 grow flex flex-col">
-          <h3 className="text-xl group-hover:underline">{postData.title}</h3>
-          <p className="text-sm text-gray-500">{formattedDate}</p>
-          <p className="text-sm three-line-text-ellipsis grow">{text}</p>
-        </div>
-      </div>
+      <ElevatedCard className="flex flex-col h-full p-4">
+        <h3 className="text-xl group-hover:underline">{postData.title}</h3>
+        <p className="label-large text-gray-500">{formattedDate}</p>
+        <p className="three-line-text-ellipsis grow">{text}</p>
+      </ElevatedCard>
     </Link>
   );
 };

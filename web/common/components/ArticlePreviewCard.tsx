@@ -1,8 +1,9 @@
 import type { ArticleFrontmatter } from "@common/mdxLoader";
 import { formatDate, postUrl } from "@common/utils/misc";
-import Link from "next/link";
-import { Pills } from "./Pill";
 import Image from "next/image";
+import Link from "next/link";
+import { ElevatedCard } from "./Card";
+import { Pills } from "./Pill";
 
 interface BlogPostCardProps {
   post: ArticleFrontmatter;
@@ -15,7 +16,7 @@ export function ArticlePreviewCard({ post }: BlogPostCardProps) {
 
   return (
     <Link href={postUrl(post)}>
-      <div className="flex group material-card h-[200px]">
+      <ElevatedCard className="flex group h-[200px]">
         {post.titleImage && (
           <div className="h-full card overflow-hidden aspect-square">
               <Image width={400} height={400} src={post.titleImage} className="w-full h-full object-cover object-center" alt={post.summary ?? ""} />
@@ -33,7 +34,7 @@ export function ArticlePreviewCard({ post }: BlogPostCardProps) {
           </p>
           <Pills texts={post.tags.map(({ label }) => label)} />
         </div>
-      </div>
+      </ElevatedCard>
     </Link>
   );
 }
