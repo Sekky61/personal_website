@@ -37,6 +37,13 @@ const roboto_flex = Roboto_Flex({
   variable: "--font-roboto-flex",
 });
 
+const used_icons = ["close", "dark_mode", "light_mode", "menu"];
+
+const googleSymbolsParams = () => {
+  used_icons.sort();
+  return `family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=${used_icons.join(",")}`;
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -47,7 +54,7 @@ export default function RootLayout({
       <head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,light_mode"
+          href={`https://fonts.googleapis.com/css2?${googleSymbolsParams()}`}
         />
       </head>
       <body className="background body-large">
