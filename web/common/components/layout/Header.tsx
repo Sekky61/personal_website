@@ -21,9 +21,7 @@ const Header = () => {
           <Hamburger />
         </div>
         <div className="h-full hidden md:flex items-center">
-          <div className="mr-5">
-            <ThemeSwitch />
-          </div>
+          <ThemeSwitch />
           <a
             className="w-[48px] h-[48px] p-[12px] hover:fill-primary"
             target="_blank"
