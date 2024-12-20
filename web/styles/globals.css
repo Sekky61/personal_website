@@ -386,23 +386,23 @@
 }
 
 .link {
-  @apply underline underline-offset-2 decoration-1 hover:decoration-2 decoration-primary-40 font-bold
+  @apply underline underline-offset-2 decoration-1 hover:decoration-2 decoration-primary-40 font-bold;
 }
 
 .token-message {
-  @apply text-white/50 ml-8
+  @apply text-white/50 ml-8;
 }
 
 .error-token {
-  @apply text-red-500
+  @apply text-red-500;
 }
 
 .warning-token {
-  @apply text-yellow-500
+  @apply text-yellow-500;
 }
 
 .info-token {
-  @apply text-blue-500
+  @apply text-blue-500;
 }
 
 .two-line-text-ellipsis {
@@ -420,7 +420,7 @@
 .three-line-text-ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 

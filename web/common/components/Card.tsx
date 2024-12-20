@@ -1,4 +1,4 @@
-import { cn } from "@common/utils/misc";
+import { cn } from "@common/utils/cn";
 
 type CardProps = {
   children: React.ReactNode;
