@@ -25,7 +25,7 @@ export const Catchphrase = () => {
     catchPhrases[Math.floor(Math.random() * catchPhrases.length)];
 
   return (
-    <div className="min-w-16 text-2xl slanted ml-8 p-4 tertiary-container rounded-bl-xl font-semibold">
+    <div className="min-w-16 text-2xl font-slanted ml-8 p-4 tertiary-container rounded-bl-xl font-semibold">
       {client ? randomCatchPhrase : null}
     </div>
   );

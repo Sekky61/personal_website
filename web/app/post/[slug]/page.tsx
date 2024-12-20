@@ -43,8 +43,8 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
   }
 
   const heading_items = headings.map(({ value, slug }: Heading) => (
-    <li key={slug} className="pb-1">
-      <a href={`#${slug}`} className="hover:underline">
+    <li key={slug} className="ml-2">
+      <a href={`#${slug}`} className="link">
         {value}
       </a>
     </li>
@@ -53,7 +53,7 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
   return (
     <MetaBlock>
       <MetaBlockHeading>Contents</MetaBlockHeading>
-      <ul className="list-none">{heading_items}</ul>
+      <ul className="list-bullet">{heading_items}</ul>
     </MetaBlock>
   );
 };
