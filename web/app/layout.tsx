@@ -2,10 +2,10 @@ import Footer from "@common/components/layout/Footer";
 import Header from "@common/components/layout/Header";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Roboto_Flex } from "next/font/google";
 import type React from "react";
 
 import "../styles/globals.css";
+import { roboto_flex, sedgwick_ave } from "./fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -30,13 +30,6 @@ export const metadata: Metadata = {
   },
 };
 
-const roboto_flex = Roboto_Flex({
-  subsets: ["latin-ext"],
-  display: "swap",
-  axes: ["slnt", "wdth"],
-  variable: "--font-roboto-flex",
-});
-
 const used_icons = ["close", "dark_mode", "light_mode", "menu"];
 
 const googleSymbolsParams = () => {
@@ -50,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={roboto_flex.className} suppressHydrationWarning>
+    <html lang="en" className={`${roboto_flex.variable} ${sedgwick_ave.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"

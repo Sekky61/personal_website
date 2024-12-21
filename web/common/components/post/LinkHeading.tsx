@@ -16,7 +16,7 @@ const LinkHeading = ({ children }: LinkHeadingProps) => {
       aria-label="Anchor"
       className="scroll-mt-20"
     >
-      <h2 className="group text-2xl">
+      <h2 className="group headline-medium">
         <div className="absolute w-8 h-8 -ml-7 items-center hidden group-hover:flex">
           <LinkChain />
         </div>

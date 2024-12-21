@@ -46,7 +46,7 @@ const Home: NextPage = async () => {
         </div>
       </div>
       <div className="latest-posts">
-        <h2 className="heading-primary text-4xl font-semibold mb-5">
+        <h2 className="display-medium font-semibold mb-5">
           Latest posts
         </h2>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">{postCards}</ul>

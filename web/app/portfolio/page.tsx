@@ -11,9 +11,9 @@ export const dynamic = "force-static";
 const Portfolio: NextPage = async () => {
   return (
     <>
-      <h1 className="heading-primary">My portfolio</h1>
+      <h1 className="display-medium mb-4">My portfolio</h1>
       <p>Here are some of the projects I have worked on.</p>
-      <h2 className="metablock-heading">Highlighted Repositories</h2>
+      <h2 className="headline-medium my-6">Highlighted Repositories</h2>
       <div className="grid grid-cols-2 gap-4">
         {projects.map((repo) => {
           return <RepoCard repo={repo} key={repo.name} />;

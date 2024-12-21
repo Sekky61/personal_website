@@ -40,7 +40,7 @@ const ArticleSectionShown = ({
     initialInView: false,
   });
 
-  return <section ref={ref}>{children}</section>;
+  return <section ref={ref} className="my-10">{children}</section>;
 };
 
 type ArticleSectionContextType = {

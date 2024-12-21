@@ -51,7 +51,7 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
   ));
 
   return (
-    <MetaBlock>
+    <MetaBlock className="my-10">
       <MetaBlockHeading>Contents</MetaBlockHeading>
       <ul className="list-bullet">{heading_items}</ul>
     </MetaBlock>
@@ -76,14 +76,14 @@ export default async function Page(props: {
       <article className="article">
         <div className="absolute hidden lg:block top-0 left-full ml-6 mt-16 w-64 inset-y-0">
           <div className="sticky top-0 pt-14">
-            <h1 className="text-xl">Table of Contents</h1>
+            <div className="title-large">Table of Contents</div>
             <SideContents headings={article.headings} />
           </div>
         </div>
         <Link href={`/post/${article.slug}`}>
-          <h1 className="heading-primary text-5xl mb-8">{article.title}</h1>
+          <h1 className="display-large font-sedgwick-ave">{article.title}</h1>
         </Link>
-        <div className="flex divide-x mb-6">
+        <div className="flex divide-x mb-6 mt-4">
           <span className="pr-2">{formattedDate}</span>
           <span className="px-2">{article.readingTime}</span>
         </div>

@@ -13,7 +13,9 @@
 }
 
 @theme {
+  --font-sans: Roboto flex;
   --font-opensans: Open Sans;
+  --font-sedgwick-ave: Sadgewick Ave;
 
   --color-primary: var(--md-sys-color-primary);
   --color-on-primary: var(--md-sys-color-on-primary);
@@ -374,14 +376,6 @@
 
   * {
     @apply border-surface-variant;
-  }
-
-  h1 {
-    @apply text-4xl;
-  }
-
-  h2 {
-    @apply text-2xl mt-8;
   }
 
   p {

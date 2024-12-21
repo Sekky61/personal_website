@@ -19,7 +19,7 @@ const BlogListing: NextPage = async () => {
 
   return (
     <>
-      <h1 className="heading-primary mb-8">The Blog</h1>
+      <h1 className="display-medium mb-8">The Blog</h1>
       <ul className="flex flex-col gap-6">{postsCards}</ul>
     </>
   );
