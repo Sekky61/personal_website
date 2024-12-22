@@ -735,6 +735,25 @@
   :target h2 {
     @apply underline;
   }
+
+  /* Paralax image effect */
+  .paralax-image {
+    transform:
+      perspective(500px)
+      rotateY(calc((0.5 - var(--offset-x)) * 20deg))
+      rotateX(calc((var(--offset-y) - 0.5) * 20deg));
+    scale: var(--scale, 1.0);
+    transition: transform 0.2s ease-out, scale 0.2s ease-out;
+  }
+
+  .focus {
+    mask: radial-gradient(circle, #0000 15px, rgba(0, 0, 0, 0.9) 160px);
+    backdrop-filter: blur(10px);
+  }
+
+  .image-card:hover {
+    --scale: 1.03; /* bug does not react */
+  }
 }
 
 .token-message {
