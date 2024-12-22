@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
 };
 
-const used_icons = ["close", "dark_mode", "light_mode", "menu"];
+const used_icons = ["check", "close", "dark_mode", "content_copy", "light_mode", "menu"];
 
 const googleSymbolsParams = () => {
   used_icons.sort();

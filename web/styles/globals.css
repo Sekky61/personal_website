@@ -8,7 +8,7 @@
 
 @variant dark (&:is(.dark *));
 
-.material-symbols-outlined {
+@utility material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -20,6 +20,9 @@
   --font-sans: Roboto flex;
   --font-opensans: Open Sans;
   --font-sedgwick-ave: Sedgwick Ave;
+
+  --color-code-background: var(--md-sys-color-code-background);
+  --color-on-code-background: var(--md-sys-on-color-code-background);
 
   --color-primary: var(--md-sys-color-primary);
   --color-on-primary: var(--md-sys-color-on-primary);
@@ -80,7 +83,6 @@
   --color-surface-container: var(--md-sys-color-surface-container);
   --color-surface-container-high: var(--md-sys-color-surface-container-high);
   --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
-
 
   --color-primary-0: var(--md-ref-palette-primary0);
   --color-primary-5: var(--md-ref-palette-primary5);
@@ -729,6 +731,31 @@
       transition-property: background-color;
       @apply easing-linear duration-100;
     }
+  }
+
+  /* Show checkmark for one second after clicking a button */
+  .checkmark-button::after {
+    @apply easing-emphasized tertiary-container w-full h-full absolute inset-0 rounded-full p-[6px];
+    content: "check"; /* checkmark icon */
+    opacity: 0;
+    font-family: 'Material Symbols Outlined';
+    font-size: 24px;
+    -webkit-font-feature-settings: 'liga';
+  } 
+
+  .checkmark-button:active::after {
+    opacity: 1;
+    animation: hide-check 1.5s forwards;
+  }
+
+  @keyframes hide-check {
+      70% {
+          opacity: 1;
+      }
+
+      100% {
+          opacity: 0;
+      }
   }
 
   /* visited (clicked on) heading */

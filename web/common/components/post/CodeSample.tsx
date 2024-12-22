@@ -4,6 +4,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"; // cs
 
 import { type Token, getRenderer } from "@common/codeRendering";
 import { CopyButton } from "../CopyButton";
+import { Pill } from "../Pill";
 
 interface CodeProps {
   /**
@@ -35,26 +36,28 @@ const Code = (props: CodeProps) => {
   const hasFileName = fileName !== undefined && fileName !== "";
   const renderer = getRenderer(highlights);
 
+  const codeStyle = a11yDark;
+
   // Patch the style - remove margin
-  a11yDark['pre[class*="language-"]'].margin = "0px";
-  a11yDark['pre[class*="language-"]'].paddingTop = "20px";
+  codeStyle['pre[class*="language-"]'].margin = "0px";
+  codeStyle['pre[class*="language-"]'].paddingTop = "60px";
+  codeStyle['pre[class*="language-"]'].background =
+    "var(--color-code-background)";
+  console.log(codeStyle);
 
   const topBar = (
-    <div className="flex items-center justify-between p-1 pl-4">
-      <span>{fileName}</span>
-      <div className="flex gap-4 items-center">
-        <span>{language}</span>
-        <CopyButton code={code} />
-      </div>
+    <div className="absolute gap-3 inset-x-0 top-0 flex items-center p-3">
+      {fileName && <Pill>{fileName}</Pill>}
+      {language && <Pill>{language}</Pill>}
     </div>
   );
 
   return (
-    <div className="card primary-container overflow-clip">
+    <div className="card overflow-clip shape-large shadow-md shadow-primary/10 my-8 relative">
       {topBar}
       <SyntaxHighlighter
         language={language}
-        style={a11yDark}
+        style={codeStyle}
         lineNumberStyle={lineNumberStyle}
         showLineNumbers
         wrapLongLines
@@ -64,6 +67,10 @@ const Code = (props: CodeProps) => {
       >
         {code}
       </SyntaxHighlighter>
+      <CopyButton
+        className="absolute right-0 top-0 m-2 text-on-code-background"
+        code={code}
+      />
       {output && <CodeOutput output={output} />}
     </div>
   );
