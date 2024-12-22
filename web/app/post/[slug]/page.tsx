@@ -81,7 +81,7 @@ export default async function Page(props: {
           </div>
         </div>
         <Link href={`/post/${article.slug}`}>
-          <h1 className="display-large font-sedgwick-ave">{article.title}</h1>
+          <h1 className="display-large">{article.title}</h1>
         </Link>
         <div className="flex divide-x mb-6 mt-4">
           <span className="pr-2">{formattedDate}</span>
