@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { ThemeSwitch } from "@common/components/ThemeSwitch";
 import { linksToDisplay } from "@common/static";
 import { GithubLogo } from "@common/svg/GithubLogo";
 import React from "react";
@@ -21,16 +20,6 @@ const Header = () => {
           <Hamburger />
         </div>
         <div className="h-full hidden md:flex items-center">
-          <ThemeSwitch />
-          <a
-            className="w-[48px] h-[48px] p-[12px] hover:fill-primary"
-            target="_blank"
-            href="https://github.com/Sekky61"
-            rel="noreferrer noopener"
-            title="Personal GitHub page"
-          >
-            <GithubLogo />
-          </a>
           <nav className="h-full">
             <ul className="flex h-full">
               {linksToDisplay.map((link) => {
@@ -42,6 +31,15 @@ const Header = () => {
               })}
             </ul>
           </nav>
+          <a
+            className="w-[48px] h-[48px] p-[12px] hover:fill-primary"
+            target="_blank"
+            href="https://github.com/Sekky61"
+            rel="noreferrer noopener"
+            title="Personal GitHub page"
+          >
+            <GithubLogo />
+          </a>
         </div>
       </div>
     </header>
