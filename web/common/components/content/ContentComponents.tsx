@@ -1,5 +1,7 @@
 import { CustomComponent } from "./CustomComponent";
 
+// todo delete
+
 // A dictionary with the components that can be used in the content
 // of a post. The keys are the names of the components in Sanity.
 // The values are the components themselves.

@@ -11,14 +11,6 @@ import remarkMath from "remark-math";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import myRemarkSectionize from "./common/remark-sections.mjs";
 
-const STUDIO_REWRITE = {
-  source: "/admin/:path*",
-  destination:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3333/admin/:path*"
-      : "/admin/index.html",
-};
-
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
@@ -44,16 +36,6 @@ const withMDX = createMDX({
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  rewrites: async () => [STUDIO_REWRITE],
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.sanity.io",
-        pathname: "/images/**",
-      },
-    ],
-  },
 };
 
 export default withMDX(nextConfig);

@@ -1,9 +1,16 @@
 import type React from "react";
 
-import type { Token } from "@common/codeRendering";
 import 'lsp-code-sample/style.css';
 
 import { CodeSample, type CodeSampleObject, plain } from "lsp-code-sample";
+
+// One piece of line styling information, eg. make line 5 a warning
+export type Token = {
+  type: 'error' | 'warning' | 'info' | 'highlight';
+  line: number;
+  message: string;
+};
+
 
 interface CodeProps {
   /**
