@@ -17,14 +17,14 @@ export function ArticlePreviewCard({ post }: BlogPostCardProps) {
   // The image rounding of 12px is copied from stylesheet
   return (
     <Link href={postUrl(post)}>
-      <ElevatedCard className="flex group h-[200px]">
+      <ElevatedCard className="flex group h-48">
         {post.titleImage && (
-          <div className="h-full card overflow-hidden aspect-square rounded-l-medium">
+          <div className="h-full shrink-0 overflow-hidden aspect-square rounded-l-medium">
             <Image
               width={400}
               height={400}
               src={post.titleImage}
-              className="w-full h-full object-cover object-center"
+              className="h-full object-cover object-center"
               alt={post.summary ?? ""}
             />
           </div>
