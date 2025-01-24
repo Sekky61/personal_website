@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
 };
 
-const used_icons = ["check", "close", "dark_mode", "content_copy", "light_mode", "menu", "settings"];
+const used_icons = ["check", "close", "contrast", "dark_mode", "content_copy", "light_mode", "menu", "settings"];
 
 const googleSymbolsParams = () => {
   used_icons.sort();
@@ -60,7 +60,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </div>
-          <ToolMenu className="hidden md:block fixed bottom-0 right-0" />
+          <ToolMenu className="hidden md:block fixed bottom-0 right-0 m-4" />
         </ThemeProvider>
       </body>
     </html>
