@@ -14,11 +14,12 @@ export function ArticlePreviewCard({ post }: BlogPostCardProps) {
   const date = post.releaseDate;
   const formattedDate = formatDate(date);
 
+  // The image rounding of 12px is copied from stylesheet
   return (
     <Link href={postUrl(post)}>
       <ElevatedCard className="flex group h-[200px]">
         {post.titleImage && (
-          <div className="h-full card overflow-hidden aspect-square">
+          <div className="h-full card overflow-hidden aspect-square rounded-l-medium">
             <Image
               width={400}
               height={400}
