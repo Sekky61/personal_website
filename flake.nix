@@ -16,9 +16,10 @@
     ...
   }:
     flake-utils.lib.eachDefaultSystem (system: let
+      packageJson = builtins.fromJSON (builtins.readFile web/package.json);
       pkgs = nixpkgs.legacyPackages.${system};
-      pname = ""; # <same as package.json name>
-      version = "0.1.0";
+      pname = packageJson.name;
+      version = packageJson.version;
       buildInputs = with pkgs; [
         bun
       ];
@@ -27,9 +28,6 @@
     in {
       devShells.default = pkgs.mkShell {
         inherit buildInputs;
-        shellHook = ''
-          #!/usr/bin/env bash
-        '';
       };
       packages.default = pkgs.buildNpmPackage {
         inherit pname version buildInputs npmDepsHash nativeBuildInputs;
@@ -44,7 +42,7 @@
           echo "
               #!/usr/bin/env bash
               cd $lib
-              ${pkgs.nodePackages_latest.pnpm}/bin/pnpm run start" > $exe
+              ${pkgs.bun}/bin/bun run start" > $exe
         '';
       };
     });
