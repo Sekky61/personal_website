@@ -1,8 +1,8 @@
 import { ElevatedCard } from "@common/components/Card";
 import { Catchphrase } from "@common/components/Catchphrase";
 import {
-  type ArticleFrontmatter,
-  articlesFrontmatters,
+  type ArticleMetadata,
+  allArticlesMetadata,
 } from "@common/mdxLoader";
 import { formatDate, postUrl } from "@common/utils/misc";
 import type { NextPage } from "next";
@@ -16,7 +16,7 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const Home: NextPage = async () => {
-  const postsData = await articlesFrontmatters();
+  const postsData = await allArticlesMetadata();
   const postCards = postsData.slice(0, 2).map((postData) => {
     return (
       <li key={postData.slug}>
@@ -55,7 +55,7 @@ const Home: NextPage = async () => {
   );
 };
 
-const PostCard = ({ postData }: { postData: ArticleFrontmatter }) => {
+const PostCard = ({ postData }: { postData: ArticleMetadata }) => {
   // format date
   const date = postData.releaseDate;
   const formattedDate = formatDate(date);

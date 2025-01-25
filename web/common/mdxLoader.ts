@@ -1,14 +1,14 @@
 "use server";
 
 import { promises as fs } from "node:fs";
-import path from "path";
+import path from "node:path";
 import { fileReadingTime, makeSlug } from "./utils/misc";
 
-export interface ArticleFrontmatter {
+export interface ArticleMetadata {
   /**
    * The component that will be rendered
    */
-  component: any;
+  component: unknown;
 
   /**
    * Page Title — `string`
@@ -99,7 +99,7 @@ export type Source = {
   ref: string;
 };
 
-const defaultFrontmatter: ArticleFrontmatter = {
+const defaultFrontmatter: ArticleMetadata = {
   title: "",
   slug: "",
   published: false,
@@ -114,11 +114,11 @@ const defaultFrontmatter: ArticleFrontmatter = {
 
 export async function articleBySlug(
   slug: string,
-): Promise<ArticleFrontmatter | null> {
+): Promise<ArticleMetadata | null> {
   // The article will be at `content/${slug}.mdx`
   try {
     const article = await import(`../content/articles/${slug}.mdx`);
-    return importToArticle(article);
+    return importedArticleEnhancement(article);
   } catch (e) {
     console.error(`Failed to load article ${slug}.mdx`, e);
     return null;
@@ -128,7 +128,7 @@ export async function articleBySlug(
 /**
  * Optional file content to aproximate reading time
  */
-async function importToArticle(article: any): Promise<ArticleFrontmatter> {
+async function importedArticleEnhancement(article: any): Promise<ArticleMetadata> {
   const filepath = path.parse(article.filepath); // extract slug from file name
   const headings = article.tableOfContents
     .map((heading: Heading) => {
@@ -154,17 +154,17 @@ async function importToArticle(article: any): Promise<ArticleFrontmatter> {
   };
 }
 
-export async function articleSlugs(): Promise<string[]> {
+export async function allArticleSlugs(): Promise<string[]> {
   const files = await fs.readdir("./content/articles");
   return files.map((file) => file.replace(/\.mdx$/, ""));
 }
 
-export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
-  const slugs = await articleSlugs();
+export async function allArticlesMetadata(): Promise<ArticleMetadata[]> {
+  const slugs = await allArticleSlugs();
   const articles = await Promise.all(
     slugs.map(async (slug) => {
       const all = await import(`../content/articles/${slug}.mdx`);
-      return importToArticle(all);
+      return importedArticleEnhancement(all);
     }),
   );
 

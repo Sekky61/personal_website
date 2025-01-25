@@ -6,10 +6,10 @@ import { SideContents } from "@common/components/SideContents";
 import { ArticleSectionProvider } from "@common/components/post/ArticleSection";
 import { MetaBlock, MetaBlockHeading } from "@common/components/post/MetaBlock";
 import {
-  type ArticleFrontmatter,
+  type ArticleMetadata,
   type Heading,
   articleBySlug,
-  articlesFrontmatters,
+  allArticlesMetadata,
 } from "@common/mdxLoader";
 import { formatDate } from "@common/utils/misc";
 import { notFound } from "next/navigation";
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Params }) {
 }
 
 export const generateStaticParams = async () => {
-  const frontmatters = await articlesFrontmatters();
+  const frontmatters = await allArticlesMetadata();
   console.info(
     "Generating articles:",
     frontmatters.map((a) => a.slug),
@@ -59,7 +59,7 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
 };
 
 export default async function Page(props: {
-  params: Promise<ArticleFrontmatter>;
+  params: Promise<ArticleMetadata>;
 }) {
   const params = await props.params;
   const article = await articleBySlug(params.slug);

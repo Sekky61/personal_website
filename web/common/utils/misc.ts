@@ -2,7 +2,7 @@
 
 import { promises as fs } from "fs";
 import type { ParsedPath } from "path";
-import type { ArticleFrontmatter } from "@common/mdxLoader";
+import type { ArticleMetadata } from "@common/mdxLoader";
 import readingTime from "reading-time";
 
 export function formatDate(date: Date): string {
@@ -20,7 +20,7 @@ export function readingTimeFormatted(content: string): string {
   return stats.text;
 }
 
-export function postUrl(article: ArticleFrontmatter) {
+export function postUrl(article: ArticleMetadata) {
   return `/post/${article.slug}`;
 }
 

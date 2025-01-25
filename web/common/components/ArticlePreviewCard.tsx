@@ -1,4 +1,4 @@
-import type { ArticleFrontmatter } from "@common/mdxLoader";
+import type { ArticleMetadata } from "@common/mdxLoader";
 import { formatDate, postUrl } from "@common/utils/misc";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import { ElevatedCard } from "./Card";
 import { Pills } from "./Pill";
 
 interface BlogPostCardProps {
-  post: ArticleFrontmatter;
+  post: ArticleMetadata;
 }
 
 /** One item in a list of articles */
