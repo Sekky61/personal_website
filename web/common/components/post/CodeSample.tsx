@@ -1,4 +1,5 @@
 import type React from "react";
+import { promises as fs } from "node:fs";
 
 import 'lsp-code-sample/style.css';
 
@@ -10,7 +11,6 @@ export type Token = {
   line: number;
   message: string;
 };
-
 
 interface CodeProps {
   /**
@@ -25,8 +25,14 @@ interface CodeProps {
   codeSample?: CodeSampleObject;
 }
 
+type Path = string;
+
+type LspCodeProps = {
+  codeSample: CodeSampleObject | Path;
+}
+
 /** markdown blocks leave extra newline at the end */
-export function Code(props: CodeProps) {
+export function MarkdownCode(props: CodeProps) {
   const { codeSample } = props;
   // Handle ordinary code from markdown
   const code = codeSample ?? plain(props.children ?? "", {
@@ -35,5 +41,17 @@ export function Code(props: CodeProps) {
   });
 
   return <CodeSample codeSample={code} />;
+}
+
+/** markdown blocks leave extra newline at the end */
+export async function LspCode(props: LspCodeProps) {
+  console.log('rended lspcode', props.codeSample);
+  let codeSample = props.codeSample;
+  if(typeof codeSample === 'string') {
+    const file = await fs.readFile(codeSample, 'utf-8');
+    codeSample = JSON.parse(file);
+  }
+
+  return <CodeSample codeSample={codeSample} />;
 }
 

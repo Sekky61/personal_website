@@ -3,7 +3,7 @@ import CustomImage from "@common/components/post/customImage";
 import Edit from "@common/components/post/edit";
 import Table from "@common/components/post/table";
 import Tip from "@common/components/post/tip";
-import {Code} from "@components/post/CodeSample";
+import {MarkdownCode, LspCode} from "@components/post/CodeSample";
 import LinkHeading from "@components/post/LinkHeading";
 import Link from "next/link";
 import ArticleSection from "./components/post/ArticleSection";
@@ -33,14 +33,15 @@ export const mdxComponents = {
       codeTag.props.className?.replace("language-", "") || "text";
     const code = codeTag.props.children;
     return (
-      <Code language={language} {...p}>
+      <MarkdownCode language={language} {...p}>
         {code}
-      </Code>
+      </MarkdownCode>
     );
   },
   section: ArticleSection,
   img: CustomImage,
-  Code, // Manual option
+  LspCode, // Manual option
+  MarkdownCode,
   LatexInline,
   LatexBlock,
   CustomImage,

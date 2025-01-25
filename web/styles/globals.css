@@ -834,6 +834,10 @@
 
 }
 
+article > * {
+  margin-bottom: 1em;
+}
+
 .token-message {
   @apply text-white/50 ml-8;
 }

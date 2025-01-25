@@ -128,7 +128,9 @@ export async function articleBySlug(
 /**
  * Optional file content to aproximate reading time
  */
-async function importedArticleEnhancement(article: any): Promise<ArticleMetadata> {
+async function importedArticleEnhancement(
+  article: any,
+): Promise<ArticleMetadata> {
   const filepath = path.parse(article.filepath); // extract slug from file name
   const headings = article.tableOfContents
     .map((heading: Heading) => {
