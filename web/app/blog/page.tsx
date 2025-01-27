@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 
-import { allArticlesMetadata } from "@common/mdxLoader";
+import { allPublishedArticles } from "@common/mdxLoader";
 import { ArticlePreviewCard } from "@components/ArticlePreviewCard";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const BlogListing: NextPage = async () => {
-  const frontmatters = await allArticlesMetadata();
+  const frontmatters = await allPublishedArticles();
   const postsCards = frontmatters.map((post) => (
     <li key={post.slug}>
       <ArticlePreviewCard post={post} />

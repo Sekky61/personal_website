@@ -114,14 +114,14 @@ const defaultFrontmatter: ArticleMetadata = {
 
 export async function articleBySlug(
   slug: string,
-): Promise<ArticleMetadata | null> {
+): Promise<ArticleMetadata> {
   // The article will be at `content/${slug}.mdx`
   try {
     const article = await import(`../content/articles/${slug}.mdx`);
     return importedArticleEnhancement(article);
   } catch (e) {
     console.error(`Failed to load article ${slug}.mdx`, e);
-    return null;
+    throw e;
   }
 }
 
@@ -156,18 +156,21 @@ async function importedArticleEnhancement(
   };
 }
 
+/** Each file or directory in `content/articles` is an article.
+ * Slug is the file name without extension. Directory with the same name
+ * can exist and it stores assets.
+ */
 export async function allArticleSlugs(): Promise<string[]> {
-  const files = await fs.readdir("./content/articles");
-  return files.map((file) => file.replace(/\.mdx$/, ""));
+  const dirStat = await fs.readdir("./content/articles", { withFileTypes: true });
+  return dirStat
+    .filter((file) => file.isFile())
+    .map((file) => file.name.replace(/\.mdx$/, ""));
 }
 
-export async function allArticlesMetadata(): Promise<ArticleMetadata[]> {
+export async function allPublishedArticles(): Promise<ArticleMetadata[]> {
   const slugs = await allArticleSlugs();
   const articles = await Promise.all(
-    slugs.map(async (slug) => {
-      const all = await import(`../content/articles/${slug}.mdx`);
-      return importedArticleEnhancement(all);
-    }),
+    slugs.map(articleBySlug),
   );
 
   // only show published articles in production

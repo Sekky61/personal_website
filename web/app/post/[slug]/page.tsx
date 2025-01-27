@@ -9,7 +9,7 @@ import {
   type ArticleMetadata,
   type Heading,
   articleBySlug,
-  allArticlesMetadata,
+  allPublishedArticles,
 } from "@common/mdxLoader";
 import { formatDate } from "@common/utils/misc";
 import { notFound } from "next/navigation";
@@ -20,17 +20,21 @@ export async function generateMetadata({ params }: { params: Params }) {
   const slug = (await params).slug;
   const article = await articleBySlug(slug);
   return {
-    title: article?.title,
+    title: article.title,
+    description: article.summary ?? 'A blogpost by Majer',
+    authors: [{name: 'Michal Majer'}],
+    category: 'technology',
+    // todo: date?
   };
 }
 
 export const generateStaticParams = async () => {
-  const frontmatters = await allArticlesMetadata();
+  const articles = await allPublishedArticles();
   console.info(
     "Generating articles:",
-    frontmatters.map((a) => a.slug),
+    ...articles.map((a) => a.slug),
   );
-  return frontmatters;
+  return articles;
 };
 
 export const dynamic = "force-static";
@@ -63,7 +67,7 @@ export default async function Page(props: {
 }) {
   const params = await props.params;
   const article = await articleBySlug(params.slug);
-  const Post = article?.component;
+  const Post = article.component;
 
   if (!Post) {
     notFound();

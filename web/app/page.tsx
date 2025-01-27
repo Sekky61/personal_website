@@ -2,7 +2,7 @@ import { ElevatedCard } from "@common/components/Card";
 import { Catchphrase } from "@common/components/Catchphrase";
 import {
   type ArticleMetadata,
-  allArticlesMetadata,
+  allPublishedArticles,
 } from "@common/mdxLoader";
 import { formatDate, postUrl } from "@common/utils/misc";
 import type { NextPage } from "next";
@@ -16,7 +16,7 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const Home: NextPage = async () => {
-  const postsData = await allArticlesMetadata();
+  const postsData = await allPublishedArticles();
   const postCards = postsData.slice(0, 2).map((postData) => {
     return (
       <li key={postData.slug}>
