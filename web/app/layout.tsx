@@ -1,6 +1,6 @@
 import Footer from "@common/components/layout/Footer";
 import Header from "@common/components/layout/Header";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "next-themes";
 import type React from "react";
 
@@ -31,6 +31,13 @@ export const metadata: Metadata = {
     nocache: false,
   },
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 const used_icons = [
   "check",

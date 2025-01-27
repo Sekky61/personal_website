@@ -43,7 +43,13 @@ export function MarkdownCode(props: CodeProps) {
       file_name: props.fileName,
     });
 
-  return <CodeSample codeSample={code} />;
+  return (
+    <div className="w-full max-w-full">
+      <div>
+        <CodeSample codeSample={code} />
+      </div>
+    </div>
+  );
 }
 
 /**
@@ -52,10 +58,12 @@ export function MarkdownCode(props: CodeProps) {
  */
 export async function LspCode(props: LspCodeProps) {
   console.log("rendered lspcode", props.codeSample);
-  let codeSample = props.codeSample;
-  if (typeof codeSample === "string") {
-    const file = await fs.readFile(`public/${codeSample}`, "utf-8");
+  let codeSample: CodeSampleObject;
+  if (typeof props.codeSample === "string") {
+    const file = await fs.readFile(`public/${props.codeSample}`, "utf-8");
     codeSample = JSON.parse(file);
+  } else {
+    codeSample = props.codeSample;
   }
 
   return <CodeSample codeSample={codeSample} />;

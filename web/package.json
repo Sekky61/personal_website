@@ -23,7 +23,7 @@
     "@next/mdx": "^15.1.6",
     "@stefanprobst/rehype-extract-toc": "^2.2.1",
     "clsx": "^2.1.1",
-    "lsp-code-sample": "^0.4.0",
+    "lsp-code-sample": "^0.5.0",
     "material-symbols": "^0.27.2",
     "next": "^15.1.6",
     "next-themes": "^0.4.4",
