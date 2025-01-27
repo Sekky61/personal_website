@@ -126,10 +126,10 @@ export async function articleBySlug(
 }
 
 /**
- * Optional file content to aproximate reading time
+ * Optional file content to approximate reading time
  */
 async function importedArticleEnhancement(
-  article: any,
+  article: unknown,
 ): Promise<ArticleMetadata> {
   const filepath = path.parse(article.filepath); // extract slug from file name
   const headings = article.tableOfContents

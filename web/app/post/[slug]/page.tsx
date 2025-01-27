@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
 import Link from "next/link";
 
+import Image from "next/image";
 import { mdxComponents } from "@common/blockRendering";
 import { SideContents } from "@common/components/SideContents";
 import { ArticleSectionProvider } from "@common/components/post/ArticleSection";
@@ -8,8 +8,8 @@ import { MetaBlock, MetaBlockHeading } from "@common/components/post/MetaBlock";
 import {
   type ArticleMetadata,
   type Heading,
-  articleBySlug,
   allPublishedArticles,
+  articleBySlug,
 } from "@common/mdxLoader";
 import { formatDate } from "@common/utils/misc";
 import { notFound } from "next/navigation";
@@ -62,6 +62,12 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
   );
 };
 
+function DecorativeImage({imageUrl}: {imageUrl: string}) {
+  return <div className="relative overflow-hidden bg-red-500 w-full shape-extra-large aspect-6/2">
+    <Image alt="Decorative AI slop" src={imageUrl} fill className="object-cover" />
+  </div>
+}
+
 export default async function Page(props: {
   params: Promise<ArticleMetadata>;
 }) {
@@ -91,6 +97,7 @@ export default async function Page(props: {
           <span className="pr-2">{formattedDate}</span>
           <span className="px-2">{article.readingTime}</span>
         </div>
+        {article.titleImage && <DecorativeImage imageUrl={article.titleImage}/>}
         <Contents headings={article.headings} />
         <Post components={mdxComponents} />
       </article>

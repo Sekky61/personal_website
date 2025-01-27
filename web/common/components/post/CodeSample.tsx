@@ -43,12 +43,15 @@ export function MarkdownCode(props: CodeProps) {
   return <CodeSample codeSample={code} />;
 }
 
-/** markdown blocks leave extra newline at the end */
+/** 
+ * markdown blocks leave extra newline at the end.
+ * The path is relative to public folder.
+ */
 export async function LspCode(props: LspCodeProps) {
-  console.log('rended lspcode', props.codeSample);
+  console.log('rendered lspcode', props.codeSample);
   let codeSample = props.codeSample;
   if(typeof codeSample === 'string') {
-    const file = await fs.readFile(codeSample, 'utf-8');
+    const file = await fs.readFile(`public/${codeSample}`, 'utf-8');
     codeSample = JSON.parse(file);
   }
 
