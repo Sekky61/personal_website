@@ -35,10 +35,11 @@ export const RepoCard = ({ repo }: RepoCardProps) => {
       imageMissingSvg={
         <GithubLogo className="w-16 h-16 fill-light-onSecondary dark:fill-dark-onSecondary" />
       }
+      className="h-full"
     >
-      <div className="p-4 flex-grow flex flex-col">
-        <h3 className="text-xl group-hover:underline">{repo.name}</h3>
-        <p className="text-sm three-line-text-ellipsis flex-grow">
+      <div className="p-4 grow flex flex-col">
+        <h3 className="heading-medium group-hover:underline">{repo.name}</h3>
+        <p className="text-sm three-line-text-ellipsis grow">
           {repo.description}
         </p>
         <Pills texts={repo.technologies} />

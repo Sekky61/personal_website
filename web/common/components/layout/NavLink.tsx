@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@common/utils/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -14,14 +14,17 @@ type NavLinkProps = {
 export const NavLink = ({ href, label }: NavLinkProps) => {
   const path = usePathname();
   const isActive = path === href;
-  const cls = clsx(
-    "font-semibold duration-150 px-3 py-1.5 rounded-md hover:bg-secondary-90 hover:dark:bg-secondary-20 active:bg-secondary-80 active:dark:bg-secondary-30 whitespace-nowrap focus-within:ring-2 focus-within:ring-primary-40",
-    isActive && "bg-secondary-90 dark:bg-secondary-20",
+  const cls = cn(
+    "label-medium shape-full flex justify-center w-[80px] whitespace-nowrap easing-standard duration-short3 mx-2 px-3 py-1.5 group-hover:bg-secondary-90 dark:group-hover:bg-secondary-20 group-active:bg-secondary-80 dark:group-active:bg-secondary-30 group-focus-within:ring-2 group-focus-within:ring-primary-40",
+    isActive && "secondary-container",
   );
 
   return (
-    <Link className={cls} href={href}>
-      {label}
+    <Link
+      className="group focus-visible:outline-none h-full flex items-center"
+      href={href}
+    >
+      <div className={cls}>{label}</div>
     </Link>
   );
 };

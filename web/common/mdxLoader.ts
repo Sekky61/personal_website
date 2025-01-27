@@ -1,19 +1,25 @@
 "use server";
 
 import { promises as fs } from "node:fs";
-import path from "path";
+import path from "node:path";
 import { fileReadingTime, makeSlug } from "./utils/misc";
+import type { mdxComponents } from "./blockRendering";
 
-export interface ArticleFrontmatter {
+export interface ArticleMetadata {
   /**
    * The component that will be rendered
    */
-  component: any;
+  component?: React.ComponentType<{ components: typeof mdxComponents }>; // this??
 
   /**
    * Page Title — `string`
    */
   title: string;
+
+  /**
+   * Path to a title picture. The picture should be in /public.
+   */
+  titleImage?: string;
 
   /**
    * Custom URL for the blogpost
@@ -94,7 +100,7 @@ export type Source = {
   ref: string;
 };
 
-const defaultFrontmatter: ArticleFrontmatter = {
+const defaultFrontmatter: ArticleMetadata = {
   title: "",
   slug: "",
   published: false,
@@ -102,30 +108,31 @@ const defaultFrontmatter: ArticleFrontmatter = {
   tags: [],
   sources: [],
   headings: [],
-  component: null,
   filepath: "",
   readingTime: "Who knows?",
 };
 
-export async function articleBySlug(
-  slug: string,
-): Promise<ArticleFrontmatter | null> {
+export async function articleBySlug(slug: string): Promise<ArticleMetadata> {
   // The article will be at `content/${slug}.mdx`
   try {
     const article = await import(`../content/articles/${slug}.mdx`);
-    return importToArticle(article);
+    return importedArticleEnhancement(article);
   } catch (e) {
     console.error(`Failed to load article ${slug}.mdx`, e);
-    return null;
+    throw e;
   }
 }
 
 /**
- * Optional file content to aproximate reading time
+ * Optional file content to approximate reading time
  */
-async function importToArticle(article: any): Promise<ArticleFrontmatter> {
-  const filepath = path.parse(article.filepath); // extract slug from file name
-  const headings = article.tableOfContents
+async function importedArticleEnhancement(
+  article: unknown,
+): Promise<ArticleMetadata> {
+  // @ts-ignore: Untyped function, todo
+  const filepath = path.parse(article?.filepath ?? ""); // extract slug from file name
+  // @ts-ignore: Untyped function, todo
+  const headings = article?.tableOfContents
     .map((heading: Heading) => {
       return {
         value: heading.value,
@@ -135,35 +142,46 @@ async function importToArticle(article: any): Promise<ArticleFrontmatter> {
       };
     })
     .filter((heading: any) => heading.value !== "Footnotes");
-  const releaseDate = new Date(article.frontmatter.releaseDate);
+  // @ts-ignore: Untyped function, todo
+  const releaseDate = new Date(article?.frontmatter?.releaseDate);
   const readingTime = await fileReadingTime(filepath);
   return {
     ...defaultFrontmatter,
     slug: filepath.name,
     headings,
+    // @ts-ignore: Untyped function, todo
     ...article.frontmatter,
     releaseDate,
+    // @ts-ignore: Untyped function, todo
     component: article.default,
+    // @ts-ignore: Untyped function, todo
     filepath: article.filepath,
     readingTime,
   };
 }
 
-export async function articleSlugs(): Promise<string[]> {
-  const files = await fs.readdir("./content/articles");
-  return files.map((file) => file.replace(/\.mdx$/, ""));
+/** Each file or directory in `content/articles` is an article.
+ * Slug is the file name without extension. Directory with the same name
+ * can exist and it stores assets.
+ */
+export async function allArticleSlugs(): Promise<string[]> {
+  const dirStat = await fs.readdir("./content/articles", {
+    withFileTypes: true,
+  });
+  return dirStat
+    .filter((file) => file.isFile())
+    .map((file) => file.name.replace(/\.mdx$/, ""));
 }
 
-export async function articlesFrontmatters(): Promise<ArticleFrontmatter[]> {
-  const slugs = await articleSlugs();
-  const articles = await Promise.all(
-    slugs.map(async (slug) => {
-      const all = await import(`../content/articles/${slug}.mdx`);
-      return importToArticle(all);
-    }),
-  );
+export async function allPublishedArticles(): Promise<ArticleMetadata[]> {
+  const slugs = await allArticleSlugs();
+  const articles = await Promise.all(slugs.map(articleBySlug));
 
-  const published = articles.filter((post) => post.published);
+  // only show published articles in production
+  const published =
+    process.env.NODE_ENV === "production"
+      ? articles.filter((post) => post.published)
+      : articles;
 
   // sort by publication date
   return published.sort(
@@ -179,4 +197,3 @@ export async function loadContent(relativePath: string) {
   const content = await import(`../content/${relativePath}`);
   return content.default;
 }
-

@@ -24,20 +24,14 @@ export const Hamburger = () => {
     );
   });
 
-  const burger = (
-    <div className="relative flex overflow-hidden items-center justify-center rounded-lg w-8 h-8">
-      <div className="flex flex-col justify-between w-5 h-5 overflow-hidden">
-        <div className=" dark:bg-white bg-primary-10 h-[2px] w-5 origin-left" />
-        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 rounded" />
-        <div className="dark:bg-white bg-primary-10 h-[2px] w-5 origin-left" />
-      </div>
-    </div>
-  );
-
   return (
     <>
-      <button className="w-8 h-8 relative group" onClick={openModal}>
-        {burger}
+      <button
+        type="button"
+        className="w-[48px] h-[48px] p-[12px] relative group"
+        onClick={openModal}
+      >
+        <span className="material-symbols-outlined">menu</span>
       </button>
       <input
         className="hidden"
@@ -47,23 +41,14 @@ export const Hamburger = () => {
       />
       {open && (
         <div className="fixed z-50 inset-0 md:hidden">
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-xs">
             <div className="fixed w-full top-4 right-4 bg-neutral-99 dark:bg-neutral-10 rounded-lg max-w-xs shadow-lg p-6 pt-8">
-              <button onClick={closeModal} className="absolute top-4 right-4">
-                <svg
-                  className="w-6 h-6 text-neutral-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+              <button
+                type="button"
+                onClick={closeModal}
+                className="absolute top-4 right-4"
+              >
+                <span className="material-symbols-outlined">close</span>
               </button>
               <ul className="space-y-6">{links}</ul>
               <div className="pt-4 mt-4 border-t border-neutral-10 dark:border-neutral-99 flex items-center gap-2">

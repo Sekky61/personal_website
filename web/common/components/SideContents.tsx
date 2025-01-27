@@ -12,12 +12,12 @@ type SideContentsProps = {
 export const SideContents = ({ headings }: SideContentsProps) => {
   const { activeSections } = useActiveSections();
 
-  const heading_items = headings.map(({ value, slug }: Heading, index) => {
+  const heading_items = headings.map(({ value, slug }: Heading) => {
     const isActive = activeSections.includes(slug);
     return (
       <li
         key={slug}
-        className="hover:underline py-1 pl-3 border-l-2"
+        className="content-item hover:underline py-1 pl-3"
         data-active={isActive}
       >
         <a href={`#${slug}`}>{value}</a>
@@ -25,5 +25,5 @@ export const SideContents = ({ headings }: SideContentsProps) => {
     );
   });
 
-  return <ul className="ml-4 table-of-contents-animation">{heading_items}</ul>;
+  return <ul className="ml-4">{heading_items}</ul>;
 };

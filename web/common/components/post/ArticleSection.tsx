@@ -40,7 +40,11 @@ const ArticleSectionShown = ({
     initialInView: false,
   });
 
-  return <section ref={ref}>{children}</section>;
+  return (
+    <section ref={ref} className="my-10">
+      {children}
+    </section>
+  );
 };
 
 type ArticleSectionContextType = {
@@ -49,11 +53,10 @@ type ArticleSectionContextType = {
 };
 
 // context for active section
+// Used when not in an article
 const ArticleSectionContext = createContext<ArticleSectionContextType>({
   activeSections: [],
-  setSectionActive: () => {
-    console.error("setSectionActive not implemented");
-  },
+  setSectionActive: () => {},
 });
 
 // provider for active section

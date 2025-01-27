@@ -1,34 +1,37 @@
-import type { NextPage } from "next";
 import Link from "next/link";
 
 import { mdxComponents } from "@common/blockRendering";
 import { SideContents } from "@common/components/SideContents";
 import { ArticleSectionProvider } from "@common/components/post/ArticleSection";
+import { MetaBlock, MetaBlockHeading } from "@common/components/post/MetaBlock";
 import {
-  type ArticleFrontmatter,
+  type ArticleMetadata,
   type Heading,
+  allPublishedArticles,
   articleBySlug,
-  articlesFrontmatters,
 } from "@common/mdxLoader";
 import { formatDate } from "@common/utils/misc";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: { params: { slug: string } }) {
-  const article = await articleBySlug(params.slug);
+type Params = Promise<{ slug: string }>;
+
+export async function generateMetadata({ params }: { params: Params }) {
+  const slug = (await params).slug;
+  const article = await articleBySlug(slug);
   return {
-    title: article?.title,
+    title: article.title,
+    description: article.summary ?? "A blogpost by Majer",
+    authors: [{ name: "Michal Majer" }],
+    category: "technology",
+    // todo: date?
   };
 }
 
 export const generateStaticParams = async () => {
-  const frontmatters = await articlesFrontmatters();
-  console.info(
-    "Generating articles:",
-    frontmatters.map((a) => a.slug),
-  );
-  return frontmatters;
+  const articles = await allPublishedArticles();
+  console.info("Generating articles:", ...articles.map((a) => a.slug));
+  return articles;
 };
 
 export const dynamic = "force-static";
@@ -41,28 +44,46 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
   }
 
   const heading_items = headings.map(({ value, slug }: Heading) => (
-    <li key={slug} className="pb-1">
-      <a href={`#${slug}`} className="hover:underline">
+    <li key={slug} className="ml-2">
+      <a href={`#${slug}`} className="link">
         {value}
       </a>
     </li>
   ));
 
   return (
-    <div className="metablock">
-      <div className="metablock-heading">Contents</div>
-      <ul className="list-none">{heading_items}</ul>
-    </div>
+    <MetaBlock className="my-10">
+      <MetaBlockHeading>Contents</MetaBlockHeading>
+      <ul className="list-bullet">{heading_items}</ul>
+    </MetaBlock>
   );
 };
 
-type PageProps = {
-  params: ArticleFrontmatter;
-};
+function DecorativeImage({
+  imageUrl,
+  slug,
+}: { imageUrl: string; slug: string }) {
+  return (
+    <div
+      className="relative overflow-hidden w-full shape-extra-large aspect-6/2"
+      style={{ viewTransitionName: `transition-${slug}` }}
+    >
+      <Image
+        alt="Decorative AI slop"
+        src={imageUrl}
+        fill
+        className="object-cover"
+      />
+    </div>
+  );
+}
 
-const Page: NextPage<PageProps> = async ({ params }) => {
+export default async function Page(props: {
+  params: Promise<ArticleMetadata>;
+}) {
+  const params = await props.params;
   const article = await articleBySlug(params.slug);
-  const Post = article?.component;
+  const Post = article.component;
 
   if (!Post) {
     notFound();
@@ -75,22 +96,23 @@ const Page: NextPage<PageProps> = async ({ params }) => {
       <article className="article">
         <div className="absolute hidden lg:block top-0 left-full ml-6 mt-16 w-64 inset-y-0">
           <div className="sticky top-0 pt-14">
-            <h1 className="text-xl">Table of Contents</h1>
+            <div className="title-large">Table of Contents</div>
             <SideContents headings={article.headings} />
           </div>
         </div>
         <Link href={`/post/${article.slug}`}>
-          <h1 className="heading-primary text-5xl mb-8">{article.title}</h1>
+          <h1 className="display-large">{article.title}</h1>
         </Link>
-        <div className="flex divide-x mb-6">
+        <div className="flex divide-x mb-6 mt-4">
           <span className="pr-2">{formattedDate}</span>
           <span className="px-2">{article.readingTime}</span>
         </div>
+        {article.titleImage && (
+          <DecorativeImage slug={params.slug} imageUrl={article.titleImage} />
+        )}
         <Contents headings={article.headings} />
         <Post components={mdxComponents} />
       </article>
     </ArticleSectionProvider>
   );
-};
-
-export default Page;
+}

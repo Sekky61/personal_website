@@ -1,9 +1,17 @@
+import { promises as fs } from "node:fs";
 import type React from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"; // css object
 
-import { type Token, getRenderer } from "@common/codeRendering";
-import { CopyButton } from "../CopyButton";
+import "lsp-code-sample/style.css";
+
+//@ts-ignore todo: add types to the lib
+import { CodeSample, type CodeSampleObject, plain } from "lsp-code-sample";
+
+// One piece of line styling information, eg. make line 5 a warning
+export type Token = {
+  type: "error" | "warning" | "info" | "highlight";
+  line: number;
+  message: string;
+};
 
 interface CodeProps {
   /**
@@ -15,75 +23,40 @@ interface CodeProps {
   lineStart?: number;
   highlights?: Token[];
   output?: string;
+  codeSample?: CodeSampleObject;
 }
 
-const lineNumberStyle: React.CSSProperties = {
-  minWidth: "2.4em",
+type Path = string;
+
+type LspCodeProps = {
+  codeSample: CodeSampleObject | Path;
 };
 
-// Options here: https://github.com/react-syntax-highlighter/react-syntax-highlighter
-const Code = (props: CodeProps) => {
-  const {
-    children: code = "",
-    language,
-    fileName,
-    lineStart = 1,
-    highlights = [],
-    output,
-  } = props;
+/** markdown blocks leave extra newline at the end */
+export function MarkdownCode(props: CodeProps) {
+  const { codeSample } = props;
+  // Handle ordinary code from markdown
+  const code =
+    codeSample ??
+    plain(props.children ?? "", {
+      start_line: props.lineStart,
+      file_name: props.fileName,
+    });
 
-  const hasFileName = fileName !== undefined && fileName !== "";
-  const renderer = getRenderer(highlights);
+  return <CodeSample codeSample={code} />;
+}
 
-  // Patch the style - remove margin
-  a11yDark['pre[class*="language-"]'].margin = "0px";
-  a11yDark['pre[class*="language-"]'].paddingTop = "20px";
+/**
+ * markdown blocks leave extra newline at the end.
+ * The path is relative to public folder.
+ */
+export async function LspCode(props: LspCodeProps) {
+  console.log("rendered lspcode", props.codeSample);
+  let codeSample = props.codeSample;
+  if (typeof codeSample === "string") {
+    const file = await fs.readFile(`public/${codeSample}`, "utf-8");
+    codeSample = JSON.parse(file);
+  }
 
-  const topBar = (<div className="flex items-center justify-between p-1 pl-4">
-    <span>{fileName}</span>
-    <div className="flex gap-4 items-center">
-      <span>{language}</span>
-      <CopyButton code={code} />
-    </div>
-    </div>);
-
-  return (
-    <div className="card primary-cont overflow-clip">
-        {topBar}
-        <SyntaxHighlighter
-          language={language}
-          style={a11yDark}
-          lineNumberStyle={lineNumberStyle}
-          showLineNumbers
-          wrapLongLines
-          wrapLines
-          startingLineNumber={lineStart}
-          renderer={renderer}
-        >
-          {code}
-        </SyntaxHighlighter>
-      {output && <CodeOutput output={output} />}
-    </div>
-  );
-};
-
-const CodeOutput = ({ output }: any) => {
-  return (
-    <div className="relative mt-2">
-      <div className="overflow-hidden bg-white/[.08] text-white px-6 py-1 rounded-tl-lg rounded-br-lg font-mono text-sm absolute top-0 left-0">
-        Output
-      </div>
-      <SyntaxHighlighter
-        style={a11yDark}
-        showLineNumbers
-        wrapLongLines
-        wrapLines
-        lineNumberStyle={lineNumberStyle}
-      >
-        {output}
-      </SyntaxHighlighter>
-    </div>
-  );
-};
-
-export default Code;
+  return <CodeSample codeSample={codeSample} />;
+}

@@ -13,7 +13,10 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "useHookAtTopLevel":"error"
+        "useHookAtTopLevel": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "error"
       }
     }
   },

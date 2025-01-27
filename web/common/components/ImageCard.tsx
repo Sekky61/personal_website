@@ -1,4 +1,7 @@
+import { cn } from "@common/utils/cn";
 import Link from "next/link";
+import { ElevatedCard } from "./Card";
+import MouseOffsetWrapper from "./MouseOffsetTracker";
 
 type ImageCardProps = {
   imageUrl: string | null;
@@ -6,6 +9,7 @@ type ImageCardProps = {
   children: React.ReactNode;
   link: string;
   imageMissingSvg?: React.ReactNode;
+  className?: string;
 };
 
 /**
@@ -20,25 +24,30 @@ export const ImageCard = ({
   children,
   link,
   imageMissingSvg,
+  className,
 }: ImageCardProps) => {
   return (
     <Link href={link}>
-      <div className="card transition duration-150 surface-cont hover:elevation-1 group flex flex-col h-full">
-        <div className="w-full h-48 rounded-xl overflow-hidden">
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={imageAlt}
-              className="w-full h-full object-cover rounded-xl"
-            />
-          ) : (
-            <div className="w-full h-full secondary-cont flex justify-center items-center">
-              {imageMissingSvg}
+      <ElevatedCard className={cn("image-card flex flex-col", className)}>
+        <MouseOffsetWrapper>
+          <div className="w-full h-48 secondary-container rounded-xl overflow-hidden">
+            <div className="paralax-image h-full">
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt={imageAlt}
+                  className="w-full h-full object-cover rounded-xl"
+                />
+              ) : (
+                <div className="w-full h-full flex justify-center items-center rounded-xl">
+                  {imageMissingSvg}
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div className="p-4 flex-grow flex flex-col">{children}</div>
-      </div>
+          </div>
+        </MouseOffsetWrapper>
+        {children}
+      </ElevatedCard>
     </Link>
   );
 };

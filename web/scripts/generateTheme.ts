@@ -1,7 +1,7 @@
 // Load a .json file from material theme and output a tailwindcss color theme extension
 // use bun to run this script
 
-type MaterialTheme = {
+export type MaterialTheme = {
   description: string;
   seed: string;
   coreColors: any;
@@ -72,7 +72,7 @@ type SchemeColors =
   | "tertiaryFixed"
   | "tertiaryFixedDim";
 
-type PaletteName =
+export type PaletteName =
   | "neutral"
   | "neutral-variant"
   | "primary"
@@ -99,38 +99,38 @@ type PaletteNumbers =
   | "98"
   | "99";
 
-async function loadTheme(path: string): Promise<MaterialTheme> {
+export async function loadTheme(path: string): Promise<MaterialTheme> {
   const themeFile = Bun.file(path);
   const text = await themeFile.text();
   const json = JSON.parse(text) as MaterialTheme;
   return json;
 }
 
+function formatVar(palette: string, n: string) {
+  return `--md-ref-palette-${palette}${n}`;
+}
+
 /**
- * Convert the loaded material theme to a tailwindcss theme
+ * Convert the loaded material theme to material design ref tokens.
+ * For example: --md-ref-palette-error0, --md-ref-palette-secondary50
+ * Puts it inside a :root {}.
+ *
  */
 function convertToTailwind(theme: MaterialTheme) {
-  const colorExtend: object = {};
+  let output = "";
 
   // For each palette, add the palette and add DEFAULT: palette-40
   for (const paletteName in theme.palettes) {
+    output += ":root {\n";
     const palette = theme.palettes[paletteName as PaletteName];
-    const paletteWithDefault = {
-      ...palette,
-      DEFAULT: palette["40"],
-    };
-    // @ts-ignore
-    colorExtend[paletteName] = paletteWithDefault;
+    for (const tok in palette) {
+      // @ts-ignore
+      const line = `  ${formatVar(paletteName, tok)}: ${palette[tok]};\n`;
+      output += line;
+    }
+    output += "}\n";
   }
-
-  // add the schemes to colors
-  for (const schemeName in theme.schemes) {
-    const scheme = theme.schemes[schemeName as SchemeName];
-    // @ts-ignore
-    colorExtend[schemeName] = scheme;
-  }
-
-  return colorExtend;
+  return output;
 }
 
 async function main() {

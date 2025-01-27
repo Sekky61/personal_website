@@ -19,7 +19,6 @@
       "@common/*": ["common/*"],
       "@components/*": ["common/components/*"],
       "@utils/*": ["common/utils/*"],
-      "@sanity/*": ["common/utils/sanity/*"],
       "@styles/*": ["styles/*"],
       "@content/*": ["content/*"]
     },

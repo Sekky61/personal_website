@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 
-import { articlesFrontmatters } from "@common/mdxLoader";
-import BlogPostCard from "@components/BlogPostCard";
+import { allPublishedArticles } from "@common/mdxLoader";
+import { ArticlePreviewCard } from "@components/ArticlePreviewCard";
 
 export const metadata = {
   title: "Blog",
@@ -10,17 +10,17 @@ export const metadata = {
 export const dynamic = "force-static";
 
 const BlogListing: NextPage = async () => {
-  const frontmatters = await articlesFrontmatters();
+  const frontmatters = await allPublishedArticles();
   const postsCards = frontmatters.map((post) => (
     <li key={post.slug}>
-      <BlogPostCard post={post} />
+      <ArticlePreviewCard post={post} />
     </li>
   ));
 
   return (
     <>
-      <h1 className="heading-primary mb-8">The Blog</h1>
-      <ul className="flex flex-col divide-y">{postsCards}</ul>
+      <h1 className="display-medium mb-8">The Blog</h1>
+      <ul className="flex flex-col gap-6">{postsCards}</ul>
     </>
   );
 };

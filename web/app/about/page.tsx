@@ -12,7 +12,7 @@ const About: NextPage = async () => {
   const Content = await loadContent("about_me.mdx");
   return (
     <>
-      <h1 className="heading-primary">About me</h1>
+      <h1 className="display-large">About me</h1>
       <Content components={mdxComponents} />
     </>
   );

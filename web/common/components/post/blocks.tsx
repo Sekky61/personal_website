@@ -1,3 +1,5 @@
+import { MetaBlock, MetaBlockHeading } from "./MetaBlock";
+
 // Renders the footnotes of a post
 export const Footnotes = ({ children }: any) => {
   // Do not render if there are no footnotes
@@ -6,9 +8,9 @@ export const Footnotes = ({ children }: any) => {
   }
 
   return (
-    <div className="footnotes">
-      <div className="metablock-heading">Footnotes</div>
+    <MetaBlock>
+      <MetaBlockHeading>Footnotes</MetaBlockHeading>
       {children}
-    </div>
+    </MetaBlock>
   );
 };
