@@ -6,3 +6,95 @@ summary: "Declarative configs: less repetition, more bragging."
 titleImage: /articles/keybinds/title.png
 ---
 
+The sheer amount of configuration Hyprland makes available to their users is stunning.
+Today, let's take a look at one subset of them: keybinds.
+
+Not the way  
+Insert 1
+
+Way 😎  
+Insert 2
+
+
+But did you notice? The binds are just strings. I cannot do much else with strings. Ferb I know what we're doing today. Let's make our own keybind options, using structured data.
+
+In other words, instead of embedding one chunky string representing hyprland.conf (the Hyprland configuration file), we can do something like this:
+
+But why, I hear you ask. I can see you already wrote your keybinds, just let it go and do something productive\! This is of no use.
+
+As you may know, Nix allows you to write configurations in the **Nix** language.
+This configuration is later converted to a file in the format and path that the configured program or service expects.
+
+
+
+
+Sure (ouch), maybe. But I do have a usecase. I want to display all the keybinds in a cheat sheet that I could bring up with… well, another keybind. Sure, I could just copy them, maybe let an LLM turn them to JSON, but I would not keep them in sync, I know myself.
+
+## Defining custom Configuration options
+
+I believe it is possible to add configuration options directly to Hyprland’s existing options (Todo which one: windowManager.hyprland.settings), but I will keep them separate under my name like a namespace. This way I can clearly see and query my custom options.
+
+First I need a NixOS module. Modules serve for grouping related configuration. Inside a module you can import another modules, define configuration and options.
+
+When I started out with Nix, modules were a big source of confusion. Main things I would point out to a newbie besides what the wikis say is that there are some syntactic shorthands and that defined options are made available to other modules without explicit import (\!).
+
+With that said, here is the overall structure of the module for keybind options. The real work will be filling in the empty spots.
+
+Insert 3
+
+Now is the time to decide on the data types. I need a list of keybinds. A keybind will be an object (attrset in Nixspeak). Now for the requirements.
+
+There will be many, many keybinds, so it should be concise.
+
+Another requirement is to be able to bind multiple key combinations to a command and multiple commands to a key combination. This would reduce repetition and I feel it will be worth the added complexity.
+
+The syntax should map clearly to Hyprland's syntax. Firstly to make the conversion code simple, but also to make sure anything can be expressed in the new option. I would like to diverge in one way, though. The flags for a bind are one letter and they are suffixed to the word bind, like this:
+
+Insert 3.5  
+Home-manager does it like this:  
+Insert 3.6
+
+I want flags that are readable (full words instead of a letter) and per bind (unlike what home manager encourages).
+
+This is the shape I arrived at, using Typescript syntax.
+
+Insert 4
+
+Related are well-designed default values, which will further help to keep the config short.
+
+Now that I have a clear picture in mind, let's express the type in NixOS module options.
+
+Insert 5
+
+Ok, a lot is happening here. Most of it is understandable just from the attribute names, but I'd like to point out that submodule is the way to add an attrset as a child type. If there are other ways, I'd love to know them, consider leaving an issue on Github.
+
+In general, my recommendation is not to ask LLM’s about Nix specifics, rather use the Github’s code search and filter by Language:Nix. You can find how other people are using the specific expression you have trouble with.
+
+## Converting custom configuration to Hyprland's syntax
+
+Now is the time to whip out your skills from the university Haskell course. I like to break my code into named statements to imitate the imperative style I am so used to.
+
+Let's not spend much time on the specifics, though. That is not the focus of the article.
+
+## Generating a cheatsheet
+
+With the keybinds working as expected, I will reuse the same definition for generating a cheatsheet.
+
+I use Ags for all my desktop shell needs. What I need is a new window, which would be hidden by default and show up after a shortcut. This is the gist:
+
+Insert 6
+
+I didn't spend much time on the styling. After all, I know most of the binds by heart by now. I put some effort into sorting the keys into groups by keywords from the description. Good enough for now. Let me not forget to add the shortcut:
+
+Insert 7
+
+And here we go. No repetition, nocely configured.
+
+Screenshot
+
+## Results
+
+The ability to add shortcuts from another module was not lost. For example, you can conditionally add a shortcut to launch a program only if the program is installed.
+
+Example: launch chrome or discord based on what is installed
+
