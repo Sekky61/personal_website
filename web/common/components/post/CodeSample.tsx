@@ -3,6 +3,7 @@ import type React from "react";
 
 import "lsp-code-sample/style.css";
 
+//@ts-ignore todo: add types to the lib
 import { CodeSample, type CodeSampleObject, plain } from "lsp-code-sample";
 
 // One piece of line styling information, eg. make line 5 a warning

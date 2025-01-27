@@ -72,7 +72,7 @@ type SchemeColors =
   | "tertiaryFixed"
   | "tertiaryFixedDim";
 
-type PaletteName =
+export type PaletteName =
   | "neutral"
   | "neutral-variant"
   | "primary"

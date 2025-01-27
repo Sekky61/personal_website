@@ -3,12 +3,13 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileReadingTime, makeSlug } from "./utils/misc";
+import type { mdxComponents } from "./blockRendering";
 
 export interface ArticleMetadata {
   /**
    * The component that will be rendered
    */
-  component: unknown;
+  component?: React.ComponentType<{ components: typeof mdxComponents }>; // this??
 
   /**
    * Page Title — `string`
@@ -107,7 +108,6 @@ const defaultFrontmatter: ArticleMetadata = {
   tags: [],
   sources: [],
   headings: [],
-  component: null,
   filepath: "",
   readingTime: "Who knows?",
 };
@@ -129,8 +129,10 @@ export async function articleBySlug(slug: string): Promise<ArticleMetadata> {
 async function importedArticleEnhancement(
   article: unknown,
 ): Promise<ArticleMetadata> {
-  const filepath = path.parse(article.filepath); // extract slug from file name
-  const headings = article.tableOfContents
+  // @ts-ignore: Untyped function, todo
+  const filepath = path.parse(article?.filepath ?? ""); // extract slug from file name
+  // @ts-ignore: Untyped function, todo
+  const headings = article?.tableOfContents
     .map((heading: Heading) => {
       return {
         value: heading.value,
@@ -140,15 +142,19 @@ async function importedArticleEnhancement(
       };
     })
     .filter((heading: any) => heading.value !== "Footnotes");
-  const releaseDate = new Date(article.frontmatter.releaseDate);
+  // @ts-ignore: Untyped function, todo
+  const releaseDate = new Date(article?.frontmatter?.releaseDate);
   const readingTime = await fileReadingTime(filepath);
   return {
     ...defaultFrontmatter,
     slug: filepath.name,
     headings,
+    // @ts-ignore: Untyped function, todo
     ...article.frontmatter,
     releaseDate,
+    // @ts-ignore: Untyped function, todo
     component: article.default,
+    // @ts-ignore: Untyped function, todo
     filepath: article.filepath,
     readingTime,
   };

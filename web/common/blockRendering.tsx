@@ -48,4 +48,4 @@ export const mdxComponents = {
   Table,
   Tip,
   Edit,
-};
+} as const;

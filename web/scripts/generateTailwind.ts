@@ -1,9 +1,9 @@
-import { type MaterialTheme, loadTheme } from "./generateTheme";
+import { type MaterialTheme, type PaletteName, loadTheme } from "./generateTheme";
 
 function convertToTailwindColors(theme: MaterialTheme) {
   console.log("@theme {\n");
   for (const paletteName in theme.palettes) {
-    const palette = theme.palettes[paletteName];
+    const palette = theme.palettes[paletteName as PaletteName];
     for (const colorName in palette) {
       //   --color-primary-40: var(--md-ref-palette-primary40);
       const line = `  --color-${paletteName}-${colorName}: var(--md-ref-palette-${paletteName}${colorName});`;
