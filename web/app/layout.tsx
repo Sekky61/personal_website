@@ -7,6 +7,7 @@ import type React from "react";
 import "../styles/globals.css";
 import { roboto_flex, sedgwick_ave } from "./fonts";
 import { ToolMenu } from "@common/components/ToolMenu";
+import { ViewTransitions } from 'next-view-transitions'
 
 export const metadata: Metadata = {
   title: {
@@ -44,6 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+ <ViewTransitions>
     <html lang="en" className={`${roboto_flex.variable} ${sedgwick_ave.variable}`} suppressHydrationWarning>
       <head>
         <link
@@ -64,5 +66,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+ </ViewTransitions>
   );
 }

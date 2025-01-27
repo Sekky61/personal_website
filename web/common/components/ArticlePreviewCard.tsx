@@ -1,9 +1,9 @@
 import type { ArticleMetadata } from "@common/mdxLoader";
 import { formatDate, postUrl } from "@common/utils/misc";
 import Image from "next/image";
-import Link from "next/link";
 import { ElevatedCard } from "./Card";
 import { Pills } from "./Pill";
+import { Link } from "next-view-transitions";
 
 interface BlogPostCardProps {
   post: ArticleMetadata;
@@ -19,7 +19,10 @@ export function ArticlePreviewCard({ post }: BlogPostCardProps) {
     <Link href={postUrl(post)}>
       <ElevatedCard className="flex group h-48">
         {post.titleImage && (
-          <div className="h-full shrink-0 overflow-hidden aspect-square rounded-l-medium">
+          <div
+            className="h-full shrink-0 overflow-hidden aspect-square rounded-l-medium"
+            style={{ viewTransitionName: `transition-${post.slug}` }}
+          >
             <Image
               width={400}
               height={400}

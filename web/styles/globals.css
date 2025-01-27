@@ -873,3 +873,7 @@ article > * {
   overflow: hidden;
 }
 
+.title-image-view-transition {
+  view-transition-name: title-image;
+}
+

@@ -21,19 +21,16 @@ export async function generateMetadata({ params }: { params: Params }) {
   const article = await articleBySlug(slug);
   return {
     title: article.title,
-    description: article.summary ?? 'A blogpost by Majer',
-    authors: [{name: 'Michal Majer'}],
-    category: 'technology',
+    description: article.summary ?? "A blogpost by Majer",
+    authors: [{ name: "Michal Majer" }],
+    category: "technology",
     // todo: date?
   };
 }
 
 export const generateStaticParams = async () => {
   const articles = await allPublishedArticles();
-  console.info(
-    "Generating articles:",
-    ...articles.map((a) => a.slug),
-  );
+  console.info("Generating articles:", ...articles.map((a) => a.slug));
   return articles;
 };
 
@@ -62,10 +59,23 @@ const Contents = ({ headings }: { headings: Heading[] }) => {
   );
 };
 
-function DecorativeImage({imageUrl}: {imageUrl: string}) {
-  return <div className="relative overflow-hidden bg-red-500 w-full shape-extra-large aspect-6/2">
-    <Image alt="Decorative AI slop" src={imageUrl} fill className="object-cover" />
-  </div>
+function DecorativeImage({
+  imageUrl,
+  slug,
+}: { imageUrl: string; slug: string }) {
+  return (
+    <div
+      className="relative overflow-hidden w-full shape-extra-large aspect-6/2"
+      style={{ viewTransitionName: `transition-${slug}` }}
+    >
+      <Image
+        alt="Decorative AI slop"
+        src={imageUrl}
+        fill
+        className="object-cover"
+      />
+    </div>
+  );
 }
 
 export default async function Page(props: {
@@ -97,7 +107,9 @@ export default async function Page(props: {
           <span className="pr-2">{formattedDate}</span>
           <span className="px-2">{article.readingTime}</span>
         </div>
-        {article.titleImage && <DecorativeImage imageUrl={article.titleImage}/>}
+        {article.titleImage && (
+          <DecorativeImage slug={params.slug} imageUrl={article.titleImage} />
+        )}
         <Contents headings={article.headings} />
         <Post components={mdxComponents} />
       </article>
