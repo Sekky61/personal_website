@@ -1,6 +1,6 @@
+import { cn } from "@common/utils/cn";
 import Link from "next/link";
 import { ElevatedCard } from "./Card";
-import { cn } from "@common/utils/cn";
 import MouseOffsetWrapper from "./MouseOffsetTracker";
 
 type ImageCardProps = {

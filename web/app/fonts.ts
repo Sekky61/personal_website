@@ -9,6 +9,5 @@ export const roboto_flex = Roboto_Flex({
 
 export const sedgwick_ave = Sedgwick_Ave({
   subsets: ["latin-ext"],
-  weight: '400'
+  weight: "400",
 });
-

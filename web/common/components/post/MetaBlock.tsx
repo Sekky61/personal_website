@@ -10,5 +10,9 @@ export const MetaBlockHeading = ({ children }: MetaBlockProps) => {
 };
 
 export const MetaBlock = ({ children, className }: MetaBlockProps) => {
-  return <div className={cn("tertiary-container shape-large p-6", className)}>{children}</div>;
+  return (
+    <div className={cn("tertiary-container shape-large p-6", className)}>
+      {children}
+    </div>
+  );
 };

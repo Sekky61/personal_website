@@ -51,7 +51,10 @@ interface ButtonProps {
 
 const ToolMenuButton: React.FC<ButtonProps> = ({ icon }) => {
   return (
-    <div id="menu-toggle" className="cursor-pointer hover:elevation-1 w-full h-full rounded-full flex justify-center items-center">
+    <div
+      id="menu-toggle"
+      className="cursor-pointer hover:elevation-1 w-full h-full rounded-full flex justify-center items-center"
+    >
       <span className="material-symbols-outlined">{icon}</span>
     </div>
   );

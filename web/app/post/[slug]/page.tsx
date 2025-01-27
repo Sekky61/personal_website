@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import Image from "next/image";
 import { mdxComponents } from "@common/blockRendering";
 import { SideContents } from "@common/components/SideContents";
 import { ArticleSectionProvider } from "@common/components/post/ArticleSection";
@@ -12,6 +11,7 @@ import {
   articleBySlug,
 } from "@common/mdxLoader";
 import { formatDate } from "@common/utils/misc";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 type Params = Promise<{ slug: string }>;

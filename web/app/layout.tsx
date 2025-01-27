@@ -5,9 +5,9 @@ import { ThemeProvider } from "next-themes";
 import type React from "react";
 
 import "../styles/globals.css";
-import { roboto_flex, sedgwick_ave } from "./fonts";
 import { ToolMenu } from "@common/components/ToolMenu";
-import { ViewTransitions } from 'next-view-transitions'
+import { ViewTransitions } from "next-view-transitions";
+import { roboto_flex, sedgwick_ave } from "./fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +32,16 @@ export const metadata: Metadata = {
   },
 };
 
-const used_icons = ["check", "close", "contrast", "dark_mode", "content_copy", "light_mode", "menu", "settings"];
+const used_icons = [
+  "check",
+  "close",
+  "contrast",
+  "dark_mode",
+  "content_copy",
+  "light_mode",
+  "menu",
+  "settings",
+];
 
 const googleSymbolsParams = () => {
   used_icons.sort();
@@ -45,27 +54,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
- <ViewTransitions>
-    <html lang="en" className={`${roboto_flex.variable} ${sedgwick_ave.variable}`} suppressHydrationWarning>
-      <head>
-        <link
-          rel="stylesheet"
-          href={`https://fonts.googleapis.com/css2?${googleSymbolsParams()}`}
-        />
-      </head>
-      <body className="background body-large">
-        <ThemeProvider attribute="class">
-          <div className="min-h-screen grid grid-rows-layout">
-            <Header />
-            <div className="small-container relative md:mt-10 p-8">
-              <main>{children}</main>
+    <ViewTransitions>
+      <html
+        lang="en"
+        className={`${roboto_flex.variable} ${sedgwick_ave.variable}`}
+        suppressHydrationWarning
+      >
+        <head>
+          <link
+            rel="stylesheet"
+            href={`https://fonts.googleapis.com/css2?${googleSymbolsParams()}`}
+          />
+        </head>
+        <body className="background body-large">
+          <ThemeProvider attribute="class">
+            <div className="min-h-screen grid grid-rows-layout">
+              <Header />
+              <div className="small-container relative md:mt-10 p-8">
+                <main>{children}</main>
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-          <ToolMenu className="hidden md:block fixed bottom-0 right-0 m-4" />
-        </ThemeProvider>
-      </body>
-    </html>
- </ViewTransitions>
+            <ToolMenu className="hidden md:block fixed bottom-0 right-0 m-4" />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

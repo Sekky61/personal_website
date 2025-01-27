@@ -112,9 +112,7 @@ const defaultFrontmatter: ArticleMetadata = {
   readingTime: "Who knows?",
 };
 
-export async function articleBySlug(
-  slug: string,
-): Promise<ArticleMetadata> {
+export async function articleBySlug(slug: string): Promise<ArticleMetadata> {
   // The article will be at `content/${slug}.mdx`
   try {
     const article = await import(`../content/articles/${slug}.mdx`);
@@ -161,7 +159,9 @@ async function importedArticleEnhancement(
  * can exist and it stores assets.
  */
 export async function allArticleSlugs(): Promise<string[]> {
-  const dirStat = await fs.readdir("./content/articles", { withFileTypes: true });
+  const dirStat = await fs.readdir("./content/articles", {
+    withFileTypes: true,
+  });
   return dirStat
     .filter((file) => file.isFile())
     .map((file) => file.name.replace(/\.mdx$/, ""));
@@ -169,9 +169,7 @@ export async function allArticleSlugs(): Promise<string[]> {
 
 export async function allPublishedArticles(): Promise<ArticleMetadata[]> {
   const slugs = await allArticleSlugs();
-  const articles = await Promise.all(
-    slugs.map(articleBySlug),
-  );
+  const articles = await Promise.all(slugs.map(articleBySlug));
 
   // only show published articles in production
   const published =

@@ -1,9 +1,9 @@
 import type { ArticleMetadata } from "@common/mdxLoader";
 import { formatDate, postUrl } from "@common/utils/misc";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { ElevatedCard } from "./Card";
 import { Pills } from "./Pill";
-import { Link } from "next-view-transitions";
 
 interface BlogPostCardProps {
   post: ArticleMetadata;

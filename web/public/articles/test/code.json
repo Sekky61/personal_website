@@ -1,1 +1,433 @@
-{"version":"1","range":[692,704],"hover":[{"contents":{"value":"Attrset attribute `wayland`\n`{ windowManager: { hyprland: {…} } }`","kind":"markdown"},"range":{"end":{"line":692,"character":7},"start":{"line":692,"character":0}}},{"contents":{"value":"Attrset attribute `windowManager`\n`{ hyprland: { settings: {…} } }`","kind":"markdown"},"range":{"end":{"line":692,"character":21},"start":{"line":692,"character":8}}},{"contents":{"value":"Attrset attribute `hyprland`\n`{ settings: { bind: [string], bindm: [string] } }`","kind":"markdown"},"range":{"end":{"line":692,"character":30},"start":{"line":692,"character":22}}},{"contents":{"value":"Attrset attribute `settings`\n`{ bind: [string], bindm: [string] }`","kind":"markdown"},"range":{"end":{"line":693,"character":10},"start":{"line":693,"character":2}}},{"contents":{"value":"Attrset attribute `bind`\n`[string]`","kind":"markdown"},"range":{"end":{"line":694,"character":8},"start":{"line":694,"character":4}}},{"contents":{"value":"Attrset attribute `bindm`\n`[string]`","kind":"markdown"},"range":{"end":{"line":699,"character":9},"start":{"line":699,"character":4}}}],"code":"wayland.windowManager.hyprland = {\n  settings = {\n    bind = [\n      \"Alt, Tab, cyclenext\"\n      \"Super, mouse_up, workspace, +1\"\n      \"Super, mouse_down, workspace, -1\"\n    ];\n    bindm = [\n      \"Super, mouse:272, movewindow\" # left click to move window\n    ];\n  };\n};","tokens":[[{"start_col":0,"modifiers":{"definition":true},"type":"property","marked":true,"end_col":7,"line":692,"client_id":1}],[{"start_col":7,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":8,"line":692,"client_id":1}],[{"start_col":8,"modifiers":{"definition":true},"type":"property","marked":true,"end_col":21,"line":692,"client_id":1}],[{"start_col":21,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":22,"line":692,"client_id":1}],[{"start_col":22,"modifiers":{"definition":true},"type":"property","marked":true,"end_col":30,"line":692,"client_id":1}],[],[{"start_col":31,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":32,"line":692,"client_id":1}],[{"start_col":33,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":34,"line":692,"client_id":1}],[{"start_col":2,"modifiers":{"definition":true},"type":"property","marked":true,"end_col":10,"line":693,"client_id":1}],[{"start_col":11,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":12,"line":693,"client_id":1}],[{"start_col":13,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":14,"line":693,"client_id":1}],[{"start_col":4,"modifiers":{"definition":true},"type":"property","marked":true,"end_col":8,"line":694,"client_id":1}],[{"start_col":9,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":10,"line":694,"client_id":1}],[{"start_col":11,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":12,"line":694,"client_id":1}],[{"start_col":6,"modifiers":[],"type":"string","marked":true,"end_col":7,"line":695,"client_id":1}],[{"start_col":26,"modifiers":[],"type":"string","marked":true,"end_col":27,"line":695,"client_id":1}],[{"start_col":6,"modifiers":[],"type":"string","marked":true,"end_col":7,"line":696,"client_id":1}],[{"start_col":37,"modifiers":[],"type":"string","marked":true,"end_col":38,"line":696,"client_id":1}],[{"start_col":6,"modifiers":[],"type":"string","marked":true,"end_col":7,"line":697,"client_id":1}],[{"start_col":39,"modifiers":[],"type":"string","marked":true,"end_col":40,"line":697,"client_id":1}],[{"start_col":4,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":5,"line":698,"client_id":1}],[{"start_col":5,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":6,"line":698,"client_id":1}],[{"start_col":4,"modifiers":{"definition":true},"type":"property","marked":true,"end_col":9,"line":699,"client_id":1}],[{"start_col":10,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":11,"line":699,"client_id":1}],[{"start_col":12,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":13,"line":699,"client_id":1}],[{"start_col":6,"modifiers":[],"type":"string","marked":true,"end_col":7,"line":700,"client_id":1}],[{"start_col":35,"modifiers":[],"type":"string","marked":true,"end_col":36,"line":700,"client_id":1}],[{"start_col":37,"modifiers":[],"type":"comment","marked":true,"end_col":64,"line":700,"client_id":1}],[{"start_col":4,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":5,"line":701,"client_id":1}],[{"start_col":5,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":6,"line":701,"client_id":1}],[{"start_col":2,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":3,"line":702,"client_id":1}],[{"start_col":3,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":4,"line":702,"client_id":1}],[{"start_col":0,"modifiers":{"parenthesis":true},"type":"punctuation","marked":true,"end_col":1,"line":703,"client_id":1}],[{"start_col":1,"modifiers":{"delimiter":true},"type":"punctuation","marked":true,"end_col":2,"line":703,"client_id":1}]]}
+{
+  "version": "1",
+  "range": [692, 704],
+  "hover": [
+    {
+      "contents": {
+        "value": "Attrset attribute `wayland`\n`{ windowManager: { hyprland: {…} } }`",
+        "kind": "markdown"
+      },
+      "range": {
+        "end": { "line": 692, "character": 7 },
+        "start": { "line": 692, "character": 0 }
+      }
+    },
+    {
+      "contents": {
+        "value": "Attrset attribute `windowManager`\n`{ hyprland: { settings: {…} } }`",
+        "kind": "markdown"
+      },
+      "range": {
+        "end": { "line": 692, "character": 21 },
+        "start": { "line": 692, "character": 8 }
+      }
+    },
+    {
+      "contents": {
+        "value": "Attrset attribute `hyprland`\n`{ settings: { bind: [string], bindm: [string] } }`",
+        "kind": "markdown"
+      },
+      "range": {
+        "end": { "line": 692, "character": 30 },
+        "start": { "line": 692, "character": 22 }
+      }
+    },
+    {
+      "contents": {
+        "value": "Attrset attribute `settings`\n`{ bind: [string], bindm: [string] }`",
+        "kind": "markdown"
+      },
+      "range": {
+        "end": { "line": 693, "character": 10 },
+        "start": { "line": 693, "character": 2 }
+      }
+    },
+    {
+      "contents": {
+        "value": "Attrset attribute `bind`\n`[string]`",
+        "kind": "markdown"
+      },
+      "range": {
+        "end": { "line": 694, "character": 8 },
+        "start": { "line": 694, "character": 4 }
+      }
+    },
+    {
+      "contents": {
+        "value": "Attrset attribute `bindm`\n`[string]`",
+        "kind": "markdown"
+      },
+      "range": {
+        "end": { "line": 699, "character": 9 },
+        "start": { "line": 699, "character": 4 }
+      }
+    }
+  ],
+  "code": "wayland.windowManager.hyprland = {\n  settings = {\n    bind = [\n      \"Alt, Tab, cyclenext\"\n      \"Super, mouse_up, workspace, +1\"\n      \"Super, mouse_down, workspace, -1\"\n    ];\n    bindm = [\n      \"Super, mouse:272, movewindow\" # left click to move window\n    ];\n  };\n};",
+  "tokens": [
+    [
+      {
+        "start_col": 0,
+        "modifiers": { "definition": true },
+        "type": "property",
+        "marked": true,
+        "end_col": 7,
+        "line": 692,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 7,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 8,
+        "line": 692,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 8,
+        "modifiers": { "definition": true },
+        "type": "property",
+        "marked": true,
+        "end_col": 21,
+        "line": 692,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 21,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 22,
+        "line": 692,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 22,
+        "modifiers": { "definition": true },
+        "type": "property",
+        "marked": true,
+        "end_col": 30,
+        "line": 692,
+        "client_id": 1
+      }
+    ],
+    [],
+    [
+      {
+        "start_col": 31,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 32,
+        "line": 692,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 33,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 34,
+        "line": 692,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 2,
+        "modifiers": { "definition": true },
+        "type": "property",
+        "marked": true,
+        "end_col": 10,
+        "line": 693,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 11,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 12,
+        "line": 693,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 13,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 14,
+        "line": 693,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 4,
+        "modifiers": { "definition": true },
+        "type": "property",
+        "marked": true,
+        "end_col": 8,
+        "line": 694,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 9,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 10,
+        "line": 694,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 11,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 12,
+        "line": 694,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 6,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 7,
+        "line": 695,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 26,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 27,
+        "line": 695,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 6,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 7,
+        "line": 696,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 37,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 38,
+        "line": 696,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 6,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 7,
+        "line": 697,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 39,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 40,
+        "line": 697,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 4,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 5,
+        "line": 698,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 5,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 6,
+        "line": 698,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 4,
+        "modifiers": { "definition": true },
+        "type": "property",
+        "marked": true,
+        "end_col": 9,
+        "line": 699,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 10,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 11,
+        "line": 699,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 12,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 13,
+        "line": 699,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 6,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 7,
+        "line": 700,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 35,
+        "modifiers": [],
+        "type": "string",
+        "marked": true,
+        "end_col": 36,
+        "line": 700,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 37,
+        "modifiers": [],
+        "type": "comment",
+        "marked": true,
+        "end_col": 64,
+        "line": 700,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 4,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 5,
+        "line": 701,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 5,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 6,
+        "line": 701,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 2,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 3,
+        "line": 702,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 3,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 4,
+        "line": 702,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 0,
+        "modifiers": { "parenthesis": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 1,
+        "line": 703,
+        "client_id": 1
+      }
+    ],
+    [
+      {
+        "start_col": 1,
+        "modifiers": { "delimiter": true },
+        "type": "punctuation",
+        "marked": true,
+        "end_col": 2,
+        "line": 703,
+        "client_id": 1
+      }
+    ]
+  ]
+}

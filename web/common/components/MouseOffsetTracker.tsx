@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import type React from "react";
-import { useRef, type ReactNode } from "react";
+import { type ReactNode, useRef } from "react";
 
 interface MouseOffsetWrapperProps {
   children: ReactNode;
@@ -9,13 +9,16 @@ interface MouseOffsetWrapperProps {
 
 const offsetDefault = "0.5";
 
-const MouseOffsetWrapper: React.FC<MouseOffsetWrapperProps> = ({ children }) => {
+const MouseOffsetWrapper: React.FC<MouseOffsetWrapperProps> = ({
+  children,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
 
-    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+    const { left, top, width, height } =
+      containerRef.current.getBoundingClientRect();
     const offsetX = Math.min(Math.max((e.clientX - left) / width, 0), 1);
     const offsetY = Math.min(Math.max((e.clientY - top) / height, 0), 1);
 
@@ -30,7 +33,6 @@ const MouseOffsetWrapper: React.FC<MouseOffsetWrapperProps> = ({ children }) => 
     containerRef.current.style.setProperty("--offset-x", offsetDefault);
     containerRef.current.style.setProperty("--offset-y", offsetDefault);
   };
-
 
   return (
     <div

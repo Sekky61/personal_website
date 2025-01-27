@@ -20,7 +20,10 @@ export const NavLink = ({ href, label }: NavLinkProps) => {
   );
 
   return (
-    <Link className="group focus-visible:outline-none h-full flex items-center" href={href}>
+    <Link
+      className="group focus-visible:outline-none h-full flex items-center"
+      href={href}
+    >
       <div className={cls}>{label}</div>
     </Link>
   );
