@@ -1,3 +1,4 @@
+import { ArticlePreviewCard } from "@common/components/ArticlePreviewCard";
 import { ElevatedCard } from "@common/components/Card";
 import { Catchphrase } from "@common/components/Catchphrase";
 import {
@@ -20,7 +21,7 @@ const Home: NextPage = async () => {
   const postCards = postsData.slice(0, 2).map((postData) => {
     return (
       <li key={postData.slug}>
-        <PostCard postData={postData} />
+        <ArticlePreviewCard post={postData} />
       </li>
     );
   });
@@ -52,23 +53,6 @@ const Home: NextPage = async () => {
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">{postCards}</ul>
       </div>
     </>
-  );
-};
-
-const PostCard = ({ postData }: { postData: ArticleMetadata }) => {
-  // format date
-  const date = postData.releaseDate;
-  const formattedDate = formatDate(date);
-  const text = postData.summary;
-
-  return (
-    <Link href={postUrl(postData)}>
-      <ElevatedCard className="flex flex-col h-full p-4">
-        <h3 className="text-xl group-hover:underline">{postData.title}</h3>
-        <p className="label-large text-gray-500">{formattedDate}</p>
-        <p className="three-line-text-ellipsis grow">{text}</p>
-      </ElevatedCard>
-    </Link>
   );
 };
 

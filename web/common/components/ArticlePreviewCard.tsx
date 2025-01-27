@@ -17,17 +17,16 @@ export function ArticlePreviewCard({ post }: BlogPostCardProps) {
   // The image rounding of 12px is copied from stylesheet
   return (
     <Link href={postUrl(post)}>
-      <ElevatedCard className="flex group h-48">
+      <ElevatedCard className="@container flex flex-col @3xs:flex-row group @md:h-48">
         {post.titleImage && (
           <div
-            className="h-full shrink-0 overflow-hidden aspect-square rounded-l-medium"
+            className="bg-surface-container-high h-30 @md:h-full w-full @md:w-[200px] relative shrink-0 overflow-hidden aspect-square rounded-t-medium @md:rounded-r-none @md:rounded-l-medium"
             style={{ viewTransitionName: `transition-${post.slug}` }}
           >
             <Image
-              width={400}
-              height={400}
+              fill
               src={post.titleImage}
-              className="h-full object-cover object-center"
+              className="object-cover object-center"
               alt={post.summary ?? ""}
             />
           </div>
