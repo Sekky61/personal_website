@@ -57,7 +57,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html
         lang="en"
-        className={`${roboto_flex.variable} ${sedgwick_ave.variable}`}
+        className={`${roboto_flex.variable} ${sedgwick_ave.className}`}
         suppressHydrationWarning
       >
         <head>
