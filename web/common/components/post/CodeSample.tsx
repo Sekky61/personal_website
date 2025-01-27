@@ -43,7 +43,13 @@ export function MarkdownCode(props: CodeProps) {
       file_name: props.fileName,
     });
 
-  return <CodeSample codeSample={code} />;
+  return (
+    <div className="w-full max-w-full">
+      <div>
+        <CodeSample codeSample={code} />
+      </div>
+    </div>
+  );
 }
 
 /**
