@@ -6,39 +6,62 @@ summary: "Declarative configs: less repetition, more bragging."
 titleImage: /articles/keybinds/title.png
 ---
 
-The sheer amount of configuration Hyprland makes available to their users is stunning.
-Today, let's take a look at one subset of them: keybinds.
+## Intro
 
-Not the way  
-Insert 1
+The sheer amount of configuration options Hyprland makes available to their users is stunning.
+It's also accompanied by thorough documentation, which I do not take for granted.
+In this article, we'll focus on one particularly versatile feature: [keybinds](https://wiki.hyprland.org/Configuring/Binds/).
 
-Way 😎  
-Insert 2
-
-
-But did you notice? The binds are just strings. I cannot do much else with strings. Ferb I know what we're doing today. Let's make our own keybind options, using structured data.
-
+We'll use Nix, a tool that turns configuring software into a delight.
+Nix lets you write configurations in its declarative language, translating them into files the target program expects.
 In other words, instead of embedding one chunky string representing hyprland.conf (the Hyprland configuration file), we can do something like this:
 
-But why, I hear you ask. I can see you already wrote your keybinds, just let it go and do something productive\! This is of no use.
+Insert 1
 
-As you may know, Nix allows you to write configurations in the **Nix** language.
-This configuration is later converted to a file in the format and path that the configured program or service expects.
+But did you notice?
+The binds are just strings.
+I cannot do much else with strings.
+Ferb, I know what we're doing today.
+Let's make our own structured keybind options.
 
+This is the configuration interface we will end up with at the end of this article:
 
+Insert 2
 
+But why, I hear you ask.
+I can see you already wrote your keybinds, just let it go and do something productive\!
+This is of no use.
 
-Sure (ouch), maybe. But I do have a usecase. I want to display all the keybinds in a cheat sheet that I could bring up with… well, another keybind. Sure, I could just copy them, maybe let an LLM turn them to JSON, but I would not keep them in sync, I know myself.
+Sure (ouch), maybe.
+But that is not all.
+I have a usecase: to display all the keybinds in a cheat sheet.
+Sure, I could just copy them, maybe let an LLM turn them to JSON.
+But I would not keep them in sync, I know myself.
 
-## Defining custom Configuration options
+## Custom Configuration Options in Hyprland
 
-I believe it is possible to add configuration options directly to Hyprland’s existing options (Todo which one: windowManager.hyprland.settings), but I will keep them separate under my name like a namespace. This way I can clearly see and query my custom options.
+While it's possible to integrate custom configuration directly into Hyprland's home-manager options (`wayland.windowManager.hyprland.settings`), I prefer to create a separate namespace for better organization and visibility.
+This approach makes it easier to query and maintain custom options.
 
-First I need a NixOS module. Modules serve for grouping related configuration. Inside a module you can import another modules, define configuration and options.
+### Understanding NixOS Modules
 
-When I started out with Nix, modules were a big source of confusion. Main things I would point out to a newbie besides what the wikis say is that there are some syntactic shorthands and that defined options are made available to other modules without explicit import (\!).
+To implement custom configuration, we first need to create a NixOS module.
+Modules in NixOS serve as groupings of related configuration settings and can:
+- Import other modules
+- Define new configuration options
+- Implement configuration logic
 
-With that said, here is the overall structure of the module for keybind options. The real work will be filling in the empty spots.
+For those new to Nix, modules can present a challenge.
+It was certainly hard for me.
+Two key insights that helped me understand modules better:
+1. Nix provides several syntactic shortcuts that aren't immediately obvious (omitting `options` etc.)
+2. Options defined in one module become automatically available to other modules without explicit imports (this was surprising!)
+
+### Module Structure for Keybindings
+
+Below is the basic framework for our keybinding options module.
+
+[Module structure would go here]
 
 Insert 3
 
