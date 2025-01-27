@@ -14,6 +14,9 @@
       "recommended": true,
       "correctness": {
         "useHookAtTopLevel": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "error"
       }
     }
   },
