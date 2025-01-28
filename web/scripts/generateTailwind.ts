@@ -1,4 +1,8 @@
-import { type MaterialTheme, type PaletteName, loadTheme } from "./generateTheme";
+import {
+  type MaterialTheme,
+  type PaletteName,
+  loadTheme,
+} from "./generateTheme";
 
 function convertToTailwindColors(theme: MaterialTheme) {
   console.log("@theme {\n");
