@@ -1,0 +1,132 @@
+[
+  {
+    "name": "This website",
+    "link": "https://github.com/Sekky61/personal_website",
+    "description": "Self referential!",
+    "technologies": ["NextJS", "TS"],
+    "githubData": {
+      "name": "personal_website",
+      "description": "Personal website and portfolio",
+      "updated_at": "2024-05-20T09:17:19Z",
+      "language": "TypeScript"
+    },
+    "img": "/img/portfolio/thiswebsite.png"
+  },
+  {
+    "name": "RISC-V simulator",
+    "link": "https://github.com/Sekky61/riscv-sim",
+    "description": "Superscalar processor simulator",
+    "technologies": ["Java", "NextJS"],
+    "githubData": {
+      "name": "riscv-sim",
+      "description": "Web-based RISC-V superscalar simulator",
+      "updated_at": "2024-09-22T21:19:59Z",
+      "language": "Java"
+    },
+    "img": "/img/portfolio/riscvsim.png"
+  },
+  {
+    "name": "Nix config",
+    "link": "https://github.com/Sekky61/nix-config",
+    "description": "NixOS configuration files",
+    "technologies": ["Nix", "Bash"],
+    "githubData": {
+      "name": "nix-config",
+      "description": "My NixOS system configuration",
+      "updated_at": "2024-07-29T16:31:43Z",
+      "language": "Lua"
+    },
+    "img": "/img/portfolio/nixos.png"
+  },
+  {
+    "name": "Advent of Code solutions",
+    "link": "https://github.com/Sekky61/rust-iterator-aoc",
+    "description": "Solution to some AoC challanges using iterators in Rust",
+    "technologies": ["Rust", "Functional"],
+    "githubData": {
+      "name": "rust-iterator-aoc",
+      "description": "Advent of Code challanges solved using Rust's iterators and functional programming",
+      "updated_at": "2023-07-18T09:08:37Z",
+      "language": "Rust"
+    },
+    "img": "/img/portfolio/aoc.jpg"
+  },
+  {
+    "name": "Katana",
+    "link": "https://github.com/Sekky61/Katana",
+    "description": "P2P in-browser file transfer using PeerJS library",
+    "technologies": ["TS", "React"],
+    "githubData": {
+      "name": "Katana",
+      "description": "P2P file transfer in browser using PeerJS",
+      "updated_at": "2024-09-11T16:37:19Z",
+      "language": "TypeScript"
+    },
+    "img": "/img/portfolio/katana.png"
+  },
+  {
+    "name": "Volumetric raycaster",
+    "link": "https://github.com/Sekky61/raycaster_lib",
+    "description": "My bachelor's thesis. SW renderer of volumetric data.",
+    "technologies": ["Rust", "Computer graphics"],
+    "githubData": {
+      "name": "raycaster_lib",
+      "description": null,
+      "updated_at": "2022-06-15T23:35:34Z",
+      "language": "Rust"
+    },
+    "img": "/img/portfolio/volumetricraycast.png"
+  },
+  {
+    "name": "Vanilla Stamp",
+    "link": "https://github.com/Sekky61/vanilla-stamp",
+    "description": "Simple JS tool to generate JS functions",
+    "technologies": ["JS"],
+    "githubData": {
+      "name": "vanilla-stamp",
+      "description": "Create HTML components with vanilla JS",
+      "updated_at": "2024-04-26T18:57:27Z",
+      "language": "JavaScript"
+    },
+    "img": "/img/portfolio/vanillastamp.png"
+  },
+  {
+    "name": "Domain history",
+    "link": "https://github.com/Sekky61/domain-history",
+    "description": "Google Chrome extension to quickly see history filtered by current domain",
+    "technologies": ["JS"],
+    "githubData": {
+      "name": "domain-history",
+      "description": "Google Chrome extension for quick history navigation in a domain",
+      "updated_at": "2023-04-20T21:44:38Z",
+      "language": "JavaScript"
+    },
+    "img": null
+  },
+  {
+    "name": "CSS school project",
+    "link": "https://github.com/Sekky61/itw",
+    "description": "Replicating design of a website using CSS",
+    "technologies": ["CSS"],
+    "githubData": {
+      "name": "itw",
+      "description": "ITW school project, VUT. Replicating the CSS based on a picture.",
+      "updated_at": "2024-01-29T19:37:25Z",
+      "language": "HTML"
+    },
+    "img": "/img/portfolio/css.png"
+  },
+  {
+    "name": "MQTT inspector",
+    "link": "https://github.com/Sekky61/MQTT-monitor",
+    "description": "GUI inspector of MQTT traffic",
+    "technologies": ["C++", "QT"],
+    "githubData": {
+      "name": "MQTT-monitor",
+      "description": "BUT FIT 4th semester - seminář c++ - projekt. MQTT traffic monitor",
+      "updated_at": "2024-01-29T19:36:14Z",
+      "language": "C++"
+    },
+    "img": null
+  }
+]

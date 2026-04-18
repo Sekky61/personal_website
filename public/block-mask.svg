@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" width="200" height="400"> <!-- row 1 -->
+  <rect x="0" y="0" width="100" height="100" fill="black" />
+  <rect x="100" y="0" width="100" height="100" fill="white" />
+  
+  <!-- row 2 -->
+  <rect x="0" y="100" width="100" height="100" fill="white" />
+  <rect x="100" y="100" width="100" height="100" fill="black" />
+  
+  <!-- row 3 -->
+  <rect x="0" y="200" width="100" height="100" fill="black" />
+  <rect x="100" y="200" width="100" height="100" fill="white" />
+  
+  <!-- row 4 -->
+  <rect x="0" y="300" width="100" height="100" fill="white" />
+  <rect x="100" y="300" width="100" height="100" fill="black" />
+</svg>

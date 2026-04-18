@@ -1,0 +1,31 @@
+import type { Repo } from '../lib/content'
+import { ElevatedCard } from './Card'
+import { Pills } from './Pill'
+
+export function RepoCard({ repo }: { repo: Repo }) {
+  return (
+    <a href={repo.link} target="_blank" rel="noreferrer noopener" className="block h-full no-underline">
+      <ElevatedCard className="image-card flex h-full flex-col">
+        <div className="secondary-container m-4 mb-0 flex h-48 w-auto items-center justify-center overflow-hidden rounded-xl">
+          {repo.img ? (
+            <img
+              src={repo.img}
+              alt={repo.name}
+              className="h-full w-full object-cover rounded-xl"
+            />
+          ) : (
+            <div className="headline-small px-4 text-center font-semibold">
+              {repo.githubData.name}
+            </div>
+          )}
+        </div>
+
+        <div className="flex grow flex-col p-4">
+          <h3 className="heading-medium m-0 mb-2">{repo.name}</h3>
+          <p className="three-line-text-ellipsis grow text-sm">{repo.description}</p>
+          <Pills texts={repo.technologies} />
+        </div>
+      </ElevatedCard>
+    </a>
+  )
+}
