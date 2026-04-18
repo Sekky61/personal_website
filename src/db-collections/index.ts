@@ -1,20 +1,26 @@
 import {
   createCollection,
-  localOnlyCollectionOptions,
-} from '@tanstack/react-db'
-import { z } from 'zod'
+  localStorageCollectionOptions,
+} from "@tanstack/react-db";
+import { z } from "zod";
+import {
+  THEME_COLLECTION_ID,
+  THEME_PREFERENCE_ID,
+  THEME_STORAGE_KEY,
+} from "#/lib/theme";
 
-const MessageSchema = z.object({
-  id: z.number(),
-  text: z.string(),
-  user: z.string(),
-})
+const ThemePreferenceSchema = z.object({
+  id: z.literal(THEME_PREFERENCE_ID),
+  mode: z.enum(["light", "dark", "auto"]),
+});
 
-export type Message = z.infer<typeof MessageSchema>
+export type ThemePreference = z.infer<typeof ThemePreferenceSchema>;
 
-export const messagesCollection = createCollection(
-  localOnlyCollectionOptions({
-    getKey: (message) => message.id,
-    schema: MessageSchema,
+export const themeCollection = createCollection(
+  localStorageCollectionOptions({
+    id: THEME_COLLECTION_ID,
+    storageKey: THEME_STORAGE_KEY,
+    getKey: (themePreference) => themePreference.id,
+    schema: ThemePreferenceSchema,
   }),
-)
+);

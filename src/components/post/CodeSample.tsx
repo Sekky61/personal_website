@@ -1,9 +1,9 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import "lsp-code-sample/style.css";
 import {
+  type CodeSampleObject,
   CodeSample as LspCodeSample,
   plain,
-  type CodeSampleObject,
 } from "lsp-code-sample";
 
 type Token = {

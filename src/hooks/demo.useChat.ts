@@ -1,62 +1,101 @@
-import { useEffect, useRef } from 'react'
-import { useLiveQuery } from '@tanstack/react-db'
+import { useEffect, useSyncExternalStore } from "react";
 
-import { messagesCollection, type Message } from '#/db-collections'
+export type Message = {
+  id: number;
+  text: string;
+  user: string;
+};
 
-import type { Collection } from '@tanstack/react-db'
+const messagesListeners = new Set<() => void>();
+let messages: Message[] = [];
+let streamStarted = false;
 
-function useStreamConnection(
-  url: string,
-  collection: Collection<any, any, any>,
-) {
-  const loadedRef = useRef(false)
+function notifyMessagesListeners() {
+  for (const listener of messagesListeners) {
+    listener();
+  }
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (loadedRef.current) return
-      loadedRef.current = true
+function appendMessage(message: Message) {
+  messages = [...messages, message];
+  notifyMessagesListeners();
+}
 
-      const response = await fetch(url)
-      const reader = response.body?.getReader()
-      if (!reader) {
-        return
+function subscribeToMessages(listener: () => void) {
+  messagesListeners.add(listener);
+
+  return () => {
+    messagesListeners.delete(listener);
+  };
+}
+
+function getMessagesSnapshot() {
+  return messages;
+}
+
+function startStreamConnection(url: string) {
+  if (streamStarted) {
+    return;
+  }
+
+  streamStarted = true;
+
+  const fetchData = async () => {
+    const response = await fetch(url);
+    const reader = response.body?.getReader();
+    if (!reader) {
+      return;
+    }
+
+    const decoder = new TextDecoder();
+    let bufferedChunk = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
       }
 
-      const decoder = new TextDecoder()
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        for (const chunk of decoder
-          .decode(value, { stream: true })
-          .split('\n')
-          .filter((chunk) => chunk.length > 0)) {
-          collection.insert(JSON.parse(chunk))
-        }
+      bufferedChunk += decoder.decode(value, { stream: true });
+      const chunks = bufferedChunk.split("\n");
+      bufferedChunk = chunks.pop() ?? "";
+
+      for (const chunk of chunks.filter((part) => part.length > 0)) {
+        appendMessage(JSON.parse(chunk));
       }
     }
-    fetchData()
-  }, [])
+
+    if (bufferedChunk.length > 0) {
+      appendMessage(JSON.parse(bufferedChunk));
+    }
+  };
+
+  void fetchData();
+}
+
+function useStreamConnection(url: string) {
+  useEffect(() => {
+    startStreamConnection(url);
+  }, [url]);
 }
 
 export function useChat() {
-  useStreamConnection('/demo/db-chat-api', messagesCollection)
+  useStreamConnection("/demo/db-chat-api");
 
   const sendMessage = (message: string, user: string) => {
-    fetch('/demo/db-chat-api', {
-      method: 'POST',
+    fetch("/demo/db-chat-api", {
+      method: "POST",
       body: JSON.stringify({ text: message.trim(), user: user.trim() }),
-    })
-  }
+    });
+  };
 
-  return { sendMessage }
+  return { sendMessage };
 }
 
 export function useMessages() {
-  const { data: messages } = useLiveQuery((q) =>
-    q.from({ message: messagesCollection }).select(({ message }) => ({
-      ...message,
-    })),
-  )
-
-  return messages as Message[]
+  return useSyncExternalStore(
+    subscribeToMessages,
+    getMessagesSnapshot,
+    () => [],
+  );
 }
