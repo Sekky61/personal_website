@@ -12,3 +12,4 @@ dist-ssr
 .vite
 __unconfig*
 todos.json
+test-results/
