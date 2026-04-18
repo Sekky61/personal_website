@@ -1,15 +1,15 @@
+import { useLiveQuery } from "@tanstack/react-db";
+import { ClientOnly } from "@tanstack/react-router";
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ClientOnly } from "@tanstack/react-router";
-import { useLiveQuery } from "@tanstack/react-db";
 
 import { themeCollection } from "#/db-collections";
 import {
-  LEGACY_THEME_STORAGE_KEY,
-  THEME_PREFERENCE_ID,
   applyThemeMode,
   getLegacyStoredThemeMode,
   getStoredThemeMode,
+  LEGACY_THEME_STORAGE_KEY,
+  THEME_PREFERENCE_ID,
   type ThemeMode,
 } from "#/lib/theme";
 
