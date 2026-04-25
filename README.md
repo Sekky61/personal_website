@@ -8,7 +8,7 @@ This project is my personal website - a portfolio website and a blog website.
 See the website deployed [here](https://personal-website-ten-omega-54.vercel.app/).
 
 Technologies used:
-- [TanStack Start](https://tanstack.com/start).
+- [TanStack Start](https://tanstack.com/start)
 - [TailwindCSS](https://tailwindcss.com/)
 
 ## Authoring articles
