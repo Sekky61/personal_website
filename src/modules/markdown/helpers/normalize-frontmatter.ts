@@ -3,7 +3,7 @@ import type { MarkdownFrontmatter } from "../types";
 import { frontmatterType } from "./frontmatter-type";
 
 export function normalizeFrontmatter(
-  data: Record<string, unknown>,
+  data: unknown,
 ): MarkdownFrontmatter {
   const parsedFrontmatter = frontmatterType(data);
 
