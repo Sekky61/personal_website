@@ -12,3 +12,9 @@ skills:
   - task: "working on app or Vite devtools setup"
     load: "node_modules/@tanstack/devtools/skills/devtools-app-setup/SKILL.md"
 <!-- intent-skills:end -->
+
+# Module conventions
+
+- Do not create `index.ts` files for local modules.
+- When creating a module such as `src/modules/markdown`, split it into focused files instead of aggregating logic in one file. Use module subdirectories like `helpers/`, `constants/`, `components/`
+- Keep one function or one constant per file.
