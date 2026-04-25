@@ -1,12 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { RepoCard } from '../components/RepoCard'
 import { getRepositories } from '../lib/content'
+import { pageTitle } from '../lib/metadata/page-title'
 
 export const Route = createFileRoute('/portfolio')({
   head: () => ({
     meta: [
       {
-        title: 'Portfolio | Majer',
+        title: pageTitle('Portfolio'),
       },
     ],
   }),

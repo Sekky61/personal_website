@@ -2,17 +2,18 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ArticlePreviewCard } from '../components/ArticlePreviewCard'
 import { Catchphrase } from '../components/Catchphrase'
 import { getLatestArticles } from '../lib/content'
-import { siteDescription } from '../lib/site'
+import { APP_DATA } from '../lib/metadata/app-data'
+import { pageTitle } from '../lib/metadata/page-title'
 
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
       {
-        title: 'Majer',
+        title: pageTitle(null),
       },
       {
         name: 'description',
-        content: siteDescription,
+        content: APP_DATA.appDescription,
       },
     ],
   }),

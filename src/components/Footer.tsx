@@ -1,4 +1,4 @@
-import { feedbackUrl } from '../lib/site'
+import { APP_DATA } from '../lib/metadata/app-data'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -6,12 +6,12 @@ export default function Footer() {
   return (
     <footer className="mt-10 px-4 py-4">
       <div className="small-container flex flex-col gap-2">
-        <div>Michal Majer, {year}</div>
+        <div>{APP_DATA.authorName}, {year}</div>
         <div className="flex flex-wrap gap-1">
           <span>Got feedback? Visit</span>
           <a
             target="_blank"
-            href={feedbackUrl}
+            href={APP_DATA.feedbackUrl}
             rel="noreferrer noopener"
             className="link"
           >

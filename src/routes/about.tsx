@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getAboutContent } from "../lib/content";
+import { pageTitle } from "../lib/metadata/page-title";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       {
-        title: "About me | Majer",
+        title: pageTitle("About me"),
       },
     ],
   }),

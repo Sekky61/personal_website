@@ -1,12 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ArticlePreviewCard } from '../components/ArticlePreviewCard'
 import { getArticlePreviews } from '../lib/content'
+import { pageTitle } from '../lib/metadata/page-title'
 
 export const Route = createFileRoute('/blog')({
   head: () => ({
     meta: [
       {
-        title: 'Blog | Majer',
+        title: pageTitle('Blog'),
       },
     ],
   }),

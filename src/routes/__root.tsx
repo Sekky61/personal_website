@@ -12,7 +12,7 @@ import Header from "../components/Header";
 import ThemeProvider from "../components/ThemeProvider";
 import { mdxComponents } from "../components/post/blockRendering";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
-import { siteDescription, siteName } from "../lib/site";
+import { APP_DATA } from "../lib/metadata/app-data";
 import appCss from "../styles.css?url";
 
 interface MyRouterContext {
@@ -30,11 +30,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: siteName,
+        title: APP_DATA.appName,
       },
       {
         name: "description",
-        content: siteDescription,
+        content: APP_DATA.appDescription,
       },
     ],
     links: [

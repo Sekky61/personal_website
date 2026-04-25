@@ -1,8 +1,23 @@
 import { Link } from '@tanstack/react-router'
 import { Github, Menu, X } from 'lucide-react'
 import { useState } from 'react'
-import { githubUrl, navLinks } from '../lib/site'
+import { APP_DATA } from '../lib/metadata/app-data'
 import ThemeToggle from './ThemeToggle'
+
+const navLinks = [
+  {
+    to: '/about',
+    label: 'About me',
+  },
+  {
+    to: '/blog',
+    label: 'Blog',
+  },
+  {
+    to: '/portfolio',
+    label: 'Portfolio',
+  },
+] as const
 
 export default function Header() {
   const [open, setOpen] = useState(false)
@@ -12,8 +27,8 @@ export default function Header() {
       <div className="small-container flex h-[56px] items-center justify-between gap-3 px-4">
         <Link to="/" className="no-underline">
           <div className="headline-small whitespace-nowrap font-semibold">
-            <span className="hidden sm:block">Michal Majer</span>
-            <span className="sm:hidden">Majer</span>
+            <span className="hidden sm:block">{APP_DATA.authorName}</span>
+            <span className="sm:hidden">{APP_DATA.appName}</span>
           </div>
         </Link>
 
@@ -36,7 +51,7 @@ export default function Header() {
           <a
             className="ml-2 flex h-[48px] w-[48px] items-center justify-center rounded-full hover:bg-secondary-90 dark:hover:bg-secondary-20"
             target="_blank"
-            href={githubUrl}
+            href={APP_DATA.githubUrl}
             rel="noreferrer noopener"
             title="Personal GitHub page"
           >
@@ -77,7 +92,7 @@ export default function Header() {
                 ))}
                 <li>
                   <a
-                    href={githubUrl}
+                    href={APP_DATA.githubUrl}
                     target="_blank"
                     rel="noreferrer noopener"
                     className="label-large flex items-center gap-3 rounded-xl px-4 py-3 no-underline hover:bg-secondary-90 dark:hover:bg-secondary-20"

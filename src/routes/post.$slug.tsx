@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { formatDate, getArticleBySlug } from "../lib/content";
+import { pageTitle } from "../lib/metadata/page-title";
 
 export const Route = createFileRoute("/post/$slug")({
   loader: ({ params }) => {
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/post/$slug")({
     };
   },
   head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.title} | Majer` : "Post | Majer";
+    const title = pageTitle(loaderData?.title ?? "Post");
     const description = loaderData?.summary ?? "A blog post by Majer.";
 
     return {
