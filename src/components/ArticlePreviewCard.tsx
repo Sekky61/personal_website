@@ -33,8 +33,8 @@ export function ArticlePreviewCard({ post }: { post: ArticlePreview }) {
 
           <p className="two-line-text-ellipsis m-0 h-10 text-sm">{post.summary}</p>
 
-          {post.headings.length > 0 ? (
-            <Pills texts={post.headings.slice(0, 3).map((heading) => heading.value)} />
+          {post.tags && post.tags.length > 0 ? (
+            <Pills texts={post.tags.slice(0, 3)} />
           ) : null}
         </div>
       </ElevatedCard>

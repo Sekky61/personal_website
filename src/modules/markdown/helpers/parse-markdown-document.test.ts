@@ -29,6 +29,9 @@ published: true
 releaseDate: 2024-01-02
 summary: Short summary
 titleImage: /cover.png
+tags:
+  - Security
+  - Intel SGX
 extraField: ignored
 ---
 
@@ -41,6 +44,7 @@ Body copy
       releaseDate: "2024-01-02",
       summary: "Short summary",
       titleImage: "/cover.png",
+      tags: ["Security", "Intel SGX"],
     });
   });
 

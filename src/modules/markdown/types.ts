@@ -10,6 +10,7 @@ export type MarkdownFrontmatter = {
   releaseDate?: string;
   summary?: string;
   titleImage?: string;
+  tags?: string[];
 };
 
 export type MarkdownDocument = {

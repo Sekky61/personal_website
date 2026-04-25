@@ -11,4 +11,5 @@ export const frontmatterType = type({
   "releaseDate?": releaseDateType,
   "summary?": "string",
   "titleImage?": "string",
+  "tags?": "string[]",
 }).onUndeclaredKey("delete");

@@ -29,6 +29,7 @@ export type ArticlePreview = {
   summary?: string;
   titleImage?: string;
   readingTime: string;
+  tags?: string[];
   headings: Heading[];
 };
 
@@ -133,6 +134,7 @@ async function createArticle(
     ...(frontmatter.titleImage === undefined
       ? {}
       : { titleImage: frontmatter.titleImage }),
+    ...(frontmatter.tags === undefined ? {} : { tags: frontmatter.tags }),
   };
 }
 
@@ -148,5 +150,6 @@ function toPreview(article: Article): ArticlePreview {
     ...(article.titleImage === undefined
       ? {}
       : { titleImage: article.titleImage }),
+    ...(article.tags === undefined ? {} : { tags: article.tags }),
   };
 }
