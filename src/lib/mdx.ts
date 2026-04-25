@@ -10,7 +10,6 @@ export async function compileMdx(source: string): Promise<MdxComponent> {
   const module = await evaluate(source, {
     ...runtime,
     useMDXComponents,
-    providerImportSource: "@mdx-js/react",
     remarkPlugins: [remarkGfm],
   });
 

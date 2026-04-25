@@ -6,11 +6,17 @@ import { asString } from "./as-string";
 export function normalizeFrontmatter(
   data: Record<string, unknown>,
 ): MarkdownFrontmatter {
+  const title = asString(data.title);
+  const published = asBoolean(data.published);
+  const releaseDate = asDateString(data.releaseDate);
+  const summary = asString(data.summary);
+  const titleImage = asString(data.titleImage);
+
   return {
-    title: asString(data.title),
-    published: asBoolean(data.published),
-    releaseDate: asDateString(data.releaseDate),
-    summary: asString(data.summary),
-    titleImage: asString(data.titleImage),
+    ...(title === undefined ? {} : { title }),
+    ...(published === undefined ? {} : { published }),
+    ...(releaseDate === undefined ? {} : { releaseDate }),
+    ...(summary === undefined ? {} : { summary }),
+    ...(titleImage === undefined ? {} : { titleImage }),
   };
 }

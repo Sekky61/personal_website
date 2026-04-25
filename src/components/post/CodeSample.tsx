@@ -58,8 +58,10 @@ export function MarkdownCode(props: CodeProps) {
   const code =
     props.codeSample ??
     plain(readTextContent(props.children), {
-      start_line: props.lineStart,
-      file_name: props.fileName,
+      ...(props.lineStart === undefined
+        ? {}
+        : { start_line: props.lineStart }),
+      ...(props.fileName === undefined ? {} : { file_name: props.fileName }),
     });
 
   return <CodeSampleFrame codeSample={code} />;

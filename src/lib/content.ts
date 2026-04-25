@@ -117,19 +117,22 @@ async function createArticle(
   const normalizedBody = document.body;
   const { frontmatter } = document;
   const releaseDate = frontmatter.releaseDate ?? "1970-01-01";
+  const summary = frontmatter.summary ?? extractExcerpt(normalizedBody);
 
   return {
     slug,
     title: frontmatter.title ?? slug,
     published: frontmatter.published ?? false,
     releaseDate,
-    summary: frontmatter.summary ?? extractExcerpt(normalizedBody),
-    titleImage: frontmatter.titleImage,
     readingTime: readingTime(normalizedBody),
     headings: extractHeadings(normalizedBody),
     body: normalizedBody,
     source: document.source,
     Content: await compileMdx(normalizedBody),
+    ...(summary === undefined ? {} : { summary }),
+    ...(frontmatter.titleImage === undefined
+      ? {}
+      : { titleImage: frontmatter.titleImage }),
   };
 }
 
@@ -139,9 +142,11 @@ function toPreview(article: Article): ArticlePreview {
     title: article.title,
     published: article.published,
     releaseDate: article.releaseDate,
-    summary: article.summary,
-    titleImage: article.titleImage,
     readingTime: article.readingTime,
     headings: article.headings,
+    ...(article.summary === undefined ? {} : { summary: article.summary }),
+    ...(article.titleImage === undefined
+      ? {}
+      : { titleImage: article.titleImage }),
   };
 }
