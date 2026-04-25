@@ -9,6 +9,19 @@ describe("parseMarkdownDocument", () => {
     expect(document.frontmatter).toEqual({});
   });
 
+  it("removes the frontmatter block from the body", () => {
+    const document = parseMarkdownDocument(`---
+title: Test article
+---
+
+# Heading
+
+Body copy
+`);
+
+    expect(document.body).toBe("# Heading\n\nBody copy");
+  });
+
   it("normalizes supported frontmatter values with ArkType", () => {
     const document = parseMarkdownDocument(`---
 title: Test article
@@ -31,10 +44,56 @@ Body copy
     });
   });
 
+  it("preserves YAML timestamps as strings when they are not plain dates", () => {
+    const document = parseMarkdownDocument(`---
+releaseDate: 2024-01-02T03:04:05.000Z
+---
+
+Body copy
+`);
+
+    expect(document.frontmatter).toEqual({
+      releaseDate: "2024-01-02T03:04:05.000Z",
+    });
+  });
+
+  it("treats explicit null frontmatter as empty metadata", () => {
+    const document = parseMarkdownDocument(`---
+null
+---
+
+Body copy
+`);
+
+    expect(document.frontmatter).toEqual({});
+  });
+
   it("throws for unsupported frontmatter types", () => {
     expect(() =>
       parseMarkdownDocument(`---
 title: 123
+---
+
+Body copy
+`),
+    ).toThrowError();
+  });
+
+  it("throws when the YAML frontmatter root is an array", () => {
+    expect(() =>
+      parseMarkdownDocument(`---
+- title: Test article
+---
+
+Body copy
+`),
+    ).toThrowError();
+  });
+
+  it("throws when the YAML frontmatter root is a scalar", () => {
+    expect(() =>
+      parseMarkdownDocument(`---
+title
 ---
 
 Body copy
