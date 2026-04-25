@@ -1,10 +1,15 @@
-import type { Repo } from '../lib/content'
-import { ElevatedCard } from './Card'
-import { Pills } from './Pill'
+import type { Repo } from "../lib/content";
+import { ElevatedCard } from "./Card";
+import { Pills } from "./Pill";
 
 export function RepoCard({ repo }: { repo: Repo }) {
   return (
-    <a href={repo.link} target="_blank" rel="noreferrer noopener" className="block h-full no-underline">
+    <a
+      href={repo.link}
+      target="_blank"
+      rel="noreferrer noopener"
+      className="block h-full no-underline"
+    >
       <ElevatedCard className="image-card flex h-full flex-col">
         <div className="secondary-container m-4 mb-0 flex h-48 w-auto items-center justify-center overflow-hidden rounded-xl">
           {repo.img ? (
@@ -22,10 +27,12 @@ export function RepoCard({ repo }: { repo: Repo }) {
 
         <div className="flex grow flex-col p-4">
           <h3 className="heading-medium m-0 mb-2">{repo.name}</h3>
-          <p className="three-line-text-ellipsis grow text-sm">{repo.description}</p>
+          <p className="three-line-text-ellipsis grow text-sm">
+            {repo.description}
+          </p>
           <Pills texts={repo.technologies} />
         </div>
       </ElevatedCard>
     </a>
-  )
+  );
 }

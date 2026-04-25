@@ -1,22 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { ArticlePreviewCard } from '../components/ArticlePreviewCard'
-import { getArticlePreviews } from '../lib/content'
-import { pageTitle } from '../lib/metadata/page-title'
+import { createFileRoute } from "@tanstack/react-router";
+import { ArticlePreviewCard } from "../components/ArticlePreviewCard";
+import { getArticlePreviews } from "../lib/content";
+import { pageTitle } from "../lib/metadata/page-title";
 
-export const Route = createFileRoute('/blog')({
+export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
       {
-        title: pageTitle('Blog'),
+        title: pageTitle("Blog"),
       },
     ],
   }),
   loader: () => getArticlePreviews(),
   component: BlogListing,
-})
+});
 
 function BlogListing() {
-  const posts = Route.useLoaderData()
+  const posts = Route.useLoaderData();
 
   return (
     <>
@@ -29,5 +29,5 @@ function BlogListing() {
         ))}
       </ul>
     </>
-  )
+  );
 }

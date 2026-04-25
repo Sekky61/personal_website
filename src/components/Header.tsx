@@ -1,26 +1,26 @@
-import { Link } from '@tanstack/react-router'
-import { Github, Menu, X } from 'lucide-react'
-import { useState } from 'react'
-import { APP_DATA } from '../lib/metadata/app-data'
-import ThemeToggle from './ThemeToggle'
+import { Link } from "@tanstack/react-router";
+import { Github, Menu, X } from "lucide-react";
+import { useState } from "react";
+import { APP_DATA } from "../lib/metadata/app-data";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   {
-    to: '/about',
-    label: 'About me',
+    to: "/about",
+    label: "About me",
   },
   {
-    to: '/blog',
-    label: 'Blog',
+    to: "/blog",
+    label: "Blog",
   },
   {
-    to: '/portfolio',
-    label: 'Portfolio',
+    to: "/portfolio",
+    label: "Portfolio",
   },
-] as const
+] as const;
 
 export default function Header() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 surface border-b border-surface-variant/70 backdrop-blur-sm">
@@ -40,7 +40,10 @@ export default function Header() {
                   <Link
                     to={link.to}
                     className="label-medium shape-full mx-2 flex h-full items-center px-3 py-1.5 no-underline transition-colors hover:bg-secondary-90 dark:hover:bg-secondary-20"
-                    activeProps={{ className: 'label-medium shape-full mx-2 flex h-full items-center px-3 py-1.5 no-underline secondary-container' }}
+                    activeProps={{
+                      className:
+                        "label-medium shape-full mx-2 flex h-full items-center px-3 py-1.5 no-underline secondary-container",
+                    }}
                   >
                     {link.label}
                   </Link>
@@ -65,7 +68,7 @@ export default function Header() {
           <button
             type="button"
             className="flex h-[48px] w-[48px] items-center justify-center rounded-full hover:bg-secondary-90 dark:hover:bg-secondary-20"
-            aria-label={open ? 'Close navigation' : 'Open navigation'}
+            aria-label={open ? "Close navigation" : "Open navigation"}
             onClick={() => setOpen((current) => !current)}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -83,7 +86,10 @@ export default function Header() {
                     <Link
                       to={link.to}
                       className="label-large block rounded-xl px-4 py-3 no-underline hover:bg-secondary-90 dark:hover:bg-secondary-20"
-                      activeProps={{ className: 'label-large block rounded-xl px-4 py-3 no-underline secondary-container' }}
+                      activeProps={{
+                        className:
+                          "label-large block rounded-xl px-4 py-3 no-underline secondary-container",
+                      }}
                       onClick={() => setOpen(false)}
                     >
                       {link.label}
@@ -107,5 +113,5 @@ export default function Header() {
         </div>
       ) : null}
     </header>
-  )
+  );
 }

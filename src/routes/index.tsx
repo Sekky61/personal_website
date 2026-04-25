@@ -1,28 +1,28 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { ArticlePreviewCard } from '../components/ArticlePreviewCard'
-import { Catchphrase } from '../components/Catchphrase'
-import { getLatestArticles } from '../lib/content'
-import { APP_DATA } from '../lib/metadata/app-data'
-import { pageTitle } from '../lib/metadata/page-title'
+import { createFileRoute } from "@tanstack/react-router";
+import { ArticlePreviewCard } from "../components/ArticlePreviewCard";
+import { Catchphrase } from "../components/Catchphrase";
+import { getLatestArticles } from "../lib/content";
+import { APP_DATA } from "../lib/metadata/app-data";
+import { pageTitle } from "../lib/metadata/page-title";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
         title: pageTitle(null),
       },
       {
-        name: 'description',
+        name: "description",
         content: APP_DATA.appDescription,
       },
     ],
   }),
   loader: () => getLatestArticles(2),
   component: HomePage,
-})
+});
 
 function HomePage() {
-  const posts = Route.useLoaderData()
+  const posts = Route.useLoaderData();
 
   return (
     <>
@@ -55,5 +55,5 @@ function HomePage() {
         </ul>
       </section>
     </>
-  )
+  );
 }
