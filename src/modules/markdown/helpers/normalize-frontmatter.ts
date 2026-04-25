@@ -1,22 +1,15 @@
+import { type } from "arktype";
 import type { MarkdownFrontmatter } from "../types";
-import { asBoolean } from "./as-boolean";
-import { asDateString } from "./as-date-string";
-import { asString } from "./as-string";
+import { frontmatterType } from "./frontmatter-type";
 
 export function normalizeFrontmatter(
   data: Record<string, unknown>,
 ): MarkdownFrontmatter {
-  const title = asString(data.title);
-  const published = asBoolean(data.published);
-  const releaseDate = asDateString(data.releaseDate);
-  const summary = asString(data.summary);
-  const titleImage = asString(data.titleImage);
+  const parsedFrontmatter = frontmatterType(data);
 
-  return {
-    ...(title === undefined ? {} : { title }),
-    ...(published === undefined ? {} : { published }),
-    ...(releaseDate === undefined ? {} : { releaseDate }),
-    ...(summary === undefined ? {} : { summary }),
-    ...(titleImage === undefined ? {} : { titleImage }),
-  };
+  if (parsedFrontmatter instanceof type.errors) {
+    throw new TypeError(`Invalid frontmatter:\n${parsedFrontmatter.summary}`);
+  }
+
+  return parsedFrontmatter;
 }
