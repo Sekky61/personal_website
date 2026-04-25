@@ -1,3 +1,4 @@
+import { BadgePoundSterling } from "lucide-react";
 import { useState } from "react";
 import { Pill, Pills } from "../../../components/Pill";
 import { splitLines } from "../../../lib/split-lines";
@@ -30,11 +31,25 @@ export function PillsStory() {
       }
       preview={
         <div className="flex w-full flex-col gap-6">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 items-start">
             <span className="label-medium text-on-surface-variant">Single</span>
             <Pill>{singleLabel || " "}</Pill>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 items-start">
+            <span className="label-medium text-on-surface-variant">
+              With icon
+            </span>
+            <Pill Icon={BadgePoundSterling}>{singleLabel || " "}</Pill>
+          </div>
+          <div className="flex flex-col gap-3 items-start">
+            <span className="label-medium text-on-surface-variant">
+              Limited width
+            </span>
+            <Pill className="w-16" Icon={BadgePoundSterling}>
+              {singleLabel || " "}
+            </Pill>
+          </div>
+          <div className="flex flex-col gap-3 items-start">
             <span className="label-medium text-on-surface-variant">Group</span>
             <Pills texts={splitLines(listValue)} />
           </div>
