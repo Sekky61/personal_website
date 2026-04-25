@@ -3,10 +3,13 @@ import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { configDefaults, defineConfig } from "vitest/config";
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  test: {
+    exclude: [...configDefaults.exclude, "tests/e2e/**"],
+  },
   plugins: [
     devtools(),
     tailwindcss(),

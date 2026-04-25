@@ -76,7 +76,7 @@ title: 123
 
 Body copy
 `),
-    ).toThrowError();
+    ).toThrow();
   });
 
   it("throws when the YAML frontmatter root is an array", () => {
@@ -87,7 +87,7 @@ Body copy
 
 Body copy
 `),
-    ).toThrowError();
+    ).toThrow();
   });
 
   it("throws when the YAML frontmatter root is a scalar", () => {
@@ -98,6 +98,6 @@ title
 
 Body copy
 `),
-    ).toThrowError();
+    ).toThrow();
   });
 });
