@@ -9,6 +9,7 @@ export function getRouter() {
   const router = createTanStackRouter({
     routeTree,
     context,
+    notFoundMode: "root",
     scrollRestoration: true,
     defaultPreload: "intent",
     defaultPreloadStaleTime: 0,
