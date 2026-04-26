@@ -1,5 +1,11 @@
 {
   "buildCommand": "bun run build",
   "outputDirectory": "dist/client",
-  "installCommand": "bun install"
+  "installCommand": "bun install",
+  "rewrites": [
+    {
+      "source": "/((?!assets/|favicon.ico|manifest.json|robots.txt|logo192.png|logo512.png).*)",
+      "destination": "/index.html"  
+    }
+  ]
 }
