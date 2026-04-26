@@ -1,0 +1,77 @@
+---
+title: Deploying a prerendered TanStack Start app to Vercel
+published: false
+releaseDate: 2026-04-26
+summary: Deploy TanStack Start prerender output from dist/client on Vercel without adding SSR infrastructure.
+tags:
+  - TanStack Start
+  - Vercel
+  - Deployment
+---
+
+TanStack Start does not always need server infrastructure in production. If your app can be prerendered, Vercel can host that output directly as a static site. All you need is a bit of configuration.
+
+This is the simplest deployment. With `TanStack Start`, enabling prerendering like this:
+
+```ts
+    // other vite plugins
+    tanstackStart({
+      prerender: {
+        enabled: true,
+      },
+    }),
+    // ...
+```
+
+generates static output into `dist/client/`:
+
+```txt
+dist/client/index.html
+dist/client/assets/...
+```
+
+All you need to do is point Vercel at `dist/client` and let it serve those files as-is. In this repo, I had better results by setting the output directory explicitly instead of relying on Vercel's TanStack Start preset detection.
+
+If your current prerender covers `/`, this setup is already enough. You do not need to introduce SSR-specific hosting just to publish a static landing page or a prerendered app shell.
+
+As of April 26, 2026, this site is deployed exactly this way. If you want a working example instead of just deployment notes, check out the repo: [github.com/Sekky61/personal_website](https://github.com/Sekky61/personal_website).
+
+If you also have client-side routes that are not prerendered, you can add an SPA fallback rewrite so unknown paths load `index.html` and hydrate on the client. If you want each route to exist as a real static page instead, prerender those routes too and keep the deployment fully static.
+
+Use this `vercel.json`:
+
+```json
+{
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist/client",
+  "installCommand": "bun install"
+}
+```
+
+You are basically using Vercel as a CDN and convenient deploy tool.
+
+If you need an SPA fallback for non-prerendered client-only routes, use:
+
+```json
+{
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist/client",
+  "installCommand": "bun install",
+  "rewrites": [
+    {
+      "source": "/((?!assets/|favicon.ico|manifest.json|robots.txt|logo192.png|logo512.png).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+The deployment flow is:
+
+```bash
+bun install
+bun run build
+vercel
+```
+
+That is the whole setup for deploying a prerendered TanStack Start app from `dist/client` on Vercel. One thing I could not get working cleanly yet in this setup is a proper 404 page for unknown routes served through the SPA fallback.
