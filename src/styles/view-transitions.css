@@ -1,0 +1,27 @@
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-group(*) {
+  animation-duration: var(--md-sys-motion-duration-350);
+  animation-timing-function: cubic-bezier(
+    var(--md-sys-motion-easing-emphasized-x0),
+    var(--md-sys-motion-easing-emphasized-y0),
+    var(--md-sys-motion-easing-emphasized-x1),
+    var(--md-sys-motion-easing-emphasized-y1)
+  );
+  overflow: hidden;
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*) {
+    animation-duration: 1ms;
+  }
+}

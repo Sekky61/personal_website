@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Sedgwick+Ave&display=swap");
 
 @import "./styles/material-tokens/baseline.css";
+@import "./styles/view-transitions.css";
 
 /* Must be above tailwindcss */
 @layer theme, base, utilities, components;
@@ -970,10 +971,6 @@ article>* {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.title-image-view-transition {
-  view-transition-name: title-image;
 }
 
 .text-trim {

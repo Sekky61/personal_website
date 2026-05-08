@@ -1,6 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { formatDate, getArticleBySlug } from "../lib/content";
 import { pageTitle } from "../lib/metadata/page-title";
+import { postTitleImageViewTransitionName } from "../modules/view-transitions/helpers/post-title-image-view-transition-name";
+import { postTitleViewTransitionName } from "../modules/view-transitions/helpers/post-title-view-transition-name";
 
 export const Route = createFileRoute("/post/$slug")({
   loader: ({ params }) => {
@@ -52,7 +54,17 @@ function ArticlePage() {
 
   return (
     <article className="article">
-      <h1 className="display-large">{articlePreview.title}</h1>
+      <h1 className="display-large">
+        <span
+          style={{
+            viewTransitionName: postTitleViewTransitionName(
+              articlePreview.slug,
+            ),
+          }}
+        >
+          {articlePreview.title}
+        </span>
+      </h1>
 
       <div className="mb-6 mt-4 flex flex-wrap gap-x-4 gap-y-1 font-semibold">
         <span>{formatDate(articlePreview.releaseDate)}</span>
@@ -61,7 +73,14 @@ function ArticlePage() {
       </div>
 
       {articlePreview.titleImage ? (
-        <div className="relative mb-8 aspect-[3/1] w-full overflow-hidden rounded-[2rem]">
+        <div
+          className="relative mb-8 aspect-[3/1] w-full overflow-hidden rounded-[2rem]"
+          style={{
+            viewTransitionName: postTitleImageViewTransitionName(
+              articlePreview.slug,
+            ),
+          }}
+        >
           <img
             alt={articlePreview.title}
             src={articlePreview.titleImage}
