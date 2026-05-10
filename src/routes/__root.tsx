@@ -9,8 +9,8 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import ThemeProvider from "../components/ThemeProvider";
 import { mdxComponents } from "../components/post/blockRendering";
+import ThemeProvider from "../components/ThemeProvider";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import { APP_DATA } from "../lib/metadata/app-data";
 import appCss from "../styles.css?url";
@@ -88,7 +88,7 @@ function NotFoundPage() {
   return (
     <section className="surface-container-low elevation-1 shape-medium p-8">
       <h1 className="display-medium mb-4">Page not found</h1>
-      <p className="mb-0">The migrated route does not exist at this URL.</p>
+      <p className="mb-0">Nothing here</p>
     </section>
   );
 }

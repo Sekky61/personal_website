@@ -19,7 +19,6 @@ export default function Footer() {
           >
             issues on GitHub
           </a>
-          <span>while the migration is in progress.</span>
         </div>
       </div>
     </footer>
