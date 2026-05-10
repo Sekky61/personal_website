@@ -7,6 +7,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { useState } from "react";
+import { cn } from "#/lib/utils";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { mdxComponents } from "../components/post/blockRendering";
@@ -85,10 +87,30 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 }
 
 function NotFoundPage() {
+  const [isNotWordVisible, setIsNotWordVisible] = useState(true);
   return (
-    <section className="surface-container-low elevation-1 shape-medium p-8">
-      <h1 className="display-medium mb-4">Page not found</h1>
-      <p className="mb-0">Nothing here</p>
+    <section className="p-8">
+      <h1 className="display-medium mb-4">
+        <span>Page</span>{" "}
+        <button
+          type="button"
+          className={cn(
+            "hover:underline",
+            !isNotWordVisible && "translate-y-16 opacity-0",
+          )}
+          style={{
+            transition:
+              "translate 250ms cubic-bezier(0, 0, 0.2, 1), opacity 250ms cubic-bezier(0, 0, 0.2, 1)",
+          }}
+          onClick={() => setIsNotWordVisible(false)}
+        >
+          not
+        </button>{" "}
+        <span>found</span>
+      </h1>
+      <p className="mb-0">
+        Nothing here{isNotWordVisible ? "" : "... Wait, can you do that?"}
+      </p>
     </section>
   );
 }
