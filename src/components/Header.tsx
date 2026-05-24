@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Github, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { APP_DATA } from "../lib/metadata/app-data";
+import HeaderLogo from "./HeaderLogo";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
@@ -25,21 +26,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 surface border-b border-surface-variant/70 backdrop-blur-sm">
       <div className="small-container flex h-[56px] items-center justify-between gap-3 px-4">
-        <Link
-          to="/"
-          className="group flex items-center gap-2 no-underline"
-          aria-label={`${APP_DATA.authorName} home`}
-        >
-          <img
-            src="/assets/mm_small.svg"
-            alt=""
-            className="h-8 w-11 transition-transform group-hover:-rotate-2 group-hover:scale-105 dark:invert"
-            aria-hidden="true"
-          />
-          <span className="headline-small hidden whitespace-nowrap font-semibold tracking-tight transition-colors group-hover:text-primary sm:block">
-            {APP_DATA.authorName}
-          </span>
-        </Link>
+        <HeaderLogo />
 
         <div className="hidden h-full items-center md:flex">
           <nav className="h-full">
