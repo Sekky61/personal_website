@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="166 211 168 116">
+  <metadata>{
+  "tool": "MM Proportion Tool",
+  "version": 1,
+  "parameters": {
+    "height": 192,
+    "width": 167,
+    "valley": 88,
+    "centerLeg": 27,
+    "gap": 44,
+    "baseline": 400,
+    "stroke": 36,
+    "color": "#171717",
+    "variant": "small",
+    "previewScale": 0.35,
+    "exportViewBox": "166 211 168 116",
+    "darkPreview": false,
+    "filled": true
+  }
+}</metadata>
+  <g transform="translate(250 250) scale(0.35) translate(-250 -250)">
+    <path d="M 79 400 L 79 253 L 144 322 L 215 248 L 215 400 L 242 400 L 242 168 L 145 270 L 43 163 L 43 400 Z" fill="#171717" stroke="#171717" stroke-width="0" stroke-linejoin="miter"/>
+    <path d="M 457 400 L 457 163 L 356 270 L 259 168 L 259 400 L 286 400 L 286 248 L 355 322 L 421 253 L 421 400 Z" fill="#171717" stroke="#171717" stroke-width="0" stroke-linejoin="miter"/>
+  </g>
+</svg>
