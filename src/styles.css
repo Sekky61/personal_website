@@ -800,12 +800,35 @@
     @apply border-surface-variant;
   }
 
+  ::marker {
+    color: var(--color-primary);
+  }
+
+  h2+p {
+    @apply mt-0;
+  }
+
   p {
     @apply my-2;
   }
 
   p a {
     @apply link;
+  }
+
+  .content-container {
+    &> :where(h1, h2, p) {
+      max-width: 70ch;
+      line-height: 1.6;
+    }
+
+    & p:has(figure) {
+      max-width: unset;
+    }
+
+    ul {
+      list-style: outside;
+    }
   }
 
   .small-container {
@@ -903,10 +926,6 @@
     display: block;
   }
 
-  .primary-container {
-    cursor: pointer;
-  }
-
   .menu-options {
     display: none;
     position: absolute;
@@ -932,10 +951,6 @@
   .menu-options label {
     cursor: pointer;
   }
-}
-
-article>* {
-  margin-bottom: 1em;
 }
 
 .token-message {

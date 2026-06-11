@@ -1,4 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { Pill } from "#/components/Pill";
 import { formatDate, getArticleBySlug } from "../lib/content";
 import { pageTitle } from "../lib/metadata/page-title";
 import { postTitleImageViewTransitionName } from "../modules/view-transitions/helpers/post-title-image-view-transition-name";
@@ -53,7 +54,7 @@ function ArticlePage() {
   const Content = article.Content;
 
   return (
-    <article className="article">
+    <article>
       <h1 className="display-large">
         <span
           style={{
@@ -69,7 +70,7 @@ function ArticlePage() {
       <div className="mb-6 mt-4 flex flex-wrap gap-x-4 gap-y-1 font-semibold">
         <span>{formatDate(articlePreview.releaseDate)}</span>
         <span>{articlePreview.readingTime}</span>
-        {!articlePreview.published ? <span>Draft</span> : null}
+        {!articlePreview.published ? <Pill>Draft</Pill> : null}
       </div>
 
       {articlePreview.titleImage ? (
@@ -95,7 +96,9 @@ function ArticlePage() {
         </p>
       ) : null}
 
-      <Content />
+      <div className="content-container">
+        <Content />
+      </div>
     </article>
   );
 }

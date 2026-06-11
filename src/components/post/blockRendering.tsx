@@ -40,7 +40,10 @@ function LinkHeading({
     <h2
       {...props}
       id={slug || undefined}
-      className={joinClassNames("headline-medium scroll-mt-20", className)}
+      className={joinClassNames(
+        "headline-medium scroll-mt-20 mt-6 font-bold",
+        className,
+      )}
     >
       {slug ? (
         <a
