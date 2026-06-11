@@ -1,5 +1,5 @@
 import aboutSource from "../content/about_me.mdx?raw";
-import repositoriesRaw from "../content/reposit.json?raw";
+import repositoriesRaw from "../content/repositories.json?raw";
 import { extractExcerpt } from "../modules/markdown/helpers/extract-excerpt";
 import { extractHeadings } from "../modules/markdown/helpers/extract-headings";
 import { parseMarkdownDocument } from "../modules/markdown/helpers/parse-markdown-document";
