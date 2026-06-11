@@ -1,5 +1,5 @@
+import { RepositoryCard } from "@modules/portfolio";
 import { useState } from "react";
-import { RepoCard } from "../../../components/RepoCard";
 import { splitLines } from "../../../lib/split-lines";
 import { StringField } from "../../forms/components/StringField";
 import { StringListField } from "../../forms/components/StringListField";
@@ -37,7 +37,7 @@ export function RepoCardStory() {
       }
       preview={
         <div className="w-full max-w-sm">
-          <RepoCard
+          <RepositoryCard
             repo={{
               ...defaultRepo,
               name,

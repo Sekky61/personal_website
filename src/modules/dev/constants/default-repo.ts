@@ -1,4 +1,4 @@
-import type { Repo } from "../../../lib/content";
+import type { Repo } from "@modules/portfolio";
 
 export const defaultRepo: Repo = {
   name: "Component Workshop",

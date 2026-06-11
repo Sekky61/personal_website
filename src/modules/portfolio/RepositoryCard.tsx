@@ -1,8 +1,8 @@
-import type { Repo } from "../lib/content";
-import { ElevatedCard } from "./Card";
-import { Pills } from "./Pill";
+import { ElevatedCard } from "../../components/Card";
+import { Pills } from "../../components/Pill";
+import type { Repo } from "./repo";
 
-export function RepoCard({ repo }: { repo: Repo }) {
+export function RepositoryCard({ repo }: { repo: Repo }) {
   return (
     <a
       href={repo.link}

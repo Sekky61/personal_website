@@ -1,5 +1,5 @@
+import { RepositoryCard } from "@modules/portfolio";
 import { createFileRoute } from "@tanstack/react-router";
-import { RepoCard } from "../components/RepoCard";
 import { getRepositories } from "../lib/content";
 import { pageTitle } from "../lib/metadata/page-title";
 
@@ -20,12 +20,13 @@ function Portfolio() {
 
   return (
     <>
-      <h1 className="display-medium mb-4">My portfolio</h1>
-      <p>Here are some of the projects I have worked on.</p>
-      <h2 className="headline-medium my-6">Highlighted Repositories</h2>
+      <h1 className="display-medium">My portfolio</h1>
+      <p className="title-medium mt-0 mb-4">
+        Here are some of the projects I have worked on.
+      </p>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {projects.map((repo) => (
-          <RepoCard repo={repo} key={repo.name} />
+          <RepositoryCard repo={repo} key={repo.name} />
         ))}
       </div>
     </>
