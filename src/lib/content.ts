@@ -1,25 +1,10 @@
 import aboutSource from "../content/about_me.mdx?raw";
-import repositoriesRaw from "../content/repositories.json?raw";
 import { extractExcerpt } from "../modules/markdown/helpers/extract-excerpt";
 import { extractHeadings } from "../modules/markdown/helpers/extract-headings";
 import { parseMarkdownDocument } from "../modules/markdown/helpers/parse-markdown-document";
 import { readingTime } from "../modules/markdown/helpers/reading-time";
 import type { Heading } from "../modules/markdown/types";
 import { compileMdx, type MdxComponent } from "./mdx";
-
-export type Repo = {
-  name: string;
-  link: string;
-  description: string;
-  technologies: string[];
-  img: string | null;
-  githubData: {
-    name: string;
-    description: string | null;
-    updated_at: string;
-    language: string;
-  };
-};
 
 export type ArticlePreview = {
   slug: string;
@@ -50,8 +35,6 @@ const rawArticles = import.meta.glob("../content/articles/*.mdx", {
   query: "?raw",
 }) as Record<string, string>;
 
-const repositories = JSON.parse(repositoriesRaw) as Repo[];
-
 const aboutContent = await createAboutContent();
 
 const allArticles = (
@@ -68,10 +51,6 @@ const allArticles = (
 
 export function formatDate(date: string) {
   return date;
-}
-
-export function getRepositories() {
-  return repositories;
 }
 
 export function getAboutContent() {

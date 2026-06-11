@@ -1,6 +1,5 @@
-import { RepositoryCard } from "@modules/portfolio";
+import { getRepositories, RepositoryCard } from "@modules/portfolio";
 import { createFileRoute } from "@tanstack/react-router";
-import { getRepositories } from "../lib/content";
 import { pageTitle } from "../lib/metadata/page-title";
 
 export const Route = createFileRoute("/portfolio")({
