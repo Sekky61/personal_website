@@ -25,9 +25,9 @@ export function RepoCard({ repo }: { repo: Repo }) {
           )}
         </div>
 
-        <div className="flex grow flex-col p-4">
-          <h3 className="heading-medium m-0 mb-2">{repo.name}</h3>
-          <p className="three-line-text-ellipsis grow text-sm">
+        <div className="grow p-4 pt-1">
+          <h3 className="headline-small m-0 mb-2">{repo.name}</h3>
+          <p className="three-line-text-ellipsis grow body-small mb-4">
             {repo.description}
           </p>
           <Pills texts={repo.technologies} />

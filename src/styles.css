@@ -15,6 +15,13 @@
 }
 
 @theme {
+
+  --text-sm: 13px;
+  --text-sm--line-height: 1.4;
+
+  --text-lg: 20px;
+  --text-lg--line-height: 1.5;
+
   --font-sans: Roboto flex;
   --font-opensans: Open Sans;
   --font-sedgwick-ave: Sedgwick Ave;
@@ -798,6 +805,8 @@
 
   * {
     @apply border-surface-variant;
+
+    corner-shape: squircle;
   }
 
   ::marker {
