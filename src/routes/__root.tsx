@@ -65,7 +65,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ThemeProvider>
           <div className="min-h-screen grid grid-rows-layout">
             <Header />
-            <div className="small-container relative px-4 py-8 md:mt-10 md:px-8">
+            <div className="small-container relative px-4 mt-8 md:mt-10">
               <MDXProvider components={mdxComponents}>
                 <main>{children}</main>
               </MDXProvider>
