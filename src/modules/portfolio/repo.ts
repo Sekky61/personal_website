@@ -9,6 +9,7 @@ const RepoGithubDataSchema = z.object({
 export const RepoSchema = z.object({
   name: z.string().nonempty(),
   link: z.string().nonempty(),
+  tier: z.enum(["S", "A"]),
   description: z.string().nonempty().max(200, {
     error: "Description should be short. It is displayed in a card.",
   }),

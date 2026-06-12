@@ -813,6 +813,10 @@
     color: var(--color-primary);
   }
 
+  h1 {
+    @apply font-bold;
+  }
+
   h2+p {
     @apply mt-0;
   }

@@ -11,3 +11,16 @@ export function getRepositories() {
 
   return ok(parseResult.data);
 }
+
+export function getRepositoriesByTiers() {
+  const repositoriesResult = getRepositories();
+  if (repositoriesResult.isErr()) {
+    return repositoriesResult;
+  }
+
+  const repositories = repositoriesResult.value;
+
+  const groupedRepositories = Object.groupBy(repositories, ({ tier }) => tier);
+
+  return ok(groupedRepositories);
+}
