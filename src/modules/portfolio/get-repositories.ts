@@ -1,8 +1,13 @@
-import repositoriesRaw from "../content/repositories.json?raw";
-import type { Repo } from "./repo";
+import { err, ok } from "neverthrow";
+import { safeParse } from "zod";
+import repositoriesRaw from "../../content/repositories.json?raw";
+import { ReposJsonParser } from "./repo";
 
 export function getRepositories() {
-  const repositories = JSON.parse(repositoriesRaw) as Repo[];
+  const parseResult = safeParse(ReposJsonParser, repositoriesRaw);
+  if (!parseResult.success) {
+    return err(parseResult.error);
+  }
 
-  return repositories;
+  return ok(parseResult.data);
 }

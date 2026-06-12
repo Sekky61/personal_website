@@ -15,7 +15,13 @@ export const Route = createFileRoute("/portfolio")({
 });
 
 function Portfolio() {
-  const projects = Route.useLoaderData();
+  const projectsResult = Route.useLoaderData();
+
+  if (projectsResult.isErr()) {
+    throw new Error(projectsResult.error.message, projectsResult.error);
+  }
+
+  const projects = projectsResult.value;
 
   return (
     <>

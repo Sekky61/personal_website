@@ -9,7 +9,6 @@ export const defaultRepo: Repo = {
   img: null,
   githubData: {
     name: "component-workshop",
-    description: "Internal component playground",
     updated_at: "2026-04-25T00:00:00.000Z",
     language: "TypeScript",
   },
