@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArticlePreviewCard } from "../components/ArticlePreviewCard";
 import { Catchphrase } from "../components/Catchphrase";
 import { getLatestArticles } from "../lib/content";
@@ -43,6 +43,11 @@ function HomePage() {
           />
         </div>
       </div>
+
+      <p className="body-large mb-12">
+        I&apos;m a frontend developer at EOS. I also work on automation
+        projects. <Link to="/portfolio">Explore my portfolio</Link>.
+      </p>
 
       <section className="latest-posts">
         <h2 className="display-medium mb-5 font-semibold">Latest posts</h2>
